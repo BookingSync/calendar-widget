@@ -1,0 +1,9 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "no-multi-spaces": "off",
+    "arrow-body-style": ["error", "as-needed"],
+    "key-spacing": ["error", { "mode": "minimum" }],
+    "no-unused-expressions": "off"
+  }
+}

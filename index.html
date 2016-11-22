@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Widget</title>
+  <style>
+    html{
+      height: 100%;
+      min-height: 100%;
+    }
+
+    body{
+      padding: 20px 100px;
+      font: 0.83em sans-serif;
+      max-width: 60em;
+      margin: auto;
+      min-height: 100%;
+    }
+
+    .calendar-widget {
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .calendar-widget__selection {
+      min-width: 200px;
+      min-height: 20px;
+      line-height: 20px;
+      background: #fff;
+      border: 1px solid #b4b4b4;
+      border-radius: 3px;
+      padding: 10px;
+      display: block;
+      cursor: pointer;
+    }
+
+    .calendar-widget__list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border: 1px solid #b4b4b4;
+      border-bottom: none;
+      position: absolute;
+      z-index: 100000;
+      box-sizing: border-box;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0px 6px 3px rgba(128, 128, 128, 0.51);
+      max-height: 253px;
+      overflow: auto;
+    }
+
+    .calendar-widget__item {
+      padding: 10px;
+      border-bottom: 1px solid #b4b4b4;
+      cursor: pointer;
+    }
+
+    .calendar-widget__item:hover {
+      background: #f4f4f4;
+    }
+
+    .calendar-widget__item--selected{
+      background: #a5c3f3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="select1"></div> <br/>
+  <div class="select2"></div> <br/>
+  <div class="select3"></div> <br/>
+
+
+  <script src="assets/calendar-widget.js"></script>
+</body>
+</html>
+
+
+
