@@ -1,6 +1,4 @@
-# Select Widget
-
-Pure functionality, no styles included.
+# Calendar Widget
 
 ## Setup
 * [Webpack](webpack.github.io) based.
@@ -24,27 +22,4 @@ Pure functionality, no styles included.
 
 
 ## Usage
-
-``` html
-
-   <div class=".select"></div>
-   
-```
-
-```javascript
-
-import Select from 'calendar-widget';
-const select = new Select({
-  element: document.querySelector('.select'),
-  data: ['A', 'B', 'C'],
-  onChange(rawData, selected) {
-    
-  }
-})
-
-select.on('change', (a, b) => console.log(a, b));
-
-```
-
-see `src/examples.js` for more usages.
 
