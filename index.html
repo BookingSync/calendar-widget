@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Calendar Widget</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>Calendar Widget</title>
 
-  <script src="assets/calendar-widget.js"></script>
-</body>
+    <style>
+      body {
+        padding: 50px;
+        margin: auto;
+        max-width: 50em;
+      }
+
+      .calendar1 {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .month {
+        padding: 1rem;
+      }
+
+      td, th {
+        height: 20px;
+        width: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="calendar1"></div>
+
+    <script src="assets/calendar-widget.js"></script>
+  </body>
+
 </html>
 
 
