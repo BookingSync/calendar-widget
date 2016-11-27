@@ -4215,9 +4215,9 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.1"
 
-widget-utils@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.0.2.tgz#3ef78082cc0fd2fae1caa5c969f3d115ce1b5f1e"
+widget-utils@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.0.4.tgz#ae3d1f8053353b85c674831de9677372fc3c1c10"
   dependencies:
     chai "3.4.1"
 

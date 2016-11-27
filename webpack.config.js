@@ -50,7 +50,7 @@ const config = {
 
 if (env === 'build') {
   outputFile   = libraryName + '.js';
-  config.entry = [__dirname + '/src/select.js'];
+  config.entry = [__dirname + '/src/calendar.js'];
 }
 
 module.exports = config;

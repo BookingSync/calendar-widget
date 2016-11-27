@@ -3,16 +3,17 @@
   "version": "0.0.1",
   "description": "BookNow Calendar Widget",
   "main": "dist/calendar-widget.js",
-  "module": "scr/select.js",
+  "module": "src/index.js",
   "scripts": {
     "build": "webpack --env=build",
     "test": "karma start karma.config.js --colors --env=test",
+    "test-ci": "karma start karma.config.js --single-run=true --colors --env=test",
     "server": "webpack-dev-server --inline --hot"
   },
   "dependencies": {
     "chai": "3.4.1",
     "democracyos-emitter": "0.0.7",
-    "widget-utils": "0.0.2"
+    "widget-utils": "0.0.4"
   },
   "devDependencies": {
     "babel": "6.3.13",
