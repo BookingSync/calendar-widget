@@ -8,28 +8,62 @@
       body {
         padding: 50px;
         margin: auto;
-        max-width: 50em;
+        max-width: 70em;
+        font: 0.85em/1.4 Helvetica, Arial;
+        font-weight: 100;
       }
 
       .calendar1 {
         display: flex;
         flex-wrap: wrap;
+
+      }
+
+      .caption {
+        font-weight: bold;
+        margin-bottom: 10px;
       }
 
       .month {
+        border-collapse: collapse;
         padding: 1rem;
+        margin: 1rem;
+        float: left;
       }
 
       td, th {
-        height: 20px;
+        height: 25px;
         width: 20px;
         text-align: center;
+        font-weight: normal;
+        color: #c5c5c5;
       }
+
+      td {
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #565a5c;
+        width: 39px;
+        height: 38px;
+      }
+
+      td[data-disabled] {
+        color: #dadada;
+        cursor: not-allowed;
+      }
+
+      .cell-selectable {
+        border: 1px solid #e8eaea;
+        cursor: pointer;
+      }
+
     </style>
   </head>
 
   <body>
-    <div class="calendar1"></div>
+    <div class="calendar1" data-rental-id="1"></div>
 
     <script src="assets/calendar-widget.js"></script>
   </body>

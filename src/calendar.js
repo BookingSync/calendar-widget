@@ -44,20 +44,19 @@ export default class Calendar extends Emitter {
     this.VERSION       = VERSION;
     this.element       = opts.element;
     this.monthStart    = opts.monthStart || currDate.getMonth();
-    this.displayMonths = opts.displayMonths || 50;
+    this.displayMonths = opts.displayMonths || 40;
     this.currYear      = opts.year || currDate.getFullYear();
     this.domTree       = {};
     this.templates     = tpls;
-    this.daysPerWeek   = 7;
-    this.startOfWeek   = 0; // 0 Mo, 6 Sa
+    this.daysPerWeek   = 7; // FIXME is not not supported in calendar-rendering,
+    this.startOfWeek   = 6; // 0 Mo ... 6 Su
     this.render();
   }
 
   render() {
     // construct dom tree
-    // const root          = createElement('div', { class: 'calendarMonths' });
     this.domTree.months = this.domMonths(this.monthStart, this.currYear);
-    this.domTree.months.map( m => this.element.appendChild(m));
+    this.domTree.months.map(m => this.element.appendChild(m));
   }
 
   domMonths(currMonth, currYear) {
@@ -83,17 +82,15 @@ export default class Calendar extends Emitter {
     const monthDom = elementFromString(this.templates.month);
 
     monthDom.querySelector('.header tr').innerHTML = this.monthHeader();
-    monthDom.querySelector('.caption').innerHTML = this.monthCaption(month, year);
-    monthDom.querySelector('.body').innerHTML = this.monthDays(month, year);
+    monthDom.querySelector('.caption').innerHTML   = `${monthsLabels[month]} ${year}`;
+    monthDom.querySelector('.body').innerHTML      = this.monthDays(month, year);
+    monthDom.month                                 = month;
+    monthDom.year                                  = year;
     return monthDom;
   }
 
-  monthCaption(month, year) {
-    return `${monthsLabels[month]} ${year}`;
-  }
-
   monthHeader() {
-    const header = [];
+    const header                 = [];
     // just to make life easier with start of the week calculation
     const weekdaysLabelsExtended = weekdaysLabels.concat(weekdaysLabels);
 
@@ -105,27 +102,44 @@ export default class Calendar extends Emitter {
 
   monthDays(month, year) {
     const startOfMonth = new Date(year, month, 1).getUTCDay();
-    const length   = monthLength(month, year);
-    const rowTemplate = this.templates.weekRow;
-    const rows = 6;
-    const monthTpl = [];
-    let dayRow = 0;
-    let dayLabel = 1;
+    const length       = monthLength(month, year);
+    const rowTemplate  = this.templates.weekRow;
+    const monthTpl     = [];
+    const weekShift    = (this.daysPerWeek - this.startOfWeek);
+
+    let rows               = 5;
+    let weekShiftCorrected = startOfMonth + weekShift;
+
+    // don't render full empty week
+    if (weekShiftCorrected >= this.daysPerWeek) {
+      weekShiftCorrected -= this.daysPerWeek;
+    }
+
+    // try to figure out if 5 rows is enough or not for the month
+    if (rows * this.daysPerWeek < weekShiftCorrected + length) {
+      rows = 6;
+    }
+
+    let dayCounter = 0;
+    let dayOfMonth = 1;
 
     for (let i = 0; i < rows; i += 1) {
       const week = [];
-
       week.push(rowTemplate.open);
 
       for (let j = 0; j < this.daysPerWeek; j += 1) {
-        if (dayRow >= startOfMonth && dayLabel <= length) {
-          week.push(this.templates.weekDay(dayLabel));
-          dayLabel += 1;
+        if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= length) {
+          week.push(this.templates.weekDay(
+            dayOfMonth,
+            this.isDayDisabled(year, month, dayOfMonth))
+          );
 
+          dayOfMonth += 1;
         } else {
           week.push(this.templates.weekDayPlaceholder);
         }
-        dayRow += 1;
+
+        dayCounter += 1;
       }
 
       week.push(rowTemplate.close);
@@ -135,4 +149,8 @@ export default class Calendar extends Emitter {
     return monthTpl.join('');
   }
 
+  isDayDisabled(year, month, day) {
+    const yesterday = new Date(currDate);
+    return new Date(year, month, day) < yesterday.setDate(currDate.getDate() - 1);
+  }
 }
