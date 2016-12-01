@@ -8,35 +8,57 @@
       body {
         padding: 50px;
         margin: auto;
-        max-width: 70em;
+        max-width: 80em;
         font: 0.85em/1.4 Helvetica, Arial;
         font-weight: 100;
+        background: #333;
       }
 
-      .calendar1 {
+      .calendar {
         display: flex;
         flex-wrap: wrap;
-
+        position: relative;
+        margin:0 -1rem 3rem;
+        padding: 2rem;
+        background: #fff;
       }
 
       .caption {
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-bottom: 1rem;
+      }
+
+      .month-cell {
+        padding: 0 1rem 2rem;
+        flex: 1;
+        min-width: 12rem;
       }
 
       .month {
         border-collapse: collapse;
-        padding: 1rem;
-        margin: 1rem;
-        float: left;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+
+      th {
+        border-bottom: 1px solid #eee;
+        font-size: 0.85rem;
       }
 
       td, th {
         height: 25px;
         width: 20px;
         text-align: center;
-        font-weight: normal;
-        color: #c5c5c5;
+        font-weight: 100;
+        color: #a0a0a0;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Chrome/Safari/Opera */
+        -khtml-user-select: none; /* Konqueror */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
       }
 
       td {
@@ -45,25 +67,57 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         color: #565a5c;
-        width: 39px;
-        height: 38px;
-      }
-
-      td[data-disabled] {
-        color: #dadada;
-        cursor: not-allowed;
+        width: 35px;
+        height: 35px;
       }
 
       .cell-selectable {
-        border: 1px solid #e8eaea;
         cursor: pointer;
+      }
+
+
+      .cell-disabled, .cell-disabled:hover {
+        color: #dadada;
+        cursor: default;
+        background: #f8f8f8;
+      }
+
+      .cell-selectable:hover,
+      .cell-selected {
+        background: #14A1DF;
+        color: #fff;
+      }
+
+      .forward, .back {
+        cursor: pointer;
+        height: 23px;
+        width: 23px;
+        fill: #45494a;
+        border-radius: 2px;
+        opacity: 0.7;
+        padding: 6px 9px;
+        top: 24px;
+        z-index: 2;
+        position: absolute;
+      }
+
+      .forward:hover, .back:hover {
+        opacity: 1;
+        background: #f3f3f4;
+      }
+
+      .forward {
+        right: 2rem;
       }
 
     </style>
   </head>
 
   <body>
-    <div class="calendar1" data-rental-id="1"></div>
+
+    <!--<div class="calendar calendar1" data-rental-id="1" data-display-months="6"></div>-->
+
+    <div class="calendar calendar2" data-rental-id="2" data-display-months="3"></div>
 
     <script src="assets/calendar-widget.js"></script>
   </body>

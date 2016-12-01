@@ -13,7 +13,7 @@
   "dependencies": {
     "chai": "3.4.1",
     "democracyos-emitter": "0.0.7",
-    "widget-utils": "0.0.4"
+    "widget-utils": "0.0.6"
   },
   "devDependencies": {
     "babel": "6.3.13",
