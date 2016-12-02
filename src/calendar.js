@@ -1,4 +1,4 @@
-/* global VERSION, document */
+/* global VERSION, Node, document */
 
 import Emitter from 'democracyos-emitter';
 import { is, addClass, removeClass, isArray } from 'widget-utils';
@@ -12,20 +12,7 @@ const { keys }       = Object;
 
 // these are human-readable month name labels, in order
 const monthsLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-// these are the days of the week for each month, in order
-const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-const isLeapYear = year => ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
-const currDate   = new Date();
-
-const monthLength = (month, year) => {
-  let days = daysInMonth[month];
-  if (month === 1 && isLeapYear(year)) {
-    days = 29;
-  }
-  return days;
-};
+const currDate     = new Date();
 
 const createElement = (tag, attrs) => {
   const params  = attrs || {};
@@ -45,9 +32,14 @@ const destroyElement = (element) => {
   return element;
 };
 
-const availabilityMap = '11111111111101111111111111111111111000000001111111111111111110011110000000000000000000000011111110000000000000000000000000000000000000111111111100000111111110000011110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
-const mapStartDate    = new Date('2016-11-11');
+const isLater = (start, end) =>
+new Date(start[0], start[1] + 1, start[2]) < new Date(end[0], end[1] + 1, end[2]);
 
+/**
+ * year = 2016 full year number
+ * month = 0...11, accordingly to getUTCMonth() method
+ *
+ */
 export default class Calendar extends Emitter {
   constructor(opts) {
     super();
@@ -55,19 +47,31 @@ export default class Calendar extends Emitter {
     this.VERSION = VERSION;
 
     this.element       = opts.element;
-    this.monthStart    = is(opts.monthStart) ? opts.monthStart : currDate.getMonth();
-    this.displayMonths = opts.displayMonths || 3;
-    this.yearStart     = opts.yearStart || currDate.getFullYear();
+    this.monthStart    = is(opts.monthStart) ? opts.monthStart : currDate.getUTCMonth();
+    this.displayMonths = opts.displayMonths || 4;
+    this.yearStart     = opts.yearStart || currDate.getUTCFullYear();
 
-    this.domTree     = {};
-    this.templates   = tpls;
-    this.daysPerWeek = 7; // FIXME is not not supported in calendar-rendering,
-    this.startOfWeek = 0; // 0 Mo ... 6 Su
-    this.minRange    = 1; // one night
+    this.domTree   = {};
+    this.templates = tpls;
 
-    this.availabilityTree = Calendar.availabilityMapToTree(availabilityMap);
-    this.isSelecting      = false;
-    this.calendarTree     = new CalendarTree();
+    this.daysPerWeek    = 7; // FIXME is not not supported in calendar-rendering,
+    this.startOfWeek    = 0; // 0 Mo ... 6 Su
+    this.minRange       = 1; // one night
+    this.calendarTree   = new CalendarTree(cell => cell.getAttribute('data-disabled') === '', {});
+
+    this.selectEndFirst = false;
+
+    this.availabilityUpdatedAt = opts.availabilityUpdatedAt;
+
+    if (opts.availabilityMap) {
+      const updatedAt = this.availabilityUpdatedAt || currDate;
+      this.calendarTree.addAvailabilityMap(opts.availabilityMap, updatedAt);
+    }
+
+    // selection and highlights
+    this.isSelecting       = false;
+    this.highlightedBounds = [];
+
     this.render();
   }
 
@@ -78,71 +82,50 @@ export default class Calendar extends Emitter {
     this.addBtnsEvents();
   }
 
-  /**
-   *  Create a tree structure out of availability map
-   * {
-   *   2106: {
-   *      11: {
-   *        1: 0,
-   *        2: 0,
-   *        3: 1
-   *      }
-   *    }
-   * }
-   * @param map
-   * @returns {Object}
-   */
-  static availabilityMapToTree(map) {
-    const mapArr = map.split('').map(parseFloat);
-    let year     = mapStartDate.getFullYear();
-    let month    = mapStartDate.getMonth();
-    let dayShift = mapStartDate.getDate();
-    let day      = 1;
+  renderMonths(monthStart, yearStart) {
+    // construct dom tree
+    const { tree, year, months, month } = this.domMonths(yearStart, monthStart);
 
-    return mapArr.reduce((curr, isAvailable) => {
-      const length = monthLength(month, year);
-      const tree   = curr;
+    this.currMonth      = monthStart;
+    this.currYear       = yearStart;
+    this.domTree.months = months;
+    this.monthEnd       = month;
+    this.yearEnd        = year;
 
-      if (!tree[year]) {
-        tree[year] = {};
-      }
+    this.calendarTree.add(tree);
 
-      if (!tree[year][month]) {
-        tree[year][month] = {};
-      }
+    this.recoverSelections();
 
-      if (dayShift) {
-        day      = dayShift;
-        dayShift = null;
-      }
-
-      tree[year][month][day] = !!isAvailable;
-
-      if (day < length) {
-        day += 1;
-      } else {
-        if (month > 10) {
-          month = 0;
-          year += 1;
-        } else {
-          month += 1;
-        }
-        day = 1;
-      }
-
-      return tree;
-    }, {});
+    this.domTree.months.forEach((m) => {
+      this.element.appendChild(m);
+      this.addMonthEvents(m);
+    });
   }
 
+  recoverSelections() {
+    if (this.selectionA) {
+      this.startSelecting(...this.selectionA, this.calendarTree.selectDay(...this.selectionA));
+    }
+
+    if (this.selectionB) {
+      this.endSelecting(...this.selectionB, this.calendarTree.selectDay(...this.selectionB));
+    }
+
+    if (this.highlightedBounds.length > 0) {
+      this.highLightRange(...this.highlightedBounds);
+    }
+  }
+
+  // FIXME add renderForward renderBackward methods
   addBtnsEvents() {
     this.domTree.forward.addEventListener('click', (e) => {
-      this.clearMonths();
+      this.destroyMonths();
       this.renderMonths(this.monthEnd, this.yearEnd);
       e.preventDefault();
     });
 
     this.domTree.back.addEventListener('click', (e) => {
-      this.clearMonths();
+      this.destroyMonths();
       let monthToRender = this.currMonth - this.displayMonths;
       let yearToRender  = this.currYear;
 
@@ -160,46 +143,63 @@ export default class Calendar extends Emitter {
     month.addEventListener('click', (e) => {
       const cell = e.target;
       if (cell.hasAttribute('data-enabled')) {
-        if (this.isSelecting) {
-          this.endSelecting(month.year, month.month, parseInt(cell.getAttribute('data-value'), 10), cell);
+        const dayValue = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
+
+        if (this.isSelecting && isLater(this.selectionA, dayValue)) {
+          this.endSelecting(...dayValue, cell);
+          this.emit('selection-end', new Date(...dayValue), dayValue);
         } else {
-          this.startSelecting(month.year, month.month, parseInt(cell.getAttribute('data-value'), 10), cell);
+          this.startSelecting(...dayValue, cell);
+          this.emit('selection-start', new Date(...dayValue), dayValue);
+        }
+      }
+    });
+
+    month.addEventListener('mouseover', (e) => {
+      const cell = e.target;
+      if (cell.hasAttribute('data-selectable')) {
+        if (this.isSelecting) {
+          const currentEnd = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
+
+          if (this.highlightedBounds.length > 0) {
+            this.removeHighlight(...this.highlightedBounds);
+          }
+
+          this.highLightRange(this.selectionA, currentEnd);
+        }
+      }
+    });
+
+    month.addEventListener('mouseout', (e) => {
+      /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
+      // simulate 'mouseleave'
+      if (!e.relatedTarget ||
+        (e.relatedTarget !== month && !(month.compareDocumentPosition(e.relatedTarget) &
+        Node.DOCUMENT_POSITION_CONTAINED_BY))) {
+        if (this.isSelecting && this.highlightedBounds.length > 0) {
+          this.removeHighlight(...this.highlightedBounds);
         }
       }
     });
   }
 
-  endSelecting(year, month, day, cell) {
-    // this.validateSelection();
-    this.selectionB = [year, month, day];
-    this.selectedRange = this.selectRange(this.selectionA, this.selectionB);
+  removeHighlight(start, end) {
+    const { range } = this.selectRange(start, end);
+    range.map(a => removeClass(a, 'cell-highlighted'));
+    this.highlightedBounds = [];
+  }
 
-    // we
-    // if (!this.selectedRange) {
-    //
-    // }
-
-
-    if (this.cellEnd) {
-      removeClass(this.cellEnd, 'cell-selected');
+  highLightRange(start, end) {
+    const { range, isValid } = this.selectRange(start, end);
+    if (isArray(range)) {
+      range.map(a => addClass(a, isValid ? 'cell-highlighted' : 'cel-highlighted-invalid'));
+      this.highlightedBounds = [start, end];
     }
-
-    if (cell) {
-      addClass(cell, 'cell-selected');
-      this.cellEnd = cell;
-    }
-    this.isSelecting = false;
   }
 
   selectRange(start, end) {
-    // visually select
-    // selection is only valid if start date < end date
-    if (new Date(start[0], start[1] + 1, start[2]) < new Date(end[0], end[1] + 1, end[2])) {
-      const cellsSelected = this.calendarTree.selectRange(start, end);
-      if (isArray(cellsSelected)) {
-        cellsSelected.map(a => addClass(a, 'cell-selected'));
-        return [start, end];
-      }
+    if (isLater(start, end)) {
+      return this.calendarTree.selectRange(start, end);
     }
     return false;
   }
@@ -207,49 +207,40 @@ export default class Calendar extends Emitter {
   startSelecting(year, month, day, cell) {
     this.selectionA = [year, month, day];
 
-    if (this.cellStart) {
-      removeClass(this.cellStart, 'cell-selected');
+    if (this.cellA) {
+      removeClass(this.cellA, 'cell-selected');
     }
 
     if (cell) {
       addClass(cell, 'cell-selected');
-      this.cellStart = cell;
+      this.cellA = cell;
     }
     this.isSelecting = true;
   }
 
-  renderMonths(monthStart, yearStart) {
-    // construct dom tree
-    const { months, month, year, tree } = this.domMonths(yearStart, monthStart);
-    this.currMonth                      = monthStart;
-    this.currYear                       = yearStart;
-    this.domTree.months                 = months;
+  endSelecting(year, month, day, cell) {
+    this.selectionB = [year, month, day];
 
-    this.monthEnd = month;
-    this.yearEnd  = year;
-
-    this.calendarTree.add(tree);
-
-    if (this.selectedRange) {
-      this.selectRange(this.selectedRange[0], this.selectedRange[1]);
+    if (this.cellB) {
+      removeClass(this.cellB, 'cell-selected');
     }
 
-    this.domTree.months.forEach((m) => {
-      this.element.appendChild(m);
-      this.addMonthEvents(m);
-    });
+    if (cell) {
+      addClass(cell, 'cell-selected');
+      this.cellB = cell;
+    }
+    this.isSelecting = false;
   }
 
-  clearMonths() {
+  destroyMonths() {
     this.domTree.months.map(m => destroyElement(m));
   }
 
   domMonths(yearStart, monthStart) {
-    const months  = [];
-    const tree    = {};
-    let month     = monthStart;
-    let year      = yearStart;
-
+    const months = [];
+    const tree   = {};
+    let month    = monthStart;
+    let year     = yearStart;
 
     for (let i = 1; i <= this.displayMonths; i += 1) {
       const mDom = this.domMonth(month, year);
@@ -261,7 +252,7 @@ export default class Calendar extends Emitter {
       }
 
       if (!tree[year][month]) {
-        tree[year][month] = Array.prototype.slice.call(mDom.daysElements);
+        tree[year][month] = mDom.daysElements;
       }
 
       if (month > 10) {
@@ -273,29 +264,28 @@ export default class Calendar extends Emitter {
     }
 
     return {
+      tree,
+      year,
       months,
       month,
-      year,
-      tree,
     };
   }
 
   domMonth(month, year) {
-    const monthDom = elementFromString(this.templates.month);
-
-    monthDom.querySelector('.header tr').innerHTML = this.monthHeader();
+    const monthDom                                 = elementFromString(this.templates.month);
+    monthDom.querySelector('.header tr').innerHTML = this.headerTplString();
     monthDom.querySelector('.caption').innerHTML   = `${monthsLabels[month]} ${year}`;
-    monthDom.querySelector('.body').innerHTML      = this.monthDays(month, year);
+    monthDom.querySelector('.body').innerHTML      = this.daysTplString(month, year);
     monthDom.month                                 = month;
     monthDom.year                                  = year;
-    monthDom.daysElements                          = monthDom.querySelectorAll('[data-value]');
+    monthDom.daysElements                          = Array.prototype.slice.call(monthDom.querySelectorAll('[data-value]'));
 
     return monthDom;
   }
 
-  monthHeader() {
-    const header                 = [];
+  headerTplString() {
     // just to make life easier with start of the week calculation
+    const header                 = [];
     const weekdaysLabelsExtended = weekdaysLabels.concat(weekdaysLabels);
 
     for (let i = 0; i < this.daysPerWeek; i += 1) {
@@ -304,9 +294,9 @@ export default class Calendar extends Emitter {
     return header.join('');
   }
 
-  monthDays(month, year) {
+  daysTplString(month, year) {
     const startOfMonth = new Date(year, month, 1).getUTCDay();
-    const length       = monthLength(month, year);
+    const daysInMonth  = this.calendarTree.monthLength(month, year);
     const rowTemplate  = this.templates.weekRow;
     const monthTpl     = [];
     const weekShift    = (this.daysPerWeek - this.startOfWeek);
@@ -321,48 +311,44 @@ export default class Calendar extends Emitter {
       weekShiftCorrected -= this.daysPerWeek;
     }
 
-    // try to figure out if 5 rows is enough or not for the month
-    if (rows * this.daysPerWeek < weekShiftCorrected + length) {
+    // try to figure out if 5 rows is enough for the month
+    if (rows * this.daysPerWeek < weekShiftCorrected + daysInMonth) {
       rows = 6;
     }
 
+    // for each week (5 or 6)
     for (let i = 0; i < rows; i += 1) {
       const week = [];
+      // open tag <tr>
       week.push(rowTemplate.open);
 
+      // push days in week
       for (let j = 0; j < this.daysPerWeek; j += 1) {
-        if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= length) {
+        // pushing actual days 1...daysInMonth
+        if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
           week.push(this.templates.weekDay(
             dayOfMonth,
-            this.isDayDisabled(year, month, dayOfMonth))
+            this.calendarTree.isDayDisabled(year, month, dayOfMonth))
           );
 
           dayOfMonth += 1;
+          // pushing placeholders instead of days
         } else {
           week.push(this.templates.weekDayPlaceholder);
         }
 
         dayCounter += 1;
       }
-
+      // close tag </tr> of week
       week.push(rowTemplate.close);
+      // push completed week to month template
       monthTpl.push(week.join(''));
     }
 
     return monthTpl.join('');
   }
 
-  isDayDisabled(year, month, day) {
-    const yesterday = new Date(currDate);
-    const isFuture  = new Date(year, month, day) >= yesterday.setDate(currDate.getDate() - 1);
-    let isAvailable;
-
-    try {
-      isAvailable = this.availabilityTree[year][month][day];
-    } catch (e) {
-      isAvailable = false;
-    }
-
-    return !(isFuture && isAvailable);
+  destroy() {
+    return destroyElement(this.element);
   }
 }

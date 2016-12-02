@@ -25,17 +25,17 @@ const treeB = {
   },
 };
 
-
 describe('calendarTree', () => {
   let cTree;
 
   before(() => {
-    cTree = new CalendarTree(treeA);
+    const validate = a => !a;
+    cTree          = new CalendarTree(validate, treeA);
   });
 
   describe('#selectDaysInMonth', () => {
     it('selects days correctly', () => {
-      const selection = cTree.selectDaysInMonth(2016, 0, 1, 3);
+      const selection  = cTree.selectDaysInMonth(2016, 0, 1, 3);
       const selection2 = cTree.selectDaysInMonth(2016, 0, 1, 2);
 
       expect(selection).to.be.deep.equal([1, 2, 3]);
@@ -43,7 +43,7 @@ describe('calendarTree', () => {
     });
 
     it('selects nothing when no year or month found', () => {
-      const selection = cTree.selectDaysInMonth(2014, 0, 1, 3);
+      const selection  = cTree.selectDaysInMonth(2014, 0, 1, 3);
       const selection2 = cTree.selectDaysInMonth(2016, 5, 1, 3);
 
       expect(selection).to.be.deep.equal([]);
@@ -65,14 +65,14 @@ describe('calendarTree', () => {
 
   describe('#selectRange', () => {
     it('selects days correctly', () => {
-      const sSameMonth = cTree.selectRange([2016, 0, 1], [2016, 0, 3]);
-      const sDiffMonths = cTree.selectRange([2016, 0, 1], [2016, 2, 1]);
+      const sSameMonth   = cTree.selectRange([2016, 0, 1], [2016, 0, 3]);
+      const sDiffMonths  = cTree.selectRange([2016, 0, 1], [2016, 2, 1]);
       const sDiffMonths2 = cTree.selectRange([2016, 0, 1], [2016, 1, 2]);
 
 
-      expect(sSameMonth).to.be.deep.equal([1, 2, 3]);
-      expect(sDiffMonths).to.be.deep.equal([1, 2, 3, 1, 2, 3, 1]);
-      expect(sDiffMonths2).to.be.deep.equal([1, 2, 3, 1, 2]);
+      expect(sSameMonth.range).to.be.deep.equal([1, 2, 3]);
+      expect(sDiffMonths.range).to.be.deep.equal([1, 2, 3, 1, 2, 3, 1]);
+      expect(sDiffMonths2.range).to.be.deep.equal([1, 2, 3, 1, 2]);
     });
   });
 
@@ -80,17 +80,100 @@ describe('calendarTree', () => {
     it('selectRange selects days correctly', () => {
       cTree.add(treeB);
 
-      const sSameMonth = cTree.selectRange([2016, 0, 1], [2016, 0, 3]);
-      const sDiffMonths = cTree.selectRange([2016, 0, 1], [2016, 2, 1]);
+      const sSameMonth   = cTree.selectRange([2016, 0, 1], [2016, 0, 3]);
+      const sDiffMonths  = cTree.selectRange([2016, 0, 1], [2016, 2, 1]);
       const sDiffMonths2 = cTree.selectRange([2016, 0, 1], [2016, 1, 2]);
+      const newRange     = cTree.selectRange([2016, 3, 3], [2017, 0, 3]);
 
-      const newRange = cTree.selectRange([2016, 3, 3], [2017, 0, 3]);
 
+      expect(sSameMonth.range).to.be.deep.equal([1, 2, 3]);
+      expect(sDiffMonths.range).to.be.deep.equal([1, 2, 3, 1, 2, 3, 1]);
+      expect(sDiffMonths2.range).to.be.deep.equal([1, 2, 3, 1, 2]);
+      expect(newRange.range).to.be.deep.equal([3, 1, 2, 3]);
+    });
+  });
 
-      expect(sSameMonth).to.be.deep.equal([1, 2, 3]);
-      expect(sDiffMonths).to.be.deep.equal([1, 2, 3, 1, 2, 3, 1]);
-      expect(sDiffMonths2).to.be.deep.equal([1, 2, 3, 1, 2]);
-      expect(newRange).to.be.deep.equal([3, 1, 2, 3]);
+  describe('#availabilityMapToTree', () => {
+    after(() => {
+      cTree.removeAvailabilityMap();
+    });
+
+    it('correctly return object 1', () => {
+      const mapObj = cTree.availabilityMapToTree('0110', new Date(2016, 11, 1)); // 1 December 2016
+
+      expect(mapObj).to.be.deep.equal({
+        2016: {
+          11: {
+            1: false,
+            2: true,
+            3: true,
+            4: false,
+          },
+        },
+      });
+    });
+
+    it('correctly return object 2', () => {
+      const mapObj = cTree.availabilityMapToTree('0000', new Date(2016, 11, 1)); // 1 December 2016
+
+      expect(mapObj).to.be.deep.equal({
+        2016: {
+          11: {
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+          },
+        },
+      });
+    });
+  });
+
+  describe('#addAvailabilityMap', () => {
+    after(() => {
+      cTree.removeAvailabilityMap();
+    });
+
+    it('correctly return object 1', () => {
+      cTree.addAvailabilityMap('0110', new Date(2016, 11, 1)); // 1 December 2016
+
+      expect(cTree.availabilityMap).to.be.deep.equal({
+        2016: {
+          11: {
+            1: false,
+            2: true,
+            3: true,
+            4: false,
+          },
+        },
+      });
+    });
+  });
+
+  describe('#isDayDisabledOnMap', () => {
+    after(() => {
+      cTree.removeAvailabilityMap();
+    });
+
+    it('correctly return object 1', () => {
+      cTree.addAvailabilityMap('0110', new Date(2016, 11, 1)); // 1 December 2016
+
+      expect(cTree.isDayDisabledOnMap(2016, 11, 1)).to.be.false;
+      expect(cTree.isDayDisabledOnMap(2016, 11, 2)).to.be.true;
+      expect(cTree.isDayDisabledOnMap(2016, 11, 3)).to.be.true;
+      expect(cTree.isDayDisabledOnMap(2016, 11, 4)).to.be.false;
+    });
+  });
+
+  describe('#isDayDisabled', () => {
+    after(() => {
+      cTree.removeAvailabilityMap();
+    });
+
+    it('correctly return object 1', () => {
+      cTree.addAvailabilityMap('0110', new Date(2016, 11, 1)); // 1 December 2016
+      // everything in the past, we don't care about availability map
+      expect(cTree.isDayDisabled(2016, 11, 1)).to.be.true;
     });
   });
 });
