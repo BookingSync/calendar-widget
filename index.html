@@ -29,7 +29,7 @@
       }
 
       .month-cell {
-        padding: 0 1rem 2rem;
+        margin: 0 1rem 2rem;
         flex: 1;
         min-width: 12rem;
       }
@@ -75,6 +75,11 @@
         cursor: pointer;
       }
 
+      .cell-selectable:hover,
+      .cell-selected {
+        background: #50abf4;
+        color: #fff;
+      }
 
       .cell-disabled, .cell-disabled:hover {
         color: #dadada;
@@ -82,12 +87,12 @@
         background: #f8f8f8;
       }
 
-      .cell-selectable:hover,
-      .cell-selected {
-        background: #14A1DF;
+      .cell-highlighted {
+        background-color: #87cbf4;
         color: #fff;
       }
 
+      /* buttons */
       .forward, .back {
         cursor: pointer;
         height: 23px;
@@ -117,7 +122,7 @@
 
     <!--<div class="calendar calendar1" data-rental-id="1" data-display-months="6"></div>-->
 
-    <div class="calendar calendar2" data-rental-id="2" data-display-months="3"></div>
+    <div class="calendar calendar2" data-rental-id="2" data-display-months="4"></div>
 
     <script src="assets/calendar-widget.js"></script>
   </body>
