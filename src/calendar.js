@@ -33,7 +33,14 @@ const destroyElement = (element) => {
 };
 
 const isLater = (start, end) =>
-new Date(start[0], start[1] + 1, start[2]) < new Date(end[0], end[1] + 1, end[2]);
+new Date(...start) < new Date(...end);
+
+const cssSelectors = {
+  cellSelected:            'cell-selected',
+  cellSelectable:          'cell-selectable',
+  cellHighlighted:         'cell-highlighted',
+  cellHighlightedDisabled: 'cell-highlighted-invalid',
+};
 
 /**
  * year = 2016 full year number
@@ -54,10 +61,11 @@ export default class Calendar extends Emitter {
     this.domTree   = {};
     this.templates = tpls;
 
-    this.daysPerWeek    = 7; // FIXME is not not supported in calendar-rendering,
-    this.startOfWeek    = 0; // 0 Mo ... 6 Su
-    this.minRange       = 1; // one night
-    this.calendarTree   = new CalendarTree(cell => cell.getAttribute('data-disabled') === '', {});
+    this.daysPerWeek = 7; // FIXME is not not supported in calendar-rendering,
+    this.startOfWeek = 0; // 0 Mo ... 6 Su
+    this.minRange    = opts.minRange || 1; // nights
+
+    this.calendarTree = new CalendarTree(cell => cell.getAttribute('data-disabled') === '', {});
 
     this.selectEndFirst = false;
 
@@ -76,6 +84,7 @@ export default class Calendar extends Emitter {
   }
 
   render() {
+    this.domTree.monthsWrapper = this.element.appendChild(elementFromString('<div class="monthsWrapper"></div>'));
     this.renderMonths(this.monthStart, this.yearStart);
     this.domTree.forward = this.element.appendChild(elementFromString(this.templates.forward));
     this.domTree.back    = this.element.appendChild(elementFromString(this.templates.back));
@@ -97,7 +106,7 @@ export default class Calendar extends Emitter {
     this.recoverSelections();
 
     this.domTree.months.forEach((m) => {
-      this.element.appendChild(m);
+      this.domTree.monthsWrapper.appendChild(m);
       this.addMonthEvents(m);
     });
   }
@@ -146,6 +155,9 @@ export default class Calendar extends Emitter {
         const dayValue = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
 
         if (this.isSelecting && isLater(this.selectionA, dayValue)) {
+          if (!this.hasValidRange) {
+            return;
+          }
           this.endSelecting(...dayValue, cell);
           this.emit('selection-end', new Date(...dayValue), dayValue);
         } else {
@@ -185,16 +197,41 @@ export default class Calendar extends Emitter {
 
   removeHighlight(start, end) {
     const { range } = this.selectRange(start, end);
-    range.map(a => removeClass(a, 'cell-highlighted'));
+    range.map(a => removeClass(a,
+      cssSelectors.cellHighlighted, cssSelectors.cellHighlightedDisabled)
+    );
+    this.hasValidRange     = true;
     this.highlightedBounds = [];
   }
 
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
+    let hasValidRange = isValid;
+
     if (isArray(range)) {
-      range.map(a => addClass(a, isValid ? 'cell-highlighted' : 'cel-highlighted-invalid'));
+      // if selected range less than minimum nights
+      if (range.length <= this.minRange) {
+        hasValidRange = false;
+      }
+
+      range.map(a => addClass(a,
+        hasValidRange ? cssSelectors.cellHighlighted : cssSelectors.cellHighlightedDisabled)
+      );
+
+      this.hasValidRange     = hasValidRange;
       this.highlightedBounds = [start, end];
     }
+  }
+
+  resetSelection() {
+    this.removeHighlight(...this.highlightedBounds);
+    this.selectionA = null;
+    this.selectionB = null;
+
+    removeClass(this.cellA, cssSelectors.cellSelected);
+    removeClass(this.cellB, cssSelectors.cellSelected);
+    this.cellA = null;
+    this.cellB = null;
   }
 
   selectRange(start, end) {
@@ -208,11 +245,11 @@ export default class Calendar extends Emitter {
     this.selectionA = [year, month, day];
 
     if (this.cellA) {
-      removeClass(this.cellA, 'cell-selected');
+      removeClass(this.cellA, cssSelectors.cellSelected);
     }
 
     if (cell) {
-      addClass(cell, 'cell-selected');
+      addClass(cell, cssSelectors.cellSelected);
       this.cellA = cell;
     }
     this.isSelecting = true;
@@ -222,11 +259,11 @@ export default class Calendar extends Emitter {
     this.selectionB = [year, month, day];
 
     if (this.cellB) {
-      removeClass(this.cellB, 'cell-selected');
+      removeClass(this.cellB, cssSelectors.cellSelected);
     }
 
     if (cell) {
-      addClass(cell, 'cell-selected');
+      addClass(cell, cssSelectors.cellSelected);
       this.cellB = cell;
     }
     this.isSelecting = false;

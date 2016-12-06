@@ -15,8 +15,6 @@
       }
 
       .calendar {
-        display: flex;
-        flex-wrap: wrap;
         position: relative;
         margin:0 -1rem 3rem;
         padding: 2rem;
@@ -28,10 +26,15 @@
         margin-bottom: 1rem;
       }
 
+      .monthsWrapper {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
       .month-cell {
-        margin: 0 1rem 2rem;
-        flex: 1;
-        min-width: 12rem;
+        margin: 0 1rem 1rem;
+        min-width: 14rem;
+        flex: 1 1 25%;
       }
 
       .month {
@@ -67,18 +70,12 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         color: #565a5c;
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
       }
 
       .cell-selectable {
         cursor: pointer;
-      }
-
-      .cell-selectable:hover,
-      .cell-selected {
-        background: #50abf4;
-        color: #fff;
       }
 
       .cell-disabled, .cell-disabled:hover {
@@ -88,8 +85,26 @@
       }
 
       .cell-highlighted {
-        background-color: #87cbf4;
+        background-color: #8acdf6;
         color: #fff;
+      }
+
+      .cell-highlighted-invalid {
+        background-color: #d0d2d6;
+        color: #fff;
+      }
+
+      .cell-selectable:hover,
+      .cell-selected {
+        background: #50abf4;
+        color: #fff;
+      }
+
+      .cell-selected.cell-highlighted-invalid,
+      .cell-selectable.cell-highlighted-invalid:hover {
+        background: #aaa;
+        color: #fff;
+        cursor: not-allowed;
       }
 
       /* buttons */
@@ -115,14 +130,25 @@
         right: 2rem;
       }
 
+      .tracker {
+        background: red;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+      }
+
     </style>
+
+    <!--<link href="tooltip.css" media="all" rel="stylesheet">-->
   </head>
 
   <body>
 
     <!--<div class="calendar calendar1" data-rental-id="1" data-display-months="6"></div>-->
 
-    <div class="calendar calendar2" data-rental-id="2" data-display-months="4"></div>
+    <div class="calendar calendar2"></div>
 
     <script src="assets/calendar-widget.js"></script>
   </body>

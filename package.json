@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "BookNow Calendar Widget",
   "main": "dist/calendar-widget.js",
-  "module": "src/index.js",
+  "module": "src/calendar.js",
   "scripts": {
     "build": "webpack --env=build",
     "test": "karma start karma.config.js --colors --env=test",
