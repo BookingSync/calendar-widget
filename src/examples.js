@@ -9,7 +9,7 @@ window.calendarWidget2 = new Calendar({
   element: document.querySelector('.calendar2'),
   availabilityMap,
   availabilityUpdatedAt: mapStartDate,
-  displayMonths: 6,
+  displayMonths: 2,
   minRange: 4,
 });
 
