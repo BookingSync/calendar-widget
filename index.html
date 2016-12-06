@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8">
     <title>Calendar Widget</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
       body {
         padding: 50px;
@@ -13,146 +13,18 @@
         font-weight: 100;
         background: #333;
       }
-
-      .calendar {
-        position: relative;
-        margin:0 -1rem 3rem;
-        padding: 2rem;
-        background: #fff;
-      }
-
-      .caption {
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-
-      .monthsWrapper {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .month-cell {
-        margin: 0 1rem 1rem;
-        min-width: 14rem;
-        flex: 1 1 25%;
-      }
-
-      .month {
-        border-collapse: collapse;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-      }
-
-      th {
-        border-bottom: 1px solid #eee;
-        font-size: 0.85rem;
-      }
-
-      td, th {
-        height: 25px;
-        width: 20px;
-        text-align: center;
-        font-weight: 100;
-        color: #a0a0a0;
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Chrome/Safari/Opera */
-        -khtml-user-select: none; /* Konqueror */
-        -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently
-                                  not supported by any browser */
-      }
-
-      td {
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        color: #565a5c;
-        width: 40px;
-        height: 40px;
-      }
-
-      .cell-selectable {
-        cursor: pointer;
-      }
-
-      .cell-disabled, .cell-disabled:hover {
-        color: #dadada;
-        cursor: default;
-        background: #f8f8f8;
-      }
-
-      .cell-highlighted {
-        background-color: #8acdf6;
-        color: #fff;
-      }
-
-      .cell-highlighted-invalid {
-        background-color: #d0d2d6;
-        color: #fff;
-      }
-
-      .cell-selectable:hover,
-      .cell-selected {
-        background: #50abf4;
-        color: #fff;
-      }
-
-      .cell-selected.cell-highlighted-invalid,
-      .cell-selectable.cell-highlighted-invalid:hover {
-        background: #aaa;
-        color: #fff;
-        cursor: not-allowed;
-      }
-
-      /* buttons */
-      .forward, .back {
-        cursor: pointer;
-        height: 23px;
-        width: 23px;
-        fill: #45494a;
-        border-radius: 2px;
-        opacity: 0.7;
-        padding: 6px 9px;
-        top: 24px;
-        z-index: 2;
-        position: absolute;
-      }
-
-      .forward:hover, .back:hover {
-        opacity: 1;
-        background: #f3f3f4;
-      }
-
-      .forward {
-        right: 2rem;
-      }
-
-      .tracker {
-        background: red;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 1px;
-        height: 1px;
-      }
-
     </style>
-
-    <!--<link href="tooltip.css" media="all" rel="stylesheet">-->
+    <script src="assets/calendar-widget.js"></script>
   </head>
 
   <body>
 
-    <!--<div class="calendar calendar1" data-rental-id="1" data-display-months="6"></div>-->
+    <div data-calendar-widget
+         data-show-rates="true"
+         data-rental-ids=1>
+    </div>
 
-    <div class="calendar calendar2"></div>
-
-    <script src="assets/calendar-widget.js"></script>
   </body>
-
 </html>
 
 

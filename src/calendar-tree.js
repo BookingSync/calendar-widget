@@ -1,9 +1,9 @@
-import { is, merge } from 'widget-utils';
+import { is, merge, monthLength } from 'widget-utils';
 
 /**
  *  please refer to /tests/unit/calendarTree.specs.js for usage
  *  TODO docs, merge availability with calendar tree, use one data-structure
- *
+ *  TODO minStay + availability map considerations fo disabling dates
  */
 const genArrayRange = (a, b) => {
   const list = [];
@@ -14,7 +14,6 @@ const genArrayRange = (a, b) => {
 };
 
 const currDate    = new Date();
-const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export default class CalendarTree {
   /**
@@ -22,30 +21,18 @@ export default class CalendarTree {
    * @param {Object} tree
    */
   constructor(validateCell, tree) {
-    this.daysInMonth  = daysInMonth;
     this.validateCell = validateCell;
     this.tree         = tree;
   }
 
-  /**
-   *  *  calendar tree structure is
-   *  {
-   *    '2016': { // years
-   *        '0': [1..31]  // months and days per month
-   *    }
-   *  }
-   * @param {Object} obj
-   * @returns {CalendarTree}
-   */
-  add(obj) {
+  addTree(obj) {
     if (!this.tree) {
       this.tree = obj;
     } else {
-      this.tree = merge(this.tree, obj, true);
+      this.tree = merge(this.tree || {}, obj, true);
     }
     return this;
   }
-
   /**
    * select range from the tree, returns array items
    * start date is ALWAYS < then end date , as we are selecting time range in days.
@@ -138,7 +125,7 @@ export default class CalendarTree {
 
   isRangeValid(range, fn) {
     const validateCell = this.validateCell || fn;
-    let isValid = true;
+    let isValid        = true;
 
     if (typeof validateCell === 'function') {
       isValid = range.filter(a => this.validateCell(a)).length === 0;
@@ -147,42 +134,53 @@ export default class CalendarTree {
     return isValid;
   }
 
-  addAvailabilityMap(map, updatedAt) {
-    this.availabilityMap = this.availabilityMapToTree(map, updatedAt);
+  addMaps(map, updatedAt) {
+    this.map = CalendarTree.mapsToTree(map, updatedAt);
     return this;
   }
 
-  removeAvailabilityMap() {
-    this.availabilityMap = {};
+  removeMap() {
+    this.map = {};
     return this;
   }
 
   /**
-   *  Create a tree structure from availability map
-   *  for n-time day access, e.g. this.availabilityMap[year][month][day];
+   *  Create a tree structure from maps
+   *  for n-time day access, e.g. this.map[year][month][day].isAvailable;
    * {
    *   2106: {
-   *      11: {
-   *        1: 0,
-   *        2: 0,
-   *        3: 1
+   *      1: {
+   *        1: ,
+   *        2: ,
+   *        3:
+   *        ...
+   *      }
+   *      ...
+   *      12: {
+   *
    *      }
    *    }
    * }
-   * @param {String} map
-   * @param {Date} mapStartAt
+   * @param {Object} maps
+   * @param {String | Date} mapStartAt
    * @returns {Object}
    */
-  availabilityMapToTree(map, mapStartAt) {
-    const mapArr = map.split('').map(parseFloat);
-    let year     = mapStartAt.getFullYear();
-    let month    = mapStartAt.getMonth();
-    let dayShift = mapStartAt.getDate();
+  static mapsToTree(maps, mapStartAt) {
+    const avail  = maps.availability.split('').map(parseFloat);
+    const rates  = maps.nightly_rates.split(',').map(parseFloat);
+    const minMap = maps.minimum_stays.split(',').map(parseFloat);
+    const date   = new Date(mapStartAt);
+
+    let year     = date.getFullYear();
+    let month    = date.getMonth();
+    let dayShift = date.getDate();
     let day      = 1;
 
-    return mapArr.reduce((curr, isAvailable) => {
-      const length = this.monthLength(month, year);
-      const tree   = curr;
+    return avail.reduce((curr, state, index) => {
+      const length    = monthLength(year, month);
+      const tree      = curr;
+      const minStay   = minMap[index];
+      const isAvailable = state === 0;
 
       if (!tree[year]) {
         tree[year] = {};
@@ -197,7 +195,26 @@ export default class CalendarTree {
         dayShift = null;
       }
 
-      tree[year][month][day] = !!isAvailable;
+      // if minStay > available days in future
+      // consider current day as unavailable as well
+      // if (isAvailable && minStay > 1) {
+      //   let daysAvailable = 1;
+      //   let i             = index + 1;
+      //   while (arr[i] === 0) {
+      //     daysAvailable += 1;
+      //     i += 1;
+      //   }
+      //
+      //   if (minStay > daysAvailable) {
+      //     isAvailable = false;
+      //   }
+      // }
+
+      tree[year][month][day] = {
+        isAvailable,
+        rate: rates[index],
+        minStay,
+      };
 
       if (day < length) {
         day += 1;
@@ -215,39 +232,29 @@ export default class CalendarTree {
     }, {});
   }
 
-  static isLeapYear(year) {
-    return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
-  }
+  getDayProperty(year, month, day, property) {
+    let prop;
 
-  monthLength(month, year) {
-    let days = this.daysInMonth[month];
-    if (month === 1 && CalendarTree.isLeapYear(year)) {
-      days = 29;
+    if (this.map) {
+      try {
+        prop = this.map[year][month][day][property];
+      } catch (e) {
+        // continue regardless of error
+      }
     }
-    return days;
+
+    return prop;
   }
 
   isDayDisabledOnMap(year, month, day) {
-    let isAvailable;
-
-    if (this.availabilityMap) {
-      try {
-        isAvailable = this.availabilityMap[year][month][day];
-      } catch (e) {
-        isAvailable = false;
-      }
-    } else {
-      isAvailable = true;
-    }
-
-    return isAvailable;
+    return this.getDayProperty(year, month, day, 'isAvailable');
   }
 
   isDayDisabled(year, month, day) {
-    const yesterday = new Date(currDate);
-    const isFuture  = new Date(year, month, day) >= yesterday.setDate(currDate.getDate() - 1);
-    const isDayDisabledInMap = this.isDayDisabledOnMap(year, month, day);
+    const yesterday      = new Date(currDate);
+    const isFuture       = new Date(year, month, day) >= yesterday.setDate(currDate.getDate() - 1);
+    const isDayAvailable = this.isDayDisabledOnMap(year, month, day);
 
-    return !(isFuture && isDayDisabledInMap);
+    return !isFuture || !isDayAvailable;
   }
 }

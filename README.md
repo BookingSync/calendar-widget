@@ -12,14 +12,47 @@
 
 ## Getting started with Development
 * `yarn` or `npm install` to get the project's dependencies.
-* `npm run server` to start development server with live-reload and hot module replacement
+* `npm start` to start development server with live-reload and hot module replacement
 * go to [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
 ## Scripts
-* `npm run server` - starts development server with live-reload and hot module replacement
+* `npm start` - starts development server with live-reload and hot module replacement
 * `npm run build` - produces production version under the `dist` folder
 * `npm run test` - runs tests.
 
 
 ## Usage
+
+Include `dist/calendar-widget.js`.
+
+Make sure there is a placeholder on page with minimum configuration:
+```
+  <div data-calendar-widget data-rental-ids="1"></div>
+```
+
+All config support:
+ 
+```
+    rentalIds:     1 // rental to show availabilities
+    startOfWeek:   0, // 0 Mo ... 6 Su, by ISO
+    monthStart:    // start with current month by default, or M '0...11'
+    yearStart:     // start with current year, or YYYY
+    displayMonths: 2,
+    lang:          //'en', 'fr', 'de'
+    selectable:    false,
+    showRates:     false,
+    showMinStay:   false,
+```
+
+```
+<div data-calendar-widget
+     data-rental-ids=1
+     data-lang="fr"
+     data-show-rates=true
+     data-min-stay=true
+     data-display-months=6
+     data-start-of-week=0 >
+</div>
+```
+
 
