@@ -5,15 +5,15 @@
   "main": "dist/calendar-widget.js",
   "module": "src/calendar.js",
   "scripts": {
-    "build": "webpack --env=build",
+    "build": "webpack -p --env=build",
     "test": "karma start karma.config.js --colors --env=test",
     "test-ci": "karma start karma.config.js --single-run=true --colors --env=test",
-    "server": "webpack-dev-server --inline --hot"
+    "start": "webpack-dev-server --inline --hot --env=development --host 0.0.0.0",
+    "mock-server": "json-server db.json --delay=1500"
   },
   "dependencies": {
     "chai": "3.4.1",
-    "democracyos-emitter": "0.0.7",
-    "widget-utils": "0.0.7"
+    "widget-utils": "0.0.9"
   },
   "devDependencies": {
     "babel": "6.3.13",
@@ -21,16 +21,19 @@
     "babel-eslint": "5.0.0",
     "babel-loader": "6.1.0",
     "babel-preset-es2015-webpack": "https://github.com/Romanior/babel-preset-es2015-webpack",
+    "css-loader": "^0.25.0",
     "eslint": "^3.6.0",
     "eslint-config-airbnb-base": "^7.1.0",
     "eslint-loader": "1.5.0",
     "eslint-plugin-import": "^1.16.0",
+    "json-server": "0.8.22",
     "karma": "1.3.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-mocha": "^0.1.10",
     "karma-webpack": "1.8.0",
     "mocha": "2.3.4",
+    "style-loader": "^0.13.1",
     "webpack": "2.1.0-beta.27",
     "webpack-dev-server": "2.1.0-beta.11",
     "yargs": "3.32.0"

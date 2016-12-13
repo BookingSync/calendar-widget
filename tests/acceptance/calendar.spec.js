@@ -22,10 +22,10 @@ describe('sense checks', () => {
 
   before(() => {
     rootElement = stubElement('div');
-    widget      = new Calendar({ element: rootElement });
+    widget      = new Calendar({ el: rootElement });
   });
 
   it('renders', () => {
-    expect(widget.element).to.be.deep.equal(rootElement);
+    expect(widget.el).to.be.deep.equal(rootElement);
   });
 });
