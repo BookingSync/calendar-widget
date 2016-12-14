@@ -16,7 +16,7 @@ import CalendarTree from './calendar-tree';
 import locales from './locales';
 
 import reset from './styles/reset.css';
-import css from './styles/calendar.css';
+import css from './styles/Calendar.css';
 
 
 const { calendar, chunky, highlighted, invalid,

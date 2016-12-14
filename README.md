@@ -55,4 +55,11 @@ All config support:
 </div>
 ```
 
+Api host and namespace can be configurable
+
+`data-api-host`,  `data-api-namespace`, `data-api-maps-route`
+
+defaults are: `https://www.bookingsync.com`, `/api/v2/public` and `/maps.json?rental_id={params}`
+place `{params}` where api expects params.
+
 
