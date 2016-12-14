@@ -16,7 +16,6 @@ const plugins = [
 
 const config = {
   entry:   [__dirname + '/src/bookingsync-calendar-widget.js'],
-  devtool: 'source-map',
   output:  {
     path:           __dirname + '/dist',
     publicPath:     '/assets/',

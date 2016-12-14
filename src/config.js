@@ -4,8 +4,11 @@ export default {
   name:    'Calendar Widget',
   apiHost: NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
+  apiMapsRoute: '/maps.json?rental_id={params}',
 
-  rentalUrl(id) {
-    return NODE_ENV === 'development' ? `${this.apiHost}/rental` : `${this.apiHost}${this.apiNamespace}/maps.json?rental_id=${id}`;
+  rentalUrl(ids) {
+    const route = this.apiMapsRoute.replace('{params}', ids);
+
+    return NODE_ENV === 'development' ? `${this.apiHost}/rental` : `${this.apiHost}${this.apiNamespace}${route}`;
   },
 };
