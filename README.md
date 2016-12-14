@@ -55,4 +55,10 @@ All config support:
 </div>
 ```
 
+Api host and namespace can be configurable
+
+`data-api-host` and `data-api-namespace`
+
+defaults are: `https://www.bookingsync.com` and `/api/v2/public`
+
 

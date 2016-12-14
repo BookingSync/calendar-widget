@@ -1,4 +1,4 @@
-import s from './styles/calendar.css';
+import s from './styles/Calendar.css';
 
 const { disabled, info, infoExtra } = s;
 

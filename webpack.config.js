@@ -4,8 +4,8 @@
 const webpack     = require('webpack');
 const path        = require('path');
 const env         = require('yargs').argv.env;
-const libraryName = 'CalendarWidget';
-let outputFile    = 'calendar-widget.js';
+const libraryName = 'BookingSyncCalendarWidget';
+let outputFile    = 'bookingsync-calendar-widget.js';
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -15,7 +15,7 @@ const plugins = [
 ];
 
 const config = {
-  entry:   [__dirname + '/src/calendar-widget.js'],
+  entry:   [__dirname + '/src/bookingsync-calendar-widget.js'],
   devtool: 'source-map',
   output:  {
     path:           __dirname + '/dist',
@@ -38,7 +38,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?modules=true&localIdentName=BS[name]__[local]',
+        loader: 'style-loader!css-loader?modules=true&localIdentName=BookingSync[name]__[local]',
         exclude: /(node_modules|bower_components)/,
       },
     ],
@@ -55,7 +55,7 @@ const config = {
 };
 
 if (env === 'build') {
-  config.entry = [__dirname + '/src/calendar-widget.js'];
+  config.entry = [__dirname + '/src/bookingsync-calendar-widget.js'];
 }
 
 module.exports = config;
