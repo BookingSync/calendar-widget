@@ -1,7 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
 .calendar {
-  font: 1em/1.4 "Open Sans", Helvetica, Arial;
+  font: 0.875rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
   position: relative;
   margin:0 -1rem 3rem;
   background: #fff;
@@ -9,7 +9,7 @@
 }
 
 .calendar .caption {
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -50,14 +50,13 @@
 .calendar .cell {
   text-align: center;
   padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   width: 40px;
   height: 40px;
   position: relative;
   border: 1px solid #e9ebef;
   vertical-align: middle;
+  background-clip: padding-box;
+  color: #444;
 }
 
 .calendar .infoExtra,
@@ -67,8 +66,8 @@
   left: 0;
   font-size: 0.7rem;
   padding: 1px 3px;
-  font-weight: 100;
   text-align: right;
+  font-weight: 100;
   right: 0;
 }
 
@@ -81,7 +80,7 @@
 .calendar .disabled, .calendar .disabled:hover {
   color: #dadada;
   cursor: default;
-  background: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 .calendar .highlighted {
@@ -96,7 +95,7 @@
 
 .calendar .actionsEnabled.cell:hover,
 .calendar .selected{
-  background: #50abf4;
+  background-color: #50abf4;
   color: #fff;
 }
 
@@ -106,7 +105,7 @@
 
 .calendar .cell-selected.invalid,
 .calendar .cell.invalid:hover {
-  background: #aaa;
+  background-color: #aaa;
   color: #fff;
   cursor: not-allowed;
 }
@@ -182,14 +181,13 @@
   top: 0;
   left: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.55);
+  background-color: rgba(255, 255, 255, 0.55);
   right: 0;
   z-index: 10;
 }
 /* chunky layout */
-
 .chunky .cell {
-  height: 60px;
+  height: 57px;
 }
 
 .chunky .mCell{

@@ -38,7 +38,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?-minimize&modules=true&localIdentName=[name]__[local]__[hash:base64:5]',
+        loader: 'style-loader!css-loader?modules=true&localIdentName=BS[name]__[local]',
         exclude: /(node_modules|bower_components)/,
       },
     ],

@@ -145,6 +145,7 @@ export default class Calendar extends Emitter {
       this.loaderEl = this.el.appendChild(elementFromString(tpls.loading));
     } else {
       destroyElement(this.loaderEl);
+      this.loaderEl = null;
     }
   }
 

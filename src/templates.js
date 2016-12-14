@@ -3,6 +3,7 @@ import s from './styles/calendar.css';
 const { disabled, info, infoExtra } = s;
 
 export const main  = `<div class="${s.monthsWrapper}"></div>`;
+
 export const month = `<div class="${s.mCell}">
                         <table class="${s.month}">
                           <caption class="${s.caption}"></caption>
@@ -37,10 +38,7 @@ export const back    = `<div class="${s.back}">
 
 export const weekDayPlaceholder = '<td></td>';
 
-export const weekRow = {
-  open:  '<tr>',
-  close: '</tr>',
-};
+export const weekRow = { open: '<tr>', close: '</tr>' };
 
 export const loading = `<div class="${s.loadingLayer}">
                           <div class="${s.loading}"></div>

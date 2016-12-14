@@ -6,7 +6,7 @@ import config from './config';
 
 let initialized = [];
 
-const loadRental = (rentalId, calendar) => {
+const loadRental = (opts, rentalId, calendar) => {
   calendar.toggleLoading();
 
   const onSuccess = (rental) => {
@@ -23,7 +23,7 @@ const loadRental = (rentalId, calendar) => {
     console.error('Server error happened');
   };
 
-  ajax(config.rentalUrl(rentalId), onSuccess, onError);
+  ajax(opts.rentalUrl(rentalId), onSuccess, onError);
 };
 
 Calendar.init = () => {
@@ -40,8 +40,9 @@ Calendar.init = () => {
     opts.el    = el;
 
     const cal = new Calendar(opts);
+
     if (el.dataset.rentalIds) {
-      loadRental(el.dataset.rentalIds, cal);
+      loadRental(opts, el.dataset.rentalIds, cal);
       initialized.push(cal);
     }  else {
       console.log('data-rental-ids is mandatory');

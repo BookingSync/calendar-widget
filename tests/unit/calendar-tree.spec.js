@@ -94,7 +94,6 @@ describe('calendarTree', () => {
   });
 
   describe('#availabilityMapToTree', () => {
-
     after(() => {
       cTree.removeMap();
     });
@@ -140,7 +139,7 @@ describe('calendarTree', () => {
         {
           availability: '0110',
           nightly_rates: '1,1,1',
-          minimum_stays: '1,1,1'
+          minimum_stays: '1,1,1',
         }, '2016-11-1'); // 1 December 2016
 
       expect(cTree.availabilityMap).to.be.deep.equal({
