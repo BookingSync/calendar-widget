@@ -15,6 +15,9 @@
 * `npm start` to start development server with live-reload and hot module replacement
 * go to [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
+Additionally you can run json-mock server
+* `npm run mock-server` it serve maps api for local development. Mocks are in `db.json` file.
+
 ## Scripts
 * `npm start` - starts development server with live-reload and hot module replacement
 * `npm run build` - produces production version under the `dist` folder

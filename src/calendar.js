@@ -1,4 +1,4 @@
-/* global VERSION, Node, document */
+/* global VERSION, Node, document, require */
 import {
   addClass,
   removeClass,
@@ -15,7 +15,7 @@ import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
 import locales from './locales';
 
-import reset from './styles/reset.css';
+import reset from './styles/Reset.css';
 import css from './styles/Calendar.css';
 
 

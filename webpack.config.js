@@ -37,7 +37,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?modules=true&localIdentName=BookingSync[name]__[local]',
+        loader: 'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSync[Name]__[Local]',
         exclude: /(node_modules|bower_components)/,
       },
     ],
