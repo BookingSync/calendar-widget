@@ -1,7 +1,7 @@
 {
   "name": "calendar-widget",
   "version": "0.0.1",
-  "description": "BookNow Calendar Widget",
+  "description": "BookingSync Calendar Widget",
   "main": "dist/calendar-widget.js",
   "module": "src/calendar.js",
   "scripts": {
