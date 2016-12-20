@@ -1,4 +1,4 @@
-import { is, merge, monthLength } from 'widget-utils';
+import { is, merge, monthLength, isString } from 'widget-utils';
 
 /**
  *  please refer to /tests/unit/calendarTree.specs.js for usage
@@ -134,7 +134,7 @@ export default class CalendarTree {
     return isValid;
   }
 
-  addMaps(map, updatedAt) {
+  replaceMaps(map, updatedAt) {
     this.map = CalendarTree.mapsToTree(map, updatedAt);
     return this;
   }
@@ -166,6 +166,12 @@ export default class CalendarTree {
    * @returns {Object}
    */
   static mapsToTree(maps, mapStartAt) {
+    if (!(isString(maps.availability) ||
+      isString(maps.nightly_rates) ||
+      isString(maps.minimum_stays))) {
+      return null;
+    }
+
     const avail  = maps.availability.split('').map(parseFloat);
     const rates  = maps.nightly_rates.split(',').map(parseFloat);
     const minMap = maps.minimum_stays.split(',').map(parseFloat);
@@ -247,14 +253,14 @@ export default class CalendarTree {
   }
 
   isDayDisabledOnMap(year, month, day) {
-    return this.getDayProperty(year, month, day, 'isAvailable');
+    return !this.getDayProperty(year, month, day, 'isAvailable');
   }
 
   isDayDisabled(year, month, day) {
-    const yesterday      = new Date(currDate);
-    const isFuture       = new Date(year, month, day) >= yesterday.setDate(currDate.getDate() - 1);
-    const isDayAvailable = this.isDayDisabledOnMap(year, month, day);
+    const yesterday     = new Date(currDate);
+    const isPast        = new Date(year, month, day) < yesterday.setDate(currDate.getDate() - 1);
+    const isDayDisabled = this.isDayDisabledOnMap(year, month, day);
 
-    return !isFuture || !isDayAvailable;
+    return isPast || isDayDisabled;
   }
 }

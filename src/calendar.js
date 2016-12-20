@@ -7,8 +7,11 @@ import {
   Emitter,
   merge,
   elementFromString,
+  traverseToParentWithAttr,
   destroyElement,
   monthLength,
+  is,
+  isFunction,
 } from 'widget-utils';
 
 import * as tpls from './templates';
@@ -25,9 +28,7 @@ const { calendar, chunky, highlighted, invalid,
 const { documentElement: { lang } }  = document;
 const currDate                       = new Date();
 const isLater                        = (start, end) => new Date(...start) < new Date(...end);
-//
-// const isoTz = 'T00:00:00.000Z';
-//
+
 // const getISO = (date, period) => {
 //   function pad(number) {
 //     if (number < 10) {
@@ -48,26 +49,41 @@ const isLater                        = (start, end) => new Date(...start) < new 
 //   }
 // };
 
+const dateToIso = (year, month, day) => {
+  function pad(number) {
+    if (number < 10) {
+      return `0${number}`;
+    }
+    return number;
+  }
+
+  return new Date(`${year}-${pad(month + 1)}-${day}`);
+};
+
 const defaults = {
-  startOfWeek:   0, // 0 Mo ... 6 Su, by ISO
-  minRange:      1, // can select one night
-  monthStart:    currDate.getUTCMonth(), // start with current month by default M '0...12'
-  yearStart:     currDate.getUTCFullYear(), // start with current year YYYY
-  daysPerWeek:   7, // FIXME support calendar rendering
-  displayMonths: 2,
-  selectable:    false,
-  showRates:     false,
-  showMinStay:   false,
+  startOfWeek:      0, // 0 Mo ... 6 Su, by ISO
+  minRange:         1, // can select one night
+  monthStart:       currDate.getUTCMonth(), // start with current month by default M '0...12'
+  yearStart:        currDate.getUTCFullYear(), // start with current year YYYY
+  daysPerWeek:      7, // FIXME support calendar rendering
+  displayMonths:    2,
+  selectable:       false,
+  showRates:        false,
+  showMinStay:      false,
+  reverseSelecting: false, // select end date first
 };
 
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
-    this.name    = 'Calendar Widget';
+    this.name    = 'BookingSync Calendar Widget';
     this.VERSION = VERSION;
     this.opts    = merge(defaults, opts);
     this.el      = opts.el;
     this.dom     = {};
+
+    this.opts.monthStart = parseInt(this.opts.monthStart, 10);
+    this.opts.yearStart  = parseInt(this.opts.yearStart, 10);
 
     this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
     this.locale    = locales[this.opts.lang || 'en'];
@@ -81,6 +97,10 @@ export default class Calendar extends Emitter {
     // selection and highlights
     this.isSelecting       = false;
     this.highlightedBounds = [];
+    this.hasValidRange     = true;
+
+    // user selects end date first
+    this.reverseSelecting  = this.opts.reverseSelecting;
     this.init();
   }
 
@@ -98,6 +118,7 @@ export default class Calendar extends Emitter {
     this.dom.forward = this.el.appendChild(elementFromString(tpls.forward));
     this.dom.back    = this.el.appendChild(elementFromString(tpls.back));
     this.addBtnsEvents();
+    this.emit('init');
   }
 
   renderMonths(yearStart, monthStart) {
@@ -127,12 +148,12 @@ export default class Calendar extends Emitter {
   }
 
   recoverSelections() {
-    if (this.selectionA) {
-      this.startSelecting(...this.selectionA, this.cTree.selectDay(...this.selectionA));
+    if (this.selectionStart) {
+      this.selectStart(...this.selectionStart, this.cTree.selectDay(...this.selectionStart));
     }
 
-    if (this.selectionB) {
-      this.endSelecting(...this.selectionB, this.cTree.selectDay(...this.selectionB));
+    if (this.selectionEnd) {
+      this.selectEnd(...this.selectionEnd, this.cTree.selectDay(...this.selectionEnd));
     }
 
     if (this.highlightedBounds.length > 0) {
@@ -143,14 +164,16 @@ export default class Calendar extends Emitter {
   toggleLoading() {
     if (!this.loaderEl) {
       this.loaderEl = this.el.appendChild(elementFromString(tpls.loading));
+      this.emit('loading-starts');
     } else {
       destroyElement(this.loaderEl);
       this.loaderEl = null;
+      this.emit('loading-ended');
     }
   }
 
   addMaps(maps) {
-    this.cTree.addMaps(maps, maps.start_date);
+    this.cTree.replaceMaps(maps, maps.start_date);
     this.destroyMonths();
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
   }
@@ -178,69 +201,117 @@ export default class Calendar extends Emitter {
     });
   }
 
-  addMonthEvents(month) {
-    month.addEventListener('click', (e) => {
-      const cell = e.target;
-      if (cell.hasAttribute('data-enabled')) {
-        const dayValue = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
+  addMonthEvents(el) {
+    el.addEventListener('click', (e) => {
+      const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-enabled');
 
-        if (this.isSelecting && isLater(this.selectionA, dayValue)) {
-          if (!this.hasValidRange) {
-            return;
-          }
-          this.endSelecting(...dayValue, cell);
-          this.emit('selection-end', new Date(...dayValue), dayValue);
+      if (is(value) && cell) {
+        const dateValue  = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const isEndFirst = this.reverseSelecting;
+
+        // for simplicity just reset selection when user interacts again
+        if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+          this.resetSelection();
+        }
+
+        if (isEndFirst) {
+          this.endDateFirstAction(dateValue, cell);
         } else {
-          this.startSelecting(...dayValue, cell);
-          this.emit('selection-start', new Date(...dayValue), dayValue);
+          this.startDateFirstAction(dateValue, cell);
         }
       }
     });
 
-    month.addEventListener('mouseover', (e) => {
-      const cell = e.target;
-      if (cell.hasAttribute('data-value')) {
+    el.addEventListener('mouseover', (e) => {
+      const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
+
+      if (is(value) && cell) {
         if (this.isSelecting) {
-          const currentEnd = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
+          const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
 
-          if (this.highlightedBounds.length > 0) {
-            this.removeHighlight(...this.highlightedBounds);
+          this.removeHighlight();
+
+          if (this.reverseSelecting) {
+            this.highLightRange(current, this.selectionEnd);
+          } else {
+            this.highLightRange(this.selectionStart, current);
           }
-
-          this.highLightRange(this.selectionA, currentEnd);
         }
       }
     });
 
-    month.addEventListener('mouseout', (e) => {
+    el.body.addEventListener('mouseout', (e) => {
       /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
       // simulate 'mouseleave'
       if (!e.relatedTarget ||
-        (e.relatedTarget !== month && !(month.compareDocumentPosition(e.relatedTarget) &
+        (e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget) &
         Node.DOCUMENT_POSITION_CONTAINED_BY))) {
-        if (this.isSelecting && this.highlightedBounds.length > 0) {
-          this.removeHighlight(...this.highlightedBounds);
+        if (this.isSelecting) {
+          this.removeHighlight();
         }
       }
     });
   }
 
-  removeHighlight(start, end) {
-    const { range } = this.selectRange(start, end);
-    range.map(a => removeClass(a,
-      highlighted, invalid)
-    );
-    this.hasValidRange     = true;
-    this.highlightedBounds = [];
+  endDateFirstAction(dateValue, cell) {
+    if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
+      if (!this.hasValidRange) {
+        return;
+      }
+      this.selectStartAction(dateValue, cell);
+      this.isSelecting = false;
+    } else {
+      this.isSelecting = true;
+      this.selectEndAction(dateValue, cell);
+    }
+  }
+
+  startDateFirstAction(dateValue, cell) {
+    if (this.isSelecting && isLater(this.selectionStart, dateValue)) {
+      if (!this.hasValidRange) {
+        return;
+      }
+      this.selectEndAction(dateValue, cell);
+      this.isSelecting = false;
+    } else {
+      this.isSelecting = true;
+      this.selectStartAction(dateValue, cell);
+    }
+  }
+
+  selectStartAction(dateValue, cell) {
+    this.selectStart(...dateValue, cell);
+    this.emit('selection-start', dateToIso(...dateValue), dateValue);
+    if (isFunction(this.opts.onSelectStart)) {
+      this.opts.onSelectStart(dateToIso(...dateValue), dateValue);
+    }
+  }
+
+  selectEndAction(dateValue, cell) {
+    this.selectEnd(...dateValue, cell);
+    this.emit('selection-end', dateToIso(...dateValue), dateValue);
+    if (isFunction(this.opts.onSelectEnd)) {
+      this.opts.onSelectEnd(dateToIso(...dateValue), dateValue);
+    }
+  }
+
+  removeHighlight() {
+    if (this.highlightedBounds.length > 0) {
+      const { range } = this.selectRange(...this.highlightedBounds);
+      range.map(a => removeClass(a, highlighted, invalid));
+
+      this.hasValidRange     = true;
+      this.highlightedBounds = [];
+    }
   }
 
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
-    let hasValidRange        = isValid;
+    let hasValidRange = isValid;
 
     if (isArray(range)) {
-      // if selected range less than minimum nights
-      if (range.length <= this.opts.minRange) {
+      // if selected range less than minimum stay at start
+      if (range.length <= this.cTree.getDayProperty(...start, 'minStay')) {
         hasValidRange = false;
       }
 
@@ -251,28 +322,46 @@ export default class Calendar extends Emitter {
       this.hasValidRange     = hasValidRange;
       this.highlightedBounds = [start, end];
     }
+
+    return hasValidRange;
   }
 
   resetSelection() {
-    this.removeHighlight(...this.highlightedBounds);
-    this.selectionA = null;
-    this.selectionB = null;
+    this.removeHighlight();
 
-    removeClass(this.cellA, selected);
-    removeClass(this.cellB, selected);
-    this.cellA = null;
-    this.cellB = null;
+    this.emit('clear-selection', this.selectionStart, this.selectionEnd);
+    if (isFunction(this.opts.onClearSelection)) {
+      this.opts.onClearSelection(this.selectionStart, this.selectionEnd);
+    }
+
+    this.selectionStart = null;
+    this.selectionEnd = null;
+
+    if (this.cellA) {
+      removeClass(this.cellA, selected);
+      this.cellA = null;
+    }
+
+    if (this.cellB) {
+      removeClass(this.cellB, selected);
+      this.cellB = null;
+    }
+
+    return this;
   }
 
   selectRange(start, end) {
     if (isLater(start, end)) {
       return this.cTree.selectRange(start, end);
     }
-    return false;
+    return  {
+      range: null,
+      isValid: false,
+    };
   }
 
-  startSelecting(year, month, day, cell) {
-    this.selectionA = [year, month, day];
+  selectStart(year, month, day, cell) {
+    this.selectionStart = [year, month, day];
 
     if (this.cellA) {
       removeClass(this.cellA, selected);
@@ -282,11 +371,10 @@ export default class Calendar extends Emitter {
       addClass(cell, selected);
       this.cellA = cell;
     }
-    this.isSelecting = true;
   }
 
-  endSelecting(year, month, day, cell) {
-    this.selectionB = [year, month, day];
+  selectEnd(year, month, day, cell) {
+    this.selectionEnd = [year, month, day];
 
     if (this.cellB) {
       removeClass(this.cellB, selected);
@@ -296,9 +384,9 @@ export default class Calendar extends Emitter {
       addClass(cell, selected);
       this.cellB = cell;
     }
-    this.isSelecting = false;
   }
 
+  // should be in CalendarTree ? and use the same data structure?
   createTree(yearStart, monthStart, times) {
     const months = [];
     const tree   = {};
@@ -315,7 +403,7 @@ export default class Calendar extends Emitter {
       }
 
       if (!tree[yearEnd][monthEnd]) {
-        tree[yearEnd][monthEnd] = mDom.days || [];
+        tree[yearEnd][monthEnd] = mDom.dayElements || [];
       }
 
       if (monthEnd > 10) {
@@ -335,14 +423,16 @@ export default class Calendar extends Emitter {
   }
 
   domMonth(year, month) {
-    const monthDom                                    = elementFromString(tpls.month);
+    const monthDom                                         = elementFromString(tpls.month);
     monthDom.querySelector(`.${tableHeader} tr`).innerHTML = this.headerTplString();
-    monthDom.querySelector(`.${caption}`).innerHTML   = `${this.locale.months[month]} ${year}`;
-    monthDom.querySelector(`.${body}`).innerHTML      = this.daysTplString(year, month);
-    // const days = [].slice.call(monthDom.querySelectorAll('[data-value]'));
+    monthDom.querySelector(`.${caption}`).innerHTML        = `${this.locale.months[month]} ${year}`;
 
-    monthDom.month = month;
-    monthDom.year  = year;
+    monthDom.body           = monthDom.querySelector(`.${body}`);
+    monthDom.body.innerHTML = this.daysTplString(year, month);
+
+    monthDom.month       = month;
+    monthDom.year        = year;
+    monthDom.dayElements = [].slice.call(monthDom.querySelectorAll('[data-value]'));
 
     return monthDom;
   }

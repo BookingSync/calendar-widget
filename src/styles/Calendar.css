@@ -85,6 +85,7 @@
 
 .calendar .highlighted {
   background-color: #8acdf6;
+  border-color: #a9dfff;
   color: #fff;
 }
 
@@ -93,13 +94,18 @@
   color: #fff;
 }
 
-.calendar .actionsEnabled.cell:hover,
+.actionsEnabled [data-enabled]:hover,
 .calendar .selected{
   background-color: #50abf4;
   color: #fff;
 }
 
-.calendar .actionsEnabled.cell:hover {
+.actionsEnabled [data-enabled]:hover {
+  cursor: pointer;
+}
+
+.actionsEnabled [data-enabled]:hover .info,
+.actionsEnabled [data-enabled]:hover .infoExtra {
   cursor: pointer;
 }
 

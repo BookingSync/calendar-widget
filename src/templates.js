@@ -16,7 +16,7 @@ export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
 export const weekDay = (label, dis, rate, minStay, rateT, minStayT) =>
-                      `<td ${disabled ? 'data-disabled' : 'data-enabled'}
+                      `<td ${dis ? 'data-disabled' : 'data-enabled'}
                            data-value="${label}"
                            class="${s.cell} ${dis ? disabled : ''}">
                           ${label}
