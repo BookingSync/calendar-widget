@@ -29,7 +29,7 @@ describe('calendarTree', () => {
   let cTree;
 
   before(() => {
-    const validate = a => !a;
+    const validate = a => a;
     cTree          = new CalendarTree(validate, treeA);
   });
 
@@ -98,87 +98,69 @@ describe('calendarTree', () => {
       cTree.removeMap();
     });
 
-    xit('correctly return object 1', () => {
-      const mapObj = cTree.mapsToTree('0110', new Date(2016, 11, 1)); // 1 December 2016
+    it('correctly return object 1', () => {
+      const maps   = {
+        availability:  '0110',
+        nightly_rates: '0,0,0,0',
+        minimum_stays: '1,1,1,1',
+      };
+      const mapObj = CalendarTree.mapsToTree(maps, new Date(2016, 11, 1)); // 1 December 2016
 
       expect(mapObj).to.be.deep.equal({
         2016: {
           11: {
-            1: false,
-            2: true,
-            3: true,
-            4: false,
+            1: { isAvailable: true, rate: 0, minStay: 1 },
+            2: { isAvailable: false, rate: 0, minStay: 1 },
+            3: { isAvailable: false, rate: 0, minStay: 1 },
+            4: { isAvailable: true, rate: 0, minStay: 1 },
           },
         },
       });
     });
 
-    xit('correctly return object 2', () => {
-      const mapObj = cTree.mapsToTree('0000', new Date(2016, 11, 1)); // 1 December 2016
+    it('correctly return object 2', () => {
+      const maps = {
+        availability:  '0000',
+        nightly_rates: '0,0,0,0',
+        minimum_stays: '1,1,1,1',
+      };
+
+      const mapObj = CalendarTree.mapsToTree(maps, new Date(2016, 11, 1)); // 1 December 2016
 
       expect(mapObj).to.be.deep.equal({
         2016: {
           11: {
-            1: false,
-            2: false,
-            3: false,
-            4: false,
+            1: { isAvailable: true, rate: 0, minStay: 1 },
+            2: { isAvailable: true, rate: 0, minStay: 1 },
+            3: { isAvailable: true, rate: 0, minStay: 1 },
+            4: { isAvailable: true, rate: 0, minStay: 1 },
           },
         },
       });
     });
   });
 
-  describe('#addMaps', () => {
+  describe('#isDayDisabledOnMap #isDayDisabled', () => {
     after(() => {
       cTree.removeMap();
     });
 
-    xit('correctly return object 1', () => {
-      cTree.addMaps(
-        {
-          availability: '0110',
-          nightly_rates: '1,1,1',
-          minimum_stays: '1,1,1',
-        }, '2016-11-1'); // 1 December 2016
+    it('correctly return object 1', () => {
+      const maps   = {
+        availability:  '0110',
+        nightly_rates: '0,0,0,0',
+        minimum_stays: '1,1,1,1',
+      };
 
-      expect(cTree.availabilityMap).to.be.deep.equal({
-        2016: {
-          11: {
-            1: false,
-            2: true,
-            3: true,
-            4: false,
-          },
-        },
-      });
-    });
-  });
-
-  describe('#isDayDisabledOnMap', () => {
-    after(() => {
-      cTree.removeMap();
-    });
-
-    xit('correctly return object 1', () => {
-      cTree.addMaps('0110', new Date(2016, 11, 1)); // 1 December 2016
+      cTree.replaceMaps(maps, new Date(2016, 11, 1)); // 1 December 2016
 
       expect(cTree.isDayDisabledOnMap(2016, 11, 1)).to.be.false;
       expect(cTree.isDayDisabledOnMap(2016, 11, 2)).to.be.true;
       expect(cTree.isDayDisabledOnMap(2016, 11, 3)).to.be.true;
       expect(cTree.isDayDisabledOnMap(2016, 11, 4)).to.be.false;
-    });
-  });
 
-  describe('#isDayDisabled', () => {
-    after(() => {
-      cTree.removeMap();
-    });
-
-    xit('correctly return object 1', () => {
-      cTree.addMaps('0110', new Date(2016, 11, 1)); // 1 December 2016
-      // everything in the past, we don't care about availability map
-      expect(cTree.isDayDisabled(2016, 11, 1)).to.be.true;
+      // is the past everything is disabled
+      expect(cTree.isDayDisabled(2016, 10, 20)).to.be.true;
     });
   });
 });

@@ -9,11 +9,11 @@
     "test": "karma start karma.config.js --colors --env=test",
     "test-ci": "karma start karma.config.js --single-run=true --colors --env=test",
     "start": "webpack-dev-server --inline --hot --env=development --host 0.0.0.0",
-    "mock-server": "json-server db.json --delay=1500"
+    "mock-server": "json-server db.json"
   },
   "dependencies": {
     "chai": "3.4.1",
-    "widget-utils": "0.0.9"
+    "widget-utils": "0.0.10"
   },
   "devDependencies": {
     "babel": "6.3.13",

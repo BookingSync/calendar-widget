@@ -93,13 +93,18 @@
   color: #fff;
 }
 
-.calendar .actionsEnabled.cell:hover,
+.actionsEnabled [data-enabled]:hover,
 .calendar .selected{
   background-color: #50abf4;
   color: #fff;
 }
 
-.calendar .actionsEnabled.cell:hover {
+.actionsEnabled [data-enabled]:hover {
+  cursor: pointer;
+}
+
+.actionsEnabled [data-enabled]:hover .info,
+.actionsEnabled [data-enabled]:hover .infoExtra {
   cursor: pointer;
 }
 

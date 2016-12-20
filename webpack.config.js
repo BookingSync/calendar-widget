@@ -12,6 +12,7 @@ const plugins = [
     VERSION:  JSON.stringify(require('./package.json').version),
     NODE_ENV: JSON.stringify(env),
   }),
+  new webpack.SourceMapDevToolPlugin()
 ];
 
 const config = {
@@ -24,6 +25,7 @@ const config = {
     libraryTarget:  'umd',
     umdNamedDefine: true,
   },
+
   module:  {
     rules: [
       {

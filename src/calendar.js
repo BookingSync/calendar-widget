@@ -7,8 +7,11 @@ import {
   Emitter,
   merge,
   elementFromString,
+  traverseToParentWithAttr,
   destroyElement,
   monthLength,
+  is,
+  isFunction,
 } from 'widget-utils';
 
 import * as tpls from './templates';
@@ -63,11 +66,14 @@ const defaults = {
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
-    this.name    = 'Calendar Widget';
+    this.name    = 'BookingSync Calendar Widget';
     this.VERSION = VERSION;
     this.opts    = merge(defaults, opts);
     this.el      = opts.el;
     this.dom     = {};
+
+    this.opts.monthStart = parseInt(this.opts.monthStart, 10);
+    this.opts.yearStart  = parseInt(this.opts.yearStart, 10);
 
     this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
     this.locale    = locales[this.opts.lang || 'en'];
@@ -98,6 +104,7 @@ export default class Calendar extends Emitter {
     this.dom.forward = this.el.appendChild(elementFromString(tpls.forward));
     this.dom.back    = this.el.appendChild(elementFromString(tpls.back));
     this.addBtnsEvents();
+    this.emit('init');
   }
 
   renderMonths(yearStart, monthStart) {
@@ -143,14 +150,16 @@ export default class Calendar extends Emitter {
   toggleLoading() {
     if (!this.loaderEl) {
       this.loaderEl = this.el.appendChild(elementFromString(tpls.loading));
+      this.emit('loading-starts');
     } else {
       destroyElement(this.loaderEl);
       this.loaderEl = null;
+      this.emit('loading-ended');
     }
   }
 
   addMaps(maps) {
-    this.cTree.addMaps(maps, maps.start_date);
+    this.cTree.replaceMaps(maps, maps.start_date);
     this.destroyMonths();
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
   }
@@ -180,8 +189,9 @@ export default class Calendar extends Emitter {
 
   addMonthEvents(month) {
     month.addEventListener('click', (e) => {
-      const cell = e.target;
-      if (cell.hasAttribute('data-enabled')) {
+      const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-enabled');
+
+      if (is(value) && cell) {
         const dayValue = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
 
         if (this.isSelecting && isLater(this.selectionA, dayValue)) {
@@ -190,16 +200,25 @@ export default class Calendar extends Emitter {
           }
           this.endSelecting(...dayValue, cell);
           this.emit('selection-end', new Date(...dayValue), dayValue);
+
+          if (isFunction(this.opts.onSelectEnd)) {
+            this.opts.onSelectEnd(new Date(...dayValue), dayValue);
+          }
         } else {
           this.startSelecting(...dayValue, cell);
           this.emit('selection-start', new Date(...dayValue), dayValue);
+
+          if (isFunction(this.opts.onSelectStart)) {
+            this.opts.onSelectStart(new Date(...dayValue), dayValue);
+          }
         }
       }
     });
 
     month.addEventListener('mouseover', (e) => {
-      const cell = e.target;
-      if (cell.hasAttribute('data-value')) {
+      const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-enabled');
+
+      if (is(value) && cell) {
         if (this.isSelecting) {
           const currentEnd = [month.year, month.month, parseInt(cell.getAttribute('data-value'), 10)];
 
@@ -255,6 +274,12 @@ export default class Calendar extends Emitter {
 
   resetSelection() {
     this.removeHighlight(...this.highlightedBounds);
+
+    this.emit('clear-selection', this.selectionA, this.selectionB);
+    if (isFunction(this.opts.onClearSelection)) {
+      this.opts.onClearSelection(this.selectionA, this.selectionB);
+    }
+
     this.selectionA = null;
     this.selectionB = null;
 
@@ -262,6 +287,8 @@ export default class Calendar extends Emitter {
     removeClass(this.cellB, selected);
     this.cellA = null;
     this.cellB = null;
+
+    return this;
   }
 
   selectRange(start, end) {
@@ -298,7 +325,7 @@ export default class Calendar extends Emitter {
     }
     this.isSelecting = false;
   }
-
+  // should be in CalendarTree ? and use the same data structure?
   createTree(yearStart, monthStart, times) {
     const months = [];
     const tree   = {};
@@ -315,7 +342,7 @@ export default class Calendar extends Emitter {
       }
 
       if (!tree[yearEnd][monthEnd]) {
-        tree[yearEnd][monthEnd] = mDom.days || [];
+        tree[yearEnd][monthEnd] = mDom.dayElements || [];
       }
 
       if (monthEnd > 10) {
@@ -335,14 +362,14 @@ export default class Calendar extends Emitter {
   }
 
   domMonth(year, month) {
-    const monthDom                                    = elementFromString(tpls.month);
+    const monthDom                                         = elementFromString(tpls.month);
     monthDom.querySelector(`.${tableHeader} tr`).innerHTML = this.headerTplString();
-    monthDom.querySelector(`.${caption}`).innerHTML   = `${this.locale.months[month]} ${year}`;
-    monthDom.querySelector(`.${body}`).innerHTML      = this.daysTplString(year, month);
-    // const days = [].slice.call(monthDom.querySelectorAll('[data-value]'));
+    monthDom.querySelector(`.${caption}`).innerHTML        = `${this.locale.months[month]} ${year}`;
+    monthDom.querySelector(`.${body}`).innerHTML           = this.daysTplString(year, month);
 
-    monthDom.month = month;
-    monthDom.year  = year;
+    monthDom.month       = month;
+    monthDom.year        = year;
+    monthDom.dayElements = [].slice.call(monthDom.querySelectorAll('[data-value]'));
 
     return monthDom;
   }
