@@ -12,6 +12,8 @@ import {
   monthLength,
   is,
   isFunction,
+  isNumeric,
+  traverseObj,
 } from 'widget-utils';
 
 import * as tpls from './templates';
@@ -61,7 +63,7 @@ const dateToIso = (year, month, day) => {
 };
 
 const defaults = {
-  startOfWeek:      0, // 0 Mo ... 6 Su, by ISO
+  startOfWeek:      6, // 0 Mo ... 6 Su, by ISO
   minRange:         1, // can select one night
   monthStart:       currDate.getUTCMonth(), // start with current month by default M '0...12'
   yearStart:        currDate.getUTCFullYear(), // start with current year YYYY
@@ -82,8 +84,15 @@ export default class Calendar extends Emitter {
     this.el      = opts.el;
     this.dom     = {};
 
-    this.opts.monthStart = parseInt(this.opts.monthStart, 10);
-    this.opts.yearStart  = parseInt(this.opts.yearStart, 10);
+    this.opts = traverseObj(this.opts, a => a, (b) => {
+      if (b === 'true' || b === 'false') {
+        return (b === 'true');
+      }
+      if (isNumeric(b)) {
+        return parseInt(b, 10);
+      }
+      return b;
+    });
 
     this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
     this.locale    = locales[this.opts.lang || 'en'];
