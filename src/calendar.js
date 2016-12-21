@@ -328,6 +328,7 @@ export default class Calendar extends Emitter {
 
   resetSelection() {
     this.removeHighlight();
+    this.isSelecting = false;
 
     this.emit('clear-selection', this.selectionStart, this.selectionEnd);
     if (isFunction(this.opts.onClearSelection)) {
