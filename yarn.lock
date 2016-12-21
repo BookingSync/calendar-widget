@@ -4878,9 +4878,9 @@ widest-line@^1.0.0:
   dependencies:
     string-width "^1.0.1"
 
-widget-utils@0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.0.11.tgz#cb1a47a496ab9d067d0bc3e787ec16933237b0be"
+widget-utils@0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.0.12.tgz#5c7194dc2b5b719709fc03d2ee377bb7d137800f"
   dependencies:
     chai "3.4.1"
 
