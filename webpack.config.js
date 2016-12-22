@@ -12,7 +12,13 @@ const plugins = [
     VERSION:  JSON.stringify(require('./package.json').version),
     NODE_ENV: JSON.stringify(env),
   }),
-  new webpack.SourceMapDevToolPlugin()
+  new webpack.SourceMapDevToolPlugin(),
+  new webpack.optimize.UglifyJsPlugin({
+    minimize: true,
+    compress: {
+      warnings: false
+    }
+  }),
 ];
 
 const config = {

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "chai": "3.4.1",
-    "widget-utils": "0.0.11"
+    "widget-utils": "0.0.12"
   },
   "devDependencies": {
     "babel-core": "6.21.0",
