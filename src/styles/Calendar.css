@@ -78,26 +78,43 @@
 }
 
 .calendar .disabled, .calendar .disabled:hover {
-  color: #dadada;
+  color: #bfbfbf;
   cursor: default;
   background-color: #f8f8f8;
 }
 
 .calendar .highlighted {
   background-color: #8acdf6;
-  border-color: #a9dfff;
-  color: #fff;
+  border-color: #bde3ff;
 }
 
 .calendar .invalid {
-  background-color: #d0d2d6;
-  color: #fff;
+  background-color: #d8dade;
 }
 
 .actionsEnabled [data-enabled]:hover,
 .calendar .selected{
   background-color: #50abf4;
-  color: #fff;
+}
+
+.calendar .selectedStart {
+  background: linear-gradient(to right bottom, #ffffff 50%, #8acdf6 50%);
+  border-top-color: #e9ebef;
+  border-left-color: #e9ebef;
+}
+
+.calendar .selectedEnd {
+  background: linear-gradient(to left top, #ffffff 50%, #8acdf6 50%);
+  border-bottom-color: #e9ebef;
+  border-right-color: #e9ebef;
+}
+
+.calendar .invalid.selectedStart {
+  background: linear-gradient(to right bottom, #ffffff 50%, #d8dade 50%);
+}
+
+.calendar .invalid.selectedEnd {
+  background: linear-gradient(to left top, #ffffff 50%, #d8dade 50%);
 }
 
 .actionsEnabled [data-enabled]:hover {
@@ -109,10 +126,8 @@
   cursor: pointer;
 }
 
-.calendar .cell-selected.invalid,
 .calendar .cell.invalid:hover {
-  background-color: #aaa;
-  color: #fff;
+  background-color: #b6b6b6;
   cursor: not-allowed;
 }
 
