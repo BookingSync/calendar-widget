@@ -25,7 +25,7 @@ import css from './styles/Calendar.css';
 
 
 const { calendar, chunky, highlighted, invalid,
-        selected, actionsEnabled, body, tableHeader, caption } = css;
+        selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd } = css;
 
 const { documentElement: { lang } }  = document;
 const currDate                       = new Date();
@@ -348,12 +348,12 @@ export default class Calendar extends Emitter {
     this.selectionEnd = null;
 
     if (this.cellA) {
-      removeClass(this.cellA, selected);
+      removeClass(this.cellA, selected, selectedStart);
       this.cellA = null;
     }
 
     if (this.cellB) {
-      removeClass(this.cellB, selected);
+      removeClass(this.cellB, selected, selectedEnd);
       this.cellB = null;
     }
 
@@ -374,11 +374,11 @@ export default class Calendar extends Emitter {
     this.selectionStart = [year, month, day];
 
     if (this.cellA) {
-      removeClass(this.cellA, selected);
+      removeClass(this.cellA, selected, selectedStart);
     }
 
     if (cell) {
-      addClass(cell, selected);
+      addClass(cell, selected, selectedStart);
       this.cellA = cell;
     }
   }
@@ -387,11 +387,11 @@ export default class Calendar extends Emitter {
     this.selectionEnd = [year, month, day];
 
     if (this.cellB) {
-      removeClass(this.cellB, selected);
+      removeClass(this.cellB, selected, selectedEnd);
     }
 
     if (cell) {
-      addClass(cell, selected);
+      addClass(cell, selected, selectedEnd);
       this.cellB = cell;
     }
   }
