@@ -1,4 +1,5 @@
 # Calendar Widget [jsbin demo](http://jsbin.com/tiqicahupu/edit?js,output)
+[![CircleCI](https://circleci.com/gh/BookingSync/calendar-widget.svg?style=svg&circle-token=8c6343e12779072713c394d9be543728012efc92)](https://circleci.com/gh/BookingSync/calendar-widget)
 
 ## Setup
 * [Webpack](webpack.github.io) based.
