@@ -1,4 +1,4 @@
-# Calendar Widget
+# Calendar Widget [jsbin demo](http://jsbin.com/tiqicahupu/edit?js,output)
 
 ## Setup
 * [Webpack](webpack.github.io) based.
