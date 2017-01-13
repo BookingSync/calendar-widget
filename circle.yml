@@ -1,15 +1,26 @@
 machine:
-  pre:
-    - mkdir ~/.yarn-cache
+  environment:
+    YARN_VERSION: 0.18.1
+    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: stable
+
 dependencies:
   pre:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - |
+      if [[ ! -e ~/.yarn-cache ]]; then
+        mkdir ~/.yarn-cache
+      fi
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      fi
   cache_directories:
     - ~/.yarn-cache
+    - ~/.yarn
   override:
     - yarn install
+
 test:
   override:
-    - npm run test-ci
+    - yarn run test-ci
