@@ -138,6 +138,7 @@
   width: 23px;
   fill: #45494a;
   border-radius: 2px;
+  border: 1px solid #e9ebef;
   padding: 6px 9px;
   top: 1.4rem;
   left: 1rem;
@@ -150,6 +151,11 @@
   left: auto;
 }
 
+.calendar .forward[disabled],
+.calendar .back[disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
 
 @-webkit-keyframes spin {
   0% {

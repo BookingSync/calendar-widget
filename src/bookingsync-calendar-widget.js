@@ -31,7 +31,7 @@ Calendar.init = () => {
   const len              = calendarElements.length;
 
   if (calendarElements.length === 0) {
-    console.log('expects at least one HTMLElement with "data-calendar-widget" and "data-rental-ids"');
+    console.warn('expects at least one HTMLElement with "data-calendar-widget" and "data-rental-ids"');
   }
 
   for (let i = 0; i < len; i += 1) {
@@ -39,13 +39,12 @@ Calendar.init = () => {
     const opts = merge(config, el.dataset);
     opts.el    = el;
 
-    const cal = new Calendar(opts);
-
     if (el.dataset.rentalIds) {
+      const cal = new Calendar(opts);
       loadRental(opts, el.dataset.rentalIds, cal);
       initialized.push(cal);
     }  else {
-      console.log('data-rental-ids is mandatory');
+      console.warn('data-rental-ids is mandatory');
     }
   }
 

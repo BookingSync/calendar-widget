@@ -12,18 +12,12 @@ const plugins = [
     VERSION:  JSON.stringify(require('./package.json').version),
     NODE_ENV: JSON.stringify(env),
   }),
-  new webpack.SourceMapDevToolPlugin(),
-  new webpack.optimize.UglifyJsPlugin({
-    minimize: true,
-    compress: {
-      warnings: false
-    }
-  }),
+  new webpack.SourceMapDevToolPlugin()
 ];
 
 const config = {
-  entry:   [__dirname + '/src/bookingsync-calendar-widget.js'],
-  output:  {
+  entry:  [__dirname + '/src/bookingsync-calendar-widget.js'],
+  output: {
     path:           __dirname + '/dist',
     publicPath:     '/assets/',
     filename:       outputFile,
@@ -44,8 +38,8 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSync[Name]__[Local]',
+        test:    /\.css$/,
+        loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSync[Name]__[Local]',
         exclude: /(node_modules|bower_components)/,
       },
     ],
@@ -62,6 +56,13 @@ const config = {
 };
 
 if (env === 'build') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false
+      }
+    }
+  ));
   config.entry = [__dirname + '/src/bookingsync-calendar-widget.js'];
 }
 
