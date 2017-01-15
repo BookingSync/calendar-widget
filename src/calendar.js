@@ -73,6 +73,7 @@ const defaults = {
   showRates:        false,
   showMinStay:      false,
   reverseSelecting: false, // select end date first
+  isBackDisabled:   true,
 };
 
 export default class Calendar extends Emitter {
@@ -121,11 +122,10 @@ export default class Calendar extends Emitter {
     }
 
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));
-
+    this.dom.forward       = this.el.appendChild(elementFromString(tpls.forward));
+    this.dom.back          = this.el.appendChild(elementFromString(tpls.back));
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
-    this.dom.forward = this.el.appendChild(elementFromString(tpls.forward));
-    this.dom.back    = this.el.appendChild(elementFromString(tpls.back));
     this.addBtnsEvents();
     this.emit('init');
   }
@@ -138,15 +138,15 @@ export default class Calendar extends Emitter {
 
     this.cTree.addTree(tree);
 
-    this.currMonth = monthStart;
-    this.currYear  = yearStart;
+    this.monthStart = monthStart;
+    this.yearStart  = yearStart;
 
-    this.dom.months = months;
     this.monthEnd   = monthEnd;
     this.yearEnd    = yearEnd;
 
     this.recoverSelections();
 
+    this.dom.months = months;
     this.dom.months.forEach((m) => {
       this.dom.monthsWrapper.appendChild(m);
       if (this.opts.selectable) {
@@ -154,6 +154,8 @@ export default class Calendar extends Emitter {
         addClass(this.el, actionsEnabled);
       }
     });
+
+    this.disableBackBtn();
   }
 
   recoverSelections() {
@@ -167,6 +169,14 @@ export default class Calendar extends Emitter {
 
     if (this.highlightedBounds.length > 0) {
       this.highLightRange(...this.highlightedBounds);
+    }
+  }
+
+  disableBackBtn() {
+    if (this.opts.isBackDisabled) {
+      const startDate = dateToIso(this.yearStart, this.monthStart, 1);
+      const curr = dateToIso(currDate.getFullYear(), currDate.getMonth(), 1);
+      this.dom.back.disabled = startDate <= curr;
     }
   }
 
@@ -197,8 +207,8 @@ export default class Calendar extends Emitter {
 
     this.dom.back.addEventListener('click', (e) => {
       this.destroyMonths();
-      let monthToRender = this.currMonth - this.opts.displayMonths;
-      let yearToRender  = this.currYear;
+      let monthToRender = this.monthStart - this.opts.displayMonths;
+      let yearToRender  = this.yearStart;
 
       if (monthToRender < 0) {
         monthToRender += 12;
