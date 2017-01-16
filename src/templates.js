@@ -1,6 +1,6 @@
 import s from './styles/Calendar.css';
 
-const { disabled, info, infoExtra } = s;
+const { disabled, info, infoExtra, disabledStart, availableOut, cnt } = s;
 
 export const main  = `<div class="${s.monthsWrapper}"></div>`;
 
@@ -15,13 +15,16 @@ export const month = `<div class="${s.mCell}">
 export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, dis, rate, minStay, rateT, minStayT) =>
-                      `<td ${dis ? 'data-disabled' : 'data-enabled'}
+export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) =>
+                      `<td ${dis ? 'data-disabled' : 'data-enabled'}             
+                           ${isOutAvailable ? 'data-available-out' : ''}
                            data-value="${label}"
-                           class="${s.cell} ${dis ? disabled : ''}">
-                          ${label}
-                          ${rate ? '<span class="' + info + '">' + rateT + ' ' + rate + '</span>' : ''}
-                          ${minStay ? '<span class="' + infoExtra + '">' + minStayT + ' ' + minStay + '</span>' : ''}
+                           class="${s.cell} ${dis ? disabled : ''}${disStart ? disabledStart : ''} ${dis && isOutAvailable ? availableOut : ''}">
+                           <div class="${cnt}">
+                            ${label}
+                          </div>
+                          ${rate ? '<span class="' + info + '">' + rateT + rate + '</span>' : ''}
+                          ${minStay ? '<span class="' + infoExtra + '">' + minStayT + minStay + '</span>' : ''}
                        </td>`;
 
 export const forward = `<button class="${s.forward}" role="button">

@@ -25,7 +25,8 @@ import css from './styles/Calendar.css';
 
 
 const { calendar, chunky, highlighted, invalid,
-        selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd } = css;
+        selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
+        selecting } = css;
 
 const { documentElement: { lang } }  = document;
 const currDate                       = new Date();
@@ -62,6 +63,13 @@ const dateToIso = (year, month, day) => {
   return new Date(`${year}-${pad(month + 1)}-${day}`);
 };
 
+const validationOfRange = (cell, index, range) => {
+  if (index === range.length - 1) {
+    return cell.getAttribute('data-available-out') !== '';
+  }
+  return cell.getAttribute('data-disabled') === '';
+};
+
 const defaults = {
   startOfWeek:      6, // 0 Mo ... 6 Su, by ISO
   minRange:         1, // can select one night
@@ -85,7 +93,7 @@ export default class Calendar extends Emitter {
     this.el      = opts.el;
     this.dom     = {};
 
-    this.opts = traverseObj(this.opts, a => a, (b) => {
+    this.opts    = traverseObj(this.opts, a => a, (b) => {
       if (b === 'true' || b === 'false') {
         return (b === 'true');
       }
@@ -98,7 +106,7 @@ export default class Calendar extends Emitter {
     this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
     this.locale    = locales[this.opts.lang || 'en'];
 
-    this.cTree = new CalendarTree(cell => cell.getAttribute('data-disabled') === '', {});
+    this.cTree = new CalendarTree(validationOfRange, {});
 
     if (isObject(maps)) {
       this.cTree.addMaps(maps, maps.start_date || currDate);
@@ -222,11 +230,18 @@ export default class Calendar extends Emitter {
 
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
-      const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-enabled');
+      const isEndFirst = this.reverseSelecting;
+      let value;
+      let cell;
+
+      if (this.isSelecting || isEndFirst) {
+        ({ value, parent: cell } = traverseToParentWithAttr(e.target, 'data-available-out'));
+      } else {
+        ({ value, parent: cell } = traverseToParentWithAttr(e.target, 'data-enabled'));
+      }
 
       if (is(value) && cell) {
         const dateValue  = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
-        const isEndFirst = this.reverseSelecting;
 
         // for simplicity just reset selection when user interacts again
         if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
@@ -278,8 +293,10 @@ export default class Calendar extends Emitter {
         return;
       }
       this.selectStartAction(dateValue, cell);
+      removeClass(this.el, selecting);
       this.isSelecting = false;
     } else {
+      addClass(this.el, selecting);
       this.isSelecting = true;
       this.selectEndAction(dateValue, cell);
     }
@@ -291,8 +308,10 @@ export default class Calendar extends Emitter {
         return;
       }
       this.selectEndAction(dateValue, cell);
+      removeClass(this.el, selecting);
       this.isSelecting = false;
     } else {
+      addClass(this.el, selecting);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
     }
@@ -406,7 +425,6 @@ export default class Calendar extends Emitter {
     }
   }
 
-  // should be in CalendarTree ? and use the same data structure?
   createTree(yearStart, monthStart, times) {
     const months = [];
     const tree   = {};
@@ -510,14 +528,23 @@ export default class Calendar extends Emitter {
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
         // pushing actual days 1...daysInMonth
         if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
-          const rate     = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
-          const minStay  = this.opts.showMinStay ? this.cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
-          const rateT    = this.locale.rate;
-          const minStayT = this.locale.minStay;
+          const rate            = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
+          const minStay         = this.opts.showMinStay ? this.cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
+
+          let isDisabled      = this.cTree.isDayDisabled(year, month, dayOfMonth);
+          let isOutAvailable = this.cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+          let isDisabledStart   = this.cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+
+          // in the past any availability does not make sense
+          if (isLater([year, month, dayOfMonth], currDate)) {
+            isDisabled = true;
+            isDisabledStart = undefined;
+            isOutAvailable = undefined;
+          }
 
           week.push(tpls.weekDay(
-            dayOfMonth,
-            this.cTree.isDayDisabled(year, month, dayOfMonth), rate, minStay, rateT, minStayT
+            dayOfMonth, isDisabled, isDisabledStart, isOutAvailable,
+            rate, minStay, this.locale.rate, this.locale.minStay
           ));
 
           dayOfMonth += 1;
