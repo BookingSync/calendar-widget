@@ -17,4 +17,22 @@ export default {
     rate:           '&euro;',
     minStay:        'Min.',
   },
+  sv: {
+    weekdaysLabels: 'må_ti_on_to_fr_lö_sö'.split('_'),
+    months:         'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),
+    rate:           '&euro;',
+    minStay:        'Min.',
+  },
+  it: {
+    weekdaysLabels: 'Lun_Mar_Mer_Gio_Ven_Sab_Dom'.split('_'),
+    months:         'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),
+    rate:           '&euro;',
+    minStay:        'Min.',
+  },
+  es: {
+    weekdaysLabels: 'lun._mar._mié._jue._vie._sáb._dom.'.split('_'),
+    months:         'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+    rate:           '&euro;',
+    minStay:        'Min.',
+  },
 };
