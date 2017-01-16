@@ -109,10 +109,41 @@ describe('calendarTree', () => {
       expect(mapObj).to.be.deep.equal({
         2016: {
           11: {
-            1: { isAvailable: true, rate: 0, minStay: 1 },
-            2: { isAvailable: false, rate: 0, minStay: 1 },
-            3: { isAvailable: false, rate: 0, minStay: 1 },
-            4: { isAvailable: true, rate: 0, minStay: 1 },
+            1: {
+              isAvailable:      true,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: true,
+              isOutAvailable:   false,
+            },
+            2: {
+              isAvailable:      false,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: false,
+              isOutAvailable:   true,
+            },
+            3: {
+              isAvailable:      false,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: false,
+              isOutAvailable:   false,
+            },
+            4: {
+              isAvailable:      true,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: true,
+              isOutAvailable:   false,
+            },
+            5: {
+              isAvailable:      false,
+              rate:             undefined,
+              minStay:          undefined,
+              isMorningBlocked: false,
+              isOutAvailable:   true,
+            },
           },
         },
       });
@@ -130,10 +161,41 @@ describe('calendarTree', () => {
       expect(mapObj).to.be.deep.equal({
         2016: {
           11: {
-            1: { isAvailable: true, rate: 0, minStay: 1 },
-            2: { isAvailable: true, rate: 0, minStay: 1 },
-            3: { isAvailable: true, rate: 0, minStay: 1 },
-            4: { isAvailable: true, rate: 0, minStay: 1 },
+            1: {
+              isAvailable:      true,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: true,
+              isOutAvailable:   false,
+            },
+            2: {
+              isAvailable:      true,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: false,
+              isOutAvailable:   true,
+            },
+            3: {
+              isAvailable:      true,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: false,
+              isOutAvailable:   true,
+            },
+            4: {
+              isAvailable:      true,
+              rate:             0,
+              minStay:          1,
+              isMorningBlocked: false,
+              isOutAvailable:   true,
+            },
+            5: {
+              isAvailable:      false,
+              rate:             undefined,
+              minStay:          undefined,
+              isMorningBlocked: false,
+              isOutAvailable:   true,
+            },
           },
         },
       });
@@ -146,7 +208,7 @@ describe('calendarTree', () => {
     });
 
     it('correctly return object 1', () => {
-      const maps   = {
+      const maps = {
         availability:  '0110',
         nightly_rates: '0,0,0,0',
         minimum_stays: '1,1,1,1',
@@ -154,13 +216,10 @@ describe('calendarTree', () => {
 
       cTree.replaceMaps(maps, new Date(2016, 11, 1)); // 1 December 2016
 
-      expect(cTree.isDayDisabledOnMap(2016, 11, 1)).to.be.false;
-      expect(cTree.isDayDisabledOnMap(2016, 11, 2)).to.be.true;
-      expect(cTree.isDayDisabledOnMap(2016, 11, 3)).to.be.true;
-      expect(cTree.isDayDisabledOnMap(2016, 11, 4)).to.be.false;
-
-      // is the past everything is disabled
-      expect(cTree.isDayDisabled(2016, 10, 20)).to.be.true;
+      expect(cTree.isDayDisabled(2016, 11, 1)).to.be.false;
+      expect(cTree.isDayDisabled(2016, 11, 2)).to.be.true;
+      expect(cTree.isDayDisabled(2016, 11, 3)).to.be.true;
+      expect(cTree.isDayDisabled(2016, 11, 4)).to.be.false;
     });
   });
 });

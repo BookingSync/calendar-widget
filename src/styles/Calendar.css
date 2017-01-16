@@ -3,7 +3,7 @@
 .calendar {
   font: 0.875rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
   position: relative;
-  margin:0 -1rem 3rem;
+  margin: 0 -1rem 3rem;
   background: #fff;
   padding: 2rem;
 }
@@ -46,17 +46,32 @@
   text-align: center;
 }
 
-
 .calendar .cell {
   text-align: center;
   padding: 0;
-  width: 40px;
-  height: 40px;
   position: relative;
   border: 1px solid #e9ebef;
   vertical-align: middle;
-  background-clip: padding-box;
   color: #444;
+  background-clip: padding-box;
+  overflow: hidden;
+  width: 30px;
+}
+
+.calendar .cell:after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+
+.calendar .cnt {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 0;
 }
 
 .calendar .infoExtra,
@@ -77,61 +92,94 @@
   right: auto;
 }
 
+/********************************************************
+
+				  selections, start and ends
+
+********************************************************/
+.calendar .selected {
+  /* selected cell generic styles */
+}
+
 .calendar .disabled, .calendar .disabled:hover {
   color: #bfbfbf;
   cursor: default;
   background-color: #f8f8f8;
 }
 
+.actionsEnabled [data-enabled]:hover,
 .calendar .highlighted {
-  background-color: #8acdf6;
   border-color: #bde3ff;
 }
 
-.calendar .invalid {
-  background-color: #d8dade;
-}
-
-.actionsEnabled [data-enabled]:hover,
-.calendar .selected{
-  background-color: #50abf4;
-}
-
-.calendar .selectedStart {
-  background: linear-gradient(to right bottom, #ffffff 50%, #8acdf6 50%);
+.calendar .selectedStart,
+.calendar .selectedStart:hover {
+  background: linear-gradient(to left top, rgba(0, 0, 0, 0) 50%, #fff 50%);
   border-top-color: #e9ebef;
   border-left-color: #e9ebef;
 }
 
-.calendar .selectedEnd {
-  background: linear-gradient(to left top, #ffffff 50%, #8acdf6 50%);
+.selecting .highlighted:hover,
+.calendar .selectedEnd,
+.calendar .selectedEnd:hover {
+  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0) 50%, #fff 50%);
   border-bottom-color: #e9ebef;
   border-right-color: #e9ebef;
 }
 
-.calendar .invalid.selectedStart {
-  background: linear-gradient(to right bottom, #ffffff 50%, #d8dade 50%);
+.calendar .availableOut,
+.calendar .availableOut:hover {
+  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0) 50%, #f8f8f8 50%);
+  color: #444;
 }
 
-.calendar .invalid.selectedEnd {
-  background: linear-gradient(to left top, #ffffff 50%, #d8dade 50%);
+.calendar .disabledStart,
+.calendar .disabledStart:hover {
+  background: linear-gradient(to left top, transparent 50%, #f8f8f8 50%);
 }
 
-.actionsEnabled [data-enabled]:hover {
+.actionsEnabled [data-enabled]:hover,
+.selecting .availableOut:hover,
+.calendar .selectedEnd.availableOut,
+.calendar .highlighted {
+  background-color: #8acdf6;
   cursor: pointer;
 }
 
+.actionsEnabled [data-enabled]:hover,
+.actionsEnabled [data-enabled]:hover .cnt,
 .actionsEnabled [data-enabled]:hover .info,
 .actionsEnabled [data-enabled]:hover .infoExtra {
   cursor: pointer;
 }
 
-.calendar .cell.invalid:hover {
-  background-color: #b6b6b6;
-  cursor: not-allowed;
+.selecting .availableOut:hover,
+.selecting .availableOut:hover .cnt,
+.selecting .availableOut:hover .info,
+.selecting .availableOut:hover .infoExtra {
+  cursor: pointer;
 }
 
-/* buttons */
+
+.calendar .invalid:not(.selectedStart) {
+  background: #eeeeee;
+  color: #aaa;
+  border-color: #ffffff;
+}
+
+.calendar .invalid.selectedStart {
+  background-color: #eeeeee;
+  border-bottom-color: #ffffff;
+  border-right-color: #ffffff;
+}
+
+
+
+/********************************************************
+
+				     buttons
+
+********************************************************/
 .calendar .forward, .calendar .back {
   cursor: pointer;
   height: 23px;
@@ -151,12 +199,29 @@
   left: auto;
 }
 
+.calendar .forward:active,
+.calendar .forward:focus,
+.calendar .back:active,
+.calendar .back:focus {
+  outline: none;
+}
+
+.calendar .forward:hover,
+.calendar .back:hover {
+  border-color: #8acdf6;
+}
+
 .calendar .forward[disabled],
 .calendar .back[disabled] {
   opacity: 0.5;
   cursor: default;
 }
 
+/********************************************************
+
+				     loader
+
+********************************************************/
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -167,6 +232,7 @@
     transform: rotate(360deg);
   }
 }
+
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -177,11 +243,13 @@
     transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes pulse {
   50% {
     background: white;
   }
 }
+
 @keyframes pulse {
   50% {
     background: white;
@@ -212,11 +280,12 @@
   right: 0;
   z-index: 10;
 }
+
 /* chunky layout */
 .chunky .cell {
-  height: 57px;
+  /*height: 57px;*/
 }
 
-.chunky .mCell{
+.chunky .mCell {
   min-width: 20rem;
 }

@@ -13,8 +13,6 @@ const genArrayRange = (a, b) => {
   return list;
 };
 
-const currDate    = new Date();
-
 export default class CalendarTree {
   /**
    * @param {Function} validateCell
@@ -128,7 +126,7 @@ export default class CalendarTree {
     let isValid        = true;
 
     if (typeof validateCell === 'function') {
-      isValid = range.filter(a => this.validateCell(a)).length === 0;
+      isValid = range.filter((a, i) => this.validateCell(a, i, range)).length === 0;
     }
 
     return isValid;
@@ -182,11 +180,20 @@ export default class CalendarTree {
     let dayShift = date.getDate();
     let day      = 1;
 
-    return avail.reduce((curr, state, index) => {
-      const length    = monthLength(year, month);
-      const tree      = curr;
-      const minStay   = minMap[index];
-      const isAvailable = state === 0;
+    // trick to add extra unavailable date for proper calculations of check-out dates
+
+    if (avail[avail.length - 1] === 0) {
+      avail.push(1);
+    }
+
+    return avail.reduce((curr, state, index, arr) => {
+      const length        = monthLength(year, month);
+      const tree          = curr;
+      const minStay       = minMap[index];
+      const rate          = rates[index];
+      const isAvailable   = state === 0;
+      const prevAvailable = arr[index - 1] === 0;
+      const isMorningBlocked = (isAvailable && !prevAvailable);
 
       if (!tree[year]) {
         tree[year] = {};
@@ -217,9 +224,12 @@ export default class CalendarTree {
       // }
 
       tree[year][month][day] = {
-        isAvailable,
-        rate: rates[index],
+        rate,
         minStay,
+        isAvailable,
+        isMorningBlocked,
+        isOutAvailable: (!isMorningBlocked && isAvailable) ||
+                        (!isAvailable && prevAvailable === true),
       };
 
       if (day < length) {
@@ -252,15 +262,8 @@ export default class CalendarTree {
     return prop;
   }
 
-  isDayDisabledOnMap(year, month, day) {
+  isDayDisabled(year, month, day) {
     return !this.getDayProperty(year, month, day, 'isAvailable');
   }
 
-  isDayDisabled(year, month, day) {
-    const yesterday     = new Date(currDate);
-    const isPast        = new Date(year, month, day) < yesterday.setDate(currDate.getDate() - 1);
-    const isDayDisabled = this.isDayDisabledOnMap(year, month, day);
-
-    return isPast || isDayDisabled;
-  }
 }
