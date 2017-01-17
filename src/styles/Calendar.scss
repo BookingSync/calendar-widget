@@ -5,20 +5,22 @@
 $highlighted: #8acdf6;
 $highlighted-border: #bde3ff;
 
-$disabled-bg: #f8f8f8;
+$disabled-bg: #f0f0f0;
 $disabled-color: #bfbfbf;
 
-$cell-border: #e9ebef;
+$cell-border: #eaecf0;
 $cell-color: #444444;
 $cell-bg: #ffffff;
 $cell-width: 30px;
 
+$info-color: rgba(60, 60, 60, 0.4);
+
 $th-border-bottom: #dfdfdf;
 $th-color: #aaaaaa;
 
-$invalid-border: #ffffff;
-$invalid-color: #aaaaaa;
-$invalid-bg: #eeeeee;
+$invalid-border: #cacaca;
+$invalid-color: #ffffff;
+$invalid-bg: #c0c0c0;
 
 $btn-fill: $cell-color;
 
@@ -103,7 +105,7 @@ $btn-fill: $cell-color;
     font-size: 0.7rem;
     padding: 1px 3px;
     text-align: right;
-    font-weight: 100;
+    color: $info-color;
     right: 0;
   }
 
@@ -210,17 +212,16 @@ $btn-fill: $cell-color;
     height: 23px;
     width: 23px;
     fill: $btn-fill;
-    border-radius: 2px;
     border: 1px solid $cell-border;
     padding: 6px 9px;
     top: 1.4rem;
-    left: 1rem;
+    left: 3rem;
     z-index: 2;
     position: absolute;
   }
 
   .forward {
-    right: 1rem;
+    right: 3rem;
     left: auto;
   }
 
@@ -238,8 +239,9 @@ $btn-fill: $cell-color;
 
   .forward[disabled],
   .back[disabled] {
-    opacity: 0.5;
+    opacity: 0.5 !important;
     cursor: default;
+    border-color: $cell-border !important;
   }
 }
 
@@ -251,7 +253,7 @@ $btn-fill: $cell-color;
 ********************************************************/
 /* chunky layout */
 .chunky .cell {
-  /*height: 57px;*/
+  //height: 57px;
 }
 
 .chunky .mCell {
