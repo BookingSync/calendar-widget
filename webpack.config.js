@@ -38,10 +38,10 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test:    /\.css$/,
-        loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSync[Name]__[Local]',
+        test:    /\.scss$/,
+        loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSync[Name]__[Local]!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents',
         exclude: /(node_modules|bower_components)/,
-      },
+      }
     ],
   },
   resolve: {

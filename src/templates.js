@@ -1,6 +1,6 @@
-import s from './styles/Calendar.css';
+import s from './styles/Calendar.scss';
 
-const { disabled, info, infoExtra, disabledStart, availableOut, cnt } = s;
+const { disabled, info, infoExtra, morningDisabled, nightDisabled, cnt } = s;
 
 export const main  = `<div class="${s.monthsWrapper}"></div>`;
 
@@ -19,7 +19,7 @@ export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rat
                       `<td ${dis ? 'data-disabled' : 'data-enabled'}             
                            ${isOutAvailable ? 'data-available-out' : ''}
                            data-value="${label}"
-                           class="${s.cell} ${dis ? disabled : ''}${disStart ? disabledStart : ''} ${dis && isOutAvailable ? availableOut : ''}">
+                           class="${s.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
                            <div class="${cnt}">
                             ${label}
                           </div>

@@ -20,8 +20,8 @@ import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
 import locales from './locales';
 
-import reset from './styles/Reset.css';
-import css from './styles/Calendar.css';
+import reset from './styles/Reset.scss';
+import css from './styles/Calendar.scss';
 
 
 const { calendar, chunky, highlighted, invalid,
