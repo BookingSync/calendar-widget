@@ -1,0 +1,259 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import 'loading';
+
+// colors
+$highlighted: #8acdf6;
+$highlighted-border: #bde3ff;
+
+$disabled-bg: #f8f8f8;
+$disabled-color: #bfbfbf;
+
+$cell-border: #e9ebef;
+$cell-color: #444444;
+$cell-bg: #ffffff;
+$cell-width: 30px;
+
+$th-border-bottom: #dfdfdf;
+$th-color: #aaaaaa;
+
+$invalid-border: #ffffff;
+$invalid-color: #aaaaaa;
+$invalid-bg: #eeeeee;
+
+$btn-fill: $cell-color;
+
+.calendar {
+  font: 0.875rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
+  position: relative;
+  margin: 0 -1rem 3rem;
+  background: $cell-bg;
+  padding: 2rem;
+
+  .caption {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .monthsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .mCell {
+    margin: 0 1rem 2rem;
+    min-width: 14rem;
+    flex: 1 1 25%;
+  }
+
+  .month {
+    border-collapse: collapse;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .tableHeader,
+  .body {
+    margin: 0;
+  }
+
+  .th {
+    border-bottom: 1px solid $th-border-bottom;
+    font-size: 0.85rem;
+    color: $th-color;
+    height: 25px;
+    width: $cell-width;
+    text-align: center;
+  }
+
+  .cell {
+    text-align: center;
+    padding: 0;
+    position: relative;
+    border: 1px solid $cell-border;
+    vertical-align: middle;
+    color: $cell-color;
+    background-clip: padding-box;
+    overflow: hidden;
+    width: $cell-width;
+  }
+
+  .cell:after {
+    content: '';
+    display: block;
+    margin-top: 100%;
+  }
+
+  .cnt {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 0;
+  }
+
+  .infoExtra,
+  .info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 0.7rem;
+    padding: 1px 3px;
+    text-align: right;
+    font-weight: 100;
+    right: 0;
+  }
+
+  .infoExtra {
+    left: 0;
+    text-align: left;
+    right: auto;
+  }
+}
+
+
+/********************************************************
+
+				  selections, start and ends
+
+********************************************************/
+.calendar .selected {
+  /* selected cell generic styles */
+}
+
+.calendar .disabled, .calendar .disabled:hover {
+  color: $disabled-color;
+  cursor: default;
+  background-color: $disabled-bg;
+}
+
+.calendar .highlighted {
+  border-color: $highlighted-border;
+}
+
+.actionsEnabled [data-enabled]:hover,
+.calendar .selectedStart,
+.calendar .selectedStart:hover {
+  background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);
+  border-top-color: $cell-border;
+  border-left-color: $cell-border;
+}
+
+.selecting .highlighted:hover,
+.calendar .selectedEnd,
+.calendar .selectedEnd:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
+  border-bottom-color: $cell-border;
+  border-right-color: $cell-border;
+}
+
+.calendar .nightDisabled,
+.calendar .nightDisabled:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $disabled-bg 50%);
+  color: $cell-color;
+}
+
+.calendar .morningDisabled,
+.calendar .morningDisabled:hover {
+  background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
+}
+
+.actionsEnabled [data-enabled]:hover,
+.selecting .nightDisabled:hover,
+.calendar .selectedEnd.nightDisabled,
+.calendar .highlighted {
+  background-color: $highlighted;
+  cursor: pointer;
+}
+
+.actionsEnabled {
+  [data-enabled]:hover,
+  [data-enabled]:hover .cnt,
+  [data-enabled]:hover .info,
+  [data-enabled]:hover .infoExtra {
+    cursor: pointer;
+  }
+}
+
+.selecting {
+  .nightDisabled:hover,
+  .nightDisabled:hover .cnt,
+  .nightDisabled:hover .info,
+  .nightDisabled:hover .infoExtra {
+    cursor: pointer;
+  }
+}
+
+.calendar .invalid:not(.selectedStart) {
+  background: $invalid-bg;
+  color: $invalid-color;
+  border-color: $invalid-border;
+}
+
+.calendar .invalid.selectedStart {
+  background-color: $invalid-bg;
+  border-bottom-color: $invalid-border;
+  border-right-color: $invalid-border;
+}
+
+/********************************************************
+
+				     buttons
+
+********************************************************/
+.calendar {
+  .forward, .back {
+    cursor: pointer;
+    height: 23px;
+    width: 23px;
+    fill: $btn-fill;
+    border-radius: 2px;
+    border: 1px solid $cell-border;
+    padding: 6px 9px;
+    top: 1.4rem;
+    left: 1rem;
+    z-index: 2;
+    position: absolute;
+  }
+
+  .forward {
+    right: 1rem;
+    left: auto;
+  }
+
+  .forward:active,
+  .forward:focus,
+  .back:active,
+  .back:focus {
+    outline: none;
+  }
+
+  .forward:hover,
+  .back:hover {
+    border-color: $highlighted;
+  }
+
+  .forward[disabled],
+  .back[disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+
+/********************************************************
+
+				     mods
+
+********************************************************/
+/* chunky layout */
+.chunky .cell {
+  /*height: 57px;*/
+}
+
+.chunky .mCell {
+  min-width: 20rem;
+}
