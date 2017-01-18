@@ -5,7 +5,7 @@ const { disabled, info, infoExtra, morningDisabled, nightDisabled, cnt } = s;
 export const main  = `<div class="${s.monthsWrapper}"></div>`;
 
 export const month = `<div class="${s.mCell}">
-                        <table class="${s.month}">
+                        <table class="${s.month}" role="month">
                           <caption class="${s.caption}"></caption>
                           <thead class="${s.tableHeader}"><tr></tr></thead>
                           <tbody class="${s.body}"></tbody>
@@ -20,7 +20,7 @@ export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rat
                            ${isOutAvailable ? 'data-available-out' : ''}
                            data-value="${label}"
                            class="${s.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
-                           <div class="${cnt}">
+                           <div class="${cnt}" role="day-value">
                             ${label}
                           </div>
                           ${rate ? '<span class="' + info + '">' + rateT + rate + '</span>' : ''}
