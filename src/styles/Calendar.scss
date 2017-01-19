@@ -18,7 +18,7 @@ $cell-color: #444444;
 $cell-bg: #ffffff;
 $cell-width: 30px;
 
-$info-color: rgba(60, 60, 60, 0.4);
+$info-color: rgba(60, 60, 60, 0.5);
 
 $th-border-bottom: #dfdfdf;
 $th-color: #aaaaaa;
@@ -125,12 +125,49 @@ $btn-fill: $cell-color;
 
 				  selections, start and ends
 
+				  N.B. Edit at your own risk
+				  one cell can have 10 states and lots of these combinations
+
+				  enabled
+
+				  disabled
+				  morningDisabled
+				  nightDisabled
+
+				  highlighted
+				  morningSelected
+				  nightSelected
+
+				  invalid
+				  morningInvalid
+				  nightInvalid
+
+
 ********************************************************/
 .calendar .selected {
-  /* selected cell generic styles */
+  color: inherit;
+  // selected cell generic styles
 }
 
-.calendar .disabled, .calendar .disabled:hover {
+.calendar .reversed {
+  color: inherit;
+  // selecting reversed (e.g. check-out first)
+}
+
+.calendar .direct {
+  color: inherit;
+}
+
+.calendar .selectingReversed {
+  color: inherit;
+}
+
+.calendar .selectingDirect {
+  color: inherit;
+}
+
+.calendar .disabled,
+.calendar .disabled:hover {
   color: $disabled-color;
   cursor: default;
   background-color: $disabled-bg;
@@ -140,20 +177,33 @@ $btn-fill: $cell-color;
   border-color: $highlighted-border;
 }
 
-.actionsEnabled [data-enabled]:hover,
-.calendar .selectedStart,
-.calendar .selectedStart:hover {
+.direct [data-enabled]:hover,
+.calendar .selectedStart {
   background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);
   border-top-color: $cell-border;
   border-left-color: $cell-border;
 }
 
-.selecting .highlighted:hover,
-.calendar .selectedEnd,
-.calendar .selectedEnd:hover {
+.selectingDirect .highlighted:hover,
+.calendar .selectedEnd {
   background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
   border-bottom-color: $cell-border;
   border-right-color: $cell-border;
+}
+
+.reversed [data-available-out]:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
+}
+
+.selectingReversed .highlighted:hover{
+  background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);
+  border-top-color: $cell-border;
+  border-left-color: $cell-border;
+}
+
+.selectingReversed .selectedEnd,
+.selectingReversed .selectedEnd:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
 }
 
 .calendar .nightDisabled,
@@ -167,15 +217,18 @@ $btn-fill: $cell-color;
   background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
 }
 
-.actionsEnabled [data-enabled]:hover,
-.selecting .nightDisabled:hover,
-.calendar  .selectedEnd.nightDisabled,
-.calendar  .highlighted {
+.direct [data-enabled]:hover,
+.reversed [data-available-out]:hover,
+.selectingDirect .nightDisabled:hover,
+.selectingReversed .morningDisabled:hover,
+.calendar .selectedStart,
+.calendar .selectedEnd,
+.calendar .highlighted {
   background-color: $highlighted;
   cursor: pointer;
 }
 
-.actionsEnabled {
+.direct {
   [data-enabled]:hover,
   [data-enabled]:hover .cnt,
   [data-enabled]:hover .info,
@@ -184,7 +237,16 @@ $btn-fill: $cell-color;
   }
 }
 
-.selecting {
+.reversed {
+  [data-available-out]:hover,
+  [data-available-out]:hover .cnt,
+  [data-available-out]:hover .info,
+  [data-available-out]:hover .infoExtra {
+    cursor: pointer;
+  }
+}
+
+.selectingDirect {
   .nightDisabled:hover,
   .nightDisabled:hover .cnt,
   .nightDisabled:hover .info,
@@ -193,23 +255,40 @@ $btn-fill: $cell-color;
   }
 }
 
-.calendar .invalid:not(.selectedStart) {
+.actionsEnabled .invalid:not(.selectedStart) {
   background: $invalid-bg;
   color: $invalid-color;
   border-color: $invalid-border;
 }
 
-.selecting .invalid:hover {
+.selectingReversed .invalid:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $invalid-bg 50%);
+  border-top-color: $cell-border;
+  border-left-color: $cell-border;
+  color: $cell-color;
+}
+
+.selectingReversed .invalid.selectedEnd,
+.selectingDirect .invalid:hover {
   background: linear-gradient(to left top, transparent 50%, $invalid-bg 50%);
   border-bottom-color: $cell-border;
   border-right-color: $cell-border;
-  cursor: default;
+  color: $cell-color;
 }
 
 .calendar .invalid {
   background-color: $invalid-bg;
   border-bottom-color: $invalid-border;
   border-right-color: $invalid-border;
+}
+
+.calendar {
+  .invalid:hover,
+  .invalid:hover .cnt,
+  .invalid:hover .info,
+  .invalid:hover .infoExtra {
+    cursor: default;
+  }
 }
 
 .calendar .invalid.disabled:hover {
@@ -253,10 +332,12 @@ $btn-fill: $cell-color;
   }
 
   .forward[disabled],
-  .back[disabled] {
-    opacity: 0.5 !important;
+  .forward[disabled]:hover,
+  .back[disabled],
+  .back[disabled]:hover {
+    opacity: 0.5;
     cursor: default;
-    border-color: $cell-border !important;
+    border-color: $cell-border;
   }
 }
 
