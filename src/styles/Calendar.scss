@@ -1,7 +1,12 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import 'loading';
 
-// colors
+/********************************************************
+
+				      colors
+
+********************************************************/
+
 $highlighted: #8acdf6;
 $highlighted-border: #bde3ff;
 
@@ -116,7 +121,6 @@ $btn-fill: $cell-color;
   }
 }
 
-
 /********************************************************
 
 				  selections, start and ends
@@ -165,8 +169,8 @@ $btn-fill: $cell-color;
 
 .actionsEnabled [data-enabled]:hover,
 .selecting .nightDisabled:hover,
-.calendar .selectedEnd.nightDisabled,
-.calendar .highlighted {
+.calendar  .selectedEnd.nightDisabled,
+.calendar  .highlighted {
   background-color: $highlighted;
   cursor: pointer;
 }
@@ -195,10 +199,21 @@ $btn-fill: $cell-color;
   border-color: $invalid-border;
 }
 
-.calendar .invalid.selectedStart {
+.selecting .invalid:hover {
+  background: linear-gradient(to left top, transparent 50%, $invalid-bg 50%);
+  border-bottom-color: $cell-border;
+  border-right-color: $cell-border;
+  cursor: default;
+}
+
+.calendar .invalid {
   background-color: $invalid-bg;
   border-bottom-color: $invalid-border;
   border-right-color: $invalid-border;
+}
+
+.calendar .invalid.disabled:hover {
+  background-color: $disabled-bg;
 }
 
 /********************************************************
@@ -244,7 +259,6 @@ $btn-fill: $cell-color;
     border-color: $cell-border !important;
   }
 }
-
 
 /********************************************************
 
