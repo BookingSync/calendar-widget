@@ -20,13 +20,13 @@ import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
 import locales from './locales';
 
-import reset from './styles/Reset.scss';
+import { reset } from './styles/Reset.scss';
 import css from './styles/Calendar.scss';
 
 
 const { calendar, chunky, highlighted, invalid,
         selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
-        selecting } = css;
+        reversed, direct, selectingReversed, selectingDirect } = css;
 
 const { documentElement: { lang } }  = document;
 const currDate                       = new Date();
@@ -123,7 +123,7 @@ export default class Calendar extends Emitter {
   }
 
   init() {
-    addClass(this.el, calendar, reset.reset);
+    addClass(this.el, calendar, reset);
 
     if (this.opts.showRates || this.opts.showMinStay) {
       addClass(this.el, chunky);
@@ -153,6 +153,10 @@ export default class Calendar extends Emitter {
     this.yearEnd    = yearEnd;
 
     this.recoverSelections();
+
+    if (this.opts.selectable) {
+      addClass(this.el, this.reverseSelecting ? reversed : direct);
+    }
 
     this.dom.months = months;
     this.dom.months.forEach((m) => {
@@ -234,10 +238,10 @@ export default class Calendar extends Emitter {
       let value;
       let cell;
 
-      if (this.isSelecting || isEndFirst) {
-        ({ value, parent: cell } = traverseToParentWithAttr(e.target, 'data-available-out'));
+      if (this.isSelecting) {
+        ({ value, parent: cell } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
-        ({ value, parent: cell } = traverseToParentWithAttr(e.target, 'data-enabled'));
+        ({ value, parent: cell } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
       if (is(value) && cell) {
@@ -259,17 +263,15 @@ export default class Calendar extends Emitter {
     el.addEventListener('mouseover', (e) => {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
-      if (is(value) && cell) {
-        if (this.isSelecting) {
-          const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+      if (this.isSelecting && is(value) && cell) {
+        const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
 
-          this.removeHighlight();
+        this.removeHighlight();
 
-          if (this.reverseSelecting) {
-            this.highLightRange(current, this.selectionEnd);
-          } else {
-            this.highLightRange(this.selectionStart, current);
-          }
+        if (this.reverseSelecting) {
+          this.highLightRange(current, this.selectionEnd);
+        } else {
+          this.highLightRange(this.selectionStart, current);
         }
       }
     });
@@ -293,10 +295,17 @@ export default class Calendar extends Emitter {
         return;
       }
       this.selectStartAction(dateValue, cell);
-      removeClass(this.el, selecting);
+
+      const fn = () => {
+        removeClass(this.el, selectingReversed);
+        cell.removeEventListener('mouseout', fn);
+      };
+
+      cell.addEventListener('mouseout', fn);
+
       this.isSelecting = false;
     } else {
-      addClass(this.el, selecting);
+      addClass(this.el, selectingReversed);
       this.isSelecting = true;
       this.selectEndAction(dateValue, cell);
     }
@@ -308,10 +317,16 @@ export default class Calendar extends Emitter {
         return;
       }
       this.selectEndAction(dateValue, cell);
-      removeClass(this.el, selecting);
+
+      const fn = () => {
+        removeClass(this.el, selectingDirect);
+        cell.removeEventListener('mouseout', fn);
+      };
+
+      cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
-      addClass(this.el, selecting);
+      addClass(this.el, selectingDirect);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
     }
