@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
       body {
-        padding: 50px;
+        padding: 40px;
         margin: auto;
         max-width: 80em;
-        background: #333;
+
       }
     </style>
     <script src="assets/bookingsync-calendar-widget.js"></script>
@@ -17,20 +17,26 @@
 
   <body>
 
-    <div data-calendar-widget
-         data-display-months="6"
-         data-selectable="true"
-         data-show-rates="true"
-         data-rental-ids=5125>
+    <div class="calendar-wrapper">
+      <input class="start-at aaa" type="text" placeholder="dd/mm/yyyy">
+      <input class="end-at aaa" type="text" placeholder="dd/mm/yyyy">
+      <button class="reset-selection">Reset</button>
     </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const cal = window.BookingSyncCalendarWidget[0];
 
-        cal.on('selection-end', (a, b) => { console.log('selection-end', a, b)});
-        cal.on('selection-start', (a, b) => { console.log('selection-start', a, b)});
+    <script>
+      var cal = new BookingSyncCalendarWidget({
+        el: document.querySelector('.calendar-wrapper'),
+        isDropDown: true,
+        selectable: true,
+        showRates: true,
+        elStartAt: document.querySelector('.start-at'),
+        elEndAt: document.querySelector('.end-at'),
+        elReset: document.querySelector('.reset-selection'),
       });
+
+      cal.on('selection-end', (a, b) => { console.log('selection-end', a, b)});
+      cal.on('selection-start', (a, b) => { console.log('selection-start', a, b)});
     </script>
   </body>
 </html>

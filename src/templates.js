@@ -1,4 +1,4 @@
-import s from './styles/Calendar.scss';
+import s from './styles/calendar.scss';
 
 const { disabled, info, infoExtra, morningDisabled, nightDisabled, cnt } = s;
 

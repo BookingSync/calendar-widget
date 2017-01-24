@@ -14,43 +14,43 @@ import {
   isFunction,
   isNumeric,
   traverseObj,
+  ajax,
+  isInside,
 } from 'widget-utils';
 
+import Drop from 'tether-drop';
 import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
+
+import config from './config';
 import locales from './locales';
 
-import { reset } from './styles/Reset.scss';
-import css from './styles/Calendar.scss';
+import { reset } from './styles/reset.scss';
+// import 'style-loader!css-loader!tether-drop/dist/css/drop-theme-arrows.css'
+import css from './styles/calendar.scss';
 
-
-const { calendar, chunky, highlighted, invalid,
+const {
+        calendar, chunky, highlighted, invalid,
         selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
-        reversed, direct, selectingReversed, selectingDirect } = css;
+        reversed, direct, selectingReversed, selectingDirect, dropBasic,
+      } = css;
 
-const { documentElement: { lang } }  = document;
-const currDate                       = new Date();
-const isLater                        = (start, end) => new Date(...start) < new Date(...end);
+const { documentElement: { lang } } = document;
+const isLater                       = (start, end) => new Date(...start) < new Date(...end);
 
-// const getISO = (date, period) => {
-//   function pad(number) {
-//     if (number < 10) {
-//       return `0${number}`;
-//     }
-//     return number;
-//   }
-//
-//   switch (period) {
-//     case 'year':
-//       return date.getUTCFullYear();
-//     case 'month':
-//       return pad(date.getUTCMonth() + 1);
-//     case 'date':
-//       return pad(date.getUTCDate());
-//     default:
-//       return date;
-//   }
-// };
+const formatDate = (format, year, month, day) => {
+  function pad(number) {
+    if (number < 10) {
+      return `0${number}`;
+    }
+    return number;
+  }
+
+  return format
+    .replace('dd', pad(day))
+    .replace('mm', month + 1)
+    .replace('yyyy', year);
+};
 
 const dateToIso = (year, month, day) => {
   function pad(number) {
@@ -70,46 +70,47 @@ const validationOfRange = (cell, index, range) => {
   return cell.getAttribute('data-disabled') === '';
 };
 
-const defaults = {
-  startOfWeek:      0, // 0 Mo ... 6 Su, by ISO
-  minRange:         1, // can select one night
-  monthStart:       currDate.getUTCMonth(), // start with current month by default M '0...12'
-  yearStart:        currDate.getUTCFullYear(), // start with current year YYYY
-  daysPerWeek:      7, // FIXME support calendar rendering
-  displayMonths:    2,
-  selectable:       false,
-  showRates:        false,
-  showMinStay:      false,
-  reverseSelecting: false, // select end date first
-  isBackDisabled:   true,
-};
-
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
     this.name    = 'BookingSync Calendar Widget';
     this.VERSION = VERSION;
-    this.opts    = merge(defaults, opts);
-    this.el      = opts.el;
-    this.dom     = {};
+    Calendar.instances = Calendar.instances || [];
 
-    this.opts    = traverseObj(this.opts, a => a, (b) => {
-      if (b === 'true' || b === 'false') {
-        return (b === 'true');
+    if (isObject(opts)) {
+      if (!opts.el) {
+        console.error('el must be HTML element');
+        return;
       }
-      if (isNumeric(b)) {
-        return parseInt(b, 10);
+
+      const configDataset = merge(config, opts.el.dataset);
+      this.opts           = merge(configDataset, opts);
+
+      this.opts = traverseObj(this.opts, a => a, (b) => {
+        if (b === 'true' || b === 'false') {
+          return (b === 'true');
+        }
+        if (isNumeric(b)) {
+          return parseInt(b, 10);
+        }
+        return b;
+      });
+
+      if (this.opts.isDropDown) {
+        this.initCalendarDrop();
+      } else {
+        this.el = opts.el;
       }
-      return b;
-    });
 
-    this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
-    this.locale    = locales[this.opts.lang || 'en'];
+      this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
+      this.locale    = locales[this.opts.lang || 'en'];
+    }
 
+    this.dom   = {};
     this.cTree = new CalendarTree(validationOfRange, {});
 
     if (isObject(maps)) {
-      this.cTree.addMaps(maps, maps.start_date || currDate);
+      this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);
     }
 
     // selection and highlights
@@ -118,7 +119,7 @@ export default class Calendar extends Emitter {
     this.hasValidRange     = true;
 
     // user selects end date first
-    this.reverseSelecting  = this.opts.reverseSelecting;
+    this.isReverseSelecting = this.opts.isReverseSelecting;
     this.init();
   }
 
@@ -138,6 +139,14 @@ export default class Calendar extends Emitter {
     this.emit('init');
   }
 
+  changeSelectionOrder(isReserse) {
+    if (isReserse !== this.isReverseSelecting) {
+      this.isReverseSelecting = isReserse;
+      this.destroyMonths();
+      this.renderMonths(this.yearStart, this.monthStart);
+    }
+  }
+
   renderMonths(yearStart, monthStart) {
     // construct dom tree
     const {
@@ -149,13 +158,14 @@ export default class Calendar extends Emitter {
     this.monthStart = monthStart;
     this.yearStart  = yearStart;
 
-    this.monthEnd   = monthEnd;
-    this.yearEnd    = yearEnd;
+    this.monthEnd = monthEnd;
+    this.yearEnd  = yearEnd;
 
     this.recoverSelections();
 
     if (this.opts.selectable) {
-      addClass(this.el, this.reverseSelecting ? reversed : direct);
+      addClass(this.el, this.isReverseSelecting ? reversed : direct);
+      removeClass(this.el, this.isReverseSelecting ? direct : reversed);
     }
 
     this.dom.months = months;
@@ -186,8 +196,12 @@ export default class Calendar extends Emitter {
 
   disableBackBtn() {
     if (this.opts.isBackDisabled) {
-      const startDate = dateToIso(this.yearStart, this.monthStart, 1);
-      const curr = dateToIso(currDate.getFullYear(), currDate.getMonth(), 1);
+      const startDate        = dateToIso(
+        this.yearStart, this.monthStart, 1
+      );
+      const curr             = dateToIso(
+        this.opts.currDate.getFullYear(), this.opts.currDate.getMonth(), 1
+      );
       this.dom.back.disabled = startDate <= curr;
     }
   }
@@ -206,7 +220,10 @@ export default class Calendar extends Emitter {
   addMaps(maps) {
     this.cTree.replaceMaps(maps, maps.start_date);
     this.destroyMonths();
-    this.renderMonths(this.opts.yearStart, this.opts.monthStart);
+    this.renderMonths(
+      this.opts.yearStart || this.yearStart,
+      this.opts.monthStart || this.monthStart
+    );
   }
 
   // FIXME add renderForward renderBackward methods
@@ -234,18 +251,24 @@ export default class Calendar extends Emitter {
 
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
-      const isEndFirst = this.reverseSelecting;
+      const isEndFirst = this.isReverseSelecting;
       let value;
       let cell;
 
       if (this.isSelecting) {
-        ({ value, parent: cell } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
+        ({
+                  value,
+          parent: cell,
+        } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
-        ({ value, parent: cell } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
+        ({
+                  value,
+          parent: cell,
+        } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
       if (is(value) && cell) {
-        const dateValue  = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
 
         // for simplicity just reset selection when user interacts again
         if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
@@ -268,7 +291,7 @@ export default class Calendar extends Emitter {
 
         this.removeHighlight();
 
-        if (this.reverseSelecting) {
+        if (this.isReverseSelecting) {
           this.highLightRange(current, this.selectionEnd);
         } else {
           this.highLightRange(this.selectionStart, current);
@@ -289,28 +312,6 @@ export default class Calendar extends Emitter {
     });
   }
 
-  endDateFirstAction(dateValue, cell) {
-    if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
-      if (!this.hasValidRange) {
-        return;
-      }
-      this.selectStartAction(dateValue, cell);
-
-      const fn = () => {
-        removeClass(this.el, selectingReversed);
-        cell.removeEventListener('mouseout', fn);
-      };
-
-      cell.addEventListener('mouseout', fn);
-
-      this.isSelecting = false;
-    } else {
-      addClass(this.el, selectingReversed);
-      this.isSelecting = true;
-      this.selectEndAction(dateValue, cell);
-    }
-  }
-
   startDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(this.selectionStart, dateValue)) {
       if (!this.hasValidRange) {
@@ -324,11 +325,36 @@ export default class Calendar extends Emitter {
       };
 
       cell.addEventListener('mouseout', fn);
+      this.valueToInput('end', dateValue);
       this.isSelecting = false;
     } else {
       addClass(this.el, selectingDirect);
+      this.valueToInput('start', dateValue);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
+    }
+  }
+
+  endDateFirstAction(dateValue, cell) {
+    if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
+      if (!this.hasValidRange) {
+        return;
+      }
+      this.selectStartAction(dateValue, cell);
+
+      const fn = () => {
+        removeClass(this.el, selectingReversed);
+        cell.removeEventListener('mouseout', fn);
+      };
+
+      cell.addEventListener('mouseout', fn);
+      this.valueToInput('start', dateValue);
+      this.isSelecting = false;
+    } else {
+      addClass(this.el, selectingReversed);
+      this.isSelecting = true;
+      this.valueToInput('end', dateValue);
+      this.selectEndAction(dateValue, cell);
     }
   }
 
@@ -360,7 +386,7 @@ export default class Calendar extends Emitter {
 
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
-    let hasValidRange = isValid;
+    let hasValidRange        = isValid;
 
     if (isArray(range)) {
       // if selected range less than minimum stay at start
@@ -389,7 +415,7 @@ export default class Calendar extends Emitter {
     }
 
     this.selectionStart = null;
-    this.selectionEnd = null;
+    this.selectionEnd   = null;
 
     if (this.cellA) {
       removeClass(this.cellA, selected, selectedStart);
@@ -401,6 +427,11 @@ export default class Calendar extends Emitter {
       this.cellB = null;
     }
 
+    if (this.opts.isDropDown && this.opts.elStartAt && this.opts.elEndAt) {
+      this.opts.elStartAt.value = null;
+      this.opts.elEndAt.value = null;
+    }
+
     return this;
   }
 
@@ -408,8 +439,8 @@ export default class Calendar extends Emitter {
     if (isLater(start, end)) {
       return this.cTree.selectRange(start, end);
     }
-    return  {
-      range: null,
+    return {
+      range:   null,
       isValid: false,
     };
   }
@@ -543,18 +574,18 @@ export default class Calendar extends Emitter {
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
         // pushing actual days 1...daysInMonth
         if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
-          const rate            = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
-          const minStay         = this.opts.showMinStay ? this.cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
+          const rate    = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
+          const minStay = this.opts.showMinStay ? this.cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
 
           let isDisabled      = this.cTree.isDayDisabled(year, month, dayOfMonth);
-          let isOutAvailable = this.cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
-          let isDisabledStart   = this.cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+          let isOutAvailable  = this.cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+          let isDisabledStart = this.cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
 
           // in the past any availability does not make sense
-          if (isLater([year, month, dayOfMonth], currDate)) {
-            isDisabled = true;
+          if (isLater([year, month, dayOfMonth], this.opts.currDate)) {
+            isDisabled      = true;
             isDisabledStart = undefined;
-            isOutAvailable = undefined;
+            isOutAvailable  = undefined;
           }
 
           week.push(tpls.weekDay(
@@ -584,6 +615,7 @@ export default class Calendar extends Emitter {
   }
 
   destroy() {
+    document.removeEventListener('click', this.closeDrop.bind(this));
     return destroyElement(this.el);
   }
 
@@ -593,6 +625,114 @@ export default class Calendar extends Emitter {
    * @param documentLang {String}
    * @returns {String}
    */
+
+  loadMaps(id) {
+    this.toggleLoading();
+
+    const onSuccess = (rental) => {
+      this.toggleLoading();
+      if (isArray(rental.data) && rental.data[0].attributes) {
+        this.addMaps(rental.data[0].attributes);
+        this.mapsLoaded = true;
+      } else {
+        console.error('expects json-api data format');
+      }
+    };
+
+    const onError = () => {
+      this.toggleLoading();
+      console.error('Server error happened');
+    };
+
+    ajax(this.opts.rentalUrl(id), onSuccess, onError);
+  }
+
+  initCalendarDrop() {
+
+    const element = elementFromString('<div></div>');
+    document.body.appendChild(element);
+    this.elTarget = this.opts.el;
+    this.el       = element;
+    const MyDrop = Drop.createContext({
+      classPrefix: 'BookingSyncCalendar__drop',
+    });
+
+    const calDrop = new MyDrop({
+      content: element,
+      target: this.elTarget,
+      classes: dropBasic,
+      openOn: null,
+      targetAttachment: 'bottom left',
+      constrainToWindow: true,
+      constrainToScrollParent: false,
+    });
+
+    this.opts.elStartAt.addEventListener('focus', (e) => {
+      this.changeSelectionOrder(false);
+      if (!calDrop.isOpened()){
+        calDrop.open();
+        if (!this.mapsLoaded) {
+          this.loadMaps(833);
+        }
+      }
+    });
+
+    this.opts.elEndAt.addEventListener('focus', (e) => {
+      this.changeSelectionOrder(true);
+      if (!calDrop.isOpened()){
+        calDrop.open();
+        if (!this.mapsLoaded) {
+          this.loadMaps(833);
+        }
+      }
+    });
+
+    this.opts.elStartAt.addEventListener('blur', (e) => {
+      // console.log(calDrop);
+      // if (calDrop.isOpened()){
+      //   calDrop.close();
+      // }
+    });
+
+    this.opts.elEndAt.addEventListener('blur', (e) => {
+      // console.log(calDrop);
+      // if (calDrop.isOpened()){
+      //   calDrop.close();
+      // }
+    });
+
+    this.opts.elReset.addEventListener('click', () => {
+      this.resetSelection();
+    });
+
+    document.addEventListener('click', this.closeDrop.bind(this));
+
+    calDrop.on('open', () => {
+
+    });
+
+    this.calDrop = calDrop;
+  }
+
+  valueToInput(input, dateValue) {
+    const format = this.opts.formatDate;
+    const value = formatDate(format, ...dateValue);
+
+    if (input === 'start') {
+      this.opts.elStartAt.value = value;
+    } else {
+      this.opts.elEndAt.value = value;
+    }
+  }
+
+  closeDrop(e) {
+    if (isInside(e.target, this.el) || isInside(e.target, this.elTarget)) {
+      e.stopPropagation();
+    } else {
+      this.calDrop.close();
+    }
+  }
+
   static widgetLang(elLang, documentLang) {
     let langFallback = elLang || documentLang;
 
