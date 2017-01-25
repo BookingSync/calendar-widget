@@ -26,14 +26,12 @@ import config from './config';
 import locales from './locales';
 
 import { reset } from './styles/reset.scss';
-// import 'style-loader!css-loader!tether-drop/dist/css/drop-theme-arrows.css'
-import css from './styles/calendar.scss';
 
-const {
-        calendar, chunky, highlighted, invalid,
-        selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
-        reversed, direct, selectingReversed, selectingDirect, dropBasic,
-      } = css;
+import {
+  calendar, chunky, highlighted, invalid,
+  selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
+  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus,
+} from './styles/reset.scss';
 
 const { documentElement: { lang } } = document;
 const isLater                       = (start, end) => new Date(...start) < new Date(...end);
@@ -48,7 +46,7 @@ const formatDate = (format, year, month, day) => {
 
   return format
     .replace('dd', pad(day))
-    .replace('mm', month + 1)
+    .replace('mm', pad(month + 1))
     .replace('yyyy', year);
 };
 
@@ -75,7 +73,6 @@ export default class Calendar extends Emitter {
     super();
     this.name    = 'BookingSync Calendar Widget';
     this.VERSION = VERSION;
-    Calendar.instances = Calendar.instances || [];
 
     if (isObject(opts)) {
       if (!opts.el) {
@@ -139,9 +136,9 @@ export default class Calendar extends Emitter {
     this.emit('init');
   }
 
-  changeSelectionOrder(isReserse) {
-    if (isReserse !== this.isReverseSelecting) {
-      this.isReverseSelecting = isReserse;
+  changeSelectionOrder(isReverse) {
+    if ((isReverse !== this.isReverseSelecting) && !(this.selectionEnd || this.selectionStart)) {
+      this.isReverseSelecting = isReverse;
       this.destroyMonths();
       this.renderMonths(this.yearStart, this.monthStart);
     }
@@ -182,15 +179,19 @@ export default class Calendar extends Emitter {
 
   recoverSelections() {
     if (this.selectionStart) {
-      this.selectStart(...this.selectionStart, this.cTree.selectDay(...this.selectionStart));
+      this.selectStart(this.selectionStart, this.cTree.selectDay(...this.selectionStart));
     }
 
     if (this.selectionEnd) {
-      this.selectEnd(...this.selectionEnd, this.cTree.selectDay(...this.selectionEnd));
+      this.selectEnd(this.selectionEnd, this.cTree.selectDay(...this.selectionEnd));
     }
 
-    if (this.highlightedBounds.length > 0) {
-      this.highLightRange(...this.highlightedBounds);
+    if (this.selectionStart && this.selectionEnd) {
+      if (this.highlightedBounds.length > 0) {
+        this.highLightRange(...this.highlightedBounds)
+      } else {
+        this.highLightRange(this.selectionStart, this.selectionEnd);
+      }
     }
   }
 
@@ -226,7 +227,6 @@ export default class Calendar extends Emitter {
     );
   }
 
-  // FIXME add renderForward renderBackward methods
   addBtnsEvents() {
     this.dom.forward.addEventListener('click', (e) => {
       this.destroyMonths();
@@ -257,13 +257,11 @@ export default class Calendar extends Emitter {
 
       if (this.isSelecting) {
         ({
-                  value,
-          parent: cell,
+          value, parent: cell
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
         ({
-                  value,
-          parent: cell,
+          value, parent: cell
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
@@ -280,21 +278,27 @@ export default class Calendar extends Emitter {
         } else {
           this.startDateFirstAction(dateValue, cell);
         }
+
+        if (this.opts.isDropDown && this.selectionEnd && this.selectionStart) {
+          this.completeSelection(isEndFirst, dateValue, cell);
+        }
       }
     });
 
     el.addEventListener('mouseover', (e) => {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
-      if (this.isSelecting && is(value) && cell) {
+      if (is(value) && cell) {
         const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
 
-        this.removeHighlight();
+        if (this.isSelecting) {
+          this.removeHighlight();
 
-        if (this.isReverseSelecting) {
-          this.highLightRange(current, this.selectionEnd);
-        } else {
-          this.highLightRange(this.selectionStart, current);
+          if (this.isReverseSelecting && this.selectionEnd) {
+            this.highLightRange(current, this.selectionEnd);
+          } else {
+            this.highLightRange(this.selectionStart, current);
+          }
         }
       }
     });
@@ -325,11 +329,9 @@ export default class Calendar extends Emitter {
       };
 
       cell.addEventListener('mouseout', fn);
-      this.valueToInput('end', dateValue);
       this.isSelecting = false;
     } else {
       addClass(this.el, selectingDirect);
-      this.valueToInput('start', dateValue);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
     }
@@ -348,18 +350,16 @@ export default class Calendar extends Emitter {
       };
 
       cell.addEventListener('mouseout', fn);
-      this.valueToInput('start', dateValue);
       this.isSelecting = false;
     } else {
       addClass(this.el, selectingReversed);
       this.isSelecting = true;
-      this.valueToInput('end', dateValue);
       this.selectEndAction(dateValue, cell);
     }
   }
 
   selectStartAction(dateValue, cell) {
-    this.selectStart(...dateValue, cell);
+    this.selectStart(dateValue, cell);
     this.emit('selection-start', dateToIso(...dateValue), dateValue);
     if (isFunction(this.opts.onSelectStart)) {
       this.opts.onSelectStart(dateToIso(...dateValue), dateValue);
@@ -367,7 +367,7 @@ export default class Calendar extends Emitter {
   }
 
   selectEndAction(dateValue, cell) {
-    this.selectEnd(...dateValue, cell);
+    this.selectEnd(dateValue, cell);
     this.emit('selection-end', dateToIso(...dateValue), dateValue);
     if (isFunction(this.opts.onSelectEnd)) {
       this.opts.onSelectEnd(dateToIso(...dateValue), dateValue);
@@ -394,8 +394,10 @@ export default class Calendar extends Emitter {
         hasValidRange = false;
       }
 
-      range.map(a => addClass(a,
-        hasValidRange ? highlighted : invalid)
+      range.map(a => {
+          removeClass(a, highlighted, invalid);
+          addClass(a, hasValidRange ? highlighted : invalid);
+        }
       );
 
       this.hasValidRange     = hasValidRange;
@@ -429,7 +431,7 @@ export default class Calendar extends Emitter {
 
     if (this.opts.isDropDown && this.opts.elStartAt && this.opts.elEndAt) {
       this.opts.elStartAt.value = null;
-      this.opts.elEndAt.value = null;
+      this.opts.elEndAt.value   = null;
     }
 
     return this;
@@ -445,8 +447,8 @@ export default class Calendar extends Emitter {
     };
   }
 
-  selectStart(year, month, day, cell) {
-    this.selectionStart = [year, month, day];
+  selectStart(dateValue, cell) {
+    this.selectionStart = dateValue;
 
     if (this.cellA) {
       removeClass(this.cellA, selected, selectedStart);
@@ -456,10 +458,11 @@ export default class Calendar extends Emitter {
       addClass(cell, selected, selectedStart);
       this.cellA = cell;
     }
+    this.valueToInput('start', dateValue);
   }
 
-  selectEnd(year, month, day, cell) {
-    this.selectionEnd = [year, month, day];
+  selectEnd(dateValue, cell) {
+    this.selectionEnd = dateValue;
 
     if (this.cellB) {
       removeClass(this.cellB, selected, selectedEnd);
@@ -469,6 +472,7 @@ export default class Calendar extends Emitter {
       addClass(cell, selected, selectedEnd);
       this.cellB = cell;
     }
+    this.valueToInput('end', dateValue);
   }
 
   createTree(yearStart, monthStart, times) {
@@ -615,7 +619,6 @@ export default class Calendar extends Emitter {
   }
 
   destroy() {
-    document.removeEventListener('click', this.closeDrop.bind(this));
     return destroyElement(this.el);
   }
 
@@ -647,88 +650,97 @@ export default class Calendar extends Emitter {
     ajax(this.opts.rentalUrl(id), onSuccess, onError);
   }
 
-  initCalendarDrop() {
+  completeSelection() {
+    this.emit('selection-completed', this.selectionStart, this.selectionEnd);
+    this.calDrop.close();
+  }
 
+  initCalendarDrop() {
     const element = elementFromString('<div></div>');
-    document.body.appendChild(element);
     this.elTarget = this.opts.el;
     this.el       = element;
+
+    document.body.appendChild(element);
+
     const MyDrop = Drop.createContext({
       classPrefix: 'BookingSyncCalendar__drop',
     });
 
     const calDrop = new MyDrop({
-      content: element,
-      target: this.elTarget,
-      classes: dropBasic,
-      openOn: null,
-      targetAttachment: 'bottom left',
-      constrainToWindow: true,
+      content:                 element,
+      target:                  this.elTarget,
+      classes:                 dropBasic,
+      openOn:                  null,
+      targetAttachment:        'bottom left',
+      constrainToWindow:       true,
       constrainToScrollParent: false,
     });
 
-    this.opts.elStartAt.addEventListener('focus', (e) => {
+    this.opts.elStartAt.addEventListener('focus', () => {
+      addClass(this.opts.elStartAt, focus);
+      removeClass(this.opts.elEndAt, focus);
+
       this.changeSelectionOrder(false);
-      if (!calDrop.isOpened()){
+      if (!calDrop.isOpened()) {
         calDrop.open();
         if (!this.mapsLoaded) {
-          this.loadMaps(833);
+          this.loadMaps(this.opts.rentalId);
         }
       }
     });
 
-    this.opts.elEndAt.addEventListener('focus', (e) => {
+    this.opts.elEndAt.addEventListener('focus', () => {
+      addClass(this.opts.elEndAt, focus);
+      removeClass(this.opts.elStartAt, focus);
+
       this.changeSelectionOrder(true);
-      if (!calDrop.isOpened()){
+      if (!calDrop.isOpened()) {
         calDrop.open();
         if (!this.mapsLoaded) {
-          this.loadMaps(833);
+          this.loadMaps(this.opts.rentalId);
         }
       }
     });
 
     this.opts.elStartAt.addEventListener('blur', (e) => {
-      // console.log(calDrop);
-      // if (calDrop.isOpened()){
-      //   calDrop.close();
-      // }
+      if (this.selectionStart && this.selectionEnd) {
+        this.closeDrop(e, true)
+      }
     });
 
     this.opts.elEndAt.addEventListener('blur', (e) => {
-      // console.log(calDrop);
-      // if (calDrop.isOpened()){
-      //   calDrop.close();
-      // }
+      if (this.selectionStart && this.selectionEnd) {
+        this.closeDrop(e, true)
+      }
     });
 
-    this.opts.elReset.addEventListener('click', () => {
-      this.resetSelection();
-    });
+    if (this.opts.elReset) {
+      this.opts.elReset.addEventListener('click', () => {
+        this.resetSelection();
+      });
+    }
 
     document.addEventListener('click', this.closeDrop.bind(this));
-
-    calDrop.on('open', () => {
-
-    });
-
     this.calDrop = calDrop;
   }
 
   valueToInput(input, dateValue) {
     const format = this.opts.formatDate;
-    const value = formatDate(format, ...dateValue);
+    const value  = formatDate(format, ...dateValue);
 
-    if (input === 'start') {
+    if (input === 'start' && this.opts.elStartAt) {
       this.opts.elStartAt.value = value;
-    } else {
+    } else if (input === 'end' && this.opts.elEndAt) {
       this.opts.elEndAt.value = value;
     }
   }
 
-  closeDrop(e) {
-    if (isInside(e.target, this.el) || isInside(e.target, this.elTarget)) {
+  closeDrop(e, force) {
+    if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
+      removeClass(this.opts.elStartAt, focus);
+      removeClass(this.opts.elEndAt, focus);
       this.calDrop.close();
     }
   }

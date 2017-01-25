@@ -122,6 +122,10 @@ $btn-fill: $cell-color;
   }
 }
 
+.focus {
+  border-color: $highlighted;
+}
+
 /********************************************************
 
 				  selections, start and ends
@@ -252,6 +256,15 @@ $btn-fill: $cell-color;
   .nightDisabled:hover .cnt,
   .nightDisabled:hover .info,
   .nightDisabled:hover .infoExtra {
+    cursor: pointer;
+  }
+}
+
+.selectingReversed {
+  .morningDisabled:hover,
+  .morningDisabled:hover .cnt,
+  .morningDisabled:hover .info,
+  .morningDisabled:hover .infoExtra {
     cursor: pointer;
   }
 }
