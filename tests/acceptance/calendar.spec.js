@@ -3,7 +3,6 @@ import chai from 'chai';
 
 import Calendar from '../../src/calendar';
 
-
 chai.expect();
 
 const expect   = chai.expect;

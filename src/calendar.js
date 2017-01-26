@@ -1,21 +1,8 @@
 /* global VERSION, Node, document, require */
 import {
-  addClass,
-  removeClass,
-  isArray,
-  isObject,
-  Emitter,
-  merge,
-  elementFromString,
-  traverseToParentWithAttr,
-  destroyElement,
-  monthLength,
-  is,
-  isFunction,
-  isNumeric,
-  traverseObj,
-  ajax,
-  isInside,
+  addClass, removeClass, isArray, isObject, Emitter,
+  merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
+  isNumeric, traverseObj, ajax, isInside,
 } from 'widget-utils';
 
 import Drop from 'tether-drop';
@@ -137,7 +124,7 @@ export default class Calendar extends Emitter {
   }
 
   changeSelectionOrder(isReverse) {
-    if (isReverse !== this.isReverseSelectable && !this.isSelecting) {
+    if ((isReverse !== this.isReverseSelectable) && !this.isSelecting) {
       this.isReverseSelectable = isReverse;
       this.destroyMonths();
       this.renderMonths(this.yearStart, this.monthStart);
@@ -360,6 +347,7 @@ export default class Calendar extends Emitter {
 
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
+    this.switchInputFocus('end');
     this.emit('selection-start', dateToIso(...dateValue), dateValue);
     if (isFunction(this.opts.onSelectStart)) {
       this.opts.onSelectStart(dateToIso(...dateValue), dateValue);
@@ -368,6 +356,7 @@ export default class Calendar extends Emitter {
 
   selectEndAction(dateValue, cell) {
     this.selectEnd(dateValue, cell);
+    this.switchInputFocus('start');
     this.emit('selection-end', dateToIso(...dateValue), dateValue);
     if (isFunction(this.opts.onSelectEnd)) {
       this.opts.onSelectEnd(dateToIso(...dateValue), dateValue);
@@ -459,7 +448,6 @@ export default class Calendar extends Emitter {
       this.cellA = cell;
     }
     this.valueToInput('start', dateValue);
-    this.switchInputFocus('end');
   }
 
   selectEnd(dateValue, cell) {
@@ -474,7 +462,6 @@ export default class Calendar extends Emitter {
       this.cellB = cell;
     }
     this.valueToInput('end', dateValue);
-    this.switchInputFocus('start');
   }
 
   createTree(yearStart, monthStart, times) {
@@ -680,9 +667,7 @@ export default class Calendar extends Emitter {
 
     const onFocus = (input, isReversed) => {
       this.switchInputFocus(input);
-
       this.changeSelectionOrder(isReversed);
-
       if (!calDrop.isOpened()) {
         calDrop.open();
         if (!this.mapsLoaded) {
@@ -727,12 +712,10 @@ export default class Calendar extends Emitter {
         addClass(this.opts.elStartAt, focus);
         removeClass(this.opts.elEndAt, focus);
       }
-
       if (type === 'end') {
         addClass(this.opts.elEndAt, focus);
         removeClass(this.opts.elStartAt, focus);
       }
-
       if (type === 'any') {
         removeClass(this.opts.elStartAt, focus);
         removeClass(this.opts.elEndAt, focus);
