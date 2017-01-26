@@ -1,44 +1,110 @@
 <!DOCTYPE html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8">
-    <title>Calendar Widget</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <style>
-      body {
-        padding: 40px;
-        margin: auto;
-        max-width: 80em;
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <title>Calendar Widget</title>
+  <style>
+    .content {
+      margin: auto;
+      max-width: 50em;
+      padding: 2rem;
+    }
+  </style>
+  <script src="assets/bookingsync-calendar-widget.js"></script>
+</head>
 
-      }
-    </style>
-    <script src="assets/bookingsync-calendar-widget.js"></script>
-  </head>
+<body>
+<div class="content">
+  <p>
+    Stay focused. The key is to drink coconut, fresh coconut, trust me. Find peace, life is like a
+    water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
+    shower,
+    dry your back, it’s a cold world out there. Learning is cool, but knowing is better, and I know
+    the key to success. It’s important to use cocoa butter. It’s the key to more success, why not
+    live
+    smooth? Why live rough? Egg whites, turkey sausage, wheat toast, water. Of course they don’t
+    want
+    us to eat our breakfast, so we are going to enjoy our breakfast.
 
-  <body>
-
+    Eliptical talk. Celebrate success right, the only way, apple. Stay focused. You see that bamboo
+    behind me though, you see that bamboo? Ain’t nothin’ like bamboo. Bless up. Surround yourself
+    with
+    angels, positive energy, beautiful people, beautiful souls, clean heart, angel. The key is to
+    drink coconut, fresh coconut, trust me. The other day the grass was brown, now it’s green
+    because
+    I ain’t give up. Never surrender. I’m up to something. Watch your back, but more importantly
+    when
+    you get out the shower, dry your back, it’s a cold world out there.
+  </p>
+  <div>
     <div class="calendar-wrapper">
       <input class="start-at aaa" type="text" placeholder="dd/mm/yyyy">
       <input class="end-at aaa" type="text" placeholder="dd/mm/yyyy">
       <button class="reset-selection">Reset</button>
     </div>
+  </div>
+  <p>
+    You see that bamboo behind me though, you see that bamboo? Ain’t nothin’ like bamboo. Bless up.
+    Hammock talk come soon. They will try to close the door on you, just open it. Find peace, life
+    is
+    like a water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
+    shower, dry your back, it’s a cold world out there. Find peace, life is like a water fall,
+    you’ve
+    gotta flow. They key is to have every key, the key to open every door.
 
+    They will try to close the door on you, just open it. Wraith talk. The key to more success is to
+    have a lot of pillows. Learning is cool, but knowing is better, and I know the key to success.
+    The
+    other day the grass was brown, now it’s green because I ain’t give up. Never surrender. In life
+    there will be road blocks but we will over come it. Cloth talk. Surround yourself with angels,
+    positive energy, beautiful people, beautiful souls, clean heart, angel. They don’t want us to
+    eat.
+    The key is to enjoy life, because they don’t want you to enjoy life. I promise you, they don’t
+    want you to jetski, they don’t want you to smile.
+  </p>
+  <p>A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay calm.
+    I’m
+    up to something. Life is what you make it, so let’s make it. How’s business? Boomin. They will
+    try
+    to close the door on you, just open it. They key is to have every key, the key to open every
+    door.
+    I’m giving you cloth talk, cloth. Special cloth alert, cut from a special cloth. How’s business?
+    Boomin. A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay
+    calm. You should never complain, complaining is a weak emotion, you got life, we breathing, we
+    blessed.
+  </p>
 
-    <script>
-      var cal = new BookingSyncCalendarWidget({
-        el: document.querySelector('.calendar-wrapper'),
-        isDropDown: true,
-        selectable: true,
-        showRates: true,
-        elStartAt: document.querySelector('.start-at'),
-        elEndAt: document.querySelector('.end-at'),
-        elReset: document.querySelector('.reset-selection'),
-      });
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-api-host="http://192.168.0.102:3000",
+       data-display-months="6"
+       data-show-rates="true"
+       data-rental-ids="833">
+  </div>
 
-      cal.on('selection-end', (a, b) => { console.log('selection-end', a, b)});
-      cal.on('selection-start', (a, b) => { console.log('selection-start', a, b)});
-    </script>
-  </body>
+</div>
+
+<script>
+  var cal = new BookingSyncCalendarWidget({
+    el:         document.querySelector('.calendar-wrapper'),
+    isDropDown: true,
+    selectable: true,
+    apiHost: 'http://192.168.0.102:3000',
+    showRates:  true,
+    elStartAt:  document.querySelector('.start-at'),
+    elEndAt:    document.querySelector('.end-at'),
+    elReset:    document.querySelector('.reset-selection'),
+  });
+
+  cal.on('selection-end', function (a, b) {
+    console.log('selection-end', a, b)
+  });
+  cal.on('selection-start', function (a, b) {
+    console.log('selection-start', a, b)
+  });
+</script>
+</body>
 </html>
 
 

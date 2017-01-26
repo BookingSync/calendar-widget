@@ -38,7 +38,7 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test:    /(\.scss|\.sass)$/,
+        test:    /(\.scss)$/,
         loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSyncCalendar__[Local]!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents',
         exclude: /(node_modules|bower_components)/,
       }

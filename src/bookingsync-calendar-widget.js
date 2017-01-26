@@ -3,7 +3,7 @@ import Calendar from './calendar';
 
 Calendar.init = () => {
   const initialized = [];
-  const calendarElements = document.querySelectorAll('[data-calendar-widget]');
+  const calendarElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');
   const len              = calendarElements.length;
 
   for (let i = 0; i < len; i += 1) {

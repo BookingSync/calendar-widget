@@ -31,7 +31,7 @@ import {
   calendar, chunky, highlighted, invalid,
   selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
   reversed, direct, selectingReversed, selectingDirect, dropBasic, focus,
-} from './styles/reset.scss';
+} from './styles/calendar.scss';
 
 const { documentElement: { lang } } = document;
 const isLater                       = (start, end) => new Date(...start) < new Date(...end);
@@ -58,7 +58,7 @@ const dateToIso = (year, month, day) => {
     return number;
   }
 
-  return new Date(`${year}-${pad(month + 1)}-${day}`);
+  return new Date(`${year}-${pad(month + 1)}-${pad(day)}`);
 };
 
 const validationOfRange = (cell, index, range) => {
@@ -116,7 +116,7 @@ export default class Calendar extends Emitter {
     this.hasValidRange     = true;
 
     // user selects end date first
-    this.isReverseSelecting = this.opts.isReverseSelecting;
+    this.isReverseSelectable = this.opts.isReverseSelectable;
     this.init();
   }
 
@@ -137,8 +137,8 @@ export default class Calendar extends Emitter {
   }
 
   changeSelectionOrder(isReverse) {
-    if ((isReverse !== this.isReverseSelecting) && !(this.selectionEnd || this.selectionStart)) {
-      this.isReverseSelecting = isReverse;
+    if (isReverse !== this.isReverseSelectable && !this.isSelecting) {
+      this.isReverseSelectable = isReverse;
       this.destroyMonths();
       this.renderMonths(this.yearStart, this.monthStart);
     }
@@ -161,8 +161,8 @@ export default class Calendar extends Emitter {
     this.recoverSelections();
 
     if (this.opts.selectable) {
-      addClass(this.el, this.isReverseSelecting ? reversed : direct);
-      removeClass(this.el, this.isReverseSelecting ? direct : reversed);
+      addClass(this.el, this.isReverseSelectable ? reversed : direct);
+      removeClass(this.el, this.isReverseSelectable ? direct : reversed);
     }
 
     this.dom.months = months;
@@ -188,7 +188,7 @@ export default class Calendar extends Emitter {
 
     if (this.selectionStart && this.selectionEnd) {
       if (this.highlightedBounds.length > 0) {
-        this.highLightRange(...this.highlightedBounds)
+        this.highLightRange(...this.highlightedBounds);
       } else {
         this.highLightRange(this.selectionStart, this.selectionEnd);
       }
@@ -251,17 +251,17 @@ export default class Calendar extends Emitter {
 
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
-      const isEndFirst = this.isReverseSelecting;
+      const isEndFirst = this.isReverseSelectable;
       let value;
       let cell;
 
       if (this.isSelecting) {
         ({
-          value, parent: cell
+          value, parent: cell,
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
         ({
-          value, parent: cell
+          value, parent: cell,
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
@@ -294,7 +294,7 @@ export default class Calendar extends Emitter {
         if (this.isSelecting) {
           this.removeHighlight();
 
-          if (this.isReverseSelecting && this.selectionEnd) {
+          if (this.isReverseSelectable && this.selectionEnd) {
             this.highLightRange(current, this.selectionEnd);
           } else {
             this.highLightRange(this.selectionStart, current);
@@ -394,11 +394,11 @@ export default class Calendar extends Emitter {
         hasValidRange = false;
       }
 
-      range.map(a => {
-          removeClass(a, highlighted, invalid);
-          addClass(a, hasValidRange ? highlighted : invalid);
-        }
-      );
+      range.map((a) => {
+        removeClass(a, highlighted, invalid);
+        addClass(a, hasValidRange ? highlighted : invalid);
+        return a;
+      });
 
       this.hasValidRange     = hasValidRange;
       this.highlightedBounds = [start, end];
@@ -459,6 +459,7 @@ export default class Calendar extends Emitter {
       this.cellA = cell;
     }
     this.valueToInput('start', dateValue);
+    this.switchInputFocus('end');
   }
 
   selectEnd(dateValue, cell) {
@@ -473,6 +474,7 @@ export default class Calendar extends Emitter {
       this.cellB = cell;
     }
     this.valueToInput('end', dateValue);
+    this.switchInputFocus('start');
   }
 
   createTree(yearStart, monthStart, times) {
@@ -652,7 +654,7 @@ export default class Calendar extends Emitter {
 
   completeSelection() {
     this.emit('selection-completed', this.selectionStart, this.selectionEnd);
-    this.calDrop.close();
+    this.closeDrop(null, true);
   }
 
   initCalendarDrop() {
@@ -672,46 +674,29 @@ export default class Calendar extends Emitter {
       classes:                 dropBasic,
       openOn:                  null,
       targetAttachment:        'bottom left',
-      constrainToWindow:       true,
+      constrainToWindow:       false,
       constrainToScrollParent: false,
     });
 
-    this.opts.elStartAt.addEventListener('focus', () => {
-      addClass(this.opts.elStartAt, focus);
-      removeClass(this.opts.elEndAt, focus);
+    const onFocus = (input, isReversed) => {
+      this.switchInputFocus(input);
 
-      this.changeSelectionOrder(false);
+      this.changeSelectionOrder(isReversed);
+
       if (!calDrop.isOpened()) {
         calDrop.open();
         if (!this.mapsLoaded) {
           this.loadMaps(this.opts.rentalId);
         }
       }
+    };
+
+    this.opts.elStartAt.addEventListener('focus', () => {
+      onFocus('start', false);
     });
 
     this.opts.elEndAt.addEventListener('focus', () => {
-      addClass(this.opts.elEndAt, focus);
-      removeClass(this.opts.elStartAt, focus);
-
-      this.changeSelectionOrder(true);
-      if (!calDrop.isOpened()) {
-        calDrop.open();
-        if (!this.mapsLoaded) {
-          this.loadMaps(this.opts.rentalId);
-        }
-      }
-    });
-
-    this.opts.elStartAt.addEventListener('blur', (e) => {
-      if (this.selectionStart && this.selectionEnd) {
-        this.closeDrop(e, true)
-      }
-    });
-
-    this.opts.elEndAt.addEventListener('blur', (e) => {
-      if (this.selectionStart && this.selectionEnd) {
-        this.closeDrop(e, true)
-      }
+      onFocus('end', true);
     });
 
     if (this.opts.elReset) {
@@ -721,6 +706,7 @@ export default class Calendar extends Emitter {
     }
 
     document.addEventListener('click', this.closeDrop.bind(this));
+    // document.addEventListener('touchstart', this.closeDrop.bind(this));
     this.calDrop = calDrop;
   }
 
@@ -735,12 +721,30 @@ export default class Calendar extends Emitter {
     }
   }
 
+  switchInputFocus(type) {
+    if (this.opts.elStartAt && this.opts.elEndAt) {
+      if (type === 'start') {
+        addClass(this.opts.elStartAt, focus);
+        removeClass(this.opts.elEndAt, focus);
+      }
+
+      if (type === 'end') {
+        addClass(this.opts.elEndAt, focus);
+        removeClass(this.opts.elStartAt, focus);
+      }
+
+      if (type === 'any') {
+        removeClass(this.opts.elStartAt, focus);
+        removeClass(this.opts.elEndAt, focus);
+      }
+    }
+  }
+
   closeDrop(e, force) {
     if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
-      removeClass(this.opts.elStartAt, focus);
-      removeClass(this.opts.elEndAt, focus);
+      this.switchInputFocus('any');
       this.calDrop.close();
     }
   }

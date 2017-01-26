@@ -13,23 +13,23 @@ export default {
     return NODE_ENV === 'development' ? `${this.apiHost}/rental` : `${this.apiHost}${this.apiNamespace}${route}`;
   },
 
-  startOfWeek:        0, // 0 Mo ... 6 Su, by ISO
-  minRange:           1, // can select one night
-  monthStart:         currDate.getUTCMonth(), // start with current month by default M '0...12'
-  yearStart:          currDate.getUTCFullYear(), // start with current year YYYY
-  daysPerWeek:        7, // FIXME support calendar rendering
-  displayMonths:      2,
-  selectable:         false,
-  showRates:          false,
-  showMinStay:        false,
-  isReverseSelecting: false, // select end date first
-  isBackDisabled:     true,
-  isDropDown:         false,
-  el:                 null,
-  elStartAt:          null,
-  elEndAt:            null,
-  elReset:            null,
-  formatDate:         'dd/mm/yyyy',
-  rentalIds:          null,
-                      currDate,
+  startOfWeek:         0, // 0 Mo ... 6 Su, by ISO
+  minRange:            1, // can select one night
+  monthStart:          currDate.getUTCMonth(), // start with current month by default M '0...12'
+  yearStart:           currDate.getUTCFullYear(), // start with current year YYYY
+  daysPerWeek:         7, // FIXME support calendar rendering
+  displayMonths:       2,
+  selectable:          false,
+  showRates:           false,
+  showMinStay:         false,
+  isReverseSelectable: false, // select end date first
+  isBackDisabled:      true,
+  isDropDown:          false,
+  el:                  null,
+  elStartAt:           null,
+  elEndAt:             null,
+  elReset:             null,
+  formatDate:          'dd/mm/yyyy',
+  rentalIds:           null,
+  currDate,
 };
