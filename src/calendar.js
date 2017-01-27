@@ -556,13 +556,19 @@ export default class Calendar extends Emitter {
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
         // pushing actual days 1...daysInMonth
         if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
-          const rate    = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
+          let rate    = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
           const minStay = this.opts.showMinStay ? this.cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
 
           let isDisabled      = this.cTree.isDayDisabled(year, month, dayOfMonth);
           let isOutAvailable  = this.cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
           let isDisabledStart = this.cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
           const cDate         = this.opts.currDate;
+
+          // if rate is float, then display 2 digits after point.
+          if (typeof rate !== 'undefined') {
+            // debugger;
+          }
+          rate = isNumeric(rate) && rate % 1 !== 0 ? rate.toFixed(2) : rate;
 
           // in the past any availability does not make sense
           if (isLater(

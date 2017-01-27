@@ -31,11 +31,10 @@ $invalid-bg: #c0c0c0;
 $btn-fill: $cell-color;
 
 .calendar {
-  font: 0.875rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
+  font: 1rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
   position: relative;
   margin: 0 -1rem 3rem;
   background: $cell-bg;
-  padding: 2rem;
 
   .caption {
     font-weight: 700;
@@ -49,6 +48,7 @@ $btn-fill: $cell-color;
   }
 
   .mCell {
+    font-size: 0.875rem;
     margin: 0 1rem 2rem;
     min-width: 14rem;
     flex: 1 1 25%;
@@ -108,7 +108,7 @@ $btn-fill: $cell-color;
     position: absolute;
     bottom: 0;
     left: 0;
-    font-size: 0.7rem;
+    font-size: 0.625rem;
     padding: 1px 3px;
     text-align: right;
     color: $info-color;
@@ -322,14 +322,14 @@ $btn-fill: $cell-color;
     fill: $btn-fill;
     border: 1px solid $cell-border;
     padding: 6px 9px;
-    top: 1.4rem;
-    left: 3rem;
+    top: -0.6rem;
+    left: 1rem;
     z-index: 2;
     position: absolute;
   }
 
   .forward {
-    right: 3rem;
+    right: 1rem;
     left: auto;
   }
 

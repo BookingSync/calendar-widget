@@ -7,7 +7,7 @@
   <style>
     .content {
       margin: auto;
-      max-width: 50em;
+      max-width: 69em;
       padding: 2rem;
     }
   </style>
@@ -39,8 +39,13 @@
   </p>
   <div>
     <div class="calendar-wrapper">
-      <input class="start-at aaa" type="text" placeholder="dd/mm/yyyy">
-      <input class="end-at aaa" type="text" placeholder="dd/mm/yyyy">
+      <label>Check In
+        <input class="start-at aaa" type="text" placeholder="dd/mm/yyyy">
+      </label>
+      <label>Check Out
+        <input class="end-at aaa" type="text" placeholder="dd/mm/yyyy">
+      </label>
+
       <button class="reset-selection">Reset</button>
     </div>
   </div>
@@ -75,13 +80,21 @@
     blessed.
   </p>
 
+  <h1>835 Rental</h1>
   <div data-bookingsync-calendar-widget
        data-selectable="true"
        data-display-months="6"
        data-show-rates="true"
-       data-rental-id="833">
+       data-rental-id="835">
   </div>
 
+  <h1>833 Rental</h1>
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-display-months="3"
+       data-show-rates="true"
+       data-rental-id="833">
+  </div>
 </div>
 
 <script>

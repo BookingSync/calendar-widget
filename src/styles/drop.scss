@@ -16,21 +16,15 @@
 .drop-element.dropBasic .drop-content {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   font-family: inherit;
-  background: #eee;
+  background: #fff;
+  padding-top: 1.5rem;
   line-height: 1.5em;
 }
 
 .dropBasic {
   .calendar {
     margin: 0;
-    padding: 2rem 0 0 0;
-
-    .forward {
-      right: 1rem;
-    }
-    .back {
-      left: 1rem;
-    }
+    //padding: 2rem 0 0 0;
     .mCell {
       margin-bottom: 1rem;
     }
