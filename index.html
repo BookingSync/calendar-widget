@@ -79,7 +79,7 @@
        data-selectable="true"
        data-display-months="6"
        data-show-rates="true"
-       data-rental-ids="833">
+       data-rental-id="833">
   </div>
 
 </div>
@@ -90,16 +90,16 @@
     isDropDown: true,
     selectable: true,
     showRates:  true,
-    rentalIds:  833,
+    rentalId:   833,
     elStartAt:  document.querySelector('.start-at'),
     elEndAt:    document.querySelector('.end-at'),
     elReset:    document.querySelector('.reset-selection'),
   });
 
-  cal.on('selection-end', function (a, b) {
+  cal.on('selection-end', function(a, b) {
     console.log('selection-end', a, b)
   });
-  cal.on('selection-start', function (a, b) {
+  cal.on('selection-start', function(a, b) {
     console.log('selection-start', a, b)
   });
 </script>

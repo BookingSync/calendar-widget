@@ -29,6 +29,6 @@ export default {
   elEndAt:             null,
   elReset:             null,
   formatDate:          'dd/mm/yyyy',
-  rentalIds:           null,
+  rentalId:            null,
   currDate,
 };

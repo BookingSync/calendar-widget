@@ -11,8 +11,8 @@ Calendar.init = () => {
 
     const cal = new Calendar({ el });
 
-    if (el.dataset.rentalIds) {
-      cal.loadMaps(el.dataset.rentalIds);
+    if (el.dataset.rentalId) {
+      cal.loadMaps(el.dataset.rentalId);
     }
     initialized.push(cal);
   }
