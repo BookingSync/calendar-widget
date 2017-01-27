@@ -6,12 +6,11 @@ import {
 } from 'widget-utils';
 
 import Drop from 'tether-drop';
+
 import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
-
 import config from './config';
 import locales from './locales';
-
 import { reset } from './styles/reset.scss';
 
 import {
@@ -21,9 +20,7 @@ import {
 } from './styles/calendar.scss';
 
 const { documentElement: { lang } } = document;
-const isLater                       = (start, end) => new Date(...start) < new Date(...end);
-
-const formatDate = (format, year, month, day) => {
+const formatDate                    = (format, year, month, day) => {
   function pad(number) {
     if (number < 10) {
       return `0${number}`;
@@ -47,6 +44,8 @@ const dateToIso = (year, month, day) => {
 
   return new Date(`${year}-${pad(month + 1)}-${pad(day)}`);
 };
+
+const isLater = (start, end) => dateToIso(...start) < dateToIso(...end);
 
 const validationOfRange = (cell, index, range) => {
   if (index === range.length - 1) {
@@ -514,10 +513,6 @@ export default class Calendar extends Emitter {
     return monthDom;
   }
 
-  /**
-   *
-   * @returns {string}
-   */
   headerTplString() {
     // just to make life easier with start of the week calculation
     const header                 = [];
@@ -529,12 +524,6 @@ export default class Calendar extends Emitter {
     return header.join('');
   }
 
-  /**
-   *
-   * @param year
-   * @param month
-   * @returns {string}
-   */
   daysTplString(year, month) {
     const startOfMonth = new Date(year, month, 1).getUTCDay();
     const daysInMonth  = monthLength(year, month);
@@ -573,9 +562,12 @@ export default class Calendar extends Emitter {
           let isDisabled      = this.cTree.isDayDisabled(year, month, dayOfMonth);
           let isOutAvailable  = this.cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
           let isDisabledStart = this.cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+          const cDate         = this.opts.currDate;
 
           // in the past any availability does not make sense
-          if (isLater([year, month, dayOfMonth], this.opts.currDate)) {
+          if (isLater(
+              [year, month, dayOfMonth],
+              [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
             isDisabled      = true;
             isDisabledStart = undefined;
             isOutAvailable  = undefined;
@@ -611,16 +603,8 @@ export default class Calendar extends Emitter {
     return destroyElement(this.el);
   }
 
-  /**
-   *
-   * @param elLang {String}
-   * @param documentLang {String}
-   * @returns {String}
-   */
-
   loadMaps(id) {
     this.toggleLoading();
-
     const onSuccess = (rental) => {
       this.toggleLoading();
       if (isArray(rental.data) && rental.data[0].attributes) {
@@ -691,7 +675,6 @@ export default class Calendar extends Emitter {
     }
 
     document.addEventListener('click', this.closeDrop.bind(this));
-    // document.addEventListener('touchstart', this.closeDrop.bind(this));
     this.calDrop = calDrop;
   }
 

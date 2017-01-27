@@ -187,12 +187,12 @@ export default class CalendarTree {
     }
 
     return avail.reduce((curr, state, index, arr) => {
-      const length        = monthLength(year, month);
-      const tree          = curr;
-      const minStay       = minMap[index];
-      const rate          = rates[index];
-      const isAvailable   = state === 0;
-      const prevAvailable = arr[index - 1] === 0;
+      const length           = monthLength(year, month);
+      const tree             = curr;
+      const minStay          = minMap[index];
+      const rate             = rates[index];
+      const isAvailable      = state === 0;
+      const prevAvailable    = arr[index - 1] === 0;
       const isMorningBlocked = (isAvailable && !prevAvailable);
 
       if (!tree[year]) {

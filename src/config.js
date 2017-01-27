@@ -9,7 +9,6 @@ export default {
 
   rentalUrl(ids) {
     const route = this.apiMapsRoute.replace('{params}', ids);
-
     return NODE_ENV === 'development' ? `${this.apiHost}/rental` : `${this.apiHost}${this.apiNamespace}${route}`;
   },
 
