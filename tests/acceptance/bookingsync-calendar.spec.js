@@ -15,16 +15,17 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-describe.only('BookingSync Calendar renders on containers', () => {
+describe('BookingSync Calendar renders on containers', () => {
   let rootElement;
 
   before(() => {
     rootElement = stubElement('div', { 'data-bookingsync-calendar-widget': true });
     document.body.appendChild(rootElement);
+    BookingSyncCalendar.init();
   });
 
   it('renders', () => {
-    BookingSyncCalendar.init();
+    debugger;
     expect(BookingSyncCalendar.instances[0].el).to.be.deep.equal(rootElement);
   });
 });

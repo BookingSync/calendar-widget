@@ -1,6 +1,7 @@
 .drop-element {
   position: absolute;
   display: none;
+  z-index: 10;
 }
 
 .drop-element.drop-open {
