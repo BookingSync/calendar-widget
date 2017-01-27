@@ -1,23 +1,24 @@
 /* global document, module */
 import Calendar from './calendar';
 
-Calendar.init = () => {
-  const initialized = [];
+Calendar.init = (opts) => {
+  const initialized      = [];
+  const options          = opts || {};
   const calendarElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');
   const len              = calendarElements.length;
 
   for (let i = 0; i < len; i += 1) {
-    const el   = calendarElements[i];
+    options.el = calendarElements[i];
+    const cal  = new Calendar(options);
 
-    const cal = new Calendar({ el });
-
-    if (el.dataset.rentalId) {
-      cal.loadMaps(el.dataset.rentalId);
+    if (options.el.dataset.rentalId) {
+      cal.loadMaps(options.el.dataset.rentalId);
     }
     initialized.push(cal);
   }
 
   Calendar.instances = initialized;
+  return initialized;
 };
 
 document.addEventListener('DOMContentLoaded', () => {

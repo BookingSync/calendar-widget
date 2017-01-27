@@ -13,7 +13,7 @@ export default {
   },
 
   startOfWeek:         0, // 0 Mo ... 6 Su, by ISO
-  minRange:            1, // can select one night
+  minStay:             1, // can select one night
   monthStart:          currDate.getUTCMonth(), // start with current month by default M '0...12'
   yearStart:           currDate.getUTCFullYear(), // start with current year YYYY
   daysPerWeek:         7, // FIXME support calendar rendering

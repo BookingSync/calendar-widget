@@ -21,7 +21,7 @@ $cell-width: 30px;
 
 $info-color: rgba(60, 60, 60, 0.5);
 
-$th-border-bottom: #dfdfdf;
+$th-border-bottom: #dadada;
 $th-color: #aaaaaa;
 
 $invalid-border: #cacaca;
@@ -29,6 +29,7 @@ $invalid-color: #ffffff;
 $invalid-bg: #c0c0c0;
 
 $btn-fill: $cell-color;
+$btn-border: #aaaaaa;
 
 .calendar {
   font: 1rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
@@ -38,7 +39,8 @@ $btn-fill: $cell-color;
 
   .caption {
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.3rem;
+    padding-top: 0.3rem;
     text-align: center;
   }
 
@@ -320,9 +322,10 @@ $btn-fill: $cell-color;
     height: 23px;
     width: 23px;
     fill: $btn-fill;
-    border: 1px solid $cell-border;
-    padding: 6px 9px;
-    top: -0.6rem;
+    border: 1px solid $btn-border;
+    padding: 3px 10px;
+    top: 0;
+    border-radius: 2px;
     left: 1rem;
     z-index: 2;
     position: absolute;

@@ -1,4 +1,4 @@
-/* global VERSION, Node, document, require */
+/* global VERSION, Node, NODE_ENV, document, require */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -374,11 +374,12 @@ export default class Calendar extends Emitter {
 
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
-    let hasValidRange        = isValid;
+    let hasValidRange        = this.opts.rentalId ? isValid : true;
+    const minStay            = this.opts.rentalId ? this.cTree.getDayProperty(...start, 'minStay') : this.opts.minStay;
 
     if (isArray(range)) {
       // if selected range less than minimum stay at start
-      if (range.length <= this.cTree.getDayProperty(...start, 'minStay')) {
+      if (range.length <= minStay) {
         hasValidRange = false;
       }
 
@@ -565,9 +566,6 @@ export default class Calendar extends Emitter {
           const cDate         = this.opts.currDate;
 
           // if rate is float, then display 2 digits after point.
-          if (typeof rate !== 'undefined') {
-            // debugger;
-          }
           rate = isNumeric(rate) && rate % 1 !== 0 ? rate.toFixed(2) : rate;
 
           // in the past any availability does not make sense
@@ -577,6 +575,12 @@ export default class Calendar extends Emitter {
             isDisabled      = true;
             isDisabledStart = undefined;
             isOutAvailable  = undefined;
+          }
+
+          if (!this.opts.rentalId) {
+            isDisabled = false;
+            isOutAvailable = true;
+            isDisabledStart = false;
           }
 
           week.push(tpls.weekDay(
@@ -626,7 +630,9 @@ export default class Calendar extends Emitter {
       console.error('Server error happened');
     };
 
-    ajax(this.opts.rentalUrl(id), onSuccess, onError);
+    if (NODE_ENV !== 'test') {
+      ajax(this.opts.rentalUrl(id), onSuccess, onError);
+    }
   }
 
   completeSelection() {
@@ -724,8 +730,10 @@ export default class Calendar extends Emitter {
   static widgetLang(elLang, documentLang) {
     let langFallback = elLang || documentLang;
 
+    langFallback = langFallback || 'en';
+
     if (Object.keys(locales).indexOf(langFallback) === -1) {
-      console.warn('this language is not supported yet');
+      console.warn('this language is not supported yet, locale set to English');
       langFallback = 'en';
     }
 
