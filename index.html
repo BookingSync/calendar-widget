@@ -1,38 +1,129 @@
 <!DOCTYPE html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8">
-    <title>Calendar Widget</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <style>
-      body {
-        padding: 50px;
-        margin: auto;
-        max-width: 80em;
-        background: #333;
-      }
-    </style>
-    <script src="assets/bookingsync-calendar-widget.js"></script>
-  </head>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <title>Calendar Widget</title>
+  <style>
+    .content {
+      margin: auto;
+      max-width: 69em;
+      padding: 2rem;
+      font: 1rem/1.4 Helvetica, Arial, san-serif;
+    }
+  </style>
+  <script src="assets/bookingsync-calendar-widget.js"></script>
+</head>
 
-  <body>
+<body>
+<div class="content">
+  <p>
+    Stay focused. The key is to drink coconut, fresh coconut, trust me. Find peace, life is like a
+    water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
+    shower,
+    dry your back, it’s a cold world out there. Learning is cool, but knowing is better, and I know
+    the key to success. It’s important to use cocoa butter. It’s the key to more success, why not
+    live
+    smooth? Why live rough? Egg whites, turkey sausage, wheat toast, water. Of course they don’t
+    want
+    us to eat our breakfast, so we are going to enjoy our breakfast.
 
-    <div data-calendar-widget
-         data-display-months="6"
-         data-selectable="true"
-         data-show-rates="true"
-         data-rental-ids=5125>
+    Eliptical talk. Celebrate success right, the only way, apple. Stay focused. You see that bamboo
+    behind me though, you see that bamboo? Ain’t nothin’ like bamboo. Bless up. Surround yourself
+    with
+    angels, positive energy, beautiful people, beautiful souls, clean heart, angel. The key is to
+    drink coconut, fresh coconut, trust me. The other day the grass was brown, now it’s green
+    because
+    I ain’t give up. Never surrender. I’m up to something. Watch your back, but more importantly
+    when
+    you get out the shower, dry your back, it’s a cold world out there.
+  </p>
+  <div>
+    <div class="calendar-wrapper">
+      <label>Check In
+        <input class="start-at aaa" type="text" placeholder="dd/mm/yyyy">
+      </label>
+      <label>Check Out
+        <input class="end-at aaa" type="text" placeholder="dd/mm/yyyy">
+      </label>
+
+      <button class="reset-selection">Reset</button>
     </div>
+  </div>
+  <p>
+    You see that bamboo behind me though, you see that bamboo? Ain’t nothin’ like bamboo. Bless up.
+    Hammock talk come soon. They will try to close the door on you, just open it. Find peace, life
+    is
+    like a water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
+    shower, dry your back, it’s a cold world out there. Find peace, life is like a water fall,
+    you’ve
+    gotta flow. They key is to have every key, the key to open every door.
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const cal = window.BookingSyncCalendarWidget[0];
+    They will try to close the door on you, just open it. Wraith talk. The key to more success is to
+    have a lot of pillows. Learning is cool, but knowing is better, and I know the key to success.
+    The
+    other day the grass was brown, now it’s green because I ain’t give up. Never surrender. In life
+    there will be road blocks but we will over come it. Cloth talk. Surround yourself with angels,
+    positive energy, beautiful people, beautiful souls, clean heart, angel. They don’t want us to
+    eat.
+    The key is to enjoy life, because they don’t want you to enjoy life. I promise you, they don’t
+    want you to jetski, they don’t want you to smile.
+  </p>
+  <p>A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay calm.
+    I’m
+    up to something. Life is what you make it, so let’s make it. How’s business? Boomin. They will
+    try
+    to close the door on you, just open it. They key is to have every key, the key to open every
+    door.
+    I’m giving you cloth talk, cloth. Special cloth alert, cut from a special cloth. How’s business?
+    Boomin. A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay
+    calm. You should never complain, complaining is a weak emotion, you got life, we breathing, we
+    blessed.
+  </p>
 
-        cal.on('selection-end', (a, b) => { console.log('selection-end', a, b)});
-        cal.on('selection-start', (a, b) => { console.log('selection-start', a, b)});
-      });
-    </script>
-  </body>
+  <h1>No Rental</h1>
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-display-months="3">
+  </div>
+
+  <h1>833 Rental</h1>
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-display-months="3"
+       data-show-rates="true"
+       data-rental-id="833">
+  </div>
+
+  <h1>835 Rental</h1>
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-display-months="3"
+       data-show-rates="true"
+       data-rental-id="835">
+  </div>
+</div>
+
+<script>
+  var cal = new BookingSyncCalendarWidget({
+    el:         document.querySelector('.calendar-wrapper'),
+    isDropDown: true,
+    selectable: true,
+    showRates:  true,
+    rentalId:   833,
+    elStartAt:  document.querySelector('.start-at'),
+    elEndAt:    document.querySelector('.end-at'),
+    elReset:    document.querySelector('.reset-selection'),
+  });
+
+  cal.on('selection-end', function(a, b) {
+    console.log('selection-end', a, b)
+  });
+  cal.on('selection-start', function(a, b) {
+    console.log('selection-start', a, b)
+  });
+</script>
+</body>
 </html>
 
 
