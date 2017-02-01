@@ -1,9 +1,9 @@
 {
   "name": "bookingsync-calendar-widget",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "BookingSync Calendar Widget",
-  "main": "dist/calendar-widget.js",
-  "module": "src/calendar.js",
+  "main": "dist/bookingsync-calendar-widget.js",
+  "module": "src/bookingsync-calendar-widget.js",
   "scripts": {
     "build": "webpack -p --env=build",
     "test": "karma start karma.config.js --colors --env=test",
