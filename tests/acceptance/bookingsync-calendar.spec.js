@@ -1,5 +1,6 @@
 /* global describe, module, it, before, after, document, xit, beforeEach, afterEach */
 import chai from 'chai';
+import { destroyElement } from 'widget-utils';
 
 import { mCell, calendar } from '../../src/styles/calendar.scss';
 import BookingSyncCalendar from '../../src/bookingsync-calendar-widget';
@@ -23,13 +24,16 @@ const div1 = stubElement('div', {
 });
 
 const div2 = stubElement('div', { 'data-bookingsync-calendar-widget': true });
-
-document.body.appendChild(div1);
-document.body.appendChild(div2);
-
 describe('BookingSync Calendar renders on containers with auto-init', () => {
+  before(() => {
+    document.body.appendChild(div1);
+    document.body.appendChild(div2);
+  });
+
   after(() => {
     BookingSyncCalendar.instances.map(a => a.destroy());
+    destroyElement(div1);
+    destroyElement(div2);
   });
 
   it('renders 2 widgets on the page', () => {

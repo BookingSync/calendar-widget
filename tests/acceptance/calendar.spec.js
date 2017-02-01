@@ -15,16 +15,31 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-describe('sense checks', () => {
+describe.only('sense checks', () => {
   let widget;
   let rootElement;
 
   before(() => {
     rootElement = stubElement('div');
-    widget      = new Calendar({ el: rootElement });
+    document.body.appendChild(rootElement);
+
+    widget      = new Calendar({
+      el: rootElement,
+      monthStart: 2,
+      displayMonths: 1,
+      yearStart: 2017,
+    });
+  });
+
+  after(() => {
+    widget.destroy();
   });
 
   it('renders', () => {
     expect(widget.el).to.be.deep.equal(rootElement);
+  });
+
+  it('renders 3 empty days in February 2017, 01/02/2017 is We', () => {
+    expect(document.querySelectorAll('.js-body-row-0 td:empty').length).to.be.deep.equal(3);
   });
 });

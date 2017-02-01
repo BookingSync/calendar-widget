@@ -88,8 +88,9 @@ export default class Calendar extends Emitter {
         this.el = opts.el;
       }
 
-      this.opts.lang = Calendar.widgetLang(this.opts.lang, lang);
-      this.locale    = locales[this.opts.lang || 'en'];
+      this.opts.lang        = Calendar.widgetLang(this.opts.lang, lang);
+      this.locale           = locales[this.opts.lang || 'en'];
+      this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
     }
 
     this.dom   = {};
@@ -529,7 +530,7 @@ export default class Calendar extends Emitter {
   }
 
   daysTplString(year, month) {
-    const startOfMonth = new Date(year, month, 1).getUTCDay();
+    const startOfMonth = dateToIso(year, month, 1).getDay();
     const daysInMonth  = monthLength(year, month);
     const rowTemplate  = tpls.weekRow;
     const monthTpl     = [];
@@ -554,7 +555,7 @@ export default class Calendar extends Emitter {
     for (let i = 0; i < rows; i += 1) {
       const week = [];
       // open tag <tr>
-      week.push(rowTemplate.open);
+      week.push(rowTemplate(i).open);
 
       // push days in week
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
@@ -600,7 +601,7 @@ export default class Calendar extends Emitter {
         dayCounter += 1;
       }
       // close tag </tr> of week
-      week.push(rowTemplate.close);
+      week.push(rowTemplate().close);
       // push completed week to month template
       monthTpl.push(week.join(''));
     }
