@@ -1,4 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import 'variables';
 @import 'loading';
 @import 'drop';
 
@@ -7,29 +8,6 @@
 				      colors
 
 ********************************************************/
-
-$highlighted: #8acdf6;
-$highlighted-border: #bde3ff;
-
-$disabled-bg: #f0f0f0;
-$disabled-color: #bfbfbf;
-
-$cell-border: #e6e7ea;
-$cell-color: #444444;
-$cell-bg: #ffffff;
-$cell-width: 30px;
-
-$info-color: rgba(60, 60, 60, 0.5);
-
-$th-border-bottom: #dadada;
-$th-color: #aaaaaa;
-
-$invalid-border: #cacaca;
-$invalid-color: #ffffff;
-$invalid-bg: #c0c0c0;
-
-$btn-fill: $cell-color;
-$btn-border: #aaaaaa;
 
 .calendar {
   font: 1rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
@@ -127,6 +105,7 @@ $btn-border: #aaaaaa;
 .focus {
   border-color: $highlighted;
 }
+
 
 /********************************************************
 
@@ -322,10 +301,8 @@ $btn-border: #aaaaaa;
     height: 23px;
     width: 23px;
     fill: $btn-fill;
-    border: 1px solid $btn-border;
     padding: 3px 10px;
     top: 0;
-    border-radius: 2px;
     left: 1rem;
     z-index: 2;
     position: absolute;

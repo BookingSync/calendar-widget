@@ -1,4 +1,4 @@
-/* global VERSION, Node, NODE_ENV, document, require */
+/* global VERSION, Node, NODE_ENV, CSS_PREFIX, document, require */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -34,7 +34,7 @@ const formatDate                    = (format, year, month, day) => {
     .replace('yyyy', year);
 };
 
-const dateToIso = (year, month, day) => {
+const dateToIso = (year, month, day, isString = false) => {
   function pad(number) {
     if (number < 10) {
       return `0${number}`;
@@ -42,6 +42,9 @@ const dateToIso = (year, month, day) => {
     return number;
   }
 
+  if (isString) {
+    return `${year}-${pad(month + 1)}-${pad(day)}`;
+  }
   return new Date(`${year}-${pad(month + 1)}-${pad(day)}`);
 };
 
@@ -347,18 +350,18 @@ export default class Calendar extends Emitter {
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
-    this.emit('selection-start', dateToIso(...dateValue), dateValue);
+    this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
     if (isFunction(this.opts.onSelectStart)) {
-      this.opts.onSelectStart(dateToIso(...dateValue), dateValue);
+      this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
     }
   }
 
   selectEndAction(dateValue, cell) {
     this.selectEnd(dateValue, cell);
     this.switchInputFocus('start');
-    this.emit('selection-end', dateToIso(...dateValue), dateValue);
+    this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
     if (isFunction(this.opts.onSelectEnd)) {
-      this.opts.onSelectEnd(dateToIso(...dateValue), dateValue);
+      this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
     }
   }
 
@@ -648,7 +651,7 @@ export default class Calendar extends Emitter {
     document.body.appendChild(element);
 
     const MyDrop = Drop.createContext({
-      classPrefix: 'BookingSyncCalendar__drop',
+      classPrefix: `${CSS_PREFIX}__drop`,
     });
 
     const calDrop = new MyDrop({

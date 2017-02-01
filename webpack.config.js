@@ -6,11 +6,13 @@ const path        = require('path');
 const env         = require('yargs').argv.env;
 const libraryName = 'BookingSyncCalendarWidget';
 let outputFile    = 'bookingsync-calendar-widget.js';
+const CSS_PREFIX  = 'BookingSyncCalendar';
 
 const plugins = [
   new webpack.DefinePlugin({
     VERSION:  JSON.stringify(require('./package.json').version),
     NODE_ENV: JSON.stringify(env),
+    CSS_PREFIX: JSON.stringify(CSS_PREFIX),
   }),
   new webpack.SourceMapDevToolPlugin()
 ];
@@ -39,7 +41,7 @@ const config = {
       },
       {
         test:    /(\.scss)$/,
-        loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=BookingSyncCalendar__[Local]!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents',
+        loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=' + CSS_PREFIX + '__[Local]!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents',
         exclude: /(node_modules|bower_components)/,
       }
     ],
@@ -52,7 +54,7 @@ const config = {
     // directories where to look for modules
     extensions: ['.js'],
   },
-  plugins,
+           plugins,
 };
 
 if (env === 'build') {
