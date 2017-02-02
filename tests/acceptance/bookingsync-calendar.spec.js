@@ -17,7 +17,6 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-
 const div1 = stubElement('div', {
   'data-bookingsync-calendar-widget': true,
   'data-rental-id': 833,
@@ -37,10 +36,14 @@ describe('BookingSync Calendar renders on containers with auto-init', () => {
   });
 
   it('renders 2 widgets on the page', () => {
-    expect(document.querySelectorAll(`.${calendar}`).length).to.be.equal(2);
+    document.addEventListener('DOMContentLoaded', () => {
+      expect(document.querySelectorAll(`.${calendar}`).length).to.be.equal(2);
+    });
   });
 
   it('renders 4 (2 * 2) months', () => {
-    expect(document.querySelectorAll(`.${mCell}`).length).to.be.equal(4);
+    document.addEventListener('DOMContentLoaded', () => {
+      expect(document.querySelectorAll(`.${mCell}`).length).to.be.equal(4);
+    });
   });
 });

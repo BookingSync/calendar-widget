@@ -15,7 +15,7 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-describe.only('sense checks', () => {
+describe('sense checks', () => {
   let widget;
   let rootElement;
 
