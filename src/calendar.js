@@ -200,11 +200,11 @@ export default class Calendar extends Emitter {
   toggleLoading() {
     if (!this.loaderEl) {
       this.loaderEl = this.el.appendChild(elementFromString(tpls.loading));
-      this.emit('loading-starts');
+      this.emit('loading-show');
     } else {
       destroyElement(this.loaderEl);
       this.loaderEl = null;
-      this.emit('loading-ended');
+      this.emit('loading-hide');
     }
   }
 
@@ -404,7 +404,7 @@ export default class Calendar extends Emitter {
     this.removeHighlight();
     this.isSelecting = false;
 
-    this.emit('clear-selection', this.selectionStart, this.selectionEnd);
+    this.emit('selection-reset', this.selectionStart, this.selectionEnd);
     if (isFunction(this.opts.onClearSelection)) {
       this.opts.onClearSelection(this.selectionStart, this.selectionEnd);
     }
@@ -622,6 +622,7 @@ export default class Calendar extends Emitter {
     const onSuccess = (rental) => {
       this.toggleLoading();
       if (isArray(rental.data) && rental.data[0].attributes) {
+        this.emit('maps-loaded', rental);
         this.addMaps(rental.data[0].attributes);
         this.mapsLoaded = true;
       } else {
@@ -631,6 +632,7 @@ export default class Calendar extends Emitter {
 
     const onError = () => {
       this.toggleLoading();
+      this.emit('maps-error');
       console.error('Server error happened');
     };
 
@@ -669,6 +671,7 @@ export default class Calendar extends Emitter {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
       if (!calDrop.isOpened()) {
+        this.emit('drop-open');
         calDrop.open();
         if (!this.mapsLoaded) {
           this.loadMaps(this.opts.rentalId);
@@ -726,6 +729,7 @@ export default class Calendar extends Emitter {
     if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
+      this.emit('drop-close');
       this.switchInputFocus('any');
       this.calDrop.close();
     }
