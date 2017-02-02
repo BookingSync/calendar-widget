@@ -45,7 +45,7 @@ const dateToIso = (year, month, day, isString = false) => {
   if (isString) {
     return `${year}-${pad(month + 1)}-${pad(day)}`;
   }
-  return new Date(`${year}-${pad(month + 1)}-${pad(day)}`);
+  return new Date(year, month, day);
 };
 
 const isLater = (start, end) => dateToIso(...start) < dateToIso(...end);
@@ -530,7 +530,7 @@ export default class Calendar extends Emitter {
   }
 
   daysTplString(year, month) {
-    const startOfMonth = dateToIso(year, month, 1).getDay();
+    const startOfMonth = new Date(year, month, 1).getDay();
     const daysInMonth  = monthLength(year, month);
     const rowTemplate  = tpls.weekRow;
     const monthTpl     = [];

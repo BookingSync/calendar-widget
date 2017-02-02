@@ -1,6 +1,6 @@
 {
   "name": "bookingsync-calendar-widget",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "BookingSync Calendar Widget",
   "main": "dist/bookingsync-calendar-widget.js",
   "module": "src/bookingsync-calendar-widget.js",
