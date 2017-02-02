@@ -2,29 +2,29 @@
 [![CircleCI](https://circleci.com/gh/BookingSync/calendar-widget.svg?style=svg&circle-token=8c6343e12779072713c394d9be543728012efc92)](https://circleci.com/gh/BookingSync/calendar-widget)
 
 ## TL;DR
-# Development
+### Development
 * `yarn`
 * `yarn start`
 
-# Usage
+### Usage
 * load `dist/bookingsync-calendar-widget.js` script
 * add `<div data-bookingsync-calendar-widget></div>` tag to the place you would like to put the widget. 
 
-OR
- 
-* as module 
+* Or as global.
+```javascript
+const calendar = new BookingSyncCalendar({ el: document.querySelector('.my-widget') });
+````
+
+* Or as module 
 ```javascript
 import Calendar from 'bookingsync-calendar-widget';
 
 const calendar = new Calendar({ el: document.querySelector('.my-widget') });
 ````
-* as global
-```javascript
-const calendar = new BookingSyncCalendar({ el: document.querySelector('.my-widget') });
-````
+
 @see `index.html` for more examples.
 
-## Setup
+### Setup
 * [Webpack](webpack.github.io) based.
 * ES6 as a source.
 * Exports in a [umd](https://github.com/umdjs/umd) format, runs everywhere.
@@ -79,49 +79,49 @@ All options can be passed as `data-` attributes to HTMLElement calendar placehol
 e.g.
 
 ```html
-  <div 
-    data-bookingsync-calendar-widget
-    data-selectable="true"
-    data-format-date="dd.mm.yyyy">
-  </div>
+<div 
+  data-bookingsync-calendar-widget
+  data-selectable="true"
+  data-format-date="dd.mm.yyyy">
+</div>
 ```
 
 ## Events
 Calendar implements event Emitter, receiver can subscribe/unsubscribe to events and subscribe one-time.
 
 ```javascript
-    var cal = new BookingSyncCalendarWidget({
-      el:         document.querySelector('.calendar-wrapper'),
-    });
-  
-    cal.on('selection-end', function(a, b) {
-      console.log('selection-end', a, b)
-    });
-    cal.on('selection-start', function(a, b) {
-      console.log('selection-start', a, b)
-    });
-    
-    cal.once('selection-end', function(a, b) {
-        console.log('selection-end', a, b)
-     });
-     
-    cal.off('selection-end', function(a, b) {
-        console.log('selection-end', a, b)
-     }); 
+var cal = new BookingSyncCalendarWidget({
+  el:         document.querySelector('.calendar-wrapper'),
+});
+
+cal.on('selection-end', function(a, b) {
+  console.log('selection-end', a, b)
+});
+cal.on('selection-start', function(a, b) {
+  console.log('selection-start', a, b)
+});
+
+cal.once('selection-end', function(a, b) {
+    console.log('selection-end', a, b)
+ });
+ 
+cal.off('selection-end', function(a, b) {
+    console.log('selection-end', a, b)
+ }); 
 ```
 
 | __Event__ | __Description__ | __Params__ |
 | ---       | ---             | ---        |
-| init      | Finished initializing, data is NOT loaded | --- |
-| maps-loaded | Availability, rates and minimum stay maps are loaded and added to calendar | {Object} raw response from the server |  
-| maps-error | Error when loading maps | --- |
-| loading-show | When loading indicator shown | --- |
-| loading-hide | When loading indicator hide | --- |
-| selection-start | User selected start date | {String} {Date}, ISO format '2016-01-01', Date |
-| selection-end | User selected end date | {String} {Date}, ISO format '2016-01-01', Date |
-| selection-reset | Selection reset | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
-| selection-completed | User selects end date when start date was already selected | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
-| drop-open | Calendar-drop open | --- | 
-| drop-close | Calendar-drop close | --- | 
+| `init`      | Finished initializing, data is NOT loaded |  |
+| `maps-loaded` | Availability, rates and minimum stay maps are loaded and added to calendar | {Object} raw response from the server |  
+| `maps-error` | Error when loading maps |  |
+| `loading-show` | Loading indicator shows |  |
+| `loading-hide` | Loading indicator hides |  |
+| `selection-start` | User selected start date | {String} {Date}, ISO format '2016-01-01', Date |
+| `selection-end` | User selected end date | {String} {Date}, ISO format '2016-01-01', Date |
+| `selection-reset` | Selection reset | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
+| `selection-completed` | User selects end date when start date was already selected | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
+| `drop-open` | Calendar-drop open |  | 
+| `drop-close` | Calendar-drop close |  | 
 
 
