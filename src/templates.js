@@ -41,7 +41,13 @@ export const back    = `<button class="${s.back}" role="button">
 
 export const weekDayPlaceholder = '<td></td>';
 
-export const weekRow = { open: '<tr>', close: '</tr>' };
+/* eslint arrow-body-style: 0 */
+export const weekRow = (num) => {
+  return {
+    open:  `<tr class="js-body-row-${num}">`,
+    close: '</tr>',
+  };
+};
 
 export const loading = `<div class="${s.loadingLayer}">
                           <div class="${s.loading}"></div>
