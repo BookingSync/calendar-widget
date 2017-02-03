@@ -11,7 +11,7 @@ $cell-width: 30px;
 
 $info-color: rgba(60, 60, 60, 0.5);
 
-$th-border-bottom: #dadada;
+$th-border-bottom: #cbcbcb;
 $th-color: #aaaaaa;
 
 $invalid-border: #cacaca;
@@ -19,4 +19,4 @@ $invalid-color: #ffffff;
 $invalid-bg: #c0c0c0;
 
 $btn-fill: $cell-color;
-$btn-border: #aaaaaa;
+$btn-border: $th-border-bottom;

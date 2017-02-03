@@ -89,7 +89,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
     padding: 1px 3px;
     text-align: right;
     color: $info-color;
@@ -302,7 +302,9 @@
     height: 23px;
     width: 23px;
     fill: $btn-fill;
-    padding: 3px 10px;
+    padding: 6px 10px;
+    border: 1px solid $btn-border;
+    border-radius: 1px;
     top: 0;
     left: 1rem;
     z-index: 2;

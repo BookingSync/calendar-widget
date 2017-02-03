@@ -1,4 +1,4 @@
-/* global document, module */
+/* global document, module, VERSION */
 import Calendar from './calendar';
 
 Calendar.init = (opts) => {
@@ -20,6 +20,8 @@ Calendar.init = (opts) => {
   Calendar.instances = initialized;
   return initialized;
 };
+
+Calendar.VERSION = VERSION;
 
 document.addEventListener('DOMContentLoaded', () => {
   if (Calendar.autoInit !== false) {
