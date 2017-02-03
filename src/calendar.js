@@ -123,6 +123,7 @@ export default class Calendar extends Emitter {
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
     this.addBtnsEvents();
+    console.log(`[BookingSync Calendar Widget ${VERSION}] inited`);
     this.emit('init');
   }
 
