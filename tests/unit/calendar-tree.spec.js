@@ -104,7 +104,7 @@ describe('calendarTree', () => {
         nightly_rates: '0,0,0,0',
         minimum_stays: '1,1,1,1',
       };
-      const mapObj = CalendarTree.mapsToTree(maps, new Date(2016, 11, 1)); // 1 December 2016
+      const mapObj = CalendarTree.mapsToTree(maps, '2016-12-01'); // 1 December 2016
 
       expect(mapObj).to.be.deep.equal({
         2016: {
@@ -156,7 +156,7 @@ describe('calendarTree', () => {
         minimum_stays: '1,1,1,1',
       };
 
-      const mapObj = CalendarTree.mapsToTree(maps, new Date(2016, 11, 1)); // 1 December 2016
+      const mapObj = CalendarTree.mapsToTree(maps, '2016-12-01'); // 1 December 2016
 
       expect(mapObj).to.be.deep.equal({
         2016: {
@@ -214,7 +214,7 @@ describe('calendarTree', () => {
         minimum_stays: '1,1,1,1',
       };
 
-      cTree.replaceMaps(maps, new Date(2016, 11, 1)); // 1 December 2016
+      cTree.replaceMaps(maps, '2016-12-01'); // 1 December 2016
 
       expect(cTree.isDayDisabled(2016, 11, 1)).to.be.false;
       expect(cTree.isDayDisabled(2016, 11, 2)).to.be.true;
