@@ -13,6 +13,15 @@ const genArrayRange = (a, b) => {
   return list;
 };
 
+const parseISOString = (str /* yyyy-mm-dd */) => {
+  const arrStr = str.split('-').map(parseFloat);
+  return {
+    year:  arrStr[0],
+    month: arrStr[1] - 1,
+    date:  arrStr[2],
+  };
+};
+
 export default class CalendarTree {
   /**
    * @param {Function} validateCell
@@ -173,11 +182,8 @@ export default class CalendarTree {
     const avail  = maps.availability.split('').map(parseFloat);
     const rates  = maps.nightly_rates.split(',').map(parseFloat);
     const minMap = maps.minimum_stays.split(',').map(parseFloat);
-    const date   = new Date(mapStartAt);
+    let { year, month, date: dayShift } = parseISOString(mapStartAt);
 
-    let year     = date.getFullYear();
-    let month    = date.getMonth();
-    let dayShift = date.getDate();
     let day      = 1;
 
     // trick to add extra unavailable date for proper calculations of check-out dates
