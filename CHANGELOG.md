@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.0.17] - 2017-02-14
+### Added
+- New styles for view with rates and min-stay.
+
+### Changed
+- Translations, now in uses interpolations with numbers.
+
 ## [0.0.16] - 2017-02-03
 ### Added
 - `VERSION` property on `BookingSyncCalendar` global.
