@@ -58,12 +58,12 @@ Additionally you can run json-mock server
 | `displayMonths` | How many months to render | Number | 2
 | `selectable` | Allow to select range | Boolean | false
 | `showRates` | Show rates from availability map | Boolean | false
-| `showMinStay` | Show minimum stay per single day (not recommended to use together with `showRates` | Boolean | false
+| `showMinStay` | Show minimum stay per single day (be careful to use together with `showRates`, can be too munch information) | Boolean | false
 | `isReverseSelectable` | User selects end date first | Boolean | false
 | `isBackDisabled` | Disable back button for past months | Boolean | true
 | `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false
 | `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null
-| `elEndAt` | Input field to show esd selected, open drop-down on focus | HTMLElement | null
+| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
 | `formatDate` | Overwrite locale defined date format | String | 'dd/mm/yyyy'
 | `currDate` | Current date Date object | Date | `new Date()`

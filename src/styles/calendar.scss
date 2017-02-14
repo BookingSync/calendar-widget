@@ -303,7 +303,6 @@
     width: 23px;
     fill: $btn-fill;
     padding: 6px 10px;
-    border: 1px solid $btn-border;
     border-radius: 1px;
     top: 0;
     left: 1rem;
@@ -325,7 +324,7 @@
 
   .forward:hover,
   .back:hover {
-    border-color: $highlighted;
+    fill: $btn-fill-hover;
   }
 
   .forward[disabled],
@@ -334,7 +333,7 @@
   .back[disabled]:hover {
     opacity: 0.5;
     cursor: default;
-    border-color: $cell-border;
+    fill: $btn-fill;
   }
 }
 
@@ -344,8 +343,28 @@
 
 ********************************************************/
 /* chunky layout */
-.chunky .cell {
-  //height: 57px;
+.chunky {
+  .cnt {
+    left: 0;
+    top: .8rem;
+    text-align: right;
+    margin-right: .5rem;
+    font-size: 0.6875rem;
+    color: $info-color;
+  }
+
+  .info {
+    top: 39%;
+    text-align: center;
+    font-size: 0.875rem;
+    color: $cell-color;
+  }
+
+  .infoExtra {
+    text-align: center;
+    right: 0;
+    bottom: 3px;
+  }
 }
 
 .chunky .mCell {

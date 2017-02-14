@@ -23,8 +23,8 @@ export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rat
                            <div class="${cnt}" role="day-value">
                             ${label}
                           </div>
-                          ${rate ? '<span class="' + info + '">' + rateT + rate + '</span>' : ''}
-                          ${minStay ? '<span class="' + infoExtra + '">' + minStayT + minStay + '</span>' : ''}
+                          ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
+                          ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
                        </td>`;
 
 export const forward = `<button class="${s.forward}" role="button">

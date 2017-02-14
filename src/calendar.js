@@ -57,6 +57,9 @@ const validationOfRange = (cell, index, range) => {
   return cell.getAttribute('data-disabled') === '';
 };
 
+const tFormatter = (value, str) => str.replace('%number', value);
+
+
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
@@ -589,8 +592,9 @@ export default class Calendar extends Emitter {
           }
 
           week.push(tpls.weekDay(
-            dayOfMonth, isDisabled, isDisabledStart, isOutAvailable,
-            rate, minStay, this.locale.rate, this.locale.minStay
+            dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
+            tFormatter(rate, this.locale.rate),
+            tFormatter(minStay, this.locale.minStay)
           ));
 
           dayOfMonth += 1;
