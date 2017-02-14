@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 - New styles for view with rates and min-stay.
 
 ### Changed
-- Translations, now in uses interpolations with numbers.
+- Translations for `rate` and `minStay` to use interpolations with numbers.
 
 ## [0.0.16] - 2017-02-03
 ### Added
