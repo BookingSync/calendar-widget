@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en-gb">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="UTF-8">
@@ -82,6 +82,12 @@
   </p>
 
   <h1>No Rental</h1>
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-lang="fr"
+       data-month-start="0"
+       data-display-months="3">
+  </div>
 
   <h1>833 Rental</h1>
   <div data-bookingsync-calendar-widget
@@ -92,11 +98,34 @@
        data-rental-id="833">
   </div>
 
-
+  <h1>835 Rental</h1>
+  <div data-bookingsync-calendar-widget
+       data-selectable="true"
+       data-display-months="3"
+       data-show-rates="true"
+       data-show-min-stay="true"
+       data-rental-id="835">
+  </div>
 </div>
 
 <script>
+  var cal = new BookingSyncCalendarWidget({
+    el:         document.querySelector('.calendar-wrapper'),
+    isDropDown: true,
+    selectable: true,
+    showRates:  true,
+    rentalId:   833,
+    elStartAt:  document.querySelector('.start-at'),
+    elEndAt:    document.querySelector('.end-at'),
+    elReset:    document.querySelector('.reset-selection'),
+  });
 
+  cal.on('selection-end', function(a, b) {
+    console.log('selection-end', a, b)
+  });
+  cal.on('selection-start', function(a, b) {
+    console.log('selection-start', a, b)
+  });
 </script>
 </body>
 </html>
