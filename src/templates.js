@@ -4,7 +4,7 @@ const { disabled, info, infoExtra, morningDisabled, nightDisabled, cnt } = s;
 
 export const main  = `<div class="${s.monthsWrapper}"></div>`;
 
-export const month = `<div class="${s.mCell}">
+export const month = `<div class="${s.mCell} js-month">
                         <table class="${s.month}" role="month">
                           <caption class="${s.caption}"></caption>
                           <thead class="${s.tableHeader}"><tr></tr></thead>

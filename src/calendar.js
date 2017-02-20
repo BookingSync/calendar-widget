@@ -12,7 +12,7 @@ import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
-import { formatDate, dateToIso, isLater, validationOfRange, tFormatter } from './utils';
+import { formatDate, dateToIso, isLater, validationOfRange, tFormatter, currencyFormatter } from './utils';
 
 import {
   calendar, chunky, highlighted, invalid,
@@ -55,7 +55,7 @@ export default class Calendar extends Emitter {
         this.el = opts.el;
       }
 
-      this.opts.lang        = Calendar.widgetLang(this.opts.lang, lang);
+      this.opts.lang        = this.widgetLang(this.opts.lang, lang);
       this.locale           = locales[this.opts.lang || 'en'];
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
     }
@@ -90,7 +90,12 @@ export default class Calendar extends Emitter {
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
     this.addBtnsEvents();
-    this.logger(`[BookingSync Calendar Widget ${VERSION}] inited`);
+
+    if (!this.autoSpawed && this.opts.rentalId) {
+      this.loadMaps(this.opts.rentalId);
+    }
+
+    this.logger('inited');
     this.emit('init');
   }
 
@@ -556,16 +561,13 @@ export default class Calendar extends Emitter {
 
   dayTplString(year, month, dayOfMonth) {
     const cTree   = this.cTree;
-    let rate      = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
-    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
+    const rate    = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
     let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
     const cDate         = this.opts.currDate;
-
-    // if rate is float, then display 2 digits after point.
-    rate = isNumeric(rate) && rate % 1 !== 0 ? rate.toFixed(2) : rate;
 
     // in the past any availability does not make sense
     if (isLater(
@@ -584,13 +586,17 @@ export default class Calendar extends Emitter {
 
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
-      tFormatter(rate, this.locale.rate),
+      currencyFormatter(
+        Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency
+      ),
       tFormatter(minStay, this.locale.minStay)
     );
   }
 
   destroyMonths() {
-    this.dom.months.map(m => destroyElement(m));
+    if (this.dom && isArray(this.dom.months)) {
+      this.dom.months.map(m => destroyElement(m));
+    }
   }
 
   destroy() {
@@ -599,11 +605,13 @@ export default class Calendar extends Emitter {
 
   loadMaps(id) {
     this.toggleLoading();
-    const onSuccess = (rental) => {
+
+    const onSuccess = (maps) => {
       this.toggleLoading();
-      if (isArray(rental.data) && rental.data[0].attributes) {
-        this.emit('maps-loaded', rental);
-        this.addMaps(rental.data[0].attributes);
+      if (isArray(maps.data) && maps.data[0].attributes) {
+        this.opts.currency =  maps.data[0].attributes.currency || this.opts.currency;
+        this.emit('maps-loaded', maps);
+        this.addMaps(maps.data[0].attributes);
         this.mapsLoaded = true;
       } else {
         this.logger('expects json-api data format', 'error');
@@ -616,9 +624,7 @@ export default class Calendar extends Emitter {
       this.logger('Server error happened', 'error');
     };
 
-    if (NODE_ENV !== 'test') {
-      ajax(this.opts.rentalUrl(id), onSuccess, onError);
-    }
+    ajax(this.opts.rentalUrl(id), onSuccess, onError);
   }
 
   completeSelection() {
@@ -719,7 +725,7 @@ export default class Calendar extends Emitter {
     }
   }
 
-  static widgetLang(elLang, documentLang) {
+  widgetLang(elLang, documentLang) {
     let langFallback = elLang || documentLang;
 
     langFallback = langFallback || 'en';

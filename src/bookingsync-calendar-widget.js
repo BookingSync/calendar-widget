@@ -12,6 +12,7 @@ Calendar.init = (opts) => {
     const cal  = new Calendar(options);
 
     if (options.el.dataset.rentalId) {
+      cal.autoSpawed = true;
       cal.loadMaps(options.el.dataset.rentalId);
     }
     initialized.push(cal);

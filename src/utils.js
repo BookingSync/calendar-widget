@@ -1,3 +1,5 @@
+import { getSymbolFromCurrency } from 'currency-symbol-map';
+
 export const formatDate = (format, year, month, day) => {
   function pad(number) {
     if (number < 10) {
@@ -37,3 +39,27 @@ export const validationOfRange = (cell, index, range) => {
 
 export const tFormatter = (value, str) => str.replace('%number', value);
 
+function toLocaleStringSupportsOptions() {
+  return !!(typeof Intl === 'object' && Intl && typeof Intl.NumberFormat === 'function');
+}
+
+export const currencyFormatter = (value, lang, currency) => {
+  if (toLocaleStringSupportsOptions() && currency) {
+    const isDollar     = getSymbolFromCurrency(currency) === '$';
+    const options      = {
+      style:           'currency',
+      currency,
+      currencyDisplay: isDollar ? 'symbol' : 'code',
+      maximumFractionDigits: 0,
+    };
+    const numberFormat = new Intl.NumberFormat(lang, options);
+    const str          = numberFormat.format(value);
+
+    if (isDollar || !getSymbolFromCurrency(currency)) {
+      return str;
+    }
+    return str.replace(currency, getSymbolFromCurrency(currency));
+  }
+
+  return value;
+};

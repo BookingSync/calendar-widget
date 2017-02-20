@@ -2008,6 +2008,12 @@ form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
+formatio@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/formatio/-/formatio-1.1.1.tgz#5ed3ccd636551097383465d996199100e86161e9"
+  dependencies:
+    samsam "~1.1"
+
 forwarded@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.0.tgz#19ef9874c4ae1c297bcf078fde63a09b66a84363"
@@ -3033,6 +3039,10 @@ log4js@^0.6.31:
   dependencies:
     readable-stream "~1.0.2"
     semver "~4.3.3"
+
+lolex@^1.4.0:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/lolex/-/lolex-1.5.2.tgz#94a4ce41c61185a05e98b8660dc509423ac1c416"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -4290,6 +4300,14 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
+samsam@^1.1.3:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/samsam/-/samsam-1.2.1.tgz#edd39093a3184370cb859243b2bdf255e7d8ea67"
+
+samsam@~1.1:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/samsam/-/samsam-1.1.3.tgz#9f5087419b4d091f232571e7fa52e90b0f552621"
+
 sass-graph@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/sass-graph/-/sass-graph-2.1.2.tgz#965104be23e8103cb7e5f710df65935b317da57b"
@@ -4404,6 +4422,15 @@ sigmund@~1.0.0:
 signal-exit@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.1.tgz#5a4c884992b63a7acd9badb7894c3ee9cfccad81"
+
+sinon@2.0.0-pre.4:
+  version "2.0.0-pre.4"
+  resolved "https://registry.yarnpkg.com/sinon/-/sinon-2.0.0-pre.4.tgz#f29fbcca8d2fa73b633a3b0c0e4e3c78f2360c2c"
+  dependencies:
+    formatio "1.1.1"
+    lolex "^1.4.0"
+    samsam "^1.1.3"
+    text-encoding "0.5.2"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -4727,6 +4754,10 @@ tether-drop@1.4.2:
 tether@1.4.0, tether@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.0.tgz#0f9fa171f75bf58485d8149e94799d7ae74d1c1a"
+
+text-encoding@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.5.2.tgz#85b4660819f088777609465551690fea137d824a"
 
 text-table@~0.2.0:
   version "0.2.0"
