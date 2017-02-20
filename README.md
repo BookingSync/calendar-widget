@@ -72,6 +72,7 @@ Additionally you can run json-mock server
 
 * `onSelectStart(ISO String, Date)`
 * `onSelectEnd(ISO String, Date)`
+* `onSelectionCompleted(ISO String, ISO String)`
 
 see `index.html` for more examples.
 All options can be passed as `data-` attributes to HTMLElement calendar placeholders, with dasherized way.

@@ -1,6 +1,6 @@
 {
   "name": "bookingsync-calendar-widget",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "BookingSync Calendar Widget",
   "main": "dist/bookingsync-calendar-widget.js",
   "module": "src/bookingsync-calendar-widget.js",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "chai": "3.4.1",
-    "widget-utils": "0.0.12",
+    "widget-utils": "0.0.14",
     "tether-drop": "1.4.2"
   },
   "devDependencies": {
@@ -39,6 +39,7 @@
     "webpack": "2.1.0-beta.27",
     "webpack-dev-server": "2.1.0-beta.11",
     "yargs": "3.32.0",
+    "currency-symbol-map": "3.1.0",
     "tether": "1.4.0"
   },
   "repository": {

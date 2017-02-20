@@ -2,14 +2,14 @@
 const currDate = new Date();
 
 export default {
-  name:         'Calendar Widget',
+  name:         'BookingSync Calendar Widget',
   apiHost:      NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?rental_id={params}',
 
   rentalUrl(ids) {
     const route = this.apiMapsRoute.replace('{params}', ids);
-    return NODE_ENV === 'development' ? `${this.apiHost}/rental` : `${this.apiHost}${this.apiNamespace}${route}`;
+    return `${this.apiHost}${this.apiNamespace}${route}`;
   },
 
   startOfWeek:         0, // 0 Su 1 Mo....6 Sa

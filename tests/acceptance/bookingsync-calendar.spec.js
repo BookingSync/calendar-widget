@@ -23,6 +23,7 @@ const div1 = stubElement('div', {
 });
 
 const div2 = stubElement('div', { 'data-bookingsync-calendar-widget': true });
+
 describe('BookingSync Calendar renders on containers with auto-init', () => {
   before(() => {
     document.body.appendChild(div1);
