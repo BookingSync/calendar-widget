@@ -17,12 +17,9 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-const div1 = stubElement('div', {
-  'data-bookingsync-calendar-widget': true,
-  'data-rental-id': 833,
-});
-
+const div1 = stubElement('div', { 'data-bookingsync-calendar-widget': true });
 const div2 = stubElement('div', { 'data-bookingsync-calendar-widget': true });
+
 describe('BookingSync Calendar renders on containers with auto-init', () => {
   before(() => {
     document.body.appendChild(div1);

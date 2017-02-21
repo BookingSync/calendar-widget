@@ -1,6 +1,22 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.0] - 2017-02-20
+### Added
+- Display currency from maps request.
+- Locale based price and currency format.
+- Currency to locale (as fallback).
+- `onSelectionCompleted` callback.
+- Prices are rounded now.
+- Better Logger.
+- Tests.
+
+### Changed
+- Scripts for mocks.
+- Styles for rates: 
+  - smaller font,
+  - month min-width was increased to 27rem to accommodate prices.
+
 ## [0.0.17] - 2017-02-14
 ### Added
 - New styles for view with rates and min-stay.

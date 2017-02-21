@@ -1,6 +1,6 @@
 {
   "name": "bookingsync-calendar-widget",
-  "version": "0.0.17",
+  "version": "0.1.0",
   "description": "BookingSync Calendar Widget",
   "main": "dist/bookingsync-calendar-widget.js",
   "module": "src/bookingsync-calendar-widget.js",
@@ -9,12 +9,14 @@
     "test": "karma start karma.config.js --colors --env=test",
     "test-ci": "karma start karma.config.js --single-run=true --colors --env=test",
     "start": "webpack-dev-server --inline --hot --env=development --host 0.0.0.0",
-    "mock-server": "json-server db.json"
+    "mock-server": "node json-server.js"
   },
   "dependencies": {
     "chai": "3.4.1",
-    "widget-utils": "0.0.12",
-    "tether-drop": "1.4.2"
+    "sinon": "2.0.0-pre.4",
+    "widget-utils": "0.0.14",
+    "tether-drop": "1.4.2",
+    "currency-symbol-map": "3.1.0"
   },
   "devDependencies": {
     "babel-core": "6.21.0",

@@ -11,7 +11,8 @@ import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
-import { reset } from './styles/reset.scss';
+
+import { formatDate, dateToIso, isLater, validationOfRange, tFormatter, currencyFormatter } from './utils';
 
 import {
   calendar, chunky, highlighted, invalid,
@@ -19,56 +20,19 @@ import {
   reversed, direct, selectingReversed, selectingDirect, dropBasic, focus,
 } from './styles/calendar.scss';
 
+import { reset } from './styles/reset.scss';
+
 const { documentElement: { lang } } = document;
-const formatDate                    = (format, year, month, day) => {
-  function pad(number) {
-    if (number < 10) {
-      return `0${number}`;
-    }
-    return number;
-  }
-
-  return format
-    .replace('dd', pad(day))
-    .replace('mm', pad(month + 1))
-    .replace('yyyy', year);
-};
-
-const dateToIso = (year, month, day, isString = false) => {
-  function pad(number) {
-    if (number < 10) {
-      return `0${number}`;
-    }
-    return number;
-  }
-
-  if (isString) {
-    return `${year}-${pad(month + 1)}-${pad(day)}`;
-  }
-  return new Date(year, month, day);
-};
-
-const isLater = (start, end) => dateToIso(...start) < dateToIso(...end);
-
-const validationOfRange = (cell, index, range) => {
-  if (index === range.length - 1) {
-    return cell.getAttribute('data-available-out') !== '';
-  }
-  return cell.getAttribute('data-disabled') === '';
-};
-
-const tFormatter = (value, str) => str.replace('%number', value);
-
 
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
-    this.name    = 'BookingSync Calendar Widget';
+    this.name    = config.name;
     this.VERSION = VERSION;
 
     if (isObject(opts)) {
       if (!opts.el) {
-        console.error('el must be HTML element');
+        this.logger('el must be HTML element', 'error');
         return;
       }
 
@@ -91,7 +55,7 @@ export default class Calendar extends Emitter {
         this.el = opts.el;
       }
 
-      this.opts.lang        = Calendar.widgetLang(this.opts.lang, lang);
+      this.opts.lang        = this.widgetLang(this.opts.lang, lang);
       this.locale           = locales[this.opts.lang || 'en'];
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
     }
@@ -126,7 +90,12 @@ export default class Calendar extends Emitter {
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
     this.addBtnsEvents();
-    console.log(`[BookingSync Calendar Widget ${VERSION}] inited`);
+
+    if (!this.autoSpawed && this.opts.rentalId) {
+      this.loadMaps(this.opts.rentalId);
+    }
+
+    this.logger('inited');
     this.emit('init');
   }
 
@@ -273,8 +242,11 @@ export default class Calendar extends Emitter {
           this.startDateFirstAction(dateValue, cell);
         }
 
-        if (this.opts.isDropDown && this.selectionEnd && this.selectionStart) {
+        if (this.selectionEnd && this.selectionStart) {
           this.completeSelection(isEndFirst, dateValue, cell);
+          if (this.opts.isDropDown && this.calDrop) {
+            this.closeDrop(null, true);
+          }
         }
       }
     });
@@ -404,6 +376,10 @@ export default class Calendar extends Emitter {
     return hasValidRange;
   }
 
+  /** Resets selection, removes highlights
+   * @public
+   * @returns {Calendar}
+   */
   resetSelection() {
     this.removeHighlight();
     this.isSelecting = false;
@@ -565,38 +541,7 @@ export default class Calendar extends Emitter {
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
         // pushing actual days 1...daysInMonth
         if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
-          let rate    = this.opts.showRates ? this.cTree.getDayProperty(year, month, dayOfMonth, 'rate') : null;
-          const minStay = this.opts.showMinStay ? this.cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : null;
-
-          let isDisabled      = this.cTree.isDayDisabled(year, month, dayOfMonth);
-          let isOutAvailable  = this.cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
-          let isDisabledStart = this.cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
-          const cDate         = this.opts.currDate;
-
-          // if rate is float, then display 2 digits after point.
-          rate = isNumeric(rate) && rate % 1 !== 0 ? rate.toFixed(2) : rate;
-
-          // in the past any availability does not make sense
-          if (isLater(
-              [year, month, dayOfMonth],
-              [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
-            isDisabled      = true;
-            isDisabledStart = undefined;
-            isOutAvailable  = undefined;
-          }
-
-          if (!this.opts.rentalId) {
-            isDisabled = false;
-            isOutAvailable = true;
-            isDisabledStart = false;
-          }
-
-          week.push(tpls.weekDay(
-            dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
-            tFormatter(rate, this.locale.rate),
-            tFormatter(minStay, this.locale.minStay)
-          ));
-
+          week.push(this.dayTplString(year, month, dayOfMonth));
           dayOfMonth += 1;
           // pushing placeholders instead of days
         } else {
@@ -614,8 +559,44 @@ export default class Calendar extends Emitter {
     return monthTpl.join('');
   }
 
+  dayTplString(year, month, dayOfMonth) {
+    const cTree   = this.cTree;
+    const rate    = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
+
+    let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
+    let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+    let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    const cDate         = this.opts.currDate;
+
+    // in the past any availability does not make sense
+    if (isLater(
+        [year, month, dayOfMonth],
+        [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
+      isDisabled      = true;
+      isDisabledStart = undefined;
+      isOutAvailable  = undefined;
+    }
+    // if there is not rentalId and no maps, just render plain calendar
+    if (!this.opts.rentalId) {
+      isDisabled = false;
+      isOutAvailable = true;
+      isDisabledStart = false;
+    }
+
+    return tpls.weekDay(
+      dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
+      currencyFormatter(
+        Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency
+      ),
+      tFormatter(minStay, this.locale.minStay)
+    );
+  }
+
   destroyMonths() {
-    this.dom.months.map(m => destroyElement(m));
+    if (this.dom && isArray(this.dom.months)) {
+      this.dom.months.map(m => destroyElement(m));
+    }
   }
 
   destroy() {
@@ -624,31 +605,35 @@ export default class Calendar extends Emitter {
 
   loadMaps(id) {
     this.toggleLoading();
-    const onSuccess = (rental) => {
+
+    const onSuccess = (maps) => {
       this.toggleLoading();
-      if (isArray(rental.data) && rental.data[0].attributes) {
-        this.emit('maps-loaded', rental);
-        this.addMaps(rental.data[0].attributes);
+      if (isArray(maps.data) && maps.data[0].attributes) {
+        this.opts.currency =  maps.data[0].attributes.currency || this.opts.currency;
+        this.emit('maps-loaded', maps);
+        this.addMaps(maps.data[0].attributes);
         this.mapsLoaded = true;
       } else {
-        console.error('expects json-api data format');
+        this.logger('expects json-api data format', 'error');
       }
     };
 
     const onError = () => {
       this.toggleLoading();
       this.emit('maps-error');
-      console.error('Server error happened');
+      this.logger('Server error happened', 'error');
     };
 
-    if (NODE_ENV !== 'test') {
-      ajax(this.opts.rentalUrl(id), onSuccess, onError);
-    }
+    ajax(this.opts.rentalUrl(id), onSuccess, onError);
   }
 
   completeSelection() {
     this.emit('selection-completed', this.selectionStart, this.selectionEnd);
-    this.closeDrop(null, true);
+    if (isFunction(this.opts.onSelectionCompleted)) {
+      this.opts.onSelectionCompleted(
+        dateToIso(this.selectionStart, true), dateToIso(this.selectionEnd, true)
+      );
+    }
   }
 
   initCalendarDrop() {
@@ -740,16 +725,26 @@ export default class Calendar extends Emitter {
     }
   }
 
-  static widgetLang(elLang, documentLang) {
+  widgetLang(elLang, documentLang) {
     let langFallback = elLang || documentLang;
 
     langFallback = langFallback || 'en';
 
     if (Object.keys(locales).indexOf(langFallback) === -1) {
-      console.warn('this language is not supported yet, locale set to English');
+      this.logger('this language is not supported yet, locale set to English', 'error');
       langFallback = 'en';
     }
 
     return langFallback;
+  }
+
+  toString() {
+    return `[${this.name} ${this.VERSION}] `;
+  }
+
+  logger(msg, type = 'log') {
+    if (console && console[type]) {
+      console[type](this.toString() + msg);
+    }
   }
 }
