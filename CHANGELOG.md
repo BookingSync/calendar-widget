@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2017-02-23
+### Added
+- Dispatch 'change' event on inputs.
+
+### Changed
+- 'currencyFormatter' moved to 'widget-utils' module.
+
+### Fixed
+- 'onSelectionCompleted' call back params.
+
 ## [0.1.0] - 2017-02-20
 ### Added
 - Display currency from maps request.

@@ -2,7 +2,7 @@
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
-  isNumeric, traverseObj, ajax, isInside,
+  isNumeric, traverseObj, ajax, isInside, currencyFormatter,
 } from 'widget-utils';
 
 import Drop from 'tether-drop';
@@ -12,7 +12,7 @@ import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
-import { formatDate, dateToIso, isLater, validationOfRange, tFormatter, currencyFormatter } from './utils';
+import { formatDate, dateToIso, isLater, validationOfRange, tFormatter } from './utils';
 
 import {
   calendar, chunky, highlighted, invalid,
@@ -631,7 +631,7 @@ export default class Calendar extends Emitter {
     this.emit('selection-completed', this.selectionStart, this.selectionEnd);
     if (isFunction(this.opts.onSelectionCompleted)) {
       this.opts.onSelectionCompleted(
-        dateToIso(this.selectionStart, true), dateToIso(this.selectionEnd, true)
+        dateToIso(...this.selectionStart, true), dateToIso(...this.selectionEnd, true)
       );
     }
   }
@@ -690,11 +690,16 @@ export default class Calendar extends Emitter {
   valueToInput(input, dateValue) {
     const format = this.opts.formatDate;
     const value  = formatDate(format, ...dateValue);
+    const evt = document.createEvent('Event');
+    evt.initEvent('change', false, true);
 
     if (input === 'start' && this.opts.elStartAt) {
       this.opts.elStartAt.value = value;
+      this.opts.elStartAt.dispatchEvent(evt);
+
     } else if (input === 'end' && this.opts.elEndAt) {
       this.opts.elEndAt.value = value;
+      this.opts.elEndAt.dispatchEvent(evt);
     }
   }
 
