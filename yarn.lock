@@ -5108,11 +5108,12 @@ widest-line@^1.0.0:
   dependencies:
     string-width "^1.0.1"
 
-widget-utils@0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.0.14.tgz#077dde01eb660b6fdb80c125534332b53d33c6ba"
+widget-utils@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.1.0.tgz#fdcb8142f9ccbbc72960797fe94a7170e27dec34"
   dependencies:
     chai "3.4.1"
+    currency-symbol-map "3.1.0"
 
 window-size@0.1.0:
   version "0.1.0"

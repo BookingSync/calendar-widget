@@ -696,7 +696,6 @@ export default class Calendar extends Emitter {
     if (input === 'start' && this.opts.elStartAt) {
       this.opts.elStartAt.value = value;
       this.opts.elStartAt.dispatchEvent(evt);
-
     } else if (input === 'end' && this.opts.elEndAt) {
       this.opts.elEndAt.value = value;
       this.opts.elEndAt.dispatchEvent(evt);
