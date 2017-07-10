@@ -18,7 +18,7 @@ const parseISOString = (str /* yyyy-mm-dd */) => {
   return {
     year:  arrStr[0],
     month: arrStr[1] - 1,
-    date:  arrStr[2],
+    date:  arrStr[2]
   };
 };
 
@@ -90,7 +90,7 @@ export default class CalendarTree {
 
     return {
       range,
-      isValid: this.isRangeValid(range),
+      isValid: this.isRangeValid(range)
     };
   }
 
@@ -234,8 +234,7 @@ export default class CalendarTree {
         minStay,
         isAvailable,
         isMorningBlocked,
-        isOutAvailable: (!isMorningBlocked && isAvailable) ||
-                        (!isAvailable && prevAvailable === true),
+        isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true)
       };
 
       if (day < length) {
@@ -271,5 +270,4 @@ export default class CalendarTree {
   isDayDisabled(year, month, day) {
     return !this.getDayProperty(year, month, day, 'isAvailable');
   }
-
 }

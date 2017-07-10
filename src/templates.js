@@ -1,3 +1,4 @@
+/* eslint "max-len": ["error", 300] */
 import s from './styles/calendar.scss';
 
 const { disabled, info, infoExtra, morningDisabled, nightDisabled, cnt } = s;
@@ -16,16 +17,16 @@ export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
 export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) =>
-                      `<td ${dis ? 'data-disabled' : 'data-enabled'}             
-                           ${isOutAvailable ? 'data-available-out' : ''}
-                           data-value="${label}"
-                           class="${s.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
-                           <div class="${cnt}" role="day-value">
-                            ${label}
-                          </div>
-                          ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
-                          ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
-                       </td>`;
+  `<td ${dis ? 'data-disabled' : 'data-enabled'}             
+       ${isOutAvailable ? 'data-available-out' : ''}
+       data-value="${label}"
+       class="${s.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
+       <div class="${cnt}" role="day-value">
+        ${label}
+      </div>
+      ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
+      ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
+   </td>`;
 
 export const forward = `<button class="${s.forward}" role="button">
                           <svg viewBox="0 0 1000 1000">
@@ -45,7 +46,7 @@ export const weekDayPlaceholder = '<td></td>';
 export const weekRow = (num) => {
   return {
     open:  `<tr class="js-body-row-${num}">`,
-    close: '</tr>',
+    close: '</tr>'
   };
 };
 

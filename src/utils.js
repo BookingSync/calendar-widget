@@ -26,7 +26,7 @@ export const dateToIso = (year, month, day, isString = false) => {
   return new Date(year, month, day);
 };
 
-export const isLater = (start, end) => dateToIso(...start) < dateToIso(...end);
+export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);
 
 export const validationOfRange = (cell, index, range) => {
   if (index === range.length - 1) {

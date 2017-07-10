@@ -1,4 +1,4 @@
-/* global describe, module, it, before, after, document, xit */
+/* global describe, module, it, before, after, document */
 import chai from 'chai';
 import sinon from 'sinon';
 

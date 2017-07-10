@@ -1,7 +1,9 @@
 {
   "extends": "airbnb-base",
   "rules": {
+    "comma-dangle": ["error", "never"],
     "no-multi-spaces": "off",
+    "max-len": ["error", 120],
     "arrow-body-style": ["error", "as-needed"],
     "key-spacing": ["error", { "mode": "minimum" }]
   }

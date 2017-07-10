@@ -1,4 +1,4 @@
-/* global describe, module, it, before, after, document, xit */
+/* global describe, module, it, before, after */
 import chai from 'chai';
 
 import CalendarTree from '../../src/calendar-tree';

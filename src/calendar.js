@@ -1,8 +1,8 @@
-/* global VERSION, Node, NODE_ENV, CSS_PREFIX, document, require */
+/* global VERSION, Node, CSS_PREFIX, document, require */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
-  isNumeric, traverseObj, ajax, isInside, currencyFormatter,
+  isNumeric, traverseObj, ajax, isInside, currencyFormatter
 } from 'widget-utils';
 
 import Drop from 'tether-drop';
@@ -17,7 +17,7 @@ import { formatDate, dateToIso, isLater, validationOfRange, tFormatter } from '.
 import {
   calendar, chunky, highlighted, invalid,
   selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
-  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus,
+  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus
 } from './styles/calendar.scss';
 
 import { reset } from './styles/reset.scss';
@@ -109,9 +109,7 @@ export default class Calendar extends Emitter {
 
   renderMonths(yearStart, monthStart) {
     // construct dom tree
-    const {
-            tree, yearEnd, monthEnd, months,
-          } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
+    const { tree, yearEnd, monthEnd, months } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
 
     this.cTree.addTree(tree);
 
@@ -160,12 +158,8 @@ export default class Calendar extends Emitter {
 
   disableBackBtn() {
     if (this.opts.isBackDisabled) {
-      const startDate        = dateToIso(
-        this.yearStart, this.monthStart, 1
-      );
-      const curr             = dateToIso(
-        this.opts.currDate.getFullYear(), this.opts.currDate.getMonth(), 1
-      );
+      const startDate        = dateToIso(this.yearStart, this.monthStart, 1);
+      const curr             = dateToIso(this.opts.currDate.getFullYear(), this.opts.currDate.getMonth(), 1);
       this.dom.back.disabled = startDate <= curr;
     }
   }
@@ -220,11 +214,11 @@ export default class Calendar extends Emitter {
 
       if (this.isSelecting) {
         ({
-          value, parent: cell,
+          value, parent: cell
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
         ({
-          value, parent: cell,
+          value, parent: cell
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
@@ -416,7 +410,7 @@ export default class Calendar extends Emitter {
     }
     return {
       range:   null,
-      isValid: false,
+      isValid: false
     };
   }
 
@@ -479,7 +473,7 @@ export default class Calendar extends Emitter {
       tree,
       yearEnd,
       monthEnd,
-      months,
+      months
     };
   }
 
@@ -570,9 +564,7 @@ export default class Calendar extends Emitter {
     const cDate         = this.opts.currDate;
 
     // in the past any availability does not make sense
-    if (isLater(
-        [year, month, dayOfMonth],
-        [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
+    if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
       isDisabled      = true;
       isDisabledStart = undefined;
       isOutAvailable  = undefined;
@@ -586,9 +578,7 @@ export default class Calendar extends Emitter {
 
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
-      currencyFormatter(
-        Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency
-      ),
+      currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
       tFormatter(minStay, this.locale.minStay)
     );
   }
@@ -644,7 +634,7 @@ export default class Calendar extends Emitter {
     document.body.appendChild(element);
 
     const MyDrop = Drop.createContext({
-      classPrefix: `${CSS_PREFIX}__drop`,
+      classPrefix: `${CSS_PREFIX}__drop`
     });
 
     const calDrop = new MyDrop({
@@ -654,7 +644,7 @@ export default class Calendar extends Emitter {
       openOn:                  null,
       targetAttachment:        'bottom left',
       constrainToWindow:       false,
-      constrainToScrollParent: false,
+      constrainToScrollParent: false
     });
 
     const onFocus = (input, isReversed) => {
