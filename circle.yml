@@ -16,8 +16,8 @@ dependencies:
         curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
       fi
     - npm install node-sass
-    - npm install -g karma-cli
-    
+    - npm install karma-cli
+
   cache_directories:
     - ~/.yarn-cache
     - ~/.yarn
