@@ -1,4 +1,4 @@
-/* global describe, module, it, before, after, document, xit, beforeEach, afterEach */
+/* global describe, module, it, before, after, document */
 import chai from 'chai';
 import { destroyElement } from 'widget-utils';
 

@@ -1,24 +1,25 @@
 /* global require */
 'use strict';
 
-const webpack     = require('webpack');
-const path        = require('path');
-const env         = require('yargs').argv.env;
+const webpack = require('webpack');
+const path = require('path');
+const env = require('yargs').argv.env;
 const libraryName = 'BookingSyncCalendarWidget';
-let outputFile    = 'bookingsync-calendar-widget.js';
-const CSS_PREFIX  = 'BookingSyncCalendar';
+let outputFile = 'bookingsync-calendar-widget.js';
+const CSS_PREFIX = 'BookingSyncCalendar';
 
 const plugins = [
   new webpack.DefinePlugin({
-    VERSION:  JSON.stringify(require('./package.json').version),
-    NODE_ENV: JSON.stringify(env),
+    VERSION:    JSON.stringify(require('./package.json').version),
+    NODE_ENV:   JSON.stringify(env),
     CSS_PREFIX: JSON.stringify(CSS_PREFIX),
   }),
   new webpack.SourceMapDevToolPlugin()
 ];
 
+
 const config = {
-  entry:  [__dirname + '/src/bookingsync-calendar-widget.js'],
+  entry:  `${__dirname}/src/bookingsync-calendar-widget.js`,
   output: {
     path:           __dirname + '/dist',
     publicPath:     '/assets/',
@@ -54,18 +55,17 @@ const config = {
     // directories where to look for modules
     extensions: ['.js'],
   },
-           plugins,
+  plugins,
 };
 
 if (env === 'build') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
+        minimize: true,
+        compress: {
+          warnings: false
+        }
       }
-    }
   ));
-  config.entry = [__dirname + '/src/bookingsync-calendar-widget.js'];
 }
 
 module.exports = config;

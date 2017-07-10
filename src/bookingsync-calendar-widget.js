@@ -1,15 +1,19 @@
-/* global document, module, VERSION */
-import Calendar from './calendar';
+/* global document, module, VERSION, require */
+const Calendar = require('./calendar');
 
-Calendar.init = (opts) => {
+// in order to export clean constructor to global namespace "BookingSyncCalendarWidget"
+// need to mix require with imports
+const CalendarConst = Calendar.default;
+
+CalendarConst.init = (opts) => {
   const initialized      = [];
   const options          = opts || {};
-  const calendarElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');
-  const len              = calendarElements.length;
+  const CalendarConstElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');
+  const len              = CalendarConstElements.length;
 
   for (let i = 0; i < len; i += 1) {
-    options.el = calendarElements[i];
-    const cal  = new Calendar(options);
+    options.el = CalendarConstElements[i];
+    const cal  = new CalendarConst(options);
 
     if (options.el.dataset.rentalId) {
       cal.autoSpawed = true;
@@ -18,16 +22,16 @@ Calendar.init = (opts) => {
     initialized.push(cal);
   }
 
-  Calendar.instances = initialized;
+  CalendarConst.instances = initialized;
   return initialized;
 };
 
-Calendar.VERSION = VERSION;
+CalendarConst.VERSION = VERSION;
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (Calendar.autoInit !== false) {
-    Calendar.init();
+  if (CalendarConst.autoInit !== false) {
+    CalendarConst.init();
   }
 });
 
-module.exports = Calendar;
+module.exports = CalendarConst;
