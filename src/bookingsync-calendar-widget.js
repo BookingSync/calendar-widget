@@ -35,7 +35,7 @@ if (CalendarConst.autoInit !== false) {
   } else {
     document.addEventListener('DOMContentLoaded', () => {
       CalendarConst.init();
-    })
+    });
   }
 }
 
