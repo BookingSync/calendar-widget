@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] - 2017-08-14
+### Fixed
+- dist file
+
+## [0.2.1] - 2017-07-10
+### Fixed
+- Chrome Number formatting
+
 ## [0.1.1] - 2017-02-23
 ### Added
 - Dispatch 'change' event on inputs.
