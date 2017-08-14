@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.2.3] - 2017-08-14
+### Fixed
+- minor fixes
+
 ## [0.2.2] - 2017-08-14
 ### Fixed
 - dist file
