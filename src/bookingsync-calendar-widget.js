@@ -28,10 +28,15 @@ CalendarConst.init = (opts) => {
 
 CalendarConst.VERSION = VERSION;
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (CalendarConst.autoInit !== false) {
+
+if (CalendarConst.autoInit !== false) {
+  if (document.readyState !== 'loading') {
     CalendarConst.init();
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      CalendarConst.init();
+    })
   }
-});
+}
 
 module.exports = CalendarConst;
