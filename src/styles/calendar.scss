@@ -121,6 +121,10 @@
 				  morningDisabled
 				  nightDisabled
 
+          booked
+          morningBooked
+          nightBooked
+
 				  highlighted
 				  morningSelected
 				  nightSelected
@@ -158,6 +162,13 @@
   color: $disabled-color;
   cursor: default;
   background-color: $disabled-bg;
+}
+
+.calendar .booked,
+.calendar .booked:hover {
+  color: $booked-color;
+  cursor: default;
+  background-color: $booked-bg;
 }
 
 .calendar .highlighted {
@@ -199,15 +210,39 @@
   color: $cell-color;
 }
 
+.calendar .nightBooked,
+.calendar .nightBooked:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $booked-bg 50%);
+  color: $cell-color;
+}
+
+.calendar .booked.nightBooked,
+.calendar .booked.nightBooked:hover {
+  background: linear-gradient(to right bottom, $disabled-bg 50%, $booked-bg 50%);
+  color: $cell-color;
+}
+
 .calendar .morningDisabled,
 .calendar .morningDisabled:hover {
   background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
 }
 
+.calendar .morningBooked,
+.calendar .morningBooked:hover {
+  background: linear-gradient(to left top, transparent 50%, $booked-bg 50%);
+}
+
+.calendar .disabled.morningBooked,
+.calendar .disabled.morningBooked:hover {
+  background: linear-gradient(to left top, $disabled-bg 50%, $booked-bg 50%);
+}
+
 .direct [data-enabled]:hover,
 .reversed [data-available-out]:hover,
 .selectingDirect .nightDisabled:hover,
+.selectingDirect .nightBooked:hover,
 .selectingReversed .morningDisabled:hover,
+.selectingReversed .morningBooked:hover,
 .calendar .selectedStart,
 .calendar .selectedEnd,
 .calendar .highlighted {
@@ -237,7 +272,11 @@
   .nightDisabled:hover,
   .nightDisabled:hover .cnt,
   .nightDisabled:hover .info,
-  .nightDisabled:hover .infoExtra {
+  .nightDisabled:hover .infoExtra,
+  .nightBooked:hover,
+  .nightBooked:hover .cnt,
+  .nightBooked:hover .info,
+  .nightBooked:hover .infoExtra, {
     cursor: pointer;
   }
 }
@@ -246,7 +285,11 @@
   .morningDisabled:hover,
   .morningDisabled:hover .cnt,
   .morningDisabled:hover .info,
-  .morningDisabled:hover .infoExtra {
+  .morningDisabled:hover .infoExtra,
+  .morningBooked:hover,
+  .morningBooked:hover .cnt,
+  .morningBooked:hover .info,
+  .morningBooked:hover .infoExtra {
     cursor: pointer;
   }
 }
