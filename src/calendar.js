@@ -579,6 +579,12 @@ export default class Calendar extends Emitter {
       isDisabledStart = false;
     }
 
+    if (!this.opts.showBooked) {
+      isBooked = false;
+      isOutBooked = false;
+      isBookedStart = false;
+    }
+
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
