@@ -189,7 +189,7 @@ export default class CalendarTree {
     // trick to add extra unavailable date for proper calculations of check-out dates
 
     if (avail[avail.length - 1] === 0) {
-      avail.push(1);
+      avail.push(3);
     }
 
     return avail.reduce((curr, state, index, arr) => {
