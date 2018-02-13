@@ -20,7 +20,7 @@ export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rat
   `<td ${dis ? 'data-disabled' : 'data-enabled'}             
        ${isOutAvailable ? 'data-available-out' : ''}
        data-value="${label}"
-       class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isBooked && isOutBooked ? nightBooked : ''}">
+       class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isOutBooked ? nightBooked : ''}">
        <div class="${cnt}" role="day-value">
         ${label}
       </div>

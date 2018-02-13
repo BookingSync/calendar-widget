@@ -571,18 +571,12 @@ export default class Calendar extends Emitter {
       isDisabled      = true;
       isDisabledStart = undefined;
       isOutAvailable  = undefined;
-      isBooked        = false;
-      isBookedStart   = undefined;
-      isOutBooked     = undefined;
     }
     // if there is not rentalId and no maps, just render plain calendar
     if (!this.opts.rentalId) {
       isDisabled = false;
       isOutAvailable = true;
       isDisabledStart = false;
-      isBooked        = false;
-      isBookedStart   = false;
-      isOutBooked     = false;
     }
 
     return tpls.weekDay(
