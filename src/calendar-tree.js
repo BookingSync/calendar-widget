@@ -189,7 +189,7 @@ export default class CalendarTree {
     // trick to add extra unavailable date for proper calculations of check-out dates
 
     if (avail[avail.length - 1] === 0) {
-      avail.push(1);
+      avail.push(3);
     }
 
     return avail.reduce((curr, state, index, arr) => {
@@ -198,8 +198,11 @@ export default class CalendarTree {
       const minStay          = minMap[index];
       const rate             = rates[index];
       const isAvailable      = state === 0;
+      const isBooked         = state === 1;
       const prevAvailable    = arr[index - 1] === 0;
+      const prevBooked       = arr[index - 1] === 1;
       const isMorningBlocked = (isAvailable && !prevAvailable);
+      const isMorningBooked  = (!isBooked && prevBooked);
 
       if (!tree[year]) {
         tree[year] = {};
@@ -234,7 +237,10 @@ export default class CalendarTree {
         minStay,
         isAvailable,
         isMorningBlocked,
-        isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true)
+        isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true),
+        isBooked,
+        isMorningBooked,
+        isOutBooked: (isBooked && prevBooked === false)
       };
 
       if (day < length) {
@@ -269,5 +275,9 @@ export default class CalendarTree {
 
   isDayDisabled(year, month, day) {
     return !this.getDayProperty(year, month, day, 'isAvailable');
+  }
+
+  isDayBooked(year, month, day) {
+    return this.getDayProperty(year, month, day, 'isBooked');
   }
 }
