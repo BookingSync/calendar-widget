@@ -31,5 +31,6 @@ export default {
   formatDate:          'dd/mm/yyyy',
   rentalId:            null,
   showBooked:          false, // option to show booked dates in a different color
+  customCallback:      null,
   currDate
 };

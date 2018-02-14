@@ -585,10 +585,15 @@ export default class Calendar extends Emitter {
       isBookedStart = false;
     }
 
+    let customElement   = null;
+    if (typeof this.opts.customCallback === 'function') {
+      customElement = this.opts.customCallback(year, month, dayOfMonth);
+    }
+
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked
+      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked, customElement
     );
   }
 
