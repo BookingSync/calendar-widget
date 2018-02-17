@@ -157,11 +157,16 @@
   color: inherit;
 }
 
-.calendar .disabled,
-.calendar .disabled:hover {
+.calendar .disabled {
   color: $disabled-color;
   cursor: default;
   background-color: $disabled-bg;
+}
+
+.calendar .disabled:hover {
+  color: $disabled-color;
+  cursor: default;
+  background-color: $disabled-hover-bg;
 }
 
 .calendar .booked,
@@ -204,9 +209,13 @@
   background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
 }
 
-.calendar .nightDisabled,
-.calendar .nightDisabled:hover {
+.calendar .nightDisabled {
   background: linear-gradient(to right bottom, transparent 50%, $disabled-bg 50%);
+  color: $cell-color;
+}
+
+.calendar .nightDisabled:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $disabled-hover-bg 50%);
   color: $cell-color;
 }
 
@@ -222,9 +231,12 @@
   color: $cell-color;
 }
 
-.calendar .morningDisabled,
-.calendar .morningDisabled:hover {
+.calendar .morningDisabled {
   background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
+}
+
+.calendar .morningDisabled:hover {
+  background: linear-gradient(to left top, transparent 50%, $disabled-hover-bg 50%);
 }
 
 .calendar .morningBooked,
