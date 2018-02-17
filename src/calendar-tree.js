@@ -182,6 +182,7 @@ export default class CalendarTree {
     const avail  = maps.availability.split('').map(parseFloat);
     const rates  = maps.nightly_rates.split(',').map(parseFloat);
     const minMap = maps.minimum_stays.split(',').map(parseFloat);
+    const bookingsIdsMap = maps.bookings_ids_map.split(',').map(parseFloat);
     let { year, month, date: dayShift } = parseISOString(mapStartAt);
 
     let day      = 1;
@@ -197,6 +198,7 @@ export default class CalendarTree {
       const tree             = curr;
       const minStay          = minMap[index];
       const rate             = rates[index];
+      const bookingId        = bookingsIdsMap[index];
       const isAvailable      = state === 0;
       const isBooked         = state === 1;
       const prevAvailable    = arr[index - 1] === 0;
@@ -238,6 +240,7 @@ export default class CalendarTree {
         isAvailable,
         isMorningBlocked,
         isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true),
+        bookingId,
         isBooked,
         isMorningBooked,
         isOutBooked: (isBooked && prevBooked === false)

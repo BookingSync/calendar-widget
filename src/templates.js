@@ -16,17 +16,17 @@ export const month = `<div class="${s.mCell} js-month">
 export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT, isBooked, bookedStart, isOutBooked, customElement) =>
+export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT, isBooked, bookedStart, isOutBooked, bookingId) =>
   `<td ${dis ? 'data-disabled' : 'data-enabled'}             
        ${isOutAvailable ? 'data-available-out' : ''}
        data-value="${label}"
-       class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isOutBooked ? nightBooked : ''}">
-       <div class="${cnt}" role="day-value">
+       class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isOutBooked ? nightBooked : ''}"
+      ${bookingId ? 'data-toggle="modal" data-target="#unblockCalendar" data-booking-id="' + bookingId + '"': ''}>
+      <div class="${cnt}" role="day-value">
         ${label}
       </div>
       ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
       ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
-      ${customElement != null ? customElement : ''}
    </td>`;
 
 export const forward = `<button class="${s.forward}" role="button">

@@ -166,7 +166,7 @@
 
 .calendar .booked,
 .calendar .booked:hover {
-  color: $disabled-color;
+  color: $booked-color;
   cursor: default;
   background-color: $booked-bg;
 }

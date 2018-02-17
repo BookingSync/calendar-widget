@@ -557,6 +557,7 @@ export default class Calendar extends Emitter {
     const cTree   = this.cTree;
     const rate    = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
     const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
+    const bookingId = cTree.getDayProperty(year, month, dayOfMonth, 'bookingId');
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isBooked        = cTree.isDayBooked(year, month, dayOfMonth);
@@ -585,15 +586,10 @@ export default class Calendar extends Emitter {
       isBookedStart = false;
     }
 
-    let customElement   = null;
-    if (typeof this.opts.customCallback === 'function') {
-      customElement = this.opts.customCallback(year, month, dayOfMonth);
-    }
-
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked, customElement
+      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked, bookingId
     );
   }
 
