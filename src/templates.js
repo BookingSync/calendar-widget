@@ -16,12 +16,12 @@ export const month = `<div class="${s.mCell} js-month">
 export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT, isBooked, bookedStart, isOutBooked, bookingId) =>
+export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT, isBooked, bookedStart, isOutBooked, disabledAction) =>
   `<td ${dis ? 'data-disabled' : 'data-enabled'}             
        ${isOutAvailable ? 'data-available-out' : ''}
        data-value="${label}"
        class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isOutBooked ? nightBooked : ''}"
-      ${bookingId ? 'data-toggle="modal" data-target="#unblockCalendarModal" data-booking-id="' + bookingId + '"' : ''}>
+      ${disabledAction != null ? disabledAction : ''}
       <div class="${cnt}" role="day-value">
         ${label}
       </div>

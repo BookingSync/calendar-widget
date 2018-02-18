@@ -557,7 +557,6 @@ export default class Calendar extends Emitter {
     const cTree   = this.cTree;
     const rate    = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
     const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
-    const bookingId = cTree.getDayProperty(year, month, dayOfMonth, 'bookingId');
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isBooked        = cTree.isDayBooked(year, month, dayOfMonth);
@@ -566,6 +565,9 @@ export default class Calendar extends Emitter {
     let isBookedStart   = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBooked');
     let isOutBooked     = cTree.getDayProperty(year, month, dayOfMonth, 'isOutBooked');
     const cDate         = this.opts.currDate;
+
+    const bookingId       = cTree.getDayProperty(year, month, dayOfMonth, 'bookingId');
+    const disabledAction  = typeof this.opts.disabledAction === 'function' ? this.opts.disabledAction(bookingId) : null;
 
     // in the past any availability does not make sense
     if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
@@ -589,7 +591,7 @@ export default class Calendar extends Emitter {
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked, bookingId
+      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked, disabledAction
     );
   }
 
