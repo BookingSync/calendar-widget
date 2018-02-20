@@ -231,12 +231,9 @@
   color: $cell-color;
 }
 
-.calendar .morningDisabled {
-  background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
-}
-
+.calendar .morningDisabled,
 .calendar .morningDisabled:hover {
-  background: linear-gradient(to left top, transparent 50%, $disabled-hover-bg 50%);
+  background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
 }
 
 .calendar .morningBooked,
