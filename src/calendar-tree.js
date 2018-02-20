@@ -199,12 +199,14 @@ export default class CalendarTree {
       const minStay          = minMap[index];
       const rate             = rates[index];
       const bookingId        = bookingsIdsMap[index];
+      const prevBookingId    = bookingsIdsMap[index - 1];
       const isAvailable      = state === 0;
       const isBooked         = state === 1;
       const prevAvailable    = arr[index - 1] === 0;
       const prevBooked       = arr[index - 1] === 1;
       const isMorningBlocked = (isAvailable && !prevAvailable);
       const isMorningBooked  = (!isBooked && prevBooked);
+      const isBookingSeparation = (isBooked && bookingId !== prevBookingId);
 
       if (!tree[year]) {
         tree[year] = {};
@@ -243,7 +245,8 @@ export default class CalendarTree {
         bookingId,
         isBooked,
         isMorningBooked,
-        isOutBooked: (isBooked && prevBooked === false)
+        isOutBooked: (isBooked && prevBooked === false),
+        isBookingSeparation
       };
 
       if (day < length) {
