@@ -180,9 +180,9 @@
 .calendar .bookingSeparation:hover {
     background: linear-gradient(to top left,
            $booked-bg 0%,
-           $booked-bg calc(50% - 5px),
+           $booked-bg calc(50% - 10px),
            $cell-bg 50%,
-           $booked-bg calc(50% + 5px),
+           $booked-bg calc(50% + 10px),
            $booked-bg 100%),
 }
 
