@@ -568,7 +568,8 @@ export default class Calendar extends Emitter {
     const cDate         = this.opts.currDate;
 
     const bookingId       = cTree.getDayProperty(year, month, dayOfMonth, 'bookingId');
-    const disabledAction  = typeof this.opts.disabledAction === 'function' ? this.opts.disabledAction(bookingId) : null;
+    const disabledAction  = isDisabled && typeof this.opts.disabledAction === 'function' ?
+      this.opts.disabledAction(bookingId) : null;
 
     // in the past any availability does not make sense
     if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {

@@ -23,7 +23,7 @@ export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rat
        class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isOutBooked ? nightBooked : ''}
       ${isBookingSeparation ? bookingSeparation : ''}"
       ${disabledAction != null ? disabledAction : ''}>
-      <div class="${cnt}" role="day-value">
+      <div class="${cnt}" role="day-v alue">
         ${label}
       </div>
       ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}

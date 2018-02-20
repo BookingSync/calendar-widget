@@ -169,15 +169,21 @@
   background-color: $disabled-hover-bg;
 }
 
-.calendar .bookingSeparation {
-  background: linear-gradient(to right bottom, $booked-bg, $cell-bg, $booked-bg);
-}
-
 .calendar .booked,
 .calendar .booked:hover {
   color: $booked-color;
   cursor: default;
   background-color: $booked-bg;
+}
+
+.calendar .bookingSeparation,
+.calendar .bookingSeparation:hover {
+    background: linear-gradient(to top left,
+           $booked-bg 0%,
+           $booked-bg calc(50% - 5px),
+           $cell-bg 50%,
+           $booked-bg calc(50% + 5px),
+           $booked-bg 100%),
 }
 
 .calendar .highlighted {
