@@ -355,7 +355,7 @@ export default class Calendar extends Emitter {
 
     if (isArray(range)) {
       // if selected range less than minimum stay at start
-      if (range.length <= minStay) {
+      if (this.opts.selectionByMinStay && range.length <= minStay) {
         hasValidRange = false;
       }
 
