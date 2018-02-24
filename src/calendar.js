@@ -188,6 +188,7 @@ export default class Calendar extends Emitter {
     this.dom.forward.addEventListener('click', (e) => {
       this.destroyMonths();
       this.renderMonths(this.yearEnd, this.monthEnd);
+      this.emit('click-calendar-forward');
       e.preventDefault();
     });
 
@@ -202,6 +203,7 @@ export default class Calendar extends Emitter {
       }
 
       this.renderMonths(yearToRender, monthToRender);
+      this.emit('click-calendar-back');
       e.preventDefault();
     });
   }
