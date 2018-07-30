@@ -159,13 +159,11 @@
 
 .calendar .disabled {
   color: $disabled-color;
-  cursor: default;
   background-color: $disabled-bg;
 }
 
 .calendar .disabled:hover {
   color: $disabled-color;
-  cursor: default;
   background-color: $disabled-hover-bg;
 }
 
