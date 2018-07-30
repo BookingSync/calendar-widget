@@ -121,6 +121,10 @@
 				  morningDisabled
 				  nightDisabled
 
+          booked
+          morningBooked
+          nightBooked
+
 				  highlighted
 				  morningSelected
 				  nightSelected
@@ -153,11 +157,31 @@
   color: inherit;
 }
 
-.calendar .disabled,
+.calendar .disabled {
+  color: $disabled-color;
+  background-color: $disabled-bg;
+}
+
 .calendar .disabled:hover {
   color: $disabled-color;
+  background-color: $disabled-hover-bg;
+}
+
+.calendar .booked,
+.calendar .booked:hover {
+  color: $booked-color;
   cursor: default;
-  background-color: $disabled-bg;
+  background-color: $booked-bg;
+}
+
+.calendar .bookingSeparation,
+.calendar .bookingSeparation:hover {
+    background: linear-gradient(to top left,
+           $booked-bg 0%,
+           $booked-bg calc(50% - 1px),
+           $cell-bg 50%,
+           $booked-bg calc(50% + 1px),
+           $booked-bg 100%),
 }
 
 .calendar .highlighted {
@@ -193,9 +217,25 @@
   background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
 }
 
-.calendar .nightDisabled,
-.calendar .nightDisabled:hover {
+.calendar .nightDisabled {
   background: linear-gradient(to right bottom, transparent 50%, $disabled-bg 50%);
+  color: $cell-color;
+}
+
+.calendar .nightDisabled:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $disabled-hover-bg 50%);
+  color: $cell-color;
+}
+
+.calendar .nightBooked,
+.calendar .nightBooked:hover {
+  background: linear-gradient(to right bottom, transparent 50%, $booked-bg 50%);
+  color: $cell-color;
+}
+
+.calendar .booked.nightBooked,
+.calendar .booked.nightBooked:hover {
+  background: linear-gradient(to right bottom, $disabled-bg 50%, $booked-bg 50%);
   color: $cell-color;
 }
 
@@ -204,10 +244,22 @@
   background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
 }
 
+.calendar .morningBooked,
+.calendar .morningBooked:hover {
+  background: linear-gradient(to left top, transparent 50%, $booked-bg 50%);
+}
+
+.calendar .disabled.morningBooked,
+.calendar .disabled.morningBooked:hover {
+  background: linear-gradient(to left top, $disabled-bg 50%, $booked-bg 50%);
+}
+
 .direct [data-enabled]:hover,
 .reversed [data-available-out]:hover,
 .selectingDirect .nightDisabled:hover,
+.selectingDirect .nightBooked:hover,
 .selectingReversed .morningDisabled:hover,
+.selectingReversed .morningBooked:hover,
 .calendar .selectedStart,
 .calendar .selectedEnd,
 .calendar .highlighted {
@@ -237,7 +289,11 @@
   .nightDisabled:hover,
   .nightDisabled:hover .cnt,
   .nightDisabled:hover .info,
-  .nightDisabled:hover .infoExtra {
+  .nightDisabled:hover .infoExtra,
+  .nightBooked:hover,
+  .nightBooked:hover .cnt,
+  .nightBooked:hover .info,
+  .nightBooked:hover .infoExtra, {
     cursor: pointer;
   }
 }
@@ -246,7 +302,11 @@
   .morningDisabled:hover,
   .morningDisabled:hover .cnt,
   .morningDisabled:hover .info,
-  .morningDisabled:hover .infoExtra {
+  .morningDisabled:hover .infoExtra,
+  .morningBooked:hover,
+  .morningBooked:hover .cnt,
+  .morningBooked:hover .info,
+  .morningBooked:hover .infoExtra {
     cursor: pointer;
   }
 }

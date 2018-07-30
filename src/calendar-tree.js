@@ -182,6 +182,7 @@ export default class CalendarTree {
     const avail  = maps.availability.split('').map(parseFloat);
     const rates  = maps.nightly_rates.split(',').map(parseFloat);
     const minMap = maps.minimum_stays.split(',').map(parseFloat);
+    const bookingsIdsMap = maps.bookings_ids_map.split(',').map(parseFloat);
     let { year, month, date: dayShift } = parseISOString(mapStartAt);
 
     let day      = 1;
@@ -189,7 +190,7 @@ export default class CalendarTree {
     // trick to add extra unavailable date for proper calculations of check-out dates
 
     if (avail[avail.length - 1] === 0) {
-      avail.push(1);
+      avail.push(3);
     }
 
     return avail.reduce((curr, state, index, arr) => {
@@ -197,9 +198,15 @@ export default class CalendarTree {
       const tree             = curr;
       const minStay          = minMap[index];
       const rate             = rates[index];
+      const bookingId        = bookingsIdsMap[index];
+      const prevBookingId    = bookingsIdsMap[index - 1];
       const isAvailable      = state === 0;
+      const isBooked         = state === 1;
       const prevAvailable    = arr[index - 1] === 0;
+      const prevBooked       = arr[index - 1] === 1;
       const isMorningBlocked = (isAvailable && !prevAvailable);
+      const isMorningBooked  = (!isBooked && prevBooked);
+      const isBookingSeparation = (isBooked && bookingId !== prevBookingId);
 
       if (!tree[year]) {
         tree[year] = {};
@@ -234,7 +241,12 @@ export default class CalendarTree {
         minStay,
         isAvailable,
         isMorningBlocked,
-        isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true)
+        isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true),
+        bookingId,
+        isBooked,
+        isMorningBooked,
+        isOutBooked: (isBooked && prevBooked === false),
+        isBookingSeparation
       };
 
       if (day < length) {
@@ -269,5 +281,9 @@ export default class CalendarTree {
 
   isDayDisabled(year, month, day) {
     return !this.getDayProperty(year, month, day, 'isAvailable');
+  }
+
+  isDayBooked(year, month, day) {
+    return this.getDayProperty(year, month, day, 'isBooked');
   }
 }

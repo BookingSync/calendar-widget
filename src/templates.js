@@ -1,7 +1,7 @@
 /* eslint "max-len": ["error", 300] */
 import s from './styles/calendar.scss';
 
-const { disabled, info, infoExtra, morningDisabled, nightDisabled, cnt } = s;
+const { disabled, booked, info, infoExtra, morningDisabled, nightDisabled, morningBooked, nightBooked, bookingSeparation, cnt } = s;
 
 export const main  = `<div class="${s.monthsWrapper}"></div>`;
 
@@ -16,12 +16,14 @@ export const month = `<div class="${s.mCell} js-month">
 export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) =>
+export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT, isBooked, bookedStart, isOutBooked, isBookingSeparation, disabledAction) =>
   `<td ${dis ? 'data-disabled' : 'data-enabled'}             
        ${isOutAvailable ? 'data-available-out' : ''}
        data-value="${label}"
-       class="${s.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
-       <div class="${cnt}" role="day-value">
+       class="${s.cell} ${dis && !isBooked ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable && !isBooked ? nightDisabled : ''} ${isBooked && !isOutAvailable ? booked : ''}${bookedStart ? morningBooked : ''} ${isOutBooked ? nightBooked : ''}
+      ${isBookingSeparation ? bookingSeparation : ''}"
+      ${disabledAction != null ? disabledAction : ''}>
+      <div class="${cnt}" role="day-v alue">
         ${label}
       </div>
       ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}

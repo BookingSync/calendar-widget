@@ -59,6 +59,7 @@ Additionally you can run json-mock server
 | `selectable` | Allow to select range | Boolean | false
 | `showRates` | Show rates from availability map | Boolean | false
 | `showMinStay` | Show minimum stay per single day (be careful to use together with `showRates`, can be too munch information) | Boolean | false
+| `showBooked` | Show booked days in a different color | Boolean | false
 | `isReverseSelectable` | User selects end date first | Boolean | false
 | `isBackDisabled` | Disable back button for past months | Boolean | true
 | `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false

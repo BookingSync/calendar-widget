@@ -30,5 +30,8 @@ export default {
   elReset:             null,
   formatDate:          'dd/mm/yyyy',
   rentalId:            null,
+  showBooked:          false, // option to show booked dates in a different color,
+  disabledAction:      null,
+  selectionByMinStay:  true,
   currDate
 };

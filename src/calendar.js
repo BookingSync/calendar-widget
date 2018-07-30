@@ -188,6 +188,7 @@ export default class Calendar extends Emitter {
     this.dom.forward.addEventListener('click', (e) => {
       this.destroyMonths();
       this.renderMonths(this.yearEnd, this.monthEnd);
+      this.emit('click-calendar-forward');
       e.preventDefault();
     });
 
@@ -202,6 +203,7 @@ export default class Calendar extends Emitter {
       }
 
       this.renderMonths(yearToRender, monthToRender);
+      this.emit('click-calendar-back');
       e.preventDefault();
     });
   }
@@ -353,7 +355,7 @@ export default class Calendar extends Emitter {
 
     if (isArray(range)) {
       // if selected range less than minimum stay at start
-      if (range.length <= minStay) {
+      if (this.opts.selectionByMinStay && range.length <= minStay) {
         hasValidRange = false;
       }
 
@@ -559,9 +561,17 @@ export default class Calendar extends Emitter {
     const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
-    let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+    let isBooked        = cTree.isDayBooked(year, month, dayOfMonth);
     let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+    let isBookedStart   = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBooked');
+    let isOutBooked     = cTree.getDayProperty(year, month, dayOfMonth, 'isOutBooked');
+    let isBookingSeparation = cTree.getDayProperty(year, month, dayOfMonth, 'isBookingSeparation');
     const cDate         = this.opts.currDate;
+
+    const bookingId       = cTree.getDayProperty(year, month, dayOfMonth, 'bookingId');
+    const disabledAction  = isDisabled && !isBooked && typeof this.opts.disabledAction === 'function' ?
+      this.opts.disabledAction(bookingId) : null;
 
     // in the past any availability does not make sense
     if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
@@ -576,10 +586,18 @@ export default class Calendar extends Emitter {
       isDisabledStart = false;
     }
 
+    if (!this.opts.showBooked) {
+      isBooked = false;
+      isOutBooked = false;
+      isBookedStart = false;
+      isBookingSeparation = false;
+    }
+
     return tpls.weekDay(
       dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay)
+      tFormatter(minStay, this.locale.minStay), isBooked, isBookedStart, isOutBooked, isBookingSeparation,
+      disabledAction
     );
   }
 
