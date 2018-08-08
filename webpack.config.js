@@ -1,24 +1,34 @@
 /* global require */
 'use strict';
 
-const webpack = require('webpack');
-const path = require('path');
-const env = require('yargs').argv.env;
+const webpack     = require('webpack');
+const path        = require('path');
+const env         = require('yargs').argv.env.NODE_ENV;
 const libraryName = 'BookingSyncCalendarWidget';
-let outputFile = 'bookingsync-calendar-widget.js';
-const CSS_PREFIX = 'BookingSyncCalendar';
+const fileName    = 'bookingsync-calendar-widget';
+const CSS_PREFIX  = 'BookingSyncCalendar';
 
 const plugins = [
   new webpack.DefinePlugin({
     VERSION:    JSON.stringify(require('./package.json').version),
     NODE_ENV:   JSON.stringify(env),
     CSS_PREFIX: JSON.stringify(CSS_PREFIX),
-  }),
-  new webpack.SourceMapDevToolPlugin()
+  })
 ];
 
+console.log('Environment: ' + env);
+
+let outputFile;
+
+if (env === 'development') {
+  outputFile = fileName + '.js';
+  plugins.push(new webpack.SourceMapDevToolPlugin({ filename: outputFile + '.map' }));
+} else {
+  outputFile = fileName + '.min.js';
+}
 
 const config = {
+  mode: env,
   entry:  `${__dirname}/src/bookingsync-calendar-widget.js`,
   output: {
     path:           __dirname + '/dist',
@@ -28,7 +38,6 @@ const config = {
     libraryTarget:  'umd',
     umdNamedDefine: true,
   },
-
   module:  {
     rules: [
       {
@@ -57,15 +66,5 @@ const config = {
   },
   plugins,
 };
-
-if (env === 'build') {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-        minimize: true,
-        compress: {
-          warnings: false
-        }
-      }
-  ));
-}
 
 module.exports = config;

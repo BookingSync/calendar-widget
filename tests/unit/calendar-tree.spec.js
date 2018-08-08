@@ -3,9 +3,7 @@ import chai from 'chai';
 
 import CalendarTree from '../../src/calendar-tree';
 
-chai.expect();
-
-const expect = chai.expect;
+const { expect } = chai;
 
 const treeA = {
   2016: {

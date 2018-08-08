@@ -5,9 +5,7 @@ import { destroyElement } from 'widget-utils';
 import { mCell, calendar } from '../../src/styles/calendar.scss';
 import BookingSyncCalendar from '../../src/bookingsync-calendar-widget';
 
-chai.expect();
-
-const expect   = chai.expect;
+const { expect } = chai;
 const { keys } = Object;
 
 const stubElement = (name, attrs) => {

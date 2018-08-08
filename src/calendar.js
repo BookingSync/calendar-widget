@@ -12,7 +12,9 @@ import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
-import { formatDate, dateToIso, isLater, validationOfRange, tFormatter } from './utils';
+import {
+  formatDate, dateToIso, isLater, validationOfRange, tFormatter
+} from './utils';
 
 import {
   calendar, chunky, highlighted, invalid,
@@ -109,7 +111,9 @@ export default class Calendar extends Emitter {
 
   renderMonths(yearStart, monthStart) {
     // construct dom tree
-    const { tree, yearEnd, monthEnd, months } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
+    const {
+      tree, yearEnd, monthEnd, months
+    } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
 
     this.cTree.addTree(tree);
 
@@ -266,9 +270,9 @@ export default class Calendar extends Emitter {
     el.body.addEventListener('mouseout', (e) => {
       /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
       // simulate 'mouseleave'
-      if (!e.relatedTarget ||
-        (e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget) &
-        Node.DOCUMENT_POSITION_CONTAINED_BY))) {
+      if (!e.relatedTarget
+        || (e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget)
+        & Node.DOCUMENT_POSITION_CONTAINED_BY))) {
         if (this.isSelecting) {
           this.removeHighlight();
         }
@@ -554,9 +558,9 @@ export default class Calendar extends Emitter {
   }
 
   dayTplString(year, month, dayOfMonth) {
-    const cTree   = this.cTree;
-    const rate    = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
-    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
+    const { cTree }   = this;
+    const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const minStay     = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
@@ -653,7 +657,7 @@ export default class Calendar extends Emitter {
       if (!calDrop.isOpened()) {
         this.emit('drop-open');
         calDrop.open();
-        if (!this.mapsLoaded) {
+        if (this.opts.rentalId && !this.mapsLoaded) {
           this.loadMaps(this.opts.rentalId);
         }
       }

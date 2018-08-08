@@ -5,9 +5,7 @@ import sinon from 'sinon';
 import s from '../../src/styles/calendar.scss';
 import Calendar from '../../src/calendar';
 
-chai.expect();
-
-const expect        = chai.expect;
+const { expect } = chai;
 const { keys }      = Object;
 const { stringify } = JSON;
 
