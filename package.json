@@ -16,7 +16,7 @@
     "chai": "4.1.2",
     "sinon": "^6.1.4",
     "tether-drop": "1.4.2",
-    "widget-utils": "0.1.1"
+    "widget-utils": "0.2.0"
   },
   "devDependencies": {
     "babel-core": "6.26.3",

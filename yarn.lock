@@ -1385,14 +1385,6 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-chai@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/chai/-/chai-3.4.1.tgz#330ae2f819124c26182036fa5e43a88ea4e1bd85"
-  dependencies:
-    assertion-error "^1.0.1"
-    deep-eql "^0.1.3"
-    type-detect "^1.0.0"
-
 chai@4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chai/-/chai-4.1.2.tgz#0f64584ba642f0f2ace2806279f4f06ca23ad73c"
@@ -1840,9 +1832,9 @@ cssesc@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
 
-currency-symbol-map@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/currency-symbol-map/-/currency-symbol-map-3.1.0.tgz#b2b42c53e80d205bb508ca80eafc7816c9628d5b"
+currency-symbol-map@4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/currency-symbol-map/-/currency-symbol-map-4.0.4.tgz#3cfba625974dd3f86822d327ecbd10248695e95e"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -1907,12 +1899,6 @@ decamelize@^2.0.0:
 decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-
-deep-eql@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/deep-eql/-/deep-eql-0.1.3.tgz#ef558acab8de25206cd713906d74e56930eb69f2"
-  dependencies:
-    type-detect "0.1.1"
 
 deep-eql@^3.0.0:
   version "3.0.1"
@@ -6532,14 +6518,6 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-type-detect@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-0.1.1.tgz#0ba5ec2a885640e470ea4e8505971900dac58822"
-
-type-detect@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-1.0.0.tgz#762217cc06db258ec48908a1298e8b95121e8ea2"
-
 type-detect@^4.0.0, type-detect@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
@@ -6928,12 +6906,12 @@ widest-line@^2.0.0:
   dependencies:
     string-width "^2.1.1"
 
-widget-utils@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.1.1.tgz#2bcb8d8ab2bb173af0eb593af9e810eab478dd9a"
+widget-utils@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/widget-utils/-/widget-utils-0.2.0.tgz#67775bc2d8bc28000277b32b586242f3367da9f4"
   dependencies:
-    chai "3.4.1"
-    currency-symbol-map "3.1.0"
+    chai "4.1.2"
+    currency-symbol-map "4.0.4"
 
 with-callback@^1.0.2:
   version "1.0.2"
