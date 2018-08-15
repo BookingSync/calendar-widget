@@ -13,7 +13,7 @@ import config from './config';
 import locales from './locales';
 
 import {
-  formatDate, dateToIso, isLater, validationOfRange, tFormatter
+  formatDate, dateToIso, isLater, validationOfRange, tFormatter, dateToArray
 } from './utils';
 
 import {
@@ -84,6 +84,13 @@ export default class Calendar extends Emitter {
 
     if (this.opts.showRates || this.opts.showMinStay) {
       addClass(this.el, chunky);
+    }
+
+    if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
+      if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
+        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.opts.formatDate);
+        this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.opts.formatDate);
+      }
     }
 
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));

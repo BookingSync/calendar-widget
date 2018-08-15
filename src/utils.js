@@ -26,6 +26,22 @@ export const dateToIso = (year, month, day, isString = false) => {
   return new Date(year, month, day);
 };
 
+export const dateToArray = (date, format) => {
+  const year  = 'yyyy';
+  const month = 'mm';
+  const day   = 'dd';
+
+  if (date.length === format.length) {
+    return [
+      parseInt(date.substr(format.indexOf(year), year.length), 10),
+      parseInt(date.substr(format.indexOf(month), month.length), 10) - 1, // Convert to index
+      parseInt(date.substr(format.indexOf(day), day.length), 10)
+    ];
+  }
+
+  return null;
+};
+
 export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);
 
 export const validationOfRange = (cell, index, range) => {
