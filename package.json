@@ -13,7 +13,6 @@
     "mock-server": "node json-server.js"
   },
   "dependencies": {
-    "chai": "4.1.2",
     "sinon": "^6.1.4",
     "tether-drop": "1.4.2",
     "widget-utils": "0.2.0"
@@ -23,6 +22,7 @@
     "babel-eslint": "8.2.6",
     "babel-loader": "7.1.5",
     "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
     "css-loader": "^1.0.0",
     "eslint": "^5.2.0",
     "eslint-config-airbnb-base": "^13.0.0",
