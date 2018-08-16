@@ -100,7 +100,7 @@ export default class Calendar extends Emitter {
 
     this.addBtnsEvents();
 
-    if (!this.autoSpawed && this.opts.rentalId) {
+    if (this.opts.rentalId) {
       this.loadMaps(this.opts.rentalId);
     }
 
@@ -610,7 +610,7 @@ export default class Calendar extends Emitter {
     const onSuccess = (maps) => {
       this.toggleLoading();
       if (isArray(maps.data) && maps.data[0].attributes) {
-        this.opts.currency =  maps.data[0].attributes.currency || this.opts.currency;
+        this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;
         this.emit('maps-loaded', maps);
         this.addMaps(maps.data[0].attributes);
         this.mapsLoaded = true;
@@ -661,10 +661,11 @@ export default class Calendar extends Emitter {
     const onFocus = (input, isReversed) => {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
+
       if (!calDrop.isOpened()) {
         this.emit('drop-open');
         calDrop.open();
-        if (this.opts.rentalId && !this.mapsLoaded) {
+        if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
         }
       }

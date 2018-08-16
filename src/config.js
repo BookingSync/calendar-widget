@@ -5,10 +5,13 @@ export default {
   name:         'BookingSync Calendar Widget',
   apiHost:      NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
-  apiMapsRoute: '/maps.json?rental_id={params}',
+  apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
+  apiRentalId:  'rental_id=',
+  apiCurrency:  '&currency=',
 
   rentalUrl(ids) {
-    const route = this.apiMapsRoute.replace('{params}', ids);
+    let route = this.apiMapsRoute.replace('{apiRentalId}', `${this.apiRentalId}${ids}`);
+    route = route.replace('{apiCurrency}', (this.currency) ? `${this.apiCurrency}${this.currency}` : '');
     return `${this.apiHost}${this.apiNamespace}${route}`;
   },
 
@@ -30,5 +33,6 @@ export default {
   elReset:             null,
   formatDate:          'dd/mm/yyyy',
   rentalId:            null,
+  currency:            null,
   currDate
 };

@@ -52,6 +52,7 @@ Additionally you can run json-mock server
 | `apiMapsRoute` | route for maps | String | `/maps.json?rental_id={params}` - `{params}` is replaced with `rentalId` |
 | `rentalURL` | URL route for maps | Function | |
 | `rentalId` | parameter to pass in API request for availability maps | String or Number | null
+| `currency` | Set currency conversion | String | null
 | `minStay` | Minimum selectable range | Number | 1
 | `monthStart` | Calendar starts months, the left up most, 0 - 11 range | Number | Current month 
 | `yearStart` | Calendar start year, YYYY format (2016) | Number | Current year

@@ -6,19 +6,15 @@ const Calendar = require('./calendar');
 const CalendarConst = Calendar.default;
 
 CalendarConst.init = (opts) => {
-  const initialized      = [];
-  const options          = opts || {};
+  const initialized           = [];
+  const options               = opts || {};
   const CalendarConstElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');
-  const len              = CalendarConstElements.length;
+  const len                   = CalendarConstElements.length;
 
   for (let i = 0; i < len; i += 1) {
     options.el = CalendarConstElements[i];
     const cal  = new CalendarConst(options);
 
-    if (options.el.dataset.rentalId) {
-      cal.autoSpawed = true;
-      cal.loadMaps(options.el.dataset.rentalId);
-    }
     initialized.push(cal);
   }
 
