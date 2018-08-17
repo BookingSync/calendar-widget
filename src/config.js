@@ -7,7 +7,7 @@ export default {
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
   apiRentalId:  'rental_id=',
-  apiCurrency:  '&currency=',
+  apiCurrency:  '&exchange_to_currency=',
 
   rentalUrl(ids) {
     let route = this.apiMapsRoute.replace('{apiRentalId}', `${this.apiRentalId}${ids}`);
