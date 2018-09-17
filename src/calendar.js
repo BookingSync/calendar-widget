@@ -1,4 +1,4 @@
-/* global VERSION, Node, CSS_PREFIX, document, require */
+/* global VERSION, Node, CSS_PREFIX, document, console */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -41,7 +41,7 @@ export default class Calendar extends Emitter {
       const configDataset = merge(config, opts.el.dataset);
       this.opts           = merge(configDataset, opts);
 
-      this.opts = traverseObj(this.opts, a => a, (b) => {
+      this.opts = traverseObj(this.opts, (a) => a, (b) => {
         if (b === 'true' || b === 'false') {
           return (b === 'true');
         }
@@ -220,8 +220,7 @@ export default class Calendar extends Emitter {
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
       const isEndFirst = this.isReverseSelectable;
-      let value;
-      let cell;
+      let value, cell;
 
       if (this.isSelecting) {
         ({
@@ -350,7 +349,7 @@ export default class Calendar extends Emitter {
   removeHighlight() {
     if (this.highlightedBounds.length > 0) {
       const { range } = this.selectRange(...this.highlightedBounds);
-      range.map(a => removeClass(a, highlighted, invalid));
+      range.map((a) => removeClass(a, highlighted, invalid));
 
       this.hasValidRange     = true;
       this.highlightedBounds = [];
@@ -420,7 +419,7 @@ export default class Calendar extends Emitter {
       return this.cTree.selectRange(start, end);
     }
     return {
-      range:   null,
+      range: null,
       isValid: false
     };
   }
@@ -596,7 +595,7 @@ export default class Calendar extends Emitter {
 
   destroyMonths() {
     if (this.dom && isArray(this.dom.months)) {
-      this.dom.months.map(m => destroyElement(m));
+      this.dom.months.map((m) => destroyElement(m));
     }
   }
 
@@ -649,12 +648,12 @@ export default class Calendar extends Emitter {
     });
 
     const calDrop = new MyDrop({
-      content:                 element,
-      target:                  this.elTarget,
-      classes:                 dropBasic,
-      openOn:                  null,
-      targetAttachment:        'bottom left',
-      constrainToWindow:       false,
+      content: element,
+      target: this.elTarget,
+      classes: dropBasic,
+      openOn: null,
+      targetAttachment: 'bottom left',
+      constrainToWindow: false,
       constrainToScrollParent: false
     });
 

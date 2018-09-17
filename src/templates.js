@@ -17,7 +17,7 @@ export const month = `
   </div>
 `;
 
-export const weekDayLabel = label => `<th class="${s.th}">${label}</th>`;
+export const weekDayLabel = (label) => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
 export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) => `
@@ -54,7 +54,7 @@ export const weekDayPlaceholder = '<td></td>';
 /* eslint arrow-body-style: 0 */
 export const weekRow = (num) => {
   return {
-    open:  `<tr class="js-body-row-${num}">`,
+    open: `<tr class="js-body-row-${num}">`,
     close: '</tr>'
   };
 };

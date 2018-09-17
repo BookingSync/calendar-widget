@@ -18,9 +18,9 @@ const genArrayRange = (a, b) => {
 const parseISOString = (str /* yyyy-mm-dd */) => {
   const arrStr = str.split('-').map(parseFloat);
   return {
-    year:  arrStr[0],
+    year: arrStr[0],
     month: arrStr[1] - 1,
-    date:  arrStr[2]
+    date: arrStr[2]
   };
 };
 
@@ -83,7 +83,7 @@ export default class CalendarTree {
       if (end[1] > a[1]) {
         // e.g. start 20 October end 20 December, select full November
         range = range.concat(this.selectMonthsInYear(a[0], a[1], end[1] - 1));
-        [a[1]] = [end[1]];
+        a[1] = end;
       }
 
       // the missing part is days in end selection month
@@ -261,7 +261,7 @@ export default class CalendarTree {
     if (this.map) {
       try {
         prop = this.map[year][month][day][property];
-      } catch (e) {
+      } catch(e) {
         // continue regardless of error
       }
     }

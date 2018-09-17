@@ -1,4 +1,4 @@
-/* global describe, module, it, before, after */
+/* global describe, it, before, after */
 import chai from 'chai';
 
 import CalendarTree from '../../src/calendar-tree';
@@ -9,25 +9,25 @@ const treeA = {
   2016: {
     0: [1, 2, 3],
     1: [1, 2, 3],
-    2: [1, 2, 3],
-  },
+    2: [1, 2, 3]
+  }
 };
 
 const treeB = {
   2016: {
-    3: [1, 2, 3],
+    3: [1, 2, 3]
   },
   2017: {
     0: [1, 2, 3],
-    1: [1, 2, 3],
-  },
+    1: [1, 2, 3]
+  }
 };
 
 describe('calendarTree', () => {
   let cTree;
 
   before(() => {
-    const validate = a => a;
+    const validate = (a) => a;
     cTree          = new CalendarTree(validate, treeA);
   });
 
@@ -67,7 +67,6 @@ describe('calendarTree', () => {
       const sDiffMonths  = cTree.selectRange([2016, 0, 1], [2016, 2, 1]);
       const sDiffMonths2 = cTree.selectRange([2016, 0, 1], [2016, 1, 2]);
 
-
       expect(sSameMonth.range).to.be.deep.equal([1, 2, 3]);
       expect(sDiffMonths.range).to.be.deep.equal([1, 2, 3, 1, 2, 3, 1]);
       expect(sDiffMonths2.range).to.be.deep.equal([1, 2, 3, 1, 2]);
@@ -83,7 +82,6 @@ describe('calendarTree', () => {
       const sDiffMonths2 = cTree.selectRange([2016, 0, 1], [2016, 1, 2]);
       const newRange     = cTree.selectRange([2016, 3, 3], [2017, 0, 3]);
 
-
       expect(sSameMonth.range).to.be.deep.equal([1, 2, 3]);
       expect(sDiffMonths.range).to.be.deep.equal([1, 2, 3, 1, 2, 3, 1]);
       expect(sDiffMonths2.range).to.be.deep.equal([1, 2, 3, 1, 2]);
@@ -98,9 +96,9 @@ describe('calendarTree', () => {
 
     it('correctly return object 1', () => {
       const maps   = {
-        availability:  '0110',
+        availability: '0110',
         nightly_rates: '0,0,0,0',
-        minimum_stays: '1,1,1,1',
+        minimum_stays: '1,1,1,1'
       };
       const mapObj = CalendarTree.mapsToTree(maps, '2016-12-01'); // 1 December 2016
 
@@ -108,50 +106,50 @@ describe('calendarTree', () => {
         2016: {
           11: {
             1: {
-              isAvailable:      true,
-              rate:             0,
-              minStay:          1,
+              isAvailable: true,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: true,
-              isOutAvailable:   false,
+              isOutAvailable: false
             },
             2: {
-              isAvailable:      false,
-              rate:             0,
-              minStay:          1,
+              isAvailable: false,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable:   true,
+              isOutAvailable: true
             },
             3: {
-              isAvailable:      false,
-              rate:             0,
-              minStay:          1,
+              isAvailable: false,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable:   false,
+              isOutAvailable: false
             },
             4: {
-              isAvailable:      true,
-              rate:             0,
-              minStay:          1,
+              isAvailable: true,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: true,
-              isOutAvailable:   false,
+              isOutAvailable: false
             },
             5: {
-              isAvailable:      false,
-              rate:             undefined,
-              minStay:          undefined,
+              isAvailable: false,
+              rate: undefined,
+              minStay: undefined,
               isMorningBlocked: false,
-              isOutAvailable:   true,
-            },
-          },
-        },
+              isOutAvailable: true
+            }
+          }
+        }
       });
     });
 
     it('correctly return object 2', () => {
       const maps = {
-        availability:  '0000',
+        availability: '0000',
         nightly_rates: '0,0,0,0',
-        minimum_stays: '1,1,1,1',
+        minimum_stays: '1,1,1,1'
       };
 
       const mapObj = CalendarTree.mapsToTree(maps, '2016-12-01'); // 1 December 2016
@@ -160,42 +158,42 @@ describe('calendarTree', () => {
         2016: {
           11: {
             1: {
-              isAvailable:      true,
-              rate:             0,
-              minStay:          1,
+              isAvailable: true,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: true,
-              isOutAvailable:   false,
+              isOutAvailable: false
             },
             2: {
-              isAvailable:      true,
-              rate:             0,
-              minStay:          1,
+              isAvailable: true,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable:   true,
+              isOutAvailable: true
             },
             3: {
-              isAvailable:      true,
-              rate:             0,
-              minStay:          1,
+              isAvailable: true,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable:   true,
+              isOutAvailable: true
             },
             4: {
-              isAvailable:      true,
-              rate:             0,
-              minStay:          1,
+              isAvailable: true,
+              rate: 0,
+              minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable:   true,
+              isOutAvailable: true
             },
             5: {
-              isAvailable:      false,
-              rate:             undefined,
-              minStay:          undefined,
+              isAvailable: false,
+              rate: undefined,
+              minStay: undefined,
               isMorningBlocked: false,
-              isOutAvailable:   true,
-            },
-          },
-        },
+              isOutAvailable: true
+            }
+          }
+        }
       });
     });
   });
@@ -207,9 +205,9 @@ describe('calendarTree', () => {
 
     it('correctly return object 1', () => {
       const maps = {
-        availability:  '0110',
+        availability: '0110',
         nightly_rates: '0,0,0,0',
-        minimum_stays: '1,1,1,1',
+        minimum_stays: '1,1,1,1'
       };
 
       cTree.replaceMaps(maps, '2016-12-01'); // 1 December 2016
