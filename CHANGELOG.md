@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2018-09-18
+### Fixed
+- Switch from `Yarn` to `Npm`
+- Migrate to `CircleCI v2`, `WebPack v3` and `Babel v7`
+- Fix `currency` and `API calls`
+- Add `date-range` from inputs
+- Update `eslint` rules
+
 ## [0.2.4] - 2017-08-14
 ### Fixed
 - handling adding js-script with async attribute
