@@ -1,4 +1,4 @@
-/* global VERSION, Node, CSS_PREFIX, document, require */
+/* global VERSION, Node, CSS_PREFIX, document, console */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -12,7 +12,9 @@ import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
-import { formatDate, dateToIso, isLater, validationOfRange, tFormatter } from './utils';
+import {
+  formatDate, dateToIso, isLater, validationOfRange, tFormatter, dateToArray
+} from './utils';
 
 import {
   calendar, chunky, highlighted, invalid,
@@ -39,7 +41,7 @@ export default class Calendar extends Emitter {
       const configDataset = merge(config, opts.el.dataset);
       this.opts           = merge(configDataset, opts);
 
-      this.opts = traverseObj(this.opts, a => a, (b) => {
+      this.opts = traverseObj(this.opts, (a) => a, (b) => {
         if (b === 'true' || b === 'false') {
           return (b === 'true');
         }
@@ -84,6 +86,13 @@ export default class Calendar extends Emitter {
       addClass(this.el, chunky);
     }
 
+    if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
+      if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
+        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.opts.formatDate);
+        this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.opts.formatDate);
+      }
+    }
+
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));
     this.dom.forward       = this.el.appendChild(elementFromString(tpls.forward));
     this.dom.back          = this.el.appendChild(elementFromString(tpls.back));
@@ -91,7 +100,7 @@ export default class Calendar extends Emitter {
 
     this.addBtnsEvents();
 
-    if (!this.autoSpawed && this.opts.rentalId) {
+    if (this.opts.rentalId) {
       this.loadMaps(this.opts.rentalId);
     }
 
@@ -109,7 +118,9 @@ export default class Calendar extends Emitter {
 
   renderMonths(yearStart, monthStart) {
     // construct dom tree
-    const { tree, yearEnd, monthEnd, months } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
+    const {
+      tree, yearEnd, monthEnd, months
+    } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
 
     this.cTree.addTree(tree);
 
@@ -209,8 +220,7 @@ export default class Calendar extends Emitter {
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
       const isEndFirst = this.isReverseSelectable;
-      let value;
-      let cell;
+      let value, cell;
 
       if (this.isSelecting) {
         ({
@@ -266,9 +276,9 @@ export default class Calendar extends Emitter {
     el.body.addEventListener('mouseout', (e) => {
       /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
       // simulate 'mouseleave'
-      if (!e.relatedTarget ||
-        (e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget) &
-        Node.DOCUMENT_POSITION_CONTAINED_BY))) {
+      if (!e.relatedTarget
+        || (e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget)
+        & Node.DOCUMENT_POSITION_CONTAINED_BY))) {
         if (this.isSelecting) {
           this.removeHighlight();
         }
@@ -339,7 +349,7 @@ export default class Calendar extends Emitter {
   removeHighlight() {
     if (this.highlightedBounds.length > 0) {
       const { range } = this.selectRange(...this.highlightedBounds);
-      range.map(a => removeClass(a, highlighted, invalid));
+      range.map((a) => removeClass(a, highlighted, invalid));
 
       this.hasValidRange     = true;
       this.highlightedBounds = [];
@@ -409,7 +419,7 @@ export default class Calendar extends Emitter {
       return this.cTree.selectRange(start, end);
     }
     return {
-      range:   null,
+      range: null,
       isValid: false
     };
   }
@@ -554,9 +564,9 @@ export default class Calendar extends Emitter {
   }
 
   dayTplString(year, month, dayOfMonth) {
-    const cTree   = this.cTree;
-    const rate    = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
-    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
+    const { cTree }   = this;
+    const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const minStay     = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
@@ -585,7 +595,7 @@ export default class Calendar extends Emitter {
 
   destroyMonths() {
     if (this.dom && isArray(this.dom.months)) {
-      this.dom.months.map(m => destroyElement(m));
+      this.dom.months.map((m) => destroyElement(m));
     }
   }
 
@@ -599,7 +609,7 @@ export default class Calendar extends Emitter {
     const onSuccess = (maps) => {
       this.toggleLoading();
       if (isArray(maps.data) && maps.data[0].attributes) {
-        this.opts.currency =  maps.data[0].attributes.currency || this.opts.currency;
+        this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;
         this.emit('maps-loaded', maps);
         this.addMaps(maps.data[0].attributes);
         this.mapsLoaded = true;
@@ -638,22 +648,23 @@ export default class Calendar extends Emitter {
     });
 
     const calDrop = new MyDrop({
-      content:                 element,
-      target:                  this.elTarget,
-      classes:                 dropBasic,
-      openOn:                  null,
-      targetAttachment:        'bottom left',
-      constrainToWindow:       false,
+      content: element,
+      target: this.elTarget,
+      classes: dropBasic,
+      openOn: null,
+      targetAttachment: 'bottom left',
+      constrainToWindow: false,
       constrainToScrollParent: false
     });
 
     const onFocus = (input, isReversed) => {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
+
       if (!calDrop.isOpened()) {
         this.emit('drop-open');
         calDrop.open();
-        if (!this.mapsLoaded) {
+        if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
         }
       }

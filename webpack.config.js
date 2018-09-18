@@ -1,49 +1,83 @@
 /* global require */
 'use strict';
 
-const webpack = require('webpack');
-const path = require('path');
-const env = require('yargs').argv.env;
+const webpack     = require('webpack');
+const path        = require('path');
+const env         = require('yargs').argv.env.NODE_ENV;
 const libraryName = 'BookingSyncCalendarWidget';
-let outputFile = 'bookingsync-calendar-widget.js';
-const CSS_PREFIX = 'BookingSyncCalendar';
+const fileName    = 'bookingsync-calendar-widget';
+const CSS_PREFIX  = 'BookingSyncCalendar';
 
 const plugins = [
   new webpack.DefinePlugin({
     VERSION:    JSON.stringify(require('./package.json').version),
     NODE_ENV:   JSON.stringify(env),
     CSS_PREFIX: JSON.stringify(CSS_PREFIX),
-  }),
-  new webpack.SourceMapDevToolPlugin()
+  })
 ];
 
+console.log(`Environment: ${env}`);
+
+let outputFile;
+
+if (env === 'development') {
+  outputFile =  `${fileName}.js`;
+  plugins.push(new webpack.SourceMapDevToolPlugin({ filename:  `${outputFile}.map` }));
+} else {
+  outputFile = `${fileName}.min.js`;
+}
 
 const config = {
+  mode: env,
   entry:  `${__dirname}/src/bookingsync-calendar-widget.js`,
   output: {
-    path:           __dirname + '/dist',
+    path:           `${__dirname}/dist`,
     publicPath:     '/assets/',
     filename:       outputFile,
     library:        libraryName,
     libraryTarget:  'umd',
     umdNamedDefine: true,
   },
-
   module:  {
     rules: [
       {
         test:   /(\.js)$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       },
       {
         test:    /(\.js)$/,
         loader:  'eslint-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test:    /(\.scss)$/,
-        loader:  'style-loader?insertAt=top&singleton!css-loader?modules=true&localIdentName=' + CSS_PREFIX + '__[Local]!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents',
         exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: "style-loader",
+            options: {
+              insertAt: 'top',
+              singleton: true
+            }
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, 
+              localIdentName: `${CSS_PREFIX}__[Local]`
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              outputStyle: [
+                'expanded',
+                'sourceMap',
+                'sourceMapContents'
+              ]
+            }
+          }
+        ]
       }
     ],
   },
@@ -53,19 +87,9 @@ const config = {
       path.resolve(__dirname, './src')
     ],
     // directories where to look for modules
-    extensions: ['.js'],
+    extensions: ['.js']
   },
-  plugins,
+  plugins
 };
-
-if (env === 'build') {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-        minimize: true,
-        compress: {
-          warnings: false
-        }
-      }
-  ));
-}
 
 module.exports = config;

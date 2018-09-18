@@ -1,19 +1,17 @@
-/* global describe, module, it, before, after, document */
+/* global describe, it, before, after, document */
 import chai from 'chai';
 import { destroyElement } from 'widget-utils';
 
 import { mCell, calendar } from '../../src/styles/calendar.scss';
 import BookingSyncCalendar from '../../src/bookingsync-calendar-widget';
 
-chai.expect();
-
-const expect   = chai.expect;
+const { expect } = chai;
 const { keys } = Object;
 
 const stubElement = (name, attrs) => {
   const params  = attrs || {};
   const element = document.createElement(name);
-  keys(params).map(i => element.setAttribute(i, params[i]));
+  keys(params).map((i) => element.setAttribute(i, params[i]));
   return element;
 };
 
@@ -27,7 +25,7 @@ describe('BookingSync Calendar renders on containers with auto-init', () => {
   });
 
   after(() => {
-    BookingSyncCalendar.instances.map(a => a.destroy());
+    BookingSyncCalendar.instances.map((a) => a.destroy());
     destroyElement(div1);
     destroyElement(div2);
   });

@@ -2,33 +2,37 @@
 const currDate = new Date();
 
 export default {
-  name:         'BookingSync Calendar Widget',
-  apiHost:      NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
+  name: 'BookingSync Calendar Widget',
+  apiHost: NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
-  apiMapsRoute: '/maps.json?rental_id={params}',
+  apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
+  apiRentalId: 'rental_id=',
+  apiCurrency: '&exchange_to_currency=',
 
   rentalUrl(ids) {
-    const route = this.apiMapsRoute.replace('{params}', ids);
+    let route = this.apiMapsRoute.replace('{apiRentalId}', `${this.apiRentalId}${ids}`);
+    route = route.replace('{apiCurrency}', (this.currency) ? `${this.apiCurrency}${this.currency}` : '');
     return `${this.apiHost}${this.apiNamespace}${route}`;
   },
 
-  startOfWeek:         0, // 0 Su 1 Mo....6 Sa
-  minStay:             1, // can select one night
-  monthStart:          currDate.getUTCMonth(), // start with current month by default M '0...12'
-  yearStart:           currDate.getUTCFullYear(), // start with current year YYYY
-  daysPerWeek:         7, // FIXME support calendar rendering
-  displayMonths:       2,
-  selectable:          false,
-  showRates:           false,
-  showMinStay:         false,
+  startOfWeek: 0, // 0 Su 1 Mo....6 Sa
+  minStay: 1, // can select one night
+  monthStart: currDate.getUTCMonth(), // start with current month by default M '0...12'
+  yearStart: currDate.getUTCFullYear(), // start with current year YYYY
+  daysPerWeek: 7, // FIXME support calendar rendering
+  displayMonths: 2,
+  selectable: false,
+  showRates: false,
+  showMinStay: false,
   isReverseSelectable: false, // select end date first
-  isBackDisabled:      true,
-  isDropDown:          false,
-  el:                  null,
-  elStartAt:           null,
-  elEndAt:             null,
-  elReset:             null,
-  formatDate:          'dd/mm/yyyy',
-  rentalId:            null,
+  isBackDisabled: true,
+  isDropDown: false,
+  el: null,
+  elStartAt: null,
+  elEndAt: null,
+  elReset: null,
+  formatDate: 'dd/mm/yyyy',
+  rentalId: null,
+  currency: null,
   currDate
 };

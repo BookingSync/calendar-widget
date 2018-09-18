@@ -2,8 +2,8 @@
 
 ## TL;DR
 ### Development
-* `yarn`
-* `yarn start`
+* `npm`
+* `npm start`
 
 ### Usage
 * load `dist/bookingsync-calendar-widget.js` script
@@ -31,17 +31,17 @@ const calendar = new Calendar({ el: document.querySelector('.my-widget') });
 * Linting with [Airbnb eslint](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base)
 
 ## Getting started with Development
-* `yarn` to get the project's dependencies.
-* `yarn start` to start development server with live-reload and hot module replacement
+* `npm` to get the project's dependencies.
+* `npm start` to start development server with live-reload and hot module replacement
 * go to [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
 Additionally you can run json-mock server
 * `npm run mock-server` it serve maps api for local development. Mocks are in `db.json` file.
 
 ## Scripts
-* `yarn start` - starts development server with live-reload and hot module replacement
-* `yarn run build` - produces production version under the `dist` folder
-* `yarn run test` - runs tests.
+* `npm start` - starts development server with live-reload and hot module replacement
+* `npm run build` - produces production version under the `dist` folder
+* `npm run test` - runs tests.
 
 ## Config
 | __Option__ | __Description__ | __Type__ | __Default__ |
@@ -52,6 +52,7 @@ Additionally you can run json-mock server
 | `apiMapsRoute` | route for maps | String | `/maps.json?rental_id={params}` - `{params}` is replaced with `rentalId` |
 | `rentalURL` | URL route for maps | Function | |
 | `rentalId` | parameter to pass in API request for availability maps | String or Number | null
+| `currency` | Set currency conversion | String | null
 | `minStay` | Minimum selectable range | Number | 1
 | `monthStart` | Calendar starts months, the left up most, 0 - 11 range | Number | Current month 
 | `yearStart` | Calendar start year, YYYY format (2016) | Number | Current year

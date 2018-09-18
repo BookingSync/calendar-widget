@@ -1,4 +1,6 @@
-import { is, merge, monthLength, isString } from 'widget-utils';
+import {
+  is, merge, monthLength, isString
+} from 'widget-utils';
 
 /**
  *  please refer to /tests/unit/calendarTree.specs.js for usage
@@ -16,9 +18,9 @@ const genArrayRange = (a, b) => {
 const parseISOString = (str /* yyyy-mm-dd */) => {
   const arrStr = str.split('-').map(parseFloat);
   return {
-    year:  arrStr[0],
+    year: arrStr[0],
     month: arrStr[1] - 1,
-    date:  arrStr[2]
+    date: arrStr[2]
   };
 };
 
@@ -40,6 +42,7 @@ export default class CalendarTree {
     }
     return this;
   }
+
   /**
    * select range from the tree, returns array items
    * start date is ALWAYS < then end date , as we are selecting time range in days.
@@ -72,8 +75,7 @@ export default class CalendarTree {
         range = range.concat(this.selectMonthsInYear(a[0], a[1], 11));
         // and set start year to end year
         // month to 0 (January)
-        a[0] = end[0];
-        a[1] = 0;
+        [a[0], a[1]] = [end[0], 0];
       }
 
       // now we are at the same year and have the case if end month > start month
@@ -81,7 +83,7 @@ export default class CalendarTree {
       if (end[1] > a[1]) {
         // e.g. start 20 October end 20 December, select full November
         range = range.concat(this.selectMonthsInYear(a[0], a[1], end[1] - 1));
-        a[1]  = end[1];
+        a[1] = end;
       }
 
       // the missing part is days in end selection month
@@ -173,9 +175,9 @@ export default class CalendarTree {
    * @returns {Object}
    */
   static mapsToTree(maps, mapStartAt) {
-    if (!(isString(maps.availability) ||
-      isString(maps.nightly_rates) ||
-      isString(maps.minimum_stays))) {
+    if (!(isString(maps.availability)
+      || isString(maps.nightly_rates)
+      || isString(maps.minimum_stays))) {
       return null;
     }
 
@@ -259,7 +261,7 @@ export default class CalendarTree {
     if (this.map) {
       try {
         prop = this.map[year][month][day][property];
-      } catch (e) {
+      } catch(e) {
         // continue regardless of error
       }
     }

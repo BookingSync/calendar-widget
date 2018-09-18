@@ -1,13 +1,11 @@
-/* global describe, module, it, before, after, document */
+/* global describe, it, before, after, document */
 import chai from 'chai';
 import sinon from 'sinon';
 
 import s from '../../src/styles/calendar.scss';
 import Calendar from '../../src/calendar';
 
-chai.expect();
-
-const expect        = chai.expect;
+const { expect } = chai;
 const { keys }      = Object;
 const { stringify } = JSON;
 
@@ -16,40 +14,38 @@ let server;
 const stubElement = (name, attrs) => {
   const params  = attrs || {};
   const element = document.createElement(name);
-  keys(params).map(i => element.setAttribute(i, params[i]));
+  keys(params).map((i) => element.setAttribute(i, params[i]));
   return element;
 };
 
 const maps = {
   data: [
     {
-      id:         833,
-      type:       'maps',
+      id: 833,
+      type: 'maps',
       attributes: {
         minimum_stays: '5,3,1',
         nightly_rates: '10,20,30',
-        availability:  '1,1,1',
-        start_date:    '2017-02-10',
-        currency:      'HKD',
-      },
-    },
-  ],
+        availability: '1,1,1',
+        start_date: '2017-02-10',
+        currency: 'HKD'
+      }
+    }
+  ]
 };
 
-
 describe('sense checks', () => {
-  let widget;
-  let rootElement;
+  let widget, rootElement;
 
   before(() => {
     rootElement = stubElement('div');
     document.body.appendChild(rootElement);
 
     widget = new Calendar({
-      el:            rootElement,
-      monthStart:    1,
+      el: rootElement,
+      monthStart: 1,
       displayMonths: 1,
-      yearStart:     2017,
+      yearStart: 2017
     });
   });
 
@@ -71,8 +67,7 @@ describe('sense checks', () => {
 });
 
 describe('Loads maps and display correct currency, rates and min stay', () => {
-  let widget;
-  let rootElement;
+  let widget, rootElement;
 
   before(() => {
     server                    = sinon.fakeServer.create();
@@ -85,14 +80,14 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
     document.body.appendChild(rootElement);
 
     widget = new Calendar({
-      el:            rootElement,
-      monthStart:    1,
+      el: rootElement,
+      monthStart: 1,
       displayMonths: 1,
-      showRates:     true,
-      showMinStay:   true,
-      rentalId:      833,
-      yearStart:     2017,
-      lang:          'es',
+      showRates: true,
+      showMinStay: true,
+      rentalId: 833,
+      yearStart: 2017,
+      lang: 'es'
     });
   });
 
