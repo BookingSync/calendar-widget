@@ -10,7 +10,12 @@
     "test": "karma start karma.config.js --colors --env.NODE_ENV=development",
     "test-ci": "karma start karma.config.js --single-run true --env.NODE_ENV=development",
     "start": "webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0",
-    "mock-server": "node json-server.js"
+    "mock-server": "node json-server.js",
+    "publish-please": "publish-please",
+    "prepublishOnly": "publish-please guard",
+    "preversion": "npm run test-ci",
+    "version": "npm run build && npm run dev && git add -A dist",
+    "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "dependencies": {
     "sinon": "6.1.4",
@@ -37,6 +42,7 @@
     "karma-webpack": "3.0.0",
     "mocha": "5.2.0",
     "node-sass": "^4.5.3",
+    "publish-please": "^3.2.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "tether": "1.4.4",
