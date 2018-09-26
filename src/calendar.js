@@ -647,6 +647,17 @@ export default class Calendar extends Emitter {
 
     document.body.appendChild(element);
 
+    if (this.opts.hiddenElFormat) {
+      [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
+        const hiddenInput = input.cloneNode(true);
+        input.parentElement.appendChild(hiddenInput).removeAttribute('name');
+        hiddenInput.className = '';
+        hiddenInput.hidden    = true;
+
+        (i) ? this.hiddenElEndAt = hiddenInput : this.hiddenElStartAt = hiddenInput;
+      });
+    }
+
     const MyDrop = Drop.createContext({
       classPrefix: `${CSS_PREFIX}__drop`
     });
@@ -693,13 +704,25 @@ export default class Calendar extends Emitter {
   }
 
   valueToInput(input, dateValue) {
-    const elStartAt = this.opts.hiddenElStartAt || this.opts.elStartAt;
-    const elEndAt   = this.opts.hiddenElEndAt || this.opts.elEndAt;
-    const format    = this.opts.hiddenElFormat || this.format;
-    const value     = moment(new Date(...dateValue)).format(format);
-    const evt       = document.createEvent('Event');
+    const { elStartAt } = this.opts;
+    const { elEndAt }   = this.opts;
+
+    const date  = new Date(...dateValue);
+    const value = moment(date).format(this.format);
+    const evt   = document.createEvent('Event');
 
     evt.initEvent('change', false, true);
+
+    if (this.opts.hiddenElFormat) {
+      const hiddenValue = moment(date).format(this.opts.hiddenElFormat);
+
+      if (input === 'start' && this.hiddenElStartAt) {
+        this.hiddenElStartAt.value = hiddenValue;
+      } else if (input === 'end' && this.hiddenElEndAt) {
+        this.hiddenElEndAt.value = hiddenValue;
+      }
+    }
+
     if (input === 'start' && elStartAt) {
       elStartAt.value = value;
       elStartAt.dispatchEvent(evt);
