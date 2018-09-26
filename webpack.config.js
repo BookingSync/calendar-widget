@@ -22,7 +22,7 @@ let outputFile;
 
 if (env === 'development') {
   outputFile =  `${fileName}.js`;
-  plugins.push(new webpack.SourceMapDevToolPlugin({ filename:  `${outputFile}.map` }));
+  plugins.push(new webpack.SourceMapDevToolPlugin({ filename: `${outputFile}.map` }));
 } else {
   outputFile = `${fileName}.min.js`;
 }
@@ -51,7 +51,6 @@ const config = {
       },
       {
         test:    /(\.scss)$/,
-        exclude: /(node_modules|bower_components)/,
         use: [
           {
             loader: "style-loader",
