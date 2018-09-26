@@ -1,17 +1,3 @@
-export const formatDate = (format, year, month, day) => {
-  function pad(number) {
-    if (number < 10) {
-      return `0${number}`;
-    }
-    return number;
-  }
-
-  return format
-    .replace('dd', pad(day))
-    .replace('mm', pad(month + 1))
-    .replace('yyyy', year);
-};
-
 export const dateToIso = (year, month, day, isString = false) => {
   function pad(number) {
     if (number < 10) {
@@ -26,20 +12,8 @@ export const dateToIso = (year, month, day, isString = false) => {
   return new Date(year, month, day);
 };
 
-export const dateToArray = (date, format) => {
-  const year  = 'yyyy';
-  const month = 'mm';
-  const day   = 'dd';
-
-  if (date.length === format.length) {
-    return [
-      parseInt(date.substr(format.indexOf(year), year.length), 10),
-      parseInt(date.substr(format.indexOf(month), month.length), 10) - 1, // Convert to index
-      parseInt(date.substr(format.indexOf(day), day.length), 10)
-    ];
-  }
-
-  return null;
+export const dateToArray = (date) => {
+  return date.toArray().slice(0, 3);
 };
 
 export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);

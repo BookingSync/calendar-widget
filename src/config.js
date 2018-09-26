@@ -15,7 +15,7 @@ export default {
     return `${this.apiHost}${this.apiNamespace}${route}`;
   },
 
-  startOfWeek: 0, // 0 Su 1 Mo....6 Sa
+  startOfWeek: 0, // 0 Sun 1 Mon....6 Sat
   minStay: 1, // can select one night
   monthStart: currDate.getUTCMonth(), // start with current month by default M '0...12'
   yearStart: currDate.getUTCFullYear(), // start with current year YYYY
@@ -31,7 +31,7 @@ export default {
   elStartAt: null,
   elEndAt: null,
   elReset: null,
-  formatDate: 'dd/mm/yyyy',
+  formatDate: null,
   rentalId: null,
   currency: null,
   currDate
