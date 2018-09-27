@@ -33,6 +33,10 @@
     margin: 0 1rem 2rem;
     min-width: 14rem;
     flex: 1 1 25%;
+
+    @media (max-width: $breakpoint-xs) {
+      min-width: 20rem;
+    }
   }
 
   .month {
@@ -133,12 +137,12 @@
 ********************************************************/
 .calendar .selected {
   color: inherit;
-  // selected cell generic styles
+  /* selected cell generic styles */
 }
 
 .calendar .reversed {
   color: inherit;
-  // selecting reversed (e.g. check-out first)
+  /* selecting reversed (e.g. check-out first) */
 }
 
 .calendar .direct {

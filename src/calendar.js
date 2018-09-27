@@ -83,10 +83,6 @@ export default class Calendar extends Emitter {
   init() {
     addClass(this.el, calendar, reset);
 
-    if (this.opts.showRates || this.opts.showMinStay) {
-      addClass(this.el, chunky);
-    }
-
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
       if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
         this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
@@ -102,6 +98,10 @@ export default class Calendar extends Emitter {
     this.addBtnsEvents();
 
     if (this.opts.rentalId) {
+      if (this.opts.showRates || this.opts.showMinStay) {
+        addClass(this.el, chunky);
+      }
+
       this.loadMaps(this.opts.rentalId);
     }
 
