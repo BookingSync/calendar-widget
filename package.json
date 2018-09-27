@@ -19,8 +19,8 @@
     "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "dependencies": {
-    "moment": "^2.22.2",
     "sinon": "6.1.4",
+    "strtime": "^1.1.1",
     "tether-drop": "1.4.2",
     "widget-utils": "0.2.0"
   },

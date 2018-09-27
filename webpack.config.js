@@ -13,8 +13,7 @@ const plugins = [
     VERSION: JSON.stringify(require('./package.json').version),
     NODE_ENV: JSON.stringify(env),
     CSS_PREFIX: JSON.stringify(CSS_PREFIX)
-  }),
-  new webpack.ContextReplacementPlugin(/moment[/]locale$/, /en-gb|de|es|fr|sv/)
+  })
 ];
 
 console.log(`Environment: ${env}`);

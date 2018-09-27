@@ -118,11 +118,11 @@
     elReset:    document.querySelector('.reset-selection'),
   });
 
-  cal.on('selection-end', function(a, b) {
-    console.log('selection-end', a, b)
-  });
   cal.on('selection-start', function(a, b) {
     console.log('selection-start', a, b)
+  });
+  cal.on('selection-end', function(a, b) {
+    console.log('selection-end', a, b)
   });
 </script>
 </body>

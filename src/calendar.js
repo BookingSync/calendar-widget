@@ -12,7 +12,7 @@ import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
-import moment from 'moment';
+import { strftime, strptime } from 'strtime';
 
 import {
   dateToIso, isLater, validationOfRange, tFormatter, dateToArray
@@ -61,9 +61,6 @@ export default class Calendar extends Emitter {
       this.locale           = locales[this.opts.lang];
       this.format           = this.opts.formatDate || this.locale.formatDate || 'dd/mm/yyyy';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
-
-      // set locale globally
-      moment.locale(this.opts.lang);
     }
 
     this.dom   = {};
@@ -92,8 +89,8 @@ export default class Calendar extends Emitter {
 
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
       if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
-        this.selectionStart = dateToArray(moment(this.opts.elStartAt.value, this.format, this.opts.lang));
-        this.selectionEnd   = dateToArray(moment(this.opts.elEndAt.value, this.format, this.opts.lang));
+        this.selectionStart = dateToArray(strptime(this.opts.elStartAt.value, this.format, this.locale));
+        this.selectionEnd   = dateToArray(strptime(this.opts.elEndAt.value, this.format, this.locale));
       }
     }
 
@@ -335,6 +332,7 @@ export default class Calendar extends Emitter {
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
+    console.log(...dateValue);
     this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
     if (isFunction(this.opts.onSelectStart)) {
       this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
@@ -494,7 +492,7 @@ export default class Calendar extends Emitter {
   domMonth(year, month) {
     const monthDom                                         = elementFromString(tpls.month);
     monthDom.querySelector(`.${tableHeader} tr`).innerHTML = this.headerTplString();
-    monthDom.querySelector(`.${caption}`).innerHTML        = `${moment.months(month)} ${year}`;
+    monthDom.querySelector(`.${caption}`).innerHTML        = `${this.locale.longMonthNames[month]} ${year}`;
 
     monthDom.body           = monthDom.querySelector(`.${body}`);
     monthDom.body.innerHTML = this.daysTplString(year, month);
@@ -509,7 +507,7 @@ export default class Calendar extends Emitter {
   headerTplString() {
     // just to make life easier with start of the week calculation
     const header                 = [];
-    const weekdaysLabelsExtended = moment.weekdaysMin().concat(moment.weekdaysMin());
+    const weekdaysLabelsExtended = this.locale.shortWeekdayNames.concat(this.locale.shortWeekdayNames);
 
     for (let i = 0; i < this.opts.daysPerWeek; i += 1) {
       header.push(tpls.weekDayLabel(weekdaysLabelsExtended[i + this.opts.startOfWeek]));
@@ -707,14 +705,15 @@ export default class Calendar extends Emitter {
     const { elStartAt } = this.opts;
     const { elEndAt }   = this.opts;
 
-    const date  = new Date(...dateValue);
-    const value = moment(date).format(this.format);
+    const date  = dateToIso(...dateValue);
+    console.log(strftime(date, this.format, this.locale));
+    const value = strftime(date, this.format, this.locale);
     const evt   = document.createEvent('Event');
 
     evt.initEvent('change', false, true);
 
     if (this.opts.hiddenElFormat) {
-      const hiddenValue = moment(date).format(this.opts.hiddenElFormat);
+      const hiddenValue = strftime(date, this.opts.hiddenElFormat, this.locale);
 
       if (input === 'start' && this.hiddenElStartAt) {
         this.hiddenElStartAt.value = hiddenValue;
