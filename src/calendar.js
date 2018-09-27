@@ -12,7 +12,7 @@ import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
-import { strftime, strptime } from 'strtime';
+import { strftime } from 'strtime';
 
 import {
   dateToIso, isLater, validationOfRange, tFormatter, dateToArray
@@ -89,8 +89,8 @@ export default class Calendar extends Emitter {
 
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
       if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
-        this.selectionStart = dateToArray(strptime(this.opts.elStartAt.value, this.format, this.locale));
-        this.selectionEnd   = dateToArray(strptime(this.opts.elEndAt.value, this.format, this.locale));
+        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
+        this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
       }
     }
 
