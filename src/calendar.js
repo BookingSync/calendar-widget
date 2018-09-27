@@ -5,7 +5,7 @@ import {
   isNumeric, traverseObj, ajax, isInside, currencyFormatter
 } from 'widget-utils';
 
-import Drop from 'tether-drop';
+import Popover from 'popover';
 
 import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
@@ -655,39 +655,37 @@ export default class Calendar extends Emitter {
       });
     }
 
-    const MyDrop = Drop.createContext({
-      classPrefix: `${CSS_PREFIX}__drop`
-    });
+    const calDrop = new Popover({
+      button: this.elTarget,
+      position: 'bottom',
+      align: 'left',
+      className: dropBasic
+    }).setContent(this.el).render();
 
-    const calDrop = new MyDrop({
-      content: element,
-      target: this.elTarget,
-      classes: dropBasic,
-      openOn: null,
-      targetAttachment: 'bottom left',
-      constrainToWindow: false,
-      constrainToScrollParent: false
-    });
+    calDrop.on('shown', () => { // Show = Rendered
+      const onFocus = (input, isReversed) => {
+        this.switchInputFocus(input);
+        this.changeSelectionOrder(isReversed);
 
-    const onFocus = (input, isReversed) => {
-      this.switchInputFocus(input);
-      this.changeSelectionOrder(isReversed);
-
-      if (!calDrop.isOpened()) {
-        this.emit('drop-open');
-        calDrop.open();
-        if (!this.mapsLoaded && this.opts.rentalId) {
-          this.loadMaps(this.opts.rentalId);
+        if (!calDrop.el.classList.contains(`${CSS_PREFIX}__visible`)) {
+          this.emit('drop-open');
+          calDrop.el.classList.add(`${CSS_PREFIX}__visible`);
+          if (!this.mapsLoaded && this.opts.rentalId) {
+            this.loadMaps(this.opts.rentalId);
+          }
         }
-      }
-    };
+      };
 
-    this.opts.elStartAt.addEventListener('focus', () => {
-      onFocus('start', false);
-    });
+      this.opts.elStartAt.addEventListener('focus', () => {
+        onFocus('start', false);
+      });
 
-    this.opts.elEndAt.addEventListener('focus', () => {
-      onFocus('end', true);
+      this.opts.elEndAt.addEventListener('focus', () => {
+        onFocus('end', true);
+      });
+
+      document.addEventListener('click', this.closeDrop.bind(this));
+      this.calDrop = calDrop;
     });
 
     if (this.opts.elReset) {
@@ -695,9 +693,6 @@ export default class Calendar extends Emitter {
         this.resetSelection();
       });
     }
-
-    document.addEventListener('click', this.closeDrop.bind(this));
-    this.calDrop = calDrop;
   }
 
   valueToInput(input, dateValue) {
@@ -752,7 +747,7 @@ export default class Calendar extends Emitter {
     } else {
       this.emit('drop-close');
       this.switchInputFocus('any');
-      this.calDrop.close();
+      this.calDrop.el.classList.remove(`${CSS_PREFIX}__visible`);
     }
   }
 

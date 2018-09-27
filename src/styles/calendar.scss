@@ -304,7 +304,7 @@
     fill: $btn-fill;
     padding: 6px 10px;
     border-radius: 1px;
-    top: 0;
+    top: .25rem;
     left: 1rem;
     z-index: 2;
     position: absolute;
@@ -368,5 +368,5 @@
 }
 
 .chunky .mCell {
-  min-width: 27rem;
+  min-width: 18rem;
 }
