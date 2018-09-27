@@ -57,7 +57,7 @@ export default class Calendar extends Emitter {
         this.el = opts.el;
       }
 
-      this.opts.lang        = (this.opts.lang in locales) ? this.opts.lang : 'en-gb';
+      this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-GB';
       this.locale           = locales[this.opts.lang];
       this.format           = this.opts.formatDate || this.locale.formatDate || 'dd/mm/yyyy';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;

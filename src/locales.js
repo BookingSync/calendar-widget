@@ -1,11 +1,11 @@
 export default {
-  'en-gb': {
+  'en-GB': {
     formatDate: 'MMM D, YYYY',
     currency: 'GBP',
     minStay: '%number+ nights',
     startOfWeek: 0
   },
-  'en-us': {
+  'en-US': {
     formatDate: 'MMM D, YYYY',
     currency: 'USD',
     minStay: '%number+ nuits',
@@ -23,7 +23,7 @@ export default {
     minStay: '%number+ Noches',
     startOfWeek: 1
   },
-  'fr': {
+  'fr-FR': {
     formatDate: 'MMM D, YYYY',
     currency: 'EUR',
     minStay: '%number+ nuits',

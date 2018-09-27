@@ -6,14 +6,15 @@
   "module": "src/bookingsync-calendar-widget.js",
   "scripts": {
     "dev": "webpack --env.NODE_ENV=development",
-    "build": "webpack --env.NODE_ENV=production",
+    "build": "webpack --env.NODE_ENV=production --display-modules",
     "test": "karma start karma.config.js --colors --env.NODE_ENV=development",
     "test-ci": "karma start karma.config.js --single-run true --env.NODE_ENV=development",
+    "lint:js": "eslint ./*.js src tests",
     "start": "webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0",
     "mock-server": "node json-server.js",
     "publish-please": "publish-please",
     "prepublishOnly": "publish-please guard",
-    "preversion": "npm run test-ci",
+    "preversion": "npm run lint:js && npm run test-ci",
     "version": "npm run build && npm run dev && git add -A dist",
     "postversion": "git push && git push --tags && rm -rf build/temp"
   },

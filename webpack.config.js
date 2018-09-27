@@ -1,4 +1,4 @@
-/* global require */
+/* global require, console, __dirname, module */
 'use strict';
 
 const webpack     = require('webpack');
@@ -10,11 +10,11 @@ const CSS_PREFIX  = 'BookingSyncCalendar';
 
 const plugins = [
   new webpack.DefinePlugin({
-    VERSION:    JSON.stringify(require('./package.json').version),
-    NODE_ENV:   JSON.stringify(env),
-    CSS_PREFIX: JSON.stringify(CSS_PREFIX),
+    VERSION: JSON.stringify(require('./package.json').version),
+    NODE_ENV: JSON.stringify(env),
+    CSS_PREFIX: JSON.stringify(CSS_PREFIX)
   }),
-  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb|en-us|de|es|fr|sv/)
+  new webpack.ContextReplacementPlugin(/moment[/]locale$/, /en-gb|de|es|fr|sv/)
 ];
 
 console.log(`Environment: ${env}`);
@@ -30,45 +30,45 @@ if (env === 'development') {
 
 const config = {
   mode: env,
-  entry:  `${__dirname}/src/bookingsync-calendar-widget.js`,
+  entry: `${__dirname}/src/bookingsync-calendar-widget.js`,
   output: {
-    path:           `${__dirname}/dist`,
-    publicPath:     '/assets/',
-    filename:       outputFile,
-    library:        libraryName,
-    libraryTarget:  'umd',
-    umdNamedDefine: true,
+    path: `${__dirname}/dist`,
+    publicPath: '/assets/',
+    filename: outputFile,
+    library: libraryName,
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
-  module:  {
+  module: {
     rules: [
       {
-        test:   /(\.js)$/,
+        test: /(\.js)$/,
         loader: 'babel-loader'
       },
       {
-        test:    /(\.js)$/,
-        loader:  'eslint-loader',
+        test: /(\.js)$/,
+        loader: 'eslint-loader',
         exclude: /node_modules/
       },
       {
-        test:    /(\.scss)$/,
+        test: /(\.scss)$/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
             options: {
               insertAt: 'top',
               singleton: true
             }
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
-              modules: true, 
+              modules: true,
               localIdentName: `${CSS_PREFIX}__[Local]`
             }
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               outputStyle: [
                 'expanded',
@@ -79,10 +79,10 @@ const config = {
           }
         ]
       }
-    ],
+    ]
   },
   resolve: {
-    modules:    [
+    modules: [
       'node_modules',
       path.resolve(__dirname, './src')
     ],
