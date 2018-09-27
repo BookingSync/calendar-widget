@@ -332,7 +332,6 @@ export default class Calendar extends Emitter {
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
-    console.log(...dateValue);
     this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
     if (isFunction(this.opts.onSelectStart)) {
       this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
@@ -706,7 +705,6 @@ export default class Calendar extends Emitter {
     const { elEndAt }   = this.opts;
 
     const date  = dateToIso(...dateValue);
-    console.log(strftime(date, this.format, this.locale));
     const value = strftime(date, this.format, this.locale);
     const evt   = document.createEvent('Event');
 
