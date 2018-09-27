@@ -87,7 +87,7 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
       showMinStay: true,
       rentalId: 833,
       yearStart: 2017,
-      lang: 'es'
+      lang: 'es-ES'
     });
   });
 
