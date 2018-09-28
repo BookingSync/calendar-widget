@@ -658,7 +658,7 @@ export default class Calendar extends Emitter {
     this.el.classList.add(dropBasic);
 
     const calDrop = new Popper(this.elTarget, this.el, {
-      placement: 'bottom-start',
+      placement: this.opts.dropPlacement || 'bottom-start',
       hide: true
     });
 
