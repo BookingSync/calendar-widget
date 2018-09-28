@@ -24,18 +24,25 @@
   }
 
   .monthsWrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   }
 
   .mCell {
     font-size: 0.875rem;
     margin: 0 1rem 2rem;
-    min-width: 14rem;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 25%;
     flex: 1 1 25%;
 
     @media (max-width: $breakpoint-xs) {
-      min-width: 20rem;
+      width: 100%;
+      -webkit-box-flex: 1;
+      -ms-flex: auto;
+      flex: auto;
     }
   }
 
@@ -372,5 +379,5 @@
 }
 
 .chunky .mCell {
-  min-width: 28rem;
+  min-width: 26rem;
 }
