@@ -19,7 +19,7 @@
     "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "dependencies": {
-    "popover": "^2.4.1",
+    "popper.js": "^1.14.4",
     "sinon": "6.1.4",
     "strtime": "^1.1.1",
     "widget-utils": "0.2.0"

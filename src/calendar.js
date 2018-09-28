@@ -5,7 +5,7 @@ import {
   isNumeric, traverseObj, ajax, isInside, currencyFormatter
 } from 'widget-utils';
 
-import Popover from 'popover';
+import Popper from 'popper.js';
 
 import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
@@ -57,7 +57,7 @@ export default class Calendar extends Emitter {
         this.el = opts.el;
       }
 
-      this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-GB';
+      this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-US';
       this.locale           = locales[this.opts.lang];
       this.format           = this.opts.formatDate || this.locale.formatDate || 'dd/mm/yyyy';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
@@ -655,38 +655,37 @@ export default class Calendar extends Emitter {
       });
     }
 
-    const calDrop = new Popover({
-      button: this.elTarget,
-      position: 'bottom',
-      align: 'left',
-      className: dropBasic
-    }).setContent(this.el).render();
+    this.el.classList.add(dropBasic);
 
-    calDrop.on('shown', () => { // Show = Rendered
-      const onFocus = (input, isReversed) => {
-        this.switchInputFocus(input);
-        this.changeSelectionOrder(isReversed);
-
-        if (!calDrop.el.classList.contains(`${CSS_PREFIX}__visible`)) {
-          this.emit('drop-open');
-          calDrop.el.classList.add(`${CSS_PREFIX}__visible`);
-          if (!this.mapsLoaded && this.opts.rentalId) {
-            this.loadMaps(this.opts.rentalId);
-          }
-        }
-      };
-
-      this.opts.elStartAt.addEventListener('focus', () => {
-        onFocus('start', false);
-      });
-
-      this.opts.elEndAt.addEventListener('focus', () => {
-        onFocus('end', true);
-      });
-
-      document.addEventListener('click', this.closeDrop.bind(this));
-      this.calDrop = calDrop;
+    const calDrop = new Popper(this.elTarget, this.el, {
+      placement: 'bottom-start',
+      hide: true
     });
+
+    const onFocus = (input, isReversed) => {
+      this.switchInputFocus(input);
+      this.changeSelectionOrder(isReversed);
+
+      if (!this.el.classList.contains(`${CSS_PREFIX}__visible`)) {
+        calDrop.update();
+        this.emit('drop-open');
+        this.el.classList.add(`${CSS_PREFIX}__visible`);
+        if (!this.mapsLoaded && this.opts.rentalId) {
+          this.loadMaps(this.opts.rentalId);
+        }
+      }
+    };
+
+    this.opts.elStartAt.addEventListener('focus', () => {
+      onFocus('start', false);
+    });
+
+    this.opts.elEndAt.addEventListener('focus', () => {
+      onFocus('end', true);
+    });
+
+    document.addEventListener('click', this.closeDrop.bind(this));
+    this.calDrop = calDrop;
 
     if (this.opts.elReset) {
       this.opts.elReset.addEventListener('click', () => {
@@ -747,7 +746,7 @@ export default class Calendar extends Emitter {
     } else {
       this.emit('drop-close');
       this.switchInputFocus('any');
-      this.calDrop.el.classList.remove(`${CSS_PREFIX}__visible`);
+      this.el.classList.remove(`${CSS_PREFIX}__visible`);
     }
   }
 
