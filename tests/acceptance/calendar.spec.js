@@ -43,6 +43,7 @@ describe('sense checks', () => {
 
     widget = new Calendar({
       el: rootElement,
+      lang: 'en-GB',
       monthStart: 1,
       displayMonths: 1,
       yearStart: 2017
