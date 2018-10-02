@@ -26,7 +26,7 @@ if (env === 'development') {
 } else if (env === 'production') {
   outputFile = `${fileName}.min.js`;
 } else {
-  outputFile = `[name].js`;
+  outputFile = '[name].js';
 }
 
 const config = {
