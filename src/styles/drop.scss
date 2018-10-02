@@ -11,13 +11,6 @@
   line-height: 1.5em;
   z-index: 10;
 
-  @media (max-width: $breakpoint-xs) {
-    left: 0 !important;
-    right: 0 !important;
-    margin: 0 !important;
-    transform: none !important;
-  }
-
   &.visible {
     display: block;
   }

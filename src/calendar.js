@@ -1,4 +1,4 @@
-/* global VERSION, Node, CSS_PREFIX, document, console */
+/* global VERSION, Node, document, console */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -21,7 +21,7 @@ import {
 import {
   calendar, chunky, highlighted, invalid,
   selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
-  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus
+  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus, visible
 } from './styles/calendar.scss';
 
 import { reset } from './styles/reset.scss';
@@ -666,10 +666,11 @@ export default class Calendar extends Emitter {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
 
-      if (!this.el.classList.contains(`${CSS_PREFIX}__visible`)) {
+      if (!this.el.classList.contains(visible)) {
         calDrop.update();
         this.emit('drop-open');
-        this.el.classList.add(`${CSS_PREFIX}__visible`);
+        this.el.classList.add(visible);
+
         if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
         }
@@ -744,9 +745,9 @@ export default class Calendar extends Emitter {
     if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
+      this.el.classList.remove(visible);
       this.emit('drop-close');
       this.switchInputFocus('any');
-      this.el.classList.remove(`${CSS_PREFIX}__visible`);
     }
   }
 

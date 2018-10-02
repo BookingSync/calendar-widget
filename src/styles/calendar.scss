@@ -39,10 +39,9 @@
     flex: 1 1 25%;
 
     @media (max-width: $breakpoint-xs) {
-      width: 100%;
       -webkit-box-flex: 1;
-      -ms-flex: auto;
-      flex: auto;
+      -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
     }
   }
 
@@ -379,5 +378,7 @@
 }
 
 .chunky .mCell {
-  min-width: 26rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 46%;
+  flex: 1 1 46%;
 }
