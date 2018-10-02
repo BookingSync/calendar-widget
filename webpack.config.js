@@ -23,8 +23,10 @@ let outputFile;
 if (env === 'development') {
   outputFile =  `${fileName}.js`;
   plugins.push(new webpack.SourceMapDevToolPlugin({ filename: `${outputFile}.map` }));
-} else {
+} else if (env === 'production') {
   outputFile = `${fileName}.min.js`;
+} else {
+  outputFile = `[name].js`;
 }
 
 const config = {
