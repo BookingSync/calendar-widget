@@ -1,6 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - 2018-10-2
+### Changed
+- `TetherDrop` to `Popper.js`
+- Use lang `en-US` as default instead of browser lang
+### Added
+- Use string date parser (e.g. %Y-%m-%d)
+- Hidden inputs with different date format (optionnal)
+- Use locale with country code
+### Fixed
+- Minor fixes
+
 ## [0.3.0] - 2018-09-18
 ### Fixed
 - Switch from `Yarn` to `Npm`

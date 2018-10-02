@@ -66,7 +66,7 @@ Additionally you can run json-mock server
 | `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null
 | `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
-| `formatDate` | Overwrite locale defined date format | String | 'dd/mm/yyyy'
+| `formatDate` | Overwrite locale defined date format | String | '%Y/%m/%d'
 | `currDate` | Current date Date object | Date | `new Date()`
 
 ## Callbacks
