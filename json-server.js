@@ -1,3 +1,4 @@
+/* global require, console */
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
@@ -13,6 +14,6 @@ server.use(function(req, res, next) {
 
 server.use('/api/v2/public', router);
 
-server.listen(3000, function () {
+server.listen(3000, function() {
   console.log('JSON Server is running');
 });

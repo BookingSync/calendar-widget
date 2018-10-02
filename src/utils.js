@@ -1,16 +1,4 @@
-export const formatDate = (format, year, month, day) => {
-  function pad(number) {
-    if (number < 10) {
-      return `0${number}`;
-    }
-    return number;
-  }
-
-  return format
-    .replace('dd', pad(day))
-    .replace('mm', pad(month + 1))
-    .replace('yyyy', year);
-};
+import { strftime, strptime } from 'strtime';
 
 export const dateToIso = (year, month, day, isString = false) => {
   function pad(number) {
@@ -23,23 +11,21 @@ export const dateToIso = (year, month, day, isString = false) => {
   if (isString) {
     return `${year}-${pad(month + 1)}-${pad(day)}`;
   }
-  return new Date(year, month, day);
+  return new Date(year, month, day + 1);
 };
 
-export const dateToArray = (date, format) => {
-  const year  = 'yyyy';
-  const month = 'mm';
-  const day   = 'dd';
-
-  if (date.length === format.length) {
+export const dateToArray = (val, format, locale) => {
+  try {
+    const date = strptime(val, format, locale);
+    const a    = strftime(date, '%Y-%m-%d').split('-');
     return [
-      parseInt(date.substr(format.indexOf(year), year.length), 10),
-      parseInt(date.substr(format.indexOf(month), month.length), 10) - 1, // Convert to index
-      parseInt(date.substr(format.indexOf(day), day.length), 10)
+      parseInt(a[0]), // year
+      parseInt(a[1] - 1), // month index
+      parseInt(a[2]) // day
     ];
+  } catch(e) {
+    return false;
   }
-
-  return null;
 };
 
 export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);

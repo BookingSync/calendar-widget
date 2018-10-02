@@ -19,6 +19,14 @@ jobs:
           root: .
           paths:
             - .
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Lint
+          command: npm run lint:js
   test:
     <<: *defaults
     steps:
@@ -32,6 +40,9 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - lint:
+          requires:
+            - build
       - test:
           requires:
             - build

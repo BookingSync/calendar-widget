@@ -1,4 +1,5 @@
-var webpackConfig = require('./webpack.config.js');
+/* global require, module */
+const webpackConfig = require('./webpack.config.js');
 
 module.exports = function(config) {
   config.set({
@@ -15,16 +16,17 @@ module.exports = function(config) {
     autoWatchBatchDelay: 600,
 
     files: [
-      './tests/**/*.js'],
+      './tests/**/*.js'
+    ],
 
     preprocessors: {
-      './tests/**/*.spec.js': ['webpack'],
+      './tests/**/*.spec.js': ['webpack']
     },
 
     webpack: webpackConfig,
 
     webpackMiddleware: {
-      noInfo: true,
-    },
+      noInfo: true
+    }
   });
 };

@@ -43,6 +43,7 @@ describe('sense checks', () => {
 
     widget = new Calendar({
       el: rootElement,
+      lang: 'en-GB',
       monthStart: 1,
       displayMonths: 1,
       yearStart: 2017
@@ -87,7 +88,7 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
       showMinStay: true,
       rentalId: 833,
       yearStart: 2017,
-      lang: 'es'
+      lang: 'es-ES'
     });
   });
 

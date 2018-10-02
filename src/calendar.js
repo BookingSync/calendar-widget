@@ -1,30 +1,30 @@
-/* global VERSION, Node, CSS_PREFIX, document, console */
+/* global VERSION, Node, document, console */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
   isNumeric, traverseObj, ajax, isInside, currencyFormatter
 } from 'widget-utils';
 
-import Drop from 'tether-drop';
+import Popper from 'popper.js';
 
 import * as tpls from './templates';
 import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
 
+import { strftime } from 'strtime';
+
 import {
-  formatDate, dateToIso, isLater, validationOfRange, tFormatter, dateToArray
+  dateToIso, isLater, validationOfRange, tFormatter, dateToArray
 } from './utils';
 
 import {
   calendar, chunky, highlighted, invalid,
   selected, actionsEnabled, body, tableHeader, caption, selectedStart, selectedEnd,
-  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus
+  reversed, direct, selectingReversed, selectingDirect, dropBasic, focus, visible
 } from './styles/calendar.scss';
 
 import { reset } from './styles/reset.scss';
-
-const { documentElement: { lang } } = document;
 
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
@@ -57,8 +57,9 @@ export default class Calendar extends Emitter {
         this.el = opts.el;
       }
 
-      this.opts.lang        = this.widgetLang(this.opts.lang, lang);
-      this.locale           = locales[this.opts.lang || 'en'];
+      this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-US';
+      this.locale           = locales[this.opts.lang];
+      this.format           = this.opts.formatDate || this.locale.formatDate || 'dd/mm/yyyy';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
     }
 
@@ -82,14 +83,10 @@ export default class Calendar extends Emitter {
   init() {
     addClass(this.el, calendar, reset);
 
-    if (this.opts.showRates || this.opts.showMinStay) {
-      addClass(this.el, chunky);
-    }
-
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
       if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
-        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.opts.formatDate);
-        this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.opts.formatDate);
+        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
+        this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
       }
     }
 
@@ -101,6 +98,10 @@ export default class Calendar extends Emitter {
     this.addBtnsEvents();
 
     if (this.opts.rentalId) {
+      if (this.opts.showRates || this.opts.showMinStay) {
+        addClass(this.el, chunky);
+      }
+
       this.loadMaps(this.opts.rentalId);
     }
 
@@ -490,7 +491,7 @@ export default class Calendar extends Emitter {
   domMonth(year, month) {
     const monthDom                                         = elementFromString(tpls.month);
     monthDom.querySelector(`.${tableHeader} tr`).innerHTML = this.headerTplString();
-    monthDom.querySelector(`.${caption}`).innerHTML        = `${this.locale.months[month]} ${year}`;
+    monthDom.querySelector(`.${caption}`).innerHTML        = `${this.locale.longMonthNames[month]} ${year}`;
 
     monthDom.body           = monthDom.querySelector(`.${body}`);
     monthDom.body.innerHTML = this.daysTplString(year, month);
@@ -505,7 +506,7 @@ export default class Calendar extends Emitter {
   headerTplString() {
     // just to make life easier with start of the week calculation
     const header                 = [];
-    const weekdaysLabelsExtended = this.locale.weekdaysLabels.concat(this.locale.weekdaysLabels);
+    const weekdaysLabelsExtended = this.locale.shortWeekdayNames.concat(this.locale.shortWeekdayNames);
 
     for (let i = 0; i < this.opts.daysPerWeek; i += 1) {
       header.push(tpls.weekDayLabel(weekdaysLabelsExtended[i + this.opts.startOfWeek]));
@@ -643,27 +644,33 @@ export default class Calendar extends Emitter {
 
     document.body.appendChild(element);
 
-    const MyDrop = Drop.createContext({
-      classPrefix: `${CSS_PREFIX}__drop`
-    });
+    if (this.opts.hiddenElFormat) {
+      [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
+        const hiddenInput = input.cloneNode(true);
+        input.parentElement.appendChild(hiddenInput).removeAttribute('name');
+        hiddenInput.className = '';
+        hiddenInput.hidden    = true;
 
-    const calDrop = new MyDrop({
-      content: element,
-      target: this.elTarget,
-      classes: dropBasic,
-      openOn: null,
-      targetAttachment: 'bottom left',
-      constrainToWindow: false,
-      constrainToScrollParent: false
+        (i) ? this.hiddenElEndAt = hiddenInput : this.hiddenElStartAt = hiddenInput;
+      });
+    }
+
+    this.el.classList.add(dropBasic);
+
+    const calDrop = new Popper(this.elTarget, this.el, {
+      placement: this.opts.dropPlacement || 'bottom-start',
+      hide: true
     });
 
     const onFocus = (input, isReversed) => {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
 
-      if (!calDrop.isOpened()) {
+      if (!this.el.classList.contains(visible)) {
+        calDrop.update();
         this.emit('drop-open');
-        calDrop.open();
+        this.el.classList.add(visible);
+
         if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
         }
@@ -678,29 +685,42 @@ export default class Calendar extends Emitter {
       onFocus('end', true);
     });
 
+    document.addEventListener('click', this.closeDrop.bind(this));
+    this.calDrop = calDrop;
+
     if (this.opts.elReset) {
       this.opts.elReset.addEventListener('click', () => {
         this.resetSelection();
       });
     }
-
-    document.addEventListener('click', this.closeDrop.bind(this));
-    this.calDrop = calDrop;
   }
 
   valueToInput(input, dateValue) {
-    const format = this.opts.formatDate;
-    const value  = formatDate(format, ...dateValue);
-    const evt = document.createEvent('Event');
+    const { elStartAt } = this.opts;
+    const { elEndAt }   = this.opts;
+
+    const date  = dateToIso(...dateValue);
+    const value = strftime(date, this.format, this.locale);
+    const evt   = document.createEvent('Event');
 
     evt.initEvent('change', false, true);
 
-    if (input === 'start' && this.opts.elStartAt) {
-      this.opts.elStartAt.value = value;
-      this.opts.elStartAt.dispatchEvent(evt);
-    } else if (input === 'end' && this.opts.elEndAt) {
-      this.opts.elEndAt.value = value;
-      this.opts.elEndAt.dispatchEvent(evt);
+    if (this.opts.hiddenElFormat) {
+      const hiddenValue = strftime(date, this.opts.hiddenElFormat, this.locale);
+
+      if (input === 'start' && this.hiddenElStartAt) {
+        this.hiddenElStartAt.value = hiddenValue;
+      } else if (input === 'end' && this.hiddenElEndAt) {
+        this.hiddenElEndAt.value = hiddenValue;
+      }
+    }
+
+    if (input === 'start' && elStartAt) {
+      elStartAt.value = value;
+      elStartAt.dispatchEvent(evt);
+    } else if (input === 'end' && elEndAt) {
+      elEndAt.value = value;
+      elEndAt.dispatchEvent(evt);
     }
   }
 
@@ -725,23 +745,10 @@ export default class Calendar extends Emitter {
     if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
+      this.el.classList.remove(visible);
       this.emit('drop-close');
       this.switchInputFocus('any');
-      this.calDrop.close();
     }
-  }
-
-  widgetLang(elLang, documentLang) {
-    let langFallback = elLang || documentLang;
-
-    langFallback = langFallback || 'en';
-
-    if (Object.keys(locales).indexOf(langFallback) === -1) {
-      this.logger('this language is not supported yet, locale set to English', 'error');
-      langFallback = 'en';
-    }
-
-    return langFallback;
   }
 
   toString() {

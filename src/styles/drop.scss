@@ -1,32 +1,21 @@
-.drop-element {
+.calendar.dropBasic {
   position: absolute;
   display: none;
-  z-index: 10;
-}
-
-.drop-element.drop-open {
-  display: block;
-}
-
-.drop-element {
   max-width: 100%;
-  max-height: 100%;
-}
-
-.drop-element .drop-content {
   box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);
   border: 1px solid #e0e0e0;
-  font-family: inherit;
   background: #fff;
-  padding-top: 1.5rem;
+  margin: 0;
+  padding-top: .5rem;
+  font-family: inherit;
   line-height: 1.5em;
-}
+  z-index: 10;
 
-.dropBasic {
-  .calendar {
-    margin: 0;
-    .mCell {
-      margin-bottom: 1rem;
-    }
+  &.visible {
+    display: block;
+  }
+
+  .mCell {
+    margin-bottom: 1rem;
   }
 }
