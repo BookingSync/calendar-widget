@@ -4,6 +4,8 @@
 ### Development
 * `npm`
 * `npm start`
+* `npm run mock-server`
+* `npm run test-ci`
 
 ### Usage
 * load `dist/bookingsync-calendar-widget.js` script
@@ -63,10 +65,13 @@ Additionally you can run json-mock server
 | `isReverseSelectable` | User selects end date first | Boolean | false
 | `isBackDisabled` | Disable back button for past months | Boolean | true
 | `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false
-| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null
-| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null
+| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null (will try to find `.BookingSyncCalendar__start-at` if null)
+| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null (will try to find `.BookingSyncCalendar__end-at` if null)
+| `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.BookingSyncCalendar__single-input` if null)
+| `isSingleInput` | Allow to use the single input, hides start/end inputs | Boolean | null
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
-| `formatDate` | Overwrite locale defined date format | String | '%Y/%m/%d'
+| `formatDate` | Overwrite locale defined date format | String | '%m/%d/%y' (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
+| `hiddenElFormat` | Duplicate start/end inputs with a different date format | String | null
 | `currDate` | Current date Date object | Date | `new Date()`
 
 ## Callbacks
@@ -83,7 +88,7 @@ e.g.
 <div 
   data-bookingsync-calendar-widget
   data-selectable="true"
-  data-format-date="dd.mm.yyyy">
+  data-format-date="%m/%d/%y">
 </div>
 ```
 
@@ -92,7 +97,7 @@ Calendar implements event Emitter, receiver can subscribe/unsubscribe to events 
 
 ```javascript
 var cal = new BookingSyncCalendarWidget({
-  el:         document.querySelector('.calendar-wrapper'),
+  el: document.querySelector('.calendar-wrapper'),
 });
 
 cal.on('selection-end', function(a, b) {
