@@ -70,7 +70,7 @@ Additionally you can run json-mock server
 | `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.BookingSyncCalendar__single-input` if null)
 | `isSingleInput` | Allow to use the single input, hides start/end inputs | Boolean | null
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
-| `formatDate` | Overwrite locale defined date format | String | '%m/%d/%y' (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
+| `formatDate` | Overwrite locale defined date format | String | `%m/%d/%y` (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
 | `hiddenElFormat` | Duplicate start/end inputs with a different date format | String | null
 | `currDate` | Current date Date object | Date | `new Date()`
 
