@@ -1,4 +1,4 @@
-/* global VERSION, Node, document, console */
+/* global VERSION, Node, CSS_PREFIX, document, console */
 import {
   addClass, removeClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -59,7 +59,7 @@ export default class Calendar extends Emitter {
 
       this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-US';
       this.locale           = locales[this.opts.lang];
-      this.format           = this.opts.formatDate || this.locale.formatDate || 'dd/mm/yyyy';
+      this.format           = this.opts.formatDate || this.locale.formatDate || '%D';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
     }
 
@@ -436,6 +436,7 @@ export default class Calendar extends Emitter {
       addClass(cell, selected, selectedStart);
       this.cellA = cell;
     }
+
     this.valueToInput('start', dateValue);
   }
 
@@ -450,6 +451,7 @@ export default class Calendar extends Emitter {
       addClass(cell, selected, selectedEnd);
       this.cellB = cell;
     }
+
     this.valueToInput('end', dateValue);
   }
 
@@ -629,6 +631,13 @@ export default class Calendar extends Emitter {
   }
 
   completeSelection() {
+    if (this.opts.isSingleInput) {
+      const dateStart = strftime(dateToIso(...this.selectionStart), this.format, this.locale);
+      const dateEnd   = strftime(dateToIso(...this.selectionEnd), this.format, this.locale);
+
+      this.opts.elSingleInput.value = `${dateStart} ${this.opts.singleInputSeparator} ${dateEnd}`;
+    }
+
     this.emit('selection-completed', this.selectionStart, this.selectionEnd);
     if (isFunction(this.opts.onSelectionCompleted)) {
       this.opts.onSelectionCompleted(
@@ -644,6 +653,10 @@ export default class Calendar extends Emitter {
 
     document.body.appendChild(element);
 
+    this.opts.elStartAt     = this.opts.elStartAt || document.querySelector(`.${CSS_PREFIX}__start-at`);
+    this.opts.elEndAt       = this.opts.elEndAt || document.querySelector(`.${CSS_PREFIX}__end-at`);
+    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(`.${CSS_PREFIX}__single-input`);
+
     if (this.opts.hiddenElFormat) {
       [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
         const hiddenInput = input.cloneNode(true);
@@ -652,6 +665,14 @@ export default class Calendar extends Emitter {
         hiddenInput.hidden    = true;
 
         (i) ? this.hiddenElEndAt = hiddenInput : this.hiddenElStartAt = hiddenInput;
+      });
+    }
+
+    if (this.opts.isSingleInput) {
+      this.opts.elSingleInput.readOnly = true;
+
+      [this.opts.elStartAt, this.opts.elEndAt].forEach((input) => {
+        input.hidden = true;
       });
     }
 
@@ -677,13 +698,19 @@ export default class Calendar extends Emitter {
       }
     };
 
-    this.opts.elStartAt.addEventListener('focus', () => {
-      onFocus('start', false);
-    });
+    if (this.opts.isSingleInput) {
+      this.opts.elSingleInput.addEventListener('focus', () => {
+        onFocus('start', false);
+      });
+    } else {
+      this.opts.elStartAt.addEventListener('focus', () => {
+        onFocus('start', false);
+      });
 
-    this.opts.elEndAt.addEventListener('focus', () => {
-      onFocus('end', true);
-    });
+      this.opts.elEndAt.addEventListener('focus', () => {
+        onFocus('end', true);
+      });
+    }
 
     document.addEventListener('click', this.closeDrop.bind(this));
     this.calDrop = calDrop;

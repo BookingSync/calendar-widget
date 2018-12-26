@@ -30,8 +30,12 @@ export default {
   el: null,
   elStartAt: null,
   elEndAt: null,
+  elSingleInput: null,
+  isSingleInput: null,
+  singleInputSeparator: '→',
   elReset: null,
   formatDate: null,
+  hiddenElFormat: null,
   rentalId: null,
   currency: null,
   currDate
