@@ -1,4 +1,4 @@
-export default {
+let locales = {
   'en-GB': {
     shortWeekdayNames: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
     longWeekdayNames: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
@@ -16,7 +16,7 @@ export default {
     shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'USD',
-    minStay: '%number+ nuits',
+    minStay: '%number+ nights',
     startOfWeek: 1
   },
   'de-DE': {
@@ -26,7 +26,7 @@ export default {
     shortMonthNames: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ Nächte',
+    minStay: '%number+ nächte',
     startOfWeek: 1
   },
   'es-ES': {
@@ -36,7 +36,7 @@ export default {
     shortMonthNames: 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ Noches',
+    minStay: '%number+ noches',
     startOfWeek: 1
   },
   'fr-FR': {
@@ -70,3 +70,15 @@ export default {
     startOfWeek: 1
   }
 };
+
+// Add aliases
+locales = Object.assign({
+  en: locales['en-US'],
+  de: locales['de-DE'],
+  es: locales['es-ES'],
+  fr: locales['fr-FR'],
+  it: locales['it-IT'],
+  sv: locales['sv-SV']
+}, locales);
+
+export default locales;
