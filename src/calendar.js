@@ -1,6 +1,6 @@
 /* global VERSION, Node, CSS_PREFIX, document, console */
 import {
-  addClass, removeClass, isArray, isObject, Emitter,
+  addClass, removeClass, hasClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
   isNumeric, traverseObj, ajax, isInside, currencyFormatter
 } from 'widget-utils';
@@ -221,7 +221,13 @@ export default class Calendar extends Emitter {
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
       const isEndFirst = this.isReverseSelectable;
+      const weekDayEl  = traverseToParentWithAttr(e.target, 'data-value').parent;
       let value, cell;
+
+      // cancel selection if day is invalid
+      if (weekDayEl && hasClass(weekDayEl, invalid)) {
+        this.resetSelection();
+      }
 
       if (this.isSelecting) {
         ({
@@ -676,7 +682,7 @@ export default class Calendar extends Emitter {
       });
     }
 
-    this.el.classList.add(dropBasic);
+    addClass(this.el, dropBasic);
 
     const calDrop = new Popper(this.elTarget, this.el, {
       placement: this.opts.dropPlacement || 'bottom-start',
@@ -687,10 +693,10 @@ export default class Calendar extends Emitter {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
 
-      if (!this.el.classList.contains(visible)) {
+      if (!hasClass(this.el, visible)) {
         calDrop.update();
         this.emit('drop-open');
-        this.el.classList.add(visible);
+        addClass(this.el, visible);
 
         if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
@@ -772,7 +778,7 @@ export default class Calendar extends Emitter {
     if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
-      this.el.classList.remove(visible);
+      removeClass(this.el, visible);
       this.emit('drop-close');
       this.switchInputFocus('any');
     }
