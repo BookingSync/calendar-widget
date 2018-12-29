@@ -307,7 +307,8 @@
 
 ********************************************************/
 .calendar {
-  .forward, .back {
+  .forward,
+  .back {
     cursor: pointer;
     height: 23px;
     width: 23px;
@@ -318,6 +319,11 @@
     left: 1rem;
     z-index: 2;
     position: absolute;
+
+    svg {
+      height: inherit;
+      width: inherit;
+    }
   }
 
   .forward {
