@@ -110,7 +110,7 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
 
     expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal('10');
     expect(cell.querySelector(`.${s.info}`).innerText).to.be.equal('10 HKD');
-    expect(cell.querySelector(`.${s.infoExtra}`).innerText).to.be.equal('5+ Noches');
+    expect(cell.querySelector(`.${s.infoExtra}`).innerText).to.be.equal('5+ noches');
   });
 
   it('on 13 there is no information about rates..', () => {
