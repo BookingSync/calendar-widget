@@ -32,6 +32,7 @@ export default {
   elEndAt: null,
   elSingleInput: null,
   isSingleInput: null,
+  singleInputDateFormat: null,
   singleInputSeparator: '→',
   elReset: null,
   formatDate: null,

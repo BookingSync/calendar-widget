@@ -638,8 +638,10 @@ export default class Calendar extends Emitter {
 
   completeSelection() {
     if (this.opts.isSingleInput) {
-      const dateStart = strftime(dateToIso(...this.selectionStart), this.format, this.locale);
-      const dateEnd   = strftime(dateToIso(...this.selectionEnd), this.format, this.locale);
+      const singleInputDateFormat = this.singleInputDateFormat || this.locale.formatDate;
+
+      const dateStart = strftime(dateToIso(...this.selectionStart), singleInputDateFormat, this.locale);
+      const dateEnd   = strftime(dateToIso(...this.selectionEnd), singleInputDateFormat, this.locale);
 
       this.opts.elSingleInput.value = `${dateStart} ${this.opts.singleInputSeparator} ${dateEnd}`;
     }
