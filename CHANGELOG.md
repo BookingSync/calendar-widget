@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2018-12-27
+### Added
+- Single input with date range value
+- Single input example in `index.html`
+- Default classes for inputs
+### Fixed
+- Minor fixes
+
 ## [1.0.0] - 2018-10-2
 ### Changed
 - `TetherDrop` to `Popper.js`
