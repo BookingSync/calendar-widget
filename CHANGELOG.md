@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2018-12-27
+### Added
+- Option `singleInputDateFormat`
+- Cancel selection on invalid day click
+- Locales aliases (eg: `en` = `en-US`)
+### Fixed
+- Minor fixes
+
 ## [1.1.0] - 2018-12-27
 ### Added
 - Single input with date range value
