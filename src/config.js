@@ -39,5 +39,6 @@ export default {
   hiddenElFormat: null,
   rentalId: null,
   currency: null,
+  forceDaysEnabled: true,
   currDate
 };
