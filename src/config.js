@@ -39,6 +39,7 @@ export default {
   hiddenElFormat: null,
   rentalId: null,
   currency: null,
-  disableAvailabities: null,
+  disableAvailabityMap: null,
+  allowShorterMinStaySelection: null,
   currDate
 };
