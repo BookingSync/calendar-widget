@@ -366,7 +366,7 @@ export default class Calendar extends Emitter {
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
     let hasValidRange        = this.opts.rentalId ? isValid : true;
-    const minStay            = this.opts.rentalId ? (this.opts.forceDaysEnabled ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
+    const minStay            = this.opts.rentalId ? (this.opts.disableAvailabilities ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
 
     if (isArray(range)) {
       // check that range is valid and longer than minStay
@@ -572,7 +572,7 @@ export default class Calendar extends Emitter {
   dayTplString(year, month, dayOfMonth) {
     const { cTree }   = this;
     const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
-    const minStay     = this.opts.showMinStay ? (this.opts.forceDaysEnabled ? 1 : cTree.getDayProperty(year, month, dayOfMonth, 'minStay')) : 0;
+    const minStay     = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
@@ -593,9 +593,9 @@ export default class Calendar extends Emitter {
     }
 
     return tpls.weekDay(
-      dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
+      dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, (this.opts.disableAvailabilities ? 1 : minStay),
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay), this.opts.forceDaysEnabled
+      tFormatter(minStay, this.locale.minStay)
     );
   }
 
@@ -614,7 +614,11 @@ export default class Calendar extends Emitter {
 
     const onSuccess = (maps) => {
       this.toggleLoading();
+
       if (isArray(maps.data) && maps.data[0].attributes) {
+        if (this.opts.disableAvailabilities) {
+          maps.data[0].attributes.availability = maps.data[0].attributes.availability.replace(/[0-9]/g, '0');
+        }
         this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;
         this.emit('maps-loaded', maps);
         this.addMaps(maps.data[0].attributes);
