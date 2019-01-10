@@ -366,13 +366,11 @@ export default class Calendar extends Emitter {
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
     let hasValidRange        = this.opts.rentalId ? isValid : true;
-    const minStay            = this.opts.rentalId ? this.cTree.getDayProperty(...start, 'minStay') : this.opts.minStay;
+    const minStay            = this.opts.rentalId ? (this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
 
     if (isArray(range)) {
-      // if selected range less than minimum stay at start
-      if (range.length <= minStay) {
-        hasValidRange = false;
-      }
+      // check that range is valid and longer than minStay
+      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay;
 
       range.map((a) => {
         removeClass(a, highlighted, invalid);
@@ -380,7 +378,6 @@ export default class Calendar extends Emitter {
         return a;
       });
 
-      this.hasValidRange     = hasValidRange;
       this.highlightedBounds = [start, end];
     }
 
@@ -596,7 +593,7 @@ export default class Calendar extends Emitter {
     }
 
     return tpls.weekDay(
-      dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, minStay,
+      dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, (this.opts.allowShorterMinStaySelection ? 1 : minStay),
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
       tFormatter(minStay, this.locale.minStay)
     );
@@ -617,7 +614,11 @@ export default class Calendar extends Emitter {
 
     const onSuccess = (maps) => {
       this.toggleLoading();
+
       if (isArray(maps.data) && maps.data[0].attributes) {
+        if (this.opts.disableAvailabityMap) {
+          maps.data[0].attributes.availability = maps.data[0].attributes.availability.replace(/[0-9]/g, '0');
+        }
         this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;
         this.emit('maps-loaded', maps);
         this.addMaps(maps.data[0].attributes);
