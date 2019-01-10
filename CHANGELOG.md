@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2010-01-11
+### Added
+- Option `disableAvailabityMap` & `allowShorterMinStaySelection`
+
+
 ## [1.2.0] - 2018-12-27
 ### Added
 - Option `singleInputDateFormat`
