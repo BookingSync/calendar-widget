@@ -1,5 +1,8 @@
-/* global document, module, VERSION, require */
+/* global document, module, VERSION, require, window */
 const Calendar = require('./calendar');
+
+// Export WidgetUtils
+window.BookingSyncWidgetUtils = require('widget-utils');
 
 // in order to export clean constructor to global namespace "BookingSyncCalendarWidget"
 // need to mix require with imports

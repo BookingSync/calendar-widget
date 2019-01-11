@@ -1,4 +1,4 @@
-/* global describe, it, before, after, document */
+/* global describe, it, before, after, document, window */
 import chai from 'chai';
 import { destroyElement } from 'widget-utils';
 
@@ -40,5 +40,9 @@ describe('BookingSync Calendar renders on containers with auto-init', () => {
     document.addEventListener('DOMContentLoaded', () => {
       expect(document.querySelectorAll(`.${mCell}`).length).to.be.equal(4);
     });
+  });
+
+  it('exposes widget-utils', () => {
+    expect(window.BookingSyncWidgetUtils).to.exist;
   });
 });
