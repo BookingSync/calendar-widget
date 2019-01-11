@@ -1,10 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [1.2.1] - 2010-01-11
+## [1.2.2] - 2019-01-12
+### Added
+- Expose `widget-utils` under `window.BookingSyncWidgetUtils`
+### Fixed
+- CHANGELOG.md
+
+## [1.2.1] - 2019-01-11
 ### Added
 - Option `disableAvailabityMap` & `allowShorterMinStaySelection`
-
 
 ## [1.2.0] - 2018-12-27
 ### Added
