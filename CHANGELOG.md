@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.3] - 2019-01-15
+### Fixed
+- Update single-input value on init
+
 ## [1.2.2] - 2019-01-12
 ### Added
 - Expose `widget-utils` under `window.BookingSyncWidgetUtils`

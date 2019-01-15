@@ -87,6 +87,7 @@ export default class Calendar extends Emitter {
       if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
         this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
         this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
+        this.completeSelection();
       }
     }
 
