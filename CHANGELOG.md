@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.2.4] - 2019-01-18
+### Updated
+- `disableAvailabityMap` & `allowShorterMinStaySelection` default values
+- README.md
+
 ## [1.2.3] - 2019-01-15
 ### Fixed
 - Update single-input value on init
