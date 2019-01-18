@@ -72,8 +72,8 @@ Additionally you can run json-mock server
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
 | `formatDate` | Overwrite locale defined date format | String | `%m/%d/%y` (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
 | `hiddenElFormat` | Duplicate start/end inputs with a different date format | String | null
-| `disableAvailabityMap` | Overwrite each days to be available | Boolean | null
-| `allowShorterMinStaySelection` | Force minimum selection to 1 | Boolean | null
+| `disableAvailabityMap` | Overwrite each days to be available | Boolean | false
+| `allowShorterMinStaySelection` | Force minimum selection to 1 | Boolean | false
 | `currDate` | Current date Date object | Date | `new Date()`
 
 ## Callbacks
