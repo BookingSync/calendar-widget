@@ -1,12 +1,13 @@
 /* global require, console, __dirname, module */
 'use strict';
 
-const webpack     = require('webpack');
-const path        = require('path');
-const env         = require('yargs').argv.env.NODE_ENV;
-const libraryName = 'BookingSyncCalendarWidget';
-const fileName    = 'bookingsync-calendar-widget';
-const CSS_PREFIX  = 'BookingSyncCalendar';
+const webpack      = require('webpack');
+const path         = require('path');
+const argv         = require('yargs').argv;
+const env          = argv.env.NODE_ENV;
+const libraryName  = 'BookingSyncCalendarWidget';
+const fileName     = 'bookingsync-calendar-widget';
+const CSS_PREFIX   = 'BookingSyncCalendar';
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -18,19 +19,24 @@ const plugins = [
 
 console.log(`Environment: ${env}`);
 
-let outputFile;
+let outputFile, optimization;
 
 if (env === 'development') {
-  outputFile =  `${fileName}.js`;
+  outputFile =  `${fileName}.dev.js`;
   plugins.push(new webpack.SourceMapDevToolPlugin({ filename: `${outputFile}.map` }));
 } else if (env === 'production') {
   outputFile = `${fileName}.min.js`;
+  if(argv['minimize'] === 'false') {
+    optimization = { minimize: false };
+    outputFile = `${fileName}.js`;
+  }
 } else {
   outputFile = '[name].js';
 }
 
 const config = {
   mode: env,
+  optimization,
   entry: `${__dirname}/src/bookingsync-calendar-widget.js`,
   output: {
     path: `${__dirname}/dist`,
