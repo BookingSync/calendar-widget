@@ -3,7 +3,7 @@
 
 const webpack      = require('webpack');
 const path         = require('path');
-const argv         = require('yargs').argv;
+const argv         = require('yargs');
 const env          = argv.env.NODE_ENV;
 const libraryName  = 'BookingSyncCalendarWidget';
 const fileName     = 'bookingsync-calendar-widget';
@@ -26,7 +26,7 @@ if (env === 'development') {
   plugins.push(new webpack.SourceMapDevToolPlugin({ filename: `${outputFile}.map` }));
 } else if (env === 'production') {
   outputFile = `${fileName}.min.js`;
-  if(argv['minimize'] === 'false') {
+  if (argv.minimize === 'false') {
     optimization = { minimize: false };
     outputFile = `${fileName}.js`;
   }
