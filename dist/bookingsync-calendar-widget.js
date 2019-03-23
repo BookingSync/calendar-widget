@@ -91,264 +91,6987 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/bookingsync-calendar-widget.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js?!./src/styles/calendar.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/lib/loader.js??ref--6-2!./src/styles/calendar.scss ***!
-  \*************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Imports\nexports.push([module.i, \"@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);\", \"\"]);\n\n// Module\nexports.push([module.i, \"/********************************************************\\n\\n\\t\\t\\t\\t     loader\\n\\n********************************************************/\\n@-webkit-keyframes BookingSyncCalendar__spin {\\n  0% {\\n    -webkit-transform: rotate(0deg);\\n    transform: rotate(0deg); }\\n  100% {\\n    -webkit-transform: rotate(360deg);\\n    transform: rotate(360deg); } }\\n\\n@keyframes BookingSyncCalendar__spin {\\n  0% {\\n    -webkit-transform: rotate(0deg);\\n    transform: rotate(0deg); }\\n  100% {\\n    -webkit-transform: rotate(360deg);\\n    transform: rotate(360deg); } }\\n\\n@-webkit-keyframes BookingSyncCalendar__pulse {\\n  50% {\\n    background: white; } }\\n\\n@keyframes BookingSyncCalendar__pulse {\\n  50% {\\n    background: white; } }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__loading {\\n  border-radius: 50%;\\n  width: 24px;\\n  height: 24px;\\n  border: 0.25rem solid #cacaca;\\n  border-top-color: #000;\\n  -webkit-animation: BookingSyncCalendar__spin 1s infinite linear;\\n  animation: BookingSyncCalendar__spin 1s infinite linear;\\n  position: absolute;\\n  left: 50%;\\n  top: 50%;\\n  margin-left: -12px;\\n  margin-top: -12px; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__loadingLayer {\\n  position: absolute;\\n  top: 0;\\n  left: 0;\\n  bottom: 0;\\n  background-color: rgba(255, 255, 255, 0.55);\\n  right: 0;\\n  z-index: 10; }\\n\\n.BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic {\\n  position: absolute;\\n  display: none;\\n  max-width: 100%;\\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\\n  border: 1px solid #e0e0e0;\\n  background: #fff;\\n  margin: 0;\\n  padding-top: .5rem;\\n  font-family: inherit;\\n  line-height: 1.5em;\\n  z-index: 10; }\\n  .BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic.BookingSyncCalendar__visible {\\n    display: block; }\\n  .BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic .BookingSyncCalendar__mCell {\\n    margin-bottom: 1rem; }\\n\\n/********************************************************\\n\\n\\t\\t\\t\\t      colors\\n\\n********************************************************/\\n.BookingSyncCalendar__calendar {\\n  font: 1rem/1.4 \\\"Open Sans\\\", Helvetica, Arial, sans-serif;\\n  position: relative;\\n  margin: 0 -1rem 3rem;\\n  padding-top: 0.5rem;\\n  background: #ffffff; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__caption {\\n    font-weight: 700;\\n    margin-bottom: 1.3rem;\\n    padding-top: 0.3rem;\\n    text-align: center; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__monthsWrapper {\\n    display: -webkit-box;\\n    display: -ms-flexbox;\\n    display: flex;\\n    -ms-flex-wrap: wrap;\\n    flex-wrap: wrap; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__mCell {\\n    font-size: 0.875rem;\\n    margin: 0 1rem 2rem;\\n    -webkit-box-flex: 1;\\n    -ms-flex: 1 1 25%;\\n    flex: 1 1 25%; }\\n    @media (max-width: 767px) {\\n      .BookingSyncCalendar__calendar .BookingSyncCalendar__mCell {\\n        -webkit-box-flex: 1;\\n        -ms-flex: 1 1 100%;\\n        flex: 1 1 100%; } }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__month {\\n    border-collapse: collapse;\\n    padding: 0;\\n    margin: 0;\\n    width: 100%; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__tableHeader,\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__body {\\n    margin: 0; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__th {\\n    border-bottom: 1px solid #cbcbcb;\\n    font-size: 0.85rem;\\n    color: #aaaaaa;\\n    height: 25px;\\n    width: 30px;\\n    text-align: center; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cell {\\n    text-align: center;\\n    padding: 0;\\n    position: relative;\\n    border: 1px solid #dedfe2;\\n    vertical-align: middle;\\n    color: #444444;\\n    background-clip: padding-box;\\n    overflow: hidden;\\n    width: 30px; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cell:after {\\n    content: '';\\n    display: block;\\n    margin-top: 100%; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cnt {\\n    position: absolute;\\n    top: 50%;\\n    bottom: 0;\\n    left: 0;\\n    right: 0;\\n    text-align: center;\\n    line-height: 0; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__infoExtra,\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__info {\\n    position: absolute;\\n    bottom: 0;\\n    left: 0;\\n    font-size: 0.6875rem;\\n    padding: 1px 3px;\\n    text-align: right;\\n    color: rgba(60, 60, 60, 0.5);\\n    right: 0; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__infoExtra {\\n    left: 0;\\n    text-align: left;\\n    right: auto; }\\n\\n.BookingSyncCalendar__focus {\\n  border-color: #8acdf6; }\\n\\n/********************************************************\\n\\n\\t\\t\\t\\t  selections, start and ends\\n\\n\\t\\t\\t\\t  N.B. Edit at your own risk\\n\\t\\t\\t\\t  one cell can have 10 states and lots of these combinations\\n\\n\\t\\t\\t\\t  enabled\\n\\n\\t\\t\\t\\t  disabled\\n\\t\\t\\t\\t  morningDisabled\\n\\t\\t\\t\\t  nightDisabled\\n\\n\\t\\t\\t\\t  highlighted\\n\\t\\t\\t\\t  morningSelected\\n\\t\\t\\t\\t  nightSelected\\n\\n\\t\\t\\t\\t  invalid\\n\\t\\t\\t\\t  morningInvalid\\n\\t\\t\\t\\t  nightInvalid\\n\\n\\n********************************************************/\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selected {\\n  color: inherit;\\n  /* selected cell generic styles */ }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__reversed {\\n  color: inherit;\\n  /* selecting reversed (e.g. check-out first) */ }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__direct {\\n  color: inherit; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectingReversed {\\n  color: inherit; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectingDirect {\\n  color: inherit; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__disabled,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__disabled:hover {\\n  color: #bfbfbf;\\n  cursor: default;\\n  background-color: #f0f0f0; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__highlighted {\\n  border-color: #bde3ff; }\\n\\n.BookingSyncCalendar__direct [data-enabled]:hover,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedStart {\\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\\n  border-top-color: #dedfe2;\\n  border-left-color: #dedfe2; }\\n\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__highlighted:hover,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedEnd {\\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%);\\n  border-bottom-color: #dedfe2;\\n  border-right-color: #dedfe2; }\\n\\n.BookingSyncCalendar__reversed [data-available-out]:hover {\\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\\n\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__highlighted:hover {\\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\\n  border-top-color: #dedfe2;\\n  border-left-color: #dedfe2; }\\n\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__selectedEnd,\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__selectedEnd:hover {\\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__nightDisabled,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__nightDisabled:hover {\\n  background: linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);\\n  color: #444444; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__morningDisabled,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__morningDisabled:hover {\\n  background: linear-gradient(to left top, transparent 50%, #f0f0f0 50%); }\\n\\n.BookingSyncCalendar__direct [data-enabled]:hover,\\n.BookingSyncCalendar__reversed [data-available-out]:hover,\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover,\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedStart,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedEnd,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__highlighted {\\n  background-color: #8acdf6;\\n  cursor: pointer; }\\n\\n.BookingSyncCalendar__direct [data-enabled]:hover,\\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__cnt,\\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__info,\\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__infoExtra {\\n  cursor: pointer; }\\n\\n.BookingSyncCalendar__reversed [data-available-out]:hover,\\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__cnt,\\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__info,\\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__infoExtra {\\n  cursor: pointer; }\\n\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover,\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__cnt,\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__info,\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__infoExtra {\\n  cursor: pointer; }\\n\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover,\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__cnt,\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__info,\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__infoExtra {\\n  cursor: pointer; }\\n\\n.BookingSyncCalendar__actionsEnabled .BookingSyncCalendar__invalid:not(.BookingSyncCalendar__selectedStart) {\\n  background: #c0c0c0;\\n  color: #ffffff;\\n  border-color: #cacaca; }\\n\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__invalid:hover {\\n  background: linear-gradient(to right bottom, transparent 50%, #c0c0c0 50%);\\n  border-top-color: #dedfe2;\\n  border-left-color: #dedfe2;\\n  color: #444444; }\\n\\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__invalid.BookingSyncCalendar__selectedEnd,\\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__invalid:hover {\\n  background: linear-gradient(to left top, transparent 50%, #c0c0c0 50%);\\n  border-bottom-color: #dedfe2;\\n  border-right-color: #dedfe2;\\n  color: #444444; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid {\\n  background-color: #c0c0c0;\\n  border-bottom-color: #cacaca;\\n  border-right-color: #cacaca; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__cnt,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__info,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__infoExtra {\\n  cursor: default; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid.BookingSyncCalendar__disabled:hover {\\n  background-color: #f0f0f0; }\\n\\n/********************************************************\\n\\n\\t\\t\\t\\t     buttons\\n\\n********************************************************/\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back {\\n  cursor: pointer;\\n  height: 23px;\\n  width: 23px;\\n  fill: #444444;\\n  padding: 6px 10px;\\n  border-radius: 1px;\\n  top: .25rem;\\n  left: 1rem;\\n  z-index: 2;\\n  position: absolute; }\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__forward svg,\\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__back svg {\\n    height: inherit;\\n    width: inherit; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward {\\n  right: 1rem;\\n  left: auto; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:active,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:focus,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:active,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:focus {\\n  outline: none; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:hover,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:hover {\\n  fill: #3895d9; }\\n\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward[disabled],\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward[disabled]:hover,\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back[disabled],\\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back[disabled]:hover {\\n  opacity: 0.5;\\n  cursor: default;\\n  fill: #444444; }\\n\\n/********************************************************\\n\\n\\t\\t\\t\\t     mods\\n\\n********************************************************/\\n/* chunky layout */\\n.BookingSyncCalendar__chunky .BookingSyncCalendar__cnt {\\n  left: 0;\\n  top: .8rem;\\n  text-align: right;\\n  margin-right: .5rem;\\n  font-size: 0.6875rem;\\n  color: rgba(60, 60, 60, 0.5); }\\n\\n.BookingSyncCalendar__chunky .BookingSyncCalendar__info {\\n  top: 39%;\\n  text-align: center;\\n  font-size: 0.75rem;\\n  color: #444444; }\\n\\n.BookingSyncCalendar__chunky .BookingSyncCalendar__infoExtra {\\n  text-align: center;\\n  right: 0;\\n  bottom: 3px; }\\n\\n.BookingSyncCalendar__chunky .BookingSyncCalendar__mCell {\\n  -webkit-box-flex: 1;\\n  -ms-flex: 1 1 46%;\\n  flex: 1 1 46%; }\\n\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"calendar\": \"BookingSyncCalendar__calendar\",\n\t\"loading\": \"BookingSyncCalendar__loading\",\n\t\"spin\": \"BookingSyncCalendar__spin\",\n\t\"loadingLayer\": \"BookingSyncCalendar__loadingLayer\",\n\t\"dropBasic\": \"BookingSyncCalendar__dropBasic\",\n\t\"visible\": \"BookingSyncCalendar__visible\",\n\t\"mCell\": \"BookingSyncCalendar__mCell\",\n\t\"caption\": \"BookingSyncCalendar__caption\",\n\t\"monthsWrapper\": \"BookingSyncCalendar__monthsWrapper\",\n\t\"month\": \"BookingSyncCalendar__month\",\n\t\"tableHeader\": \"BookingSyncCalendar__tableHeader\",\n\t\"body\": \"BookingSyncCalendar__body\",\n\t\"th\": \"BookingSyncCalendar__th\",\n\t\"cell\": \"BookingSyncCalendar__cell\",\n\t\"cnt\": \"BookingSyncCalendar__cnt\",\n\t\"infoExtra\": \"BookingSyncCalendar__infoExtra\",\n\t\"info\": \"BookingSyncCalendar__info\",\n\t\"focus\": \"BookingSyncCalendar__focus\",\n\t\"selected\": \"BookingSyncCalendar__selected\",\n\t\"reversed\": \"BookingSyncCalendar__reversed\",\n\t\"direct\": \"BookingSyncCalendar__direct\",\n\t\"selectingReversed\": \"BookingSyncCalendar__selectingReversed\",\n\t\"selectingDirect\": \"BookingSyncCalendar__selectingDirect\",\n\t\"disabled\": \"BookingSyncCalendar__disabled\",\n\t\"highlighted\": \"BookingSyncCalendar__highlighted\",\n\t\"selectedStart\": \"BookingSyncCalendar__selectedStart\",\n\t\"selectedEnd\": \"BookingSyncCalendar__selectedEnd\",\n\t\"nightDisabled\": \"BookingSyncCalendar__nightDisabled\",\n\t\"morningDisabled\": \"BookingSyncCalendar__morningDisabled\",\n\t\"actionsEnabled\": \"BookingSyncCalendar__actionsEnabled\",\n\t\"invalid\": \"BookingSyncCalendar__invalid\",\n\t\"forward\": \"BookingSyncCalendar__forward\",\n\t\"back\": \"BookingSyncCalendar__back\",\n\t\"chunky\": \"BookingSyncCalendar__chunky\",\n\t\"pulse\": \"BookingSyncCalendar__pulse\"\n};\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/styles/calendar.scss?./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/lib/loader.js??ref--6-2");
+// EXTERNAL MODULE: ./node_modules/currency-symbol-map/currency-symbol-map.js
+var currency_symbol_map = __webpack_require__(3);
+
+// CONCATENATED MODULE: ./node_modules/widget-utils/src/typechecks.js
+const {
+  prototype: {
+    toString: typechecks_toString
+  }
+} = Object;
+
+const isNaNPolyfill = value => typeof value === 'number' && Number.isNaN(value); // datatype checks
+
+
+const isObject = o => {
+  return typechecks_toString.call(o) === '[object Object]';
+};
+const isArray = a => {
+  return typechecks_toString.call(a) === '[object Array]';
+};
+const isFunction = f => {
+  return typeof f === 'function';
+};
+const isString = f => {
+  return typeof f === 'string';
+};
+const isNumeric = n => {
+  return !isArray(n) && !isNaNPolyfill(parseInt(n, 10));
+};
+const is = o => {
+  return typeof o !== 'undefined' && o !== null && !isNaNPolyfill(o);
+};
+// CONCATENATED MODULE: ./node_modules/widget-utils/src/emitter.js
+class Emitter {
+  on(event, listener) {
+    this.events = this.events || {};
+    this.events[event] = this.events[event] || [];
+    this.events[event].push(listener);
+    return this;
+  }
+
+  once(event, listener) {
+    const self = this;
+
+    function fn(...args) {
+      self.off(event, fn);
+      listener.apply(this, args);
+    }
+
+    fn.listener = listener;
+    this.on(event, fn);
+    return this;
+  }
+
+  off(event, listener) {
+    let listeners;
+
+    if (this.events && this.events[event]) {
+      listeners = this.events[event];
+      listeners.forEach((fn, i) => {
+        if (fn === listener || fn.listener === listener) {
+          listeners.splice(i, 1);
+        }
+      });
+
+      if (listeners.length === 0) {
+        delete this.events[event];
+      }
+    }
+
+    return this;
+  }
+
+  emit(event, ...args) {
+    let listeners;
+
+    if (this.events && this.events[event]) {
+      listeners = this.events[event];
+      listeners = listeners.slice(0);
+      listeners.forEach(fn => fn.apply(this, args));
+    }
+
+    return this;
+  }
+
+}
+// CONCATENATED MODULE: ./node_modules/widget-utils/src/index.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toUnderscore", function() { return toUnderscore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dashToCapital", function() { return dashToCapital; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "underscoreToCapital", function() { return underscoreToCapital; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "currencyFormatter", function() { return currencyFormatter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traverseObj", function() { return traverseObj; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return merge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pick", function() { return pick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "capitalizeObj", function() { return capitalizeObj; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serialize", function() { return serialize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findByClassName", function() { return findByClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getClassName", function() { return getClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setClassName", function() { return setClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "elementFromString", function() { return elementFromString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyElement", function() { return destroyElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeClass", function() { return removeClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addClass", function() { return addClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasClass", function() { return hasClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traverseToParentWithAttr", function() { return traverseToParentWithAttr; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParentAttribute", function() { return getParentAttribute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isInside", function() { return isInside; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "monthLength", function() { return monthLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ajax", function() { return ajax; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validate", function() { return validate; });
+/* concated harmony reexport isObject */__webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
+/* concated harmony reexport isArray */__webpack_require__.d(__webpack_exports__, "isArray", function() { return isArray; });
+/* concated harmony reexport isFunction */__webpack_require__.d(__webpack_exports__, "isFunction", function() { return isFunction; });
+/* concated harmony reexport isString */__webpack_require__.d(__webpack_exports__, "isString", function() { return isString; });
+/* concated harmony reexport isNumeric */__webpack_require__.d(__webpack_exports__, "isNumeric", function() { return isNumeric; });
+/* concated harmony reexport is */__webpack_require__.d(__webpack_exports__, "is", function() { return is; });
+/* concated harmony reexport Emitter */__webpack_require__.d(__webpack_exports__, "Emitter", function() { return Emitter; });
+/* global XMLHttpRequest, document, Intl */
+
+
+
+const {
+  keys
+} = Object;
+const {
+  parse,
+  stringify
+} = JSON; // string transforms
+
+const toUnderscore = str => str.replace(/([A-Z])/g, s => `_${s.toLowerCase()}`);
+const dashToCapital = str => str.replace(/-([a-z])/ig, (s, i) => i.toUpperCase());
+const underscoreToCapital = str => str.replace(/_([a-z])/ig, (s, i) => i.toUpperCase());
+
+function toLocaleStringSupportsOptions() {
+  return !!(typeof Intl === 'object' && Intl && typeof Intl.NumberFormat === 'function');
+}
+
+const currencyFormatter = (value, lang, currency, minimumFractionDigits = 0, maximumFractionDigits = 3) => {
+  if (toLocaleStringSupportsOptions() && currency) {
+    const isDollar = () => Object(currency_symbol_map["getSymbolFromCurrency"])(currency) === '$';
+
+    const options = {
+      style: 'currency',
+      currency,
+      currencyDisplay: isDollar ? 'symbol' : 'code',
+      minimumFractionDigits,
+      maximumFractionDigits
+    };
+    const numberFormat = new Intl.NumberFormat(lang, options);
+    const str = numberFormat.format(value);
+
+    if (isDollar || !Object(currency_symbol_map["getSymbolFromCurrency"])(currency)) {
+      return str;
+    }
+
+    return str.replace(currency, Object(currency_symbol_map["getSymbolFromCurrency"])(currency));
+  }
+
+  return value;
+}; // object helpers
+
+/**
+ * Recursively traverse object own properties and apply transform function on keys or values
+ * let a = { lastName: "Roman", firstName: "Khudyakov" }
+ * traverseObj(a, toUnderscore)
+ * => { last_name: "Roman", first_name: "Khudyakov" }
+ *
+ * @param obj {Object}
+ * @param fnKey {Function | Boolean}
+ * @param fnValue {Function | Boolean}
+ */
+
+const traverseObj = (obj, fnKey = false, fnValue = false) => {
+  if (!isObject(obj)) {
+    return obj;
+  }
+
+  return keys(obj).reduce((curr, next) => {
+    let nextProperty = obj[next];
+    const o = curr;
+
+    if (isArray(nextProperty)) {
+      nextProperty = nextProperty.map(i => traverseObj(i, fnKey, fnValue));
+    }
+
+    if (fnValue) {
+      o[fnKey ? fnKey(next) : next] = isObject(nextProperty) ? traverseObj(nextProperty, fnKey, fnValue) : fnValue(nextProperty, next);
+    } else {
+      o[fnKey ? fnKey(next) : next] = isObject(nextProperty) ? traverseObj(nextProperty, fnKey) : nextProperty;
+    }
+
+    return o;
+  }, {});
+};
+/**
+ * Merge two objects
+ * @param {Object} obj1
+ * @param {Object} obj2
+ * @param {Boolean} isDeep
+ * @returns {Object}
+ */
+
+const merge = (obj1, obj2, isDeep) => {
+  const obj3 = {};
+  keys(obj1).forEach(i => {
+    if (isDeep && isObject(obj1[i])) {
+      obj3[i] = merge(obj1[i], {}, true);
+    } else {
+      obj3[i] = obj1[i];
+    }
+  });
+  keys(obj2).forEach(i => {
+    if (isDeep && isObject(obj2[i])) {
+      obj3[i] = merge(obj3[i] || {}, obj2[i], true);
+    } else {
+      obj3[i] = obj2[i];
+    }
+  });
+  return obj3;
+};
+/**
+ * Pick properties from object
+ * let a = { name: "Roman", phone: 123, country: "any" };
+ * pick(a, 'name', 'country')
+ * => { name: "Roman", country: "any" }
+ *
+ * @param obj {Object}
+ * @param args {String}
+ * @returns {Object}
+ */
+
+const pick = (obj, ...args) => args.reduce((i, t) => {
+  const pickedObj = i;
+  pickedObj[t] = obj[t];
+  return pickedObj;
+}, {});
+const capitalizeObj = object => {
+  object = traverseObj(object, dashToCapital);
+  object = traverseObj(object, underscoreToCapital);
+  return object;
+}; // serialize query params with additional transform function
+
+const serialize = (obj, transform) => {
+  const component = keys(obj).map(p => `${transform(encodeURIComponent(p))}=${encodeURIComponent(obj[p])}`);
+  return component.join('&');
+}; // DOM helpers
+
+const findByClassName = (context, name) => context.querySelector(`.${name}`);
+const getClassName = el => {
+  // Can't use just SVGAnimatedString here since nodes within a Frame in IE have
+  // completely separately SVGAnimatedString base classes
+  if (el.className instanceof el.ownerDocument.defaultView.SVGAnimatedString) {
+    return el.className.baseVal;
+  }
+
+  return el.className;
+};
+const setClassName = (el, className) => {
+  el.setAttribute('class', className);
+};
+/**
+ * Create HTMLElement with attributes
+ * @param name {String}
+ * @param attrs {Object}
+ * @returns {HTMLElement}
+ */
+
+const createElement = (name, attrs) => {
+  const params = attrs || {};
+  const element = document.createElement(name);
+  keys(params).map(i => element.setAttribute(i, params[i]));
+  return element;
+};
+const elementFromString = string => {
+  const element = createElement('div');
+  element.innerHTML = string;
+  return element.children[0];
+};
+const destroyElement = element => {
+  if (element.parentNode && element.parentNode.removeChild) {
+    element.parentNode.removeChild(element);
+  }
+
+  return element;
+};
+const removeClass = (el, ...classNames) => {
+  const name = classNames;
+
+  if (typeof el.classList !== 'undefined') {
+    name.forEach(cls => {
+      if (cls.trim()) {
+        el.classList.remove(cls);
+      }
+    });
+  } else {
+    const regex = new RegExp(`(^| )${name.join('|')}( |$)`, 'gi');
+    const className = getClassName(el).replace(regex, ' ');
+    setClassName(el, className);
+  }
+};
+const addClass = (el, ...classNames) => {
+  const name = classNames;
+
+  if (typeof el.classList !== 'undefined') {
+    name.forEach(cls => {
+      if (cls.trim()) {
+        el.classList.add(cls);
+      }
+    });
+  } else {
+    removeClass(el, name);
+    const cls = `${getClassName(el)} ${name.join(' ')}`;
+    setClassName(el, cls);
+  }
+};
+const hasClass = (el, name) => {
+  if (typeof el.classList !== 'undefined') {
+    return el.classList.contains(name);
+  }
+
+  const className = getClassName(el);
+  return new RegExp(`(^| )${name}( |$)`, 'gi').test(className);
+};
+const traverseToParentWithAttr = (element, attribute) => {
+  let parent = element;
+  let value = element.getAttribute(attribute);
+
+  while (!is(value)) {
+    parent = parent.parentNode;
+
+    if (parent && typeof parent.getAttribute === 'function') {
+      value = parent.getAttribute(attribute);
+    } else {
+      parent = null;
+      break;
+    }
+  }
+
+  return {
+    value,
+    parent
+  };
+};
+/**
+ * Find HTMLElement attribute, in the dom-tree, bubbles up
+ * @param el {HTMLElement}
+ * @param attr
+ * @returns {string}
+ */
+
+const getParentAttribute = (el, attr) => traverseToParentWithAttr(el, attr).value;
+/**
+ * Check if some HTMLElement is inside another one
+ * @param child {HTMLElement}
+ * @param parent {HTMLElement}
+ * @returns {boolean}
+ */
+
+const isInside = (child, parent) => {
+  let current = child;
+
+  while (current !== parent) {
+    if (!is(current) || current.tagName === 'BODY' || current.tagName === 'HTML') {
+      return false;
+    }
+
+    current = current.parentNode;
+  }
+
+  return true;
+}; // Date utils
+
+const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+const isLeapYear = year => year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+
+const monthLength = (year, month) => {
+  let days = daysInMonth[month];
+
+  if (month === 1 && isLeapYear(year)) {
+    days = 29;
+  }
+
+  return days;
+}; // ajax wrapper
+
+const ajax = (apiUrl, success, error, params, method = 'GET') => {
+  const xmlHttp = new XMLHttpRequest();
+  const url = method === 'GET' && params ? `${apiUrl}?${serialize(params, toUnderscore)}` : apiUrl;
+
+  const isSuccess = status => status >= 200 && status < 300 || status === 304;
+
+  xmlHttp.open(method, url);
+  xmlHttp.setRequestHeader('Content-type', 'application/vnd.api+json');
+
+  xmlHttp.onreadystatechange = () => {
+    let response;
+
+    if (xmlHttp.readyState === 4) {
+      if (isSuccess(xmlHttp.status)) {
+        try {
+          response = parse(xmlHttp.responseText);
+        } catch (e) {
+          response = xmlHttp;
+        }
+
+        success(response);
+      } else {
+        error(xmlHttp);
+      }
+    }
+  };
+
+  if (isObject(params) && method !== 'GET') {
+    xmlHttp.send(stringify(params));
+  } else {
+    xmlHttp.send();
+  }
+}; // Validations
+
+const validate = {
+  isBlank(o) {
+    return is(o);
+  },
+
+  isNumeric(o) {
+    return isNumeric(o);
+  },
+
+  isEmail(o) {
+    return typeof o === 'string' && is(o.match(/^[^@\s]+@([^@\s]+\.)+[^@\W]+$/));
+  },
+
+  isBoundedBy(o, min, max) {
+    return typeof o === 'number' && o >= min && o <= max;
+  }
+
+};
+
 
 /***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js?!./src/styles/reset.scss":
-/*!**********************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/lib/loader.js??ref--6-2!./src/styles/reset.scss ***!
-  \**********************************************************************************************************************************/
-/*! no static exports found */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".BookingSyncCalendar__reset div, .BookingSyncCalendar__reset span, .BookingSyncCalendar__reset applet, .BookingSyncCalendar__reset object, .BookingSyncCalendar__reset iframe, .BookingSyncCalendar__reset h1, .BookingSyncCalendar__reset h2, .BookingSyncCalendar__reset h3, .BookingSyncCalendar__reset h4, .BookingSyncCalendar__reset h5, .BookingSyncCalendar__reset h6, .BookingSyncCalendar__reset p, .BookingSyncCalendar__reset blockquote, .BookingSyncCalendar__reset pre, .BookingSyncCalendar__reset a, .BookingSyncCalendar__reset abbr, .BookingSyncCalendar__reset acronym, .BookingSyncCalendar__reset address, .BookingSyncCalendar__reset big, .BookingSyncCalendar__reset cite, .BookingSyncCalendar__reset code, .BookingSyncCalendar__reset del, .BookingSyncCalendar__reset dfn, .BookingSyncCalendar__reset em, .BookingSyncCalendar__reset img, .BookingSyncCalendar__reset ins, .BookingSyncCalendar__reset kbd, .BookingSyncCalendar__reset q, .BookingSyncCalendar__reset s, .BookingSyncCalendar__reset samp, .BookingSyncCalendar__reset small, .BookingSyncCalendar__reset strike, .BookingSyncCalendar__reset strong, .BookingSyncCalendar__reset sub, .BookingSyncCalendar__reset sup, .BookingSyncCalendar__reset tt, .BookingSyncCalendar__reset var, .BookingSyncCalendar__reset b, .BookingSyncCalendar__reset u, .BookingSyncCalendar__reset i, .BookingSyncCalendar__reset center, .BookingSyncCalendar__reset dl, .BookingSyncCalendar__reset dt, .BookingSyncCalendar__reset dd, .BookingSyncCalendar__reset ol, .BookingSyncCalendar__reset ul, .BookingSyncCalendar__reset li, .BookingSyncCalendar__reset fieldset, .BookingSyncCalendar__reset form, .BookingSyncCalendar__reset div.BookingSyncCalendar__form, .BookingSyncCalendar__reset label, .BookingSyncCalendar__reset legend, .BookingSyncCalendar__reset table, .BookingSyncCalendar__reset caption, .BookingSyncCalendar__reset tbody, .BookingSyncCalendar__reset tfoot, .BookingSyncCalendar__reset thead, .BookingSyncCalendar__reset tr, .BookingSyncCalendar__reset th, .BookingSyncCalendar__reset td, .BookingSyncCalendar__reset article, .BookingSyncCalendar__reset aside, .BookingSyncCalendar__reset canvas, .BookingSyncCalendar__reset details, .BookingSyncCalendar__reset figcaption, .BookingSyncCalendar__reset figure, .BookingSyncCalendar__reset footer, .BookingSyncCalendar__reset header, .BookingSyncCalendar__reset hgroup, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset nav, .BookingSyncCalendar__reset section, .BookingSyncCalendar__reset summary, .BookingSyncCalendar__reset time, .BookingSyncCalendar__reset mark, .BookingSyncCalendar__reset audio, .BookingSyncCalendar__reset video, .BookingSyncCalendar__reset button, .BookingSyncCalendar__reset textarea, .BookingSyncCalendar__reset input,\\n.BookingSyncCalendar__reset .BookingSyncCalendar__button, .BookingSyncCalendar__reset .BookingSyncCalendar__legend {\\n  font-family: \\\"Open sans\\\", \\\"Helvetica Neue\\\", Helvetica, Arial, sans-serif;\\n  font-size-adjust: none;\\n  font-size: 100%;\\n  font-style: normal;\\n  letter-spacing: normal;\\n  font-stretch: normal;\\n  font-variant: normal;\\n  font-weight: normal;\\n  font: normal normal 100% \\\"Open sans\\\", \\\"Helvetica Neue\\\", Helvetica, Arial, sans-serif;\\n  text-align: left;\\n  -moz-text-align-last: initial;\\n  text-align-last: initial;\\n  text-decoration: none;\\n  -webkit-text-emphasis: none;\\n  text-emphasis: none;\\n  text-height: auto;\\n  text-indent: 0;\\n  text-justify: auto;\\n  text-outline: none;\\n  text-shadow: none;\\n  text-transform: none;\\n  text-wrap: normal;\\n  alignment-adjust: auto;\\n  alignment-baseline: baseline;\\n  -webkit-animation: none 0 ease 0 1 normal;\\n  animation: none 0 ease 0 1 normal;\\n  -webkit-animation-play-state: running;\\n  animation-play-state: running;\\n  appearance: normal;\\n  azimuth: center;\\n  -webkit-backface-visibility: visible;\\n  backface-visibility: visible;\\n  background: none 0 0 auto repeat scroll padding-box transparent;\\n  background-color: transparent;\\n  background-image: none;\\n  baseline-shift: baseline;\\n  binding: none;\\n  bleed: 6pt;\\n  bookmark-label: content();\\n  bookmark-level: none;\\n  bookmark-state: open;\\n  bookmark-target: none;\\n  border: 0 none transparent;\\n  border-radius: 0;\\n  bottom: auto;\\n  box-align: stretch;\\n  -webkit-box-decoration-break: slice;\\n  box-decoration-break: slice;\\n  box-direction: normal;\\n  flex: 0.0;\\n  flex-group: 1;\\n  box-lines: single;\\n  box-ordinal-group: 1;\\n  box-orient: inline-axis;\\n  box-pack: start;\\n  box-shadow: none;\\n  box-sizing: content-box;\\n  -webkit-break-after: auto;\\n  -moz-break-after: auto;\\n  break-after: auto;\\n  -webkit-break-before: auto;\\n  -moz-break-before: auto;\\n  break-before: auto;\\n  -webkit-column-break-inside: auto;\\n  page-break-inside: auto;\\n  break-inside: auto;\\n  caption-side: top;\\n  clear: none;\\n  clip: auto;\\n  color: inherit;\\n  color-profile: auto;\\n  -webkit-column-count: auto;\\n  -moz-column-count: auto;\\n  column-count: auto;\\n  -webkit-column-fill: balance;\\n  -moz-column-fill: balance;\\n  column-fill: balance;\\n  -webkit-column-gap: normal;\\n  -moz-column-gap: normal;\\n  column-gap: normal;\\n  -webkit-column-rule: medium medium #1f1f1f;\\n  -moz-column-rule: medium medium #1f1f1f;\\n  column-rule: medium medium #1f1f1f;\\n  -webkit-column-span: 1;\\n  -moz-column-span: 1;\\n  column-span: 1;\\n  -webkit-column-width: auto;\\n  -moz-column-width: auto;\\n  column-width: auto;\\n  -webkit-columns: auto auto;\\n  -moz-columns: auto auto;\\n  columns: auto auto;\\n  content: normal;\\n  counter-increment: none;\\n  counter-reset: none;\\n  crop: auto;\\n  cursor: auto;\\n  direction: ltr;\\n  display: inline;\\n  dominant-baseline: auto;\\n  drop-initial-after-adjust: text-after-edge;\\n  drop-initial-after-align: baseline;\\n  drop-initial-before-adjust: text-before-edge;\\n  drop-initial-before-align: caps-height;\\n  drop-initial-size: auto;\\n  drop-initial-value: initial;\\n  elevation: level;\\n  empty-cells: show;\\n  fit: fill;\\n  fit-position: 0% 0%;\\n  float: none;\\n  float-offset: 0 0;\\n  grid-columns: none;\\n  grid-rows: none;\\n  hanging-punctuation: none;\\n  height: auto;\\n  hyphenate-after: auto;\\n  hyphenate-before: auto;\\n  hyphenate-character: auto;\\n  hyphenate-lines: no-limit;\\n  hyphenate-resource: none;\\n  -webkit-hyphens: manual;\\n  -moz-hyphens: manual;\\n  -ms-hyphens: manual;\\n  hyphens: manual;\\n  icon: auto;\\n  image-orientation: auto;\\n  image-rendering: auto;\\n  image-resolution: normal;\\n  inline-box-align: last;\\n  left: auto;\\n  line-height: inherit;\\n  line-stacking: inline-line-height exclude-ruby consider-shifts;\\n  list-style: disc outside none;\\n  margin: 0;\\n  marks: none;\\n  marquee-direction: forward;\\n  marquee-loop: 1;\\n  marquee-play-count: 1;\\n  marquee-speed: normal;\\n  marquee-style: scroll;\\n  max-height: none;\\n  max-width: none;\\n  min-height: 0;\\n  min-width: 0;\\n  move-to: normal;\\n  nav-down: auto;\\n  nav-index: auto;\\n  nav-left: auto;\\n  nav-right: auto;\\n  nav-up: auto;\\n  opacity: 1;\\n  orphans: 2;\\n  outline: invert none medium;\\n  outline-offset: 0;\\n  overflow: visible;\\n  overflow-style: auto;\\n  padding: 0;\\n  page: auto;\\n  page-break-after: auto;\\n  page-break-before: auto;\\n  page-break-inside: auto;\\n  page-policy: start;\\n  -webkit-perspective: none;\\n  perspective: none;\\n  -webkit-perspective-origin: 50% 50%;\\n  perspective-origin: 50% 50%;\\n  position: static;\\n  presentation-level: 0;\\n  punctuation-trim: none;\\n  quotes: none;\\n  rendering-intent: auto;\\n  resize: none;\\n  right: auto;\\n  rotation: 0;\\n  rotation-point: 50% 50%;\\n  ruby-align: auto;\\n  ruby-overhang: none;\\n  ruby-position: before;\\n  ruby-span: none;\\n  size: auto;\\n  string-set: none;\\n  table-layout: auto;\\n  top: auto;\\n  -webkit-transform: none;\\n  -ms-transform: none;\\n  transform: none;\\n  -webkit-transform-origin: 50% 50% 0;\\n  -ms-transform-origin: 50% 50% 0;\\n  transform-origin: 50% 50% 0;\\n  -webkit-transform-style: flat;\\n  transform-style: flat;\\n  transition: all 0 ease 0;\\n  unicode-bidi: normal;\\n  vertical-align: baseline;\\n  white-space: normal;\\n  white-space-collapse: collapse;\\n  widows: 2;\\n  width: auto;\\n  word-break: normal;\\n  word-spacing: normal;\\n  word-wrap: normal;\\n  z-index: auto;\\n  text-align: start;\\n  /* And disable MS gradients */\\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\\n  -webkit-font-smoothing: antialiased;\\n  -moz-osx-font-smoothing: grayscale; }\\n\\n.BookingSyncCalendar__reset address, .BookingSyncCalendar__reset blockquote, .BookingSyncCalendar__reset dd, .BookingSyncCalendar__reset div, .BookingSyncCalendar__reset dl, .BookingSyncCalendar__reset dt, .BookingSyncCalendar__reset fieldset, .BookingSyncCalendar__reset form, .BookingSyncCalendar__reset div.BookingSyncCalendar__form, .BookingSyncCalendar__reset frame, .BookingSyncCalendar__reset frameset, .BookingSyncCalendar__reset h1, .BookingSyncCalendar__reset h2, .BookingSyncCalendar__reset h3, .BookingSyncCalendar__reset h4, .BookingSyncCalendar__reset h5, .BookingSyncCalendar__reset h6, .BookingSyncCalendar__reset noframes, .BookingSyncCalendar__reset ol, .BookingSyncCalendar__reset p, .BookingSyncCalendar__reset ul, .BookingSyncCalendar__reset center, .BookingSyncCalendar__reset dir, .BookingSyncCalendar__reset hr, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset pre, .BookingSyncCalendar__reset article, .BookingSyncCalendar__reset aside, .BookingSyncCalendar__reset canvas, .BookingSyncCalendar__reset details, .BookingSyncCalendar__reset figcaption, .BookingSyncCalendar__reset figure, .BookingSyncCalendar__reset footer, .BookingSyncCalendar__reset header, .BookingSyncCalendar__reset hgroup, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset nav, .BookingSyncCalendar__reset section, .BookingSyncCalendar__reset summary {\\n  display: block; }\\n\\n.BookingSyncCalendar__reset li {\\n  display: list-item; }\\n\\n.BookingSyncCalendar__reset table {\\n  display: table; }\\n\\n.BookingSyncCalendar__reset tr {\\n  display: table-row; }\\n\\n.BookingSyncCalendar__reset thead {\\n  display: table-header-group; }\\n\\n.BookingSyncCalendar__reset tbody {\\n  display: table-row-group; }\\n\\n.BookingSyncCalendar__reset tfoot {\\n  display: table-footer-group; }\\n\\n.BookingSyncCalendar__reset col {\\n  display: table-column; }\\n\\n.BookingSyncCalendar__reset colgroup {\\n  display: table-column-group; }\\n\\n.BookingSyncCalendar__reset td, .BookingSyncCalendar__reset th {\\n  display: table-cell; }\\n\\n.BookingSyncCalendar__reset caption {\\n  display: table-caption; }\\n\\n.BookingSyncCalendar__reset input, .BookingSyncCalendar__reset select {\\n  display: inline-block; }\\n\\n.BookingSyncCalendar__reset b, .BookingSyncCalendar__reset strong {\\n  font-weight: bold; }\\n\\n.BookingSyncCalendar__reset b > i, .BookingSyncCalendar__reset strong > i, .BookingSyncCalendar__reset b > em, .BookingSyncCalendar__reset strong > em, .BookingSyncCalendar__reset i > b, .BookingSyncCalendar__reset i > strong, .BookingSyncCalendar__reset em > b, .BookingSyncCalendar__reset em > strong {\\n  font-weight: bold;\\n  font-style: italic; }\\n\\n.BookingSyncCalendar__reset textarea, .BookingSyncCalendar__reset input {\\n  cursor: text; }\\n\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"reset\": \"BookingSyncCalendar__reset\",\n\t\"form\": \"BookingSyncCalendar__form\",\n\t\"button\": \"BookingSyncCalendar__button\",\n\t\"legend\": \"BookingSyncCalendar__legend\"\n};\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/styles/reset.scss?./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/lib/loader.js??ref--6-2");
+
+var content = __webpack_require__(11);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"insertAt":"top","singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(5)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./node_modules/css-loader/dist/runtime/api.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
-  \*****************************************************/
-/*! no static exports found */
+// github.com/pineapplemachine/strtime-js
+// MIT license, Copyright (c) 2018 Sophie Kirschner (sophiek@pineapplemachine.com)
+// References:
+// https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rtref/strpti.htm
+// https://www.gnu.org/software/libc/manual/html_node/Formatting-Calendar-Time.html
+// https://www.gnu.org/software/libc/manual/html_node/Low_002dLevel-Time-String-Parsing.html
+// http://man7.org/linux/man-pages/man3/strptime.3.html
+// https://apidock.com/ruby/DateTime/strftime
+// http://strftime.org/
+function getFormatOptions(timezone, options) {
+  let useOptions;
+  let tz = undefined;
+
+  if (timezone === null || timezone === undefined || Number.isFinite(timezone) || typeof timezone === "string") {
+    tz = timezone;
+    useOptions = options || {};
+  } else if (timezone && !options) {
+    useOptions = timezone;
+    tz = useOptions.tz;
+  } else {
+    useOptions = {};
+  }
+
+  return {
+    tz: tz,
+    options: useOptions
+  };
+}
+
+function getDateTimeFormat(tz) {
+  return new Intl.DateTimeFormat("en-US", {
+    hour12: false,
+    timeZone: tz,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+}
+
+function parseDateTimeFormatString(string) {
+  const month = +string.slice(0, 2);
+  const day = +string.slice(3, 5);
+  const year = +string.slice(6, string.length - 10);
+  const hour = +string.slice(string.length - 8, string.length - 6);
+  const minute = +string.slice(string.length - 5, string.length - 3);
+  const second = +string.slice(string.length - 2, string.length);
+  const utcDate = new Date();
+  utcDate.setUTCFullYear(year);
+  utcDate.setUTCMonth(month - 1);
+  utcDate.setUTCDate(day);
+  utcDate.setUTCHours(hour);
+  utcDate.setUTCMinutes(minute);
+  utcDate.setUTCSeconds(second);
+  return utcDate;
+}
+
+function getTimezoneOffsetAtIANADate(tz, date) {
+  // Get the offset as though the input date was UTC
+  const format = getDateTimeFormat(tz);
+  const timestamp = format.format(date);
+  const parsedDate = parseDateTimeFormatString(timestamp);
+  parsedDate.setUTCMilliseconds(date.getUTCMilliseconds());
+  const probableOffset = (parsedDate.getTime() - date.getTime()) / 60000; // If this offset is correct (and it *probably* is) then this is
+  // the UTC date corresponding to the date input
+
+  const probableDate = new Date(date);
+  probableDate.setUTCMinutes(probableDate.getUTCMinutes() - probableOffset); // See whether reversing the operation gives the input date
+
+  const checkTimestamp = format.format(probableDate);
+  const checkedDate = parseDateTimeFormatString(checkTimestamp);
+  checkedDate.setUTCMilliseconds(date.getUTCMilliseconds()); // This offset will be 0 if probableOffset was correct, otherwise it
+  // will be the number of minutes that the offset was off by.
+
+  const checkOffset = (checkedDate.getTime() - date.getTime()) / 60000;
+  return probableOffset + checkOffset;
+}
+
+function getTimezoneOffsetAtUTCDate(tz, date) {
+  const format = getDateTimeFormat(tz);
+  const timestamp = format.format(date);
+  const parsedDate = parseDateTimeFormatString(timestamp);
+  parsedDate.setUTCMilliseconds(date.getUTCMilliseconds());
+  const offset = parsedDate.getTime() - date.getTime();
+  return offset / 60000; // millseconds => minutes
+}
+
+function getTimezoneOffsetMinutes(date, tz) {
+  if (tz === null || tz === undefined) {
+    return 0;
+  } else if (tz >= -16 && tz <= +16) {
+    return Math.floor(60 * tz);
+  } else if (Number.isFinite(tz)) {
+    return Math.floor(tz);
+  } else if (tz === "local") {
+    return -(date || new Date()).getTimezoneOffset();
+  } else {
+    const tzString = String(tz);
+
+    if (tzString.startsWith("Etc/GMT")) {
+      const offset = +tzString.slice(7);
+      if (Number.isInteger(offset)) return 60 * -offset;
+    } else if (typeof Intl !== "undefined" && tzString.indexOf("/") >= 0) {
+      return {
+        formatOffset: date => getTimezoneOffsetAtUTCDate(tz, date),
+        parseOffset: date => getTimezoneOffsetAtIANADate(tz, date)
+      };
+    } else {
+      const tzUpper = String(tz).toUpperCase();
+
+      if (tzUpper in defaultTimezoneNames) {
+        const offset = Math.floor(60 * defaultTimezoneNames[tzUpper]);
+        if (Number.isFinite(offset)) return offset;
+      }
+    }
+  }
+
+  throw new Error(`Unrecognized timezone option "${tz}".`);
+}
+
+function strftime(date, format, timezone, options) {
+  if (Number.isFinite(date)) {
+    // Accept unix timestamps (milliseconds since epoch)
+    date = new Date(date);
+  } else if (!date) {
+    throw new Error("No date input was provided.");
+  } else if (typeof date.toDate === "function") {
+    // Support date objects from https://www.npmjs.com/package/moment
+    // Support date objects from https://www.npmjs.com/package/dayjs
+    date = date.toDate();
+  } else if (typeof date.toJSDate === "function") {
+    // Support date objects from https://www.npmjs.com/package/luxon
+    date = date.toJSDate();
+  }
+
+  if (!(date instanceof Date)) {
+    throw new Error("Failed to get Date instance from date input.");
+  }
+
+  if (!Number.isFinite(date.getTime())) {
+    throw new Error("Can't format an invalid date.");
+  }
+
+  const tokens = TimestampParser.parseFormatString(format);
+  const useOptions = getFormatOptions(timezone, options);
+  const timezoneOffsetMinutes = getTimezoneOffsetMinutes(date, useOptions.tz);
+  const tzDate = new Date(date);
+
+  if (Number.isFinite(timezoneOffsetMinutes)) {
+    tzDate.setUTCMinutes(date.getUTCMinutes() + timezoneOffsetMinutes);
+  }
+
+  let output = "";
+
+  for (let token of tokens) {
+    if (token instanceof Directive) {
+      output += token.write(tzDate, "", useOptions.options, timezoneOffsetMinutes);
+    } else if (token instanceof Directive.Token) {
+      output += token.write(tzDate, useOptions.options, timezoneOffsetMinutes);
+    } else {
+      output += token;
+    }
+  }
+
+  return output;
+}
+
+function strptime(timestamp, format, timezone, options) {
+  const useOptions = getFormatOptions(timezone, options);
+  const parser = new TimestampParser(timestamp, format);
+  const timezoneOffsetMinutes = getTimezoneOffsetMinutes(undefined, useOptions.tz);
+
+  if (timezoneOffsetMinutes !== undefined) {
+    parser.timezoneOffsetMinutes = timezoneOffsetMinutes;
+  }
+
+  if (useOptions.options) {
+    for (let key in useOptions.options) {
+      parser[key] = useOptions.options[key];
+    }
+  }
+
+  const result = parser.parse();
+  return result.getDate();
+}
+
+const strtime = {
+  strftime: strftime,
+  strptime: strptime
+};
+const english = {
+  eraNames: ["CE", "BCE"],
+  meridiemNames: ["AM", "PM"],
+  shortWeekdayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  longWeekdayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  longMonthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  ordinalTransform: function (number) {
+    const digit = Math.floor(number % 10);
+    if (number > 3 && number <= 20) return `${number}th`;
+    if (digit === 1) return `${number}st`;else if (digit === 2) return `${number}nd`;else if (digit === 3) return `${number}rd`;else return `${number}th`;
+  }
+};
+
+function leftPad(char, length, text) {
+  let string = String(text);
+
+  while (string.length < length) {
+    string = char + string;
+  }
+
+  return string;
+}
+
+function writeTimezoneOffset(offsetMinutes, modifier) {
+  const absOffset = Math.abs(offsetMinutes);
+  const sign = offsetMinutes >= 0 ? "+" : "-";
+  const hour = leftPad("0", 2, Math.floor(absOffset / 60));
+  const minute = leftPad("0", 2, absOffset % 60);
+
+  if (modifier === "::") {
+    return sign + hour + ":" + minute + ":00";
+  } else if (modifier === ":") {
+    return sign + hour + ":" + minute;
+  } else {
+    return sign + hour + minute;
+  }
+} // Get the day of the week given an input Date.
+// Returns 0 for Sunday, 1 for Monday, etc.
+// https://www.quora.com/How-does-Tomohiko-Sakamotos-Algorithm-work/answer/Raziman-T-V?srid=u2HNX
+
+
+function getDayOfWeek(date) {
+  const offsets = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
+  let year = date.getUTCFullYear();
+  let month = date.getUTCMonth();
+  let day = date.getUTCDate();
+
+  if (month < 2) {
+    year--;
+  }
+
+  return (offsets[month] + year + day + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400)) % 7;
+} // Get the day of the year as a number (1-366)
+
+
+function getDayOfYear(date) {
+  const lengths = monthLengths.forYear(date.getUTCFullYear());
+  const months = lengths.slice(0, date.getUTCMonth());
+  return date.getUTCDate() + (months.length && months.reduce((a, b) => a + b) || 0);
+} // Get the week of the year (starting with Sunday) (0-53)
+
+
+function getWeekOfYearFromSunday(date) {
+  const dayOfYear = getDayOfYear(date);
+  const firstDayOfWeek = getFirstWeekdayInYear(date.getUTCFullYear());
+  return Math.floor((dayOfYear + (firstDayOfWeek || 7) - 1) / 7);
+} // Get the week of the year (starting with Monday) (0-53)
+
+
+function getWeekOfYearFromMonday(date) {
+  const dayOfYear = getDayOfYear(date);
+  const dayOfWeek = getDayOfWeek(date);
+  const firstDayOfWeek = getFirstWeekdayInYear(date.getUTCFullYear());
+  const sundayWeek = Math.floor((dayOfYear + (firstDayOfWeek || 7) - 1) / 7);
+  return sundayWeek - (dayOfWeek === 0 ? 1 : 0) + (firstDayOfWeek === 1 ? 1 : 0);
+}
+
+function getISOWeeksInYear(year) {
+  const priorYear = year - 1;
+  const a = (year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400)) % 7;
+  const b = (priorYear + Math.floor(priorYear / 4) - Math.floor(priorYear / 100) + Math.floor(priorYear / 400)) % 7;
+  return a === 4 || b === 3 ? 53 : 52;
+} // Get the ISO week of the year
+// https://en.wikipedia.org/wiki/ISO_week_date
+// https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+
+
+function getISOWeekOfYear(date) {
+  const year = date.getUTCFullYear();
+  const dayOfYear = getDayOfYear(date);
+  const dayOfWeek = getDayOfWeek(date);
+  const weekNumber = Math.floor((10 + dayOfYear - (dayOfWeek || 7)) / 7);
+
+  if (weekNumber < 1) {
+    return getISOWeeksInYear(year - 1);
+  } else if (weekNumber > getISOWeeksInYear(year)) {
+    return 1;
+  } else {
+    return weekNumber;
+  }
+} // https://en.wikipedia.org/wiki/ISO_week_date
+
+
+function getISOWeekDateYear(date) {
+  const year = date.getUTCFullYear();
+  const dayOfYear = getDayOfYear(date);
+  const dayOfWeek = getDayOfWeek(date);
+  const weekNumber = Math.floor((10 + dayOfYear - (dayOfWeek || 7)) / 7);
+
+  if (weekNumber < 1) {
+    return year - 1;
+  } else if (weekNumber > getISOWeeksInYear(year)) {
+    return year + 1;
+  } else {
+    return year;
+  }
+}
+
+class Directive {
+  constructor(options) {
+    // List of possible names for this directive
+    this.names = options.names; // Pad numbers to this length (normally)
+
+    this.padLength = options.padLength; // A likely (but not strict) length to be used when resolving
+    // ambiguous parsing inputs
+
+    this.likelyLength = options.likelyLength; // Indicates that this directive uses text (as opposed to numbers)
+
+    this.text = options.text; // The minimum permitted numeric value for a directive
+
+    this.minimum = options.minimum; // The maximum permitted numeric value for a directive
+
+    this.maximum = options.maximum; // Whether this directive represents a number that can be negative
+
+    this.canBeNegative = options.canBeNegative; // This directive should always be rewritten using a combination of
+    // other directives
+
+    this.rewrite = options.rewrite; // Function to parse content from a string
+
+    this.parseFunction = options.parse; // Function to write content as a string, given a date to format
+
+    this.writeFunction = options.write; // Function to store a parsed numeric value
+
+    this.storeFunction = options.store;
+  }
+
+  static getByName(name) {
+    for (let directive of Directive.list) {
+      if (directive.names.indexOf(name) >= 0) {
+        return directive;
+      }
+    }
+
+    return undefined;
+  }
+
+  isOrdinal() {
+    return false;
+  }
+
+  getCanBeNegative() {
+    return this.canBeNegative;
+  }
+
+  getLikelyLength() {
+    return this.likelyLength;
+  }
+
+  getRewriteParsed(parseFormatString) {
+    if (!this.rewriteParsedValue) {
+      this.rewriteParsedValue = parseFormatString(this.rewrite);
+
+      for (let token of this.rewriteParsedValue) {
+        token.expandedFrom = this;
+      }
+    }
+
+    return this.rewriteParsedValue;
+  }
+
+  hasParseFunction() {
+    return !!this.parseFunction;
+  }
+
+  hasStoreFunction() {
+    return !!this.storeFunction;
+  }
+
+  parse(parser) {
+    return this.parseFunction.call(parser);
+  }
+
+  store(parser, number) {
+    this.storeFunction.call(parser, number);
+  }
+
+  write(date, modifier, options, timezoneOffsetMinutes) {
+    return this.writeFunction(date, modifier, options, timezoneOffsetMinutes);
+  }
+
+  numberInBounds(value) {
+    return (!Number.isFinite(this.minimum) || value >= this.minimum) && (!Number.isFinite(this.maximum) || value <= this.maximum);
+  }
+
+  getBoundsString() {
+    if (Number.isFinite(this.minimum) && Number.isFinite(this.maximum)) {
+      return `[${this.minimum}, ${this.maximum}]`;
+    } else if (Number.isFinite(this.minimum)) {
+      return `[${this.minimum}, ...]`;
+    } else if (Number.isFinite(this.maximum)) {
+      return `[..., ${this.maximum}]`;
+    } else {
+      return undefined;
+    }
+  }
+
+  toString() {
+    return "%" + this.names[0];
+  }
+
+}
+
+Directive.Token = class DirectiveToken {
+  constructor(modifier, directive) {
+    this.modifier = modifier;
+    this.directive = directive;
+    this.expandedFrom = undefined;
+  }
+
+  isOrdinal() {
+    return this.modifier === ":";
+  }
+
+  getCanBeNegative() {
+    return this.directive.canBeNegative;
+  }
+
+  getLikelyLength() {
+    return this.directive.likelyLength;
+  }
+
+  hasParseFunction() {
+    return this.directive.hasParseFunction();
+  }
+
+  hasStoreFunction() {
+    return this.directive.hasStoreFunction();
+  }
+
+  parse(parser) {
+    return this.directive.parseFunction.call(parser, this.modifier);
+  }
+
+  store(parser, number) {
+    this.directive.storeFunction.call(parser, number);
+  }
+
+  write(date, options, timezoneOffsetMinutes) {
+    const result = this.directive.write(date, this.modifier, options, timezoneOffsetMinutes);
+
+    if (this.modifier === "^") {
+      const resultString = String(result);
+      if (typeof result === "number") return resultString;
+      const upper = resultString.toUpperCase();
+      return upper !== resultString ? upper : resultString.toLowerCase();
+    } else if (this.modifier === "_" && this.directive.padLength) {
+      return leftPad(" ", this.directive.padLength, result);
+    } else if (this.modifier === "_" && this.directive.text) {
+      return String(result).toLowerCase();
+    } else if (this.modifier === "-" && this.directive.padLength) {
+      return String(result);
+    } else if (this.modifier === ":" && !this.directive.text) {
+      const transform = options && options.ordinalTransform || english.ordinalTransform;
+      return transform(result);
+    } else if (!this.directive.text && this.directive.padLength) {
+      return result >= 0 ? leftPad("0", this.directive.padLength, result) : `-${leftPad("0", this.directive.padLength, -result)}`;
+    } else {
+      return String(result);
+    }
+  }
+
+  numberInBounds(value) {
+    return this.directive.numberInBounds(value);
+  }
+
+  getBoundsString() {
+    return this.directive.getBoundsString();
+  }
+
+  toString() {
+    return "%" + this.modifier + this.directive.names[0];
+  }
+
+};
+Directive.StringToken = class DirectiveStringToken {
+  constructor(string) {
+    this.string = string || "";
+    this.expandedFrom = undefined;
+  }
+
+  addCharacter(ch) {
+    this.string += ch;
+  }
+
+  toString() {
+    return this.string;
+  }
+
+};
+Directive.list = [// Abbreviated weekday name
+new Directive({
+  names: ["a"],
+  text: true,
+  parse: function () {
+    this.dayOfWeek = this.parseWeekdayName(this);
+  },
+  write: function (date, modifier, options) {
+    const names = options && options.shortWeekdayNames || english.shortWeekdayNames;
+    return names[date.getUTCDay() % 7];
+  }
+}), // Long weekday name
+new Directive({
+  names: ["A"],
+  text: true,
+  parse: function () {
+    this.dayOfWeek = this.parseWeekdayName(this);
+  },
+  write: function (date, modifier, options) {
+    const names = options && options.longWeekdayNames || english.longWeekdayNames;
+    return names[date.getUTCDay() % 7];
+  }
+}), // Abbreviated month name
+new Directive({
+  names: ["b", "h"],
+  text: true,
+  parse: function () {
+    this.month = 1 + this.parseMonthName(this);
+  },
+  write: function (date, modifier, options) {
+    const names = options && options.shortMonthNames || english.shortMonthNames;
+    return names[date.getUTCMonth() % 12];
+  }
+}), // Long month name
+new Directive({
+  names: ["B"],
+  text: true,
+  parse: function () {
+    this.month = 1 + this.parseMonthName(this);
+  },
+  write: function (date, modifier, options) {
+    const names = options && options.longMonthNames || english.longMonthNames;
+    return names[date.getUTCMonth() % 12];
+  }
+}), // Combination date and time, same as "%a %b %e %H:%M:%S %Y"
+new Directive({
+  names: ["c"],
+  rewrite: "%a %b %e %H:%M:%S %Y"
+}), // Century (complements %y)
+new Directive({
+  names: ["C"],
+  likelyLength: 2,
+  canBeNegative: true,
+  store: function (number) {
+    this.century = number;
+  },
+  write: function (date) {
+    return Math.floor(date.getUTCFullYear() / 100);
+  }
+}), // Two-digit day of month
+new Directive({
+  names: ["d"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 1,
+  maximum: 31,
+  store: function (number) {
+    this.dayOfMonth = number;
+  },
+  write: function (date) {
+    return date.getUTCDate();
+  }
+}), // Same as %m/%d/%y
+new Directive({
+  names: ["D", "x"],
+  rewrite: "%m/%d/%y"
+}), // Day of month padded with spaces (same as "%_d")
+new Directive({
+  names: ["e"],
+  likelyLength: 2,
+  minimum: 1,
+  maximum: 31,
+  store: function (number) {
+    this.dayOfMonth = number;
+  },
+  write: function (date, modifier) {
+    if (!modifier) {
+      return leftPad(" ", 2, date.getUTCDate());
+    } else {
+      return date.getUTCDate();
+    }
+  }
+}), // Six-digit microsecond
+new Directive({
+  names: ["f"],
+  padLength: 6,
+  likelyLength: 6,
+  minimum: 0,
+  maximum: 999999,
+  store: function (number) {
+    this.microsecond = number;
+  },
+  write: function (date) {
+    return 1000 * date.getUTCMilliseconds();
+  }
+}), // Same as %Y-%m-%d
+new Directive({
+  names: ["F"],
+  rewrite: "%Y-%m-%d"
+}), // Two-digit ISO week year
+new Directive({
+  names: ["g"],
+  likelyLength: 2,
+  store: function (number) {
+    this.isoTwoDigitYear = number;
+  },
+  write: function (date) {
+    return getISOWeekDateYear(date) % 100;
+  }
+}), // Full ISO week year
+new Directive({
+  names: ["G"],
+  padLength: 4,
+  likelyLength: 4,
+  canBeNegative: true,
+  store: function (number) {
+    this.isoYear = number;
+  },
+  write: function (date) {
+    return getISOWeekDateYear(date);
+  }
+}), // Two-digit hour (0-23)
+new Directive({
+  names: ["H", "k"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 0,
+  maximum: 23,
+  store: function (number) {
+    this.hour = number;
+  },
+  write: function (date) {
+    return date.getUTCHours();
+  }
+}), // Two-digit hour (1-12) to be used in combination with %p (AM/PM)
+new Directive({
+  names: ["I", "l"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 1,
+  maximum: 12,
+  store: function (number) {
+    this.hour = number;
+  },
+  write: function (date) {
+    return date.getUTCHours() % 12 || 12;
+  }
+}), // Day in year
+new Directive({
+  names: ["j"],
+  padLength: 3,
+  likelyLength: 3,
+  minimum: 1,
+  maximum: 366,
+  store: function (number) {
+    this.dayOfYear = number;
+  },
+  write: function (date) {
+    return getDayOfYear(date);
+  }
+}), // Three-digit millisecond
+new Directive({
+  names: ["L"],
+  padLength: 3,
+  likelyLength: 3,
+  minimum: 0,
+  maximum: 999,
+  store: function (number) {
+    this.millisecond = number;
+  },
+  write: function (date) {
+    return date.getUTCMilliseconds();
+  }
+}), // Two-digit month number (1-12)
+new Directive({
+  names: ["m"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 1,
+  maximum: 12,
+  store: function (number) {
+    this.month = number;
+  },
+  write: function (date) {
+    return 1 + date.getUTCMonth();
+  }
+}), // Two-digit minute (0-59)
+new Directive({
+  names: ["M"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 0,
+  maximum: 59,
+  store: function (number) {
+    this.minute = number;
+  },
+  write: function (date) {
+    return date.getUTCMinutes();
+  }
+}), // AM or PM (uppercase)
+new Directive({
+  names: ["p"],
+  text: true,
+  parse: function () {
+    this.meridiem = this.parseMeridiemName();
+  },
+  write: function (date, modifier, options) {
+    const index = date.getUTCHours() < 12 ? 0 : 1;
+    return (options && options.meridiemNames || english.meridiemNames)[index];
+  }
+}), // AM or PM (lowercase)
+new Directive({
+  names: ["P"],
+  likelyLength: 2,
+  text: true,
+  parse: function () {
+    this.meridiem = this.parseMeridiemName();
+  },
+  write: function (date, modifier, options) {
+    const index = date.getUTCHours() < 12 ? 0 : 1;
+    return (options && options.meridiemNames || english.meridiemNames)[index].toLowerCase();
+  }
+}), // Number of mircoseconds since epoch
+new Directive({
+  names: ["Q"],
+  canBeNegative: true,
+  store: function (number) {
+    this.microsecondsSinceEpoch = number;
+  },
+  write: function (date) {
+    return Math.floor(date.getTime() * 1000);
+  }
+}), // Same as "%I:%M:%S %p"
+new Directive({
+  names: ["r"],
+  rewrite: "%I:%M:%S %p"
+}), // Same as "%H:%M"
+new Directive({
+  names: ["R"],
+  rewrite: "%H:%M"
+}), // Number of seconds since epoch
+new Directive({
+  names: ["s"],
+  canBeNegative: true,
+  store: function (number) {
+    this.secondsSinceEpoch = number;
+  },
+  write: function (date) {
+    return Math.floor(date.getTime() / 1000);
+  }
+}), // Two-digit second (0-61)
+new Directive({
+  names: ["S"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 0,
+  maximum: 61,
+  store: function (number) {
+    this.second = number;
+  },
+  write: function (date) {
+    return Math.min(59, date.getUTCSeconds());
+  }
+}), // Same as %H:%M:%S
+new Directive({
+  names: ["T", "X"],
+  rewrite: "%H:%M:%S"
+}), // Weekday number, starting with Monday (1-7)
+new Directive({
+  names: ["u"],
+  likelyLength: 1,
+  minimum: 1,
+  maximum: 7,
+  store: function (number) {
+    this.dayOfWeek = number % 7;
+  },
+  write: function (date) {
+    return getDayOfWeek(date) || 7;
+  }
+}), // Week of the year, starting with Sunday (0-53)
+new Directive({
+  names: ["U"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 0,
+  maximum: 53,
+  store: function (number) {
+    this.weekOfYearFromSunday = number;
+  },
+  write: function (date) {
+    return getWeekOfYearFromSunday(date);
+  }
+}), // VMS date, same as "%e-%b-%Y"
+new Directive({
+  names: ["v"],
+  rewrite: "%e-%b-%Y"
+}), // ISO 8601:1988 week number (1-53), complements %g/%G
+new Directive({
+  names: ["V"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 1,
+  maximum: 53,
+  store: function (number) {
+    this.isoWeekOfYear = number;
+  },
+  write: function (date) {
+    return getISOWeekOfYear(date);
+  }
+}), // Weekday number, starting with Sunday (0-6)
+new Directive({
+  names: ["w"],
+  likelyLength: 1,
+  minimum: 0,
+  maximum: 6,
+  store: function (number) {
+    this.dayOfWeek = number % 7;
+  },
+  write: function (date) {
+    return getDayOfWeek(date);
+  }
+}), // Week of the year, starting with Monday (0-53)
+new Directive({
+  names: ["W"],
+  padLength: 2,
+  likelyLength: 2,
+  minimum: 0,
+  maximum: 53,
+  store: function (number) {
+    this.weekOfYearFromMonday = number;
+  },
+  write: function (date) {
+    return getWeekOfYearFromMonday(date);
+  }
+}), // Two-digit year
+new Directive({
+  names: ["y"],
+  padLength: 2,
+  likelyLength: 2,
+  store: function (number) {
+    this.twoDigitYear = number;
+  },
+  write: function (date) {
+    return date.getUTCFullYear() % 100;
+  }
+}), // Full year (usually four-digit, but not strictly so)
+new Directive({
+  names: ["Y"],
+  padLength: 4,
+  likelyLength: 4,
+  canBeNegative: true,
+  store: function (number) {
+    this.year = number;
+  },
+  write: function (date, modifier) {
+    const year = date.getUTCFullYear(); // Modifier "^" produces unsigned year, for combination with era "%#"
+
+    if (year <= 0 && modifier === "^") return 1 - year;else return year;
+  }
+}), // Timezone offset e.g. +0500 or -1200
+new Directive({
+  names: ["z"],
+  text: true,
+  parse: function (modifier) {
+    this.timezoneOffsetMinutes = this.parseTimezoneOffset(modifier);
+  },
+  write: function (date, modifier, options, timezoneOffsetMinutes) {
+    const offset = Number.isFinite(timezoneOffsetMinutes) ? timezoneOffsetMinutes : -date.getTimezoneOffset();
+    return writeTimezoneOffset(offset, modifier);
+  }
+}), // Timezone offset or name e.g. UTC or GMT or EST or +0500 or -1200
+new Directive({
+  names: ["Z"],
+  likelyLength: 5,
+  text: true,
+  parse: function (modifier) {
+    const tzList = this.getTimezoneNameList();
+    const index = this.parseIndexInList(tzList);
+
+    if (index !== undefined) {
+      this.timezoneOffsetMinutes = 60 * this.timezoneNames[tzList[index]];
+    } else {
+      this.timezoneOffsetMinutes = this.parseTimezoneOffset(modifier);
+    }
+  },
+  write: function (date, modifier, options, timezoneOffsetMinutes) {
+    const offset = Number.isFinite(timezoneOffsetMinutes) ? timezoneOffsetMinutes : -date.getTimezoneOffset();
+    if (offset === 0) return "UTC";else return writeTimezoneOffset(offset, modifier);
+  }
+}), // Same as "%a %b %e %H:%M:%S %Z %Y"
+new Directive({
+  names: ["+"],
+  rewrite: "%a %b %e %H:%M:%S %Z %Y"
+}), // Era (BC/BCE)
+new Directive({
+  names: ["#"],
+  text: true,
+  parse: function () {
+    this.era = this.parseEraName();
+  },
+  write: function (date, modifier, options) {
+    const index = date.getUTCFullYear() <= 0 ? 1 : 0;
+    return (options && options.eraNames || english.eraNames)[index];
+  }
+})]; // The assertion-error package was used as a basis for the TimestampParseError type
+// https://github.com/chaijs/assertion-error/blob/master/index.js
+// The constructor
+
+function TimestampParseError(reason, parser) {
+  Error.call(this);
+  this.reason = reason;
+  this.format = parser.format;
+  this.timestamp = parser.string;
+  this.token = parser.currentToken;
+  this.index = parser.index;
+  if (this.token && this.token.expandedFrom && this.index !== undefined) this.message = `Failed to parse token "${this.token}" ` + `(expanded from "${this.token.expandedFrom}") at position [${this.index}] ` + `in timestamp "${this.timestamp}" with format "${this.format}": ` + `${this.reason}`;else if (this.token && this.index !== undefined) this.message = `Failed to parse token "${this.token}" at position [${this.index}] ` + `in timestamp "${this.timestamp}" with format "${this.format}": ` + `${this.reason}`;else if (this.token) this.message = `Failed to parse token "${this.token}" ` + `in format "${this.format}": ${this.reason}`;else this.message = `Failed with format "${this.format}": ${this.reason}`; // https://nodejs.org/api/errors.html#errors_error_capturestacktrace_targetobject_constructoropt
+
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor);
+  } else {
+    try {
+      throw new Error();
+    } catch (error) {
+      this.stack = error.stack;
+    }
+  }
+} // Prototype wrangling
+
+
+TimestampParseError.prototype = Object.create(Error.prototype);
+TimestampParseError.prototype.name = "TimestampParseError";
+TimestampParseError.prototype.constructor = TimestampParseError;
+
+function isDigit(ch) {
+  return ch === "0" || ch === "1" || ch === "2" || ch === "3" || ch === "4" || ch === "5" || ch === "6" || ch === "7" || ch === "8" || ch === "9";
+} // Matches GNU C strptime behavior
+// https://www.gnu.org/software/libc/manual/html_node/Low_002dLevel-Time-String-Parsing.html
+
+
+function getYearFromTwoDigits(year) {
+  return year + (year <= 68 ? 2000 : 1900);
+}
+
+function getMonthFromDayOfYear(year, dayOfYear) {
+  const months = monthLengths.forYear(year);
+  let days = 0;
+
+  for (let i = 0; i < months.length; i++) {
+    if (days >= dayOfYear) return i;
+    days += months[i];
+  }
+
+  return 12;
+}
+
+function getDayOfMonthFromDayOfYear(year, dayOfYear) {
+  const months = monthLengths.forYear(year);
+  let days = 0;
+
+  for (let i = 0; i < months.length; i++) {
+    if (dayOfYear - days <= months[i]) return dayOfYear - days;
+    days += months[i];
+  }
+
+  return dayOfYear - days;
+} // https://en.wikipedia.org/wiki/ISO_week_date
+// https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+
+
+function getDateFromISOWeekDate(parser, isoYear, isoWeekOfYear, dayOfWeek) {
+  const firstDayOfWeek = getFirstWeekdayInYear(isoYear);
+  const weekdayOfJan4 = (3 + firstDayOfWeek) % 7 || 7;
+  const daysInYear = isLeapYear(isoYear) ? 366 : 365;
+  let dayOfYear = 7 * isoWeekOfYear + (dayOfWeek || 7) - weekdayOfJan4 - 3;
+
+  if (dayOfYear < 1) {
+    parser.year = isoYear - 1;
+    dayOfYear += daysInYear;
+  } else if (dayOfYear > daysInYear) {
+    parser.year = 1 + isoYear;
+    dayOfYear -= daysInYear;
+  } else {
+    parser.year = isoYear;
+  }
+
+  parser.month = getMonthFromDayOfYear(parser.year, dayOfYear);
+  parser.dayOfMonth = getDayOfMonthFromDayOfYear(parser.year, dayOfYear);
+}
+
+function getDateFromSundayWeekDate(parser, year, weekOfYear, dayOfWeek) {
+  const firstDayOfWeek = getFirstWeekdayInYear(year);
+  const dayOfYear = 1 + 7 * weekOfYear - (firstDayOfWeek || 7) + dayOfWeek;
+  parser.year = year;
+  parser.month = getMonthFromDayOfYear(year, dayOfYear);
+  parser.dayOfMonth = getDayOfMonthFromDayOfYear(year, dayOfYear);
+}
+
+function getDateFromMondayWeekDate(parser, year, weekOfYear, dayOfWeek) {
+  const firstDayOfWeek = getFirstWeekdayInYear(year);
+  const sundayDayOfYear = 1 + 7 * weekOfYear - (firstDayOfWeek || 7) + dayOfWeek;
+  const dayOfYear = sundayDayOfYear + ((dayOfWeek === 0 ? 7 : 0) - (firstDayOfWeek === 1 ? 7 : 0));
+  parser.year = year;
+  parser.month = getMonthFromDayOfYear(year, dayOfYear);
+  parser.dayOfMonth = getDayOfMonthFromDayOfYear(year, dayOfYear);
+}
+
+class TimestampParser {
+  constructor(timestamp, format, tokens) {
+    // Parser state
+    this.index = 0;
+    this.string = String(timestamp);
+    this.format = String(format);
+    this.tokens = tokens || TimestampParser.parseFormatString(this.format);
+    this.forkLength = 0;
+    this.currentToken = undefined; // Parser settings
+
+    this.shortWeekdayNames = english.shortWeekdayNames;
+    this.longWeekdayNames = english.longWeekdayNames;
+    this.shortMonthNames = english.shortMonthNames;
+    this.longMonthNames = english.longMonthNames;
+    this.eraNames = english.eraNames;
+    this.meridiemNames = english.meridiemNames;
+    this.ordinalTransform = english.ordinalTransform;
+    this.timezoneNames = defaultTimezoneNames; // Storage values from parsing tokens
+
+    this.era = undefined;
+    this.century = undefined;
+    this.year = undefined;
+    this.twoDigitYear = undefined;
+    this.isoYear = undefined;
+    this.isoTwoDigitYear = undefined;
+    this.month = undefined;
+    this.isoWeekOfYear = undefined;
+    this.weekOfYearFromSunday = undefined;
+    this.weekOfYearFromMonday = undefined;
+    this.dayOfYear = undefined;
+    this.dayOfMonth = undefined;
+    this.dayOfWeek = undefined;
+    this.hour = undefined;
+    this.minute = undefined;
+    this.second = undefined;
+    this.millisecond = undefined;
+    this.microsecond = undefined;
+    this.meridiem = undefined;
+    this.timezoneOffsetMinutes = undefined;
+    this.secondsSinceEpoch = undefined;
+    this.millisecondsSinceEpoch = undefined;
+    this.microsecondsSinceEpoch = undefined;
+  }
+
+  getTimezoneOffsetOfDate(date) {
+    const offset = this.timezoneOffsetMinutes === undefined ? -date.getTimezoneOffset() : this.timezoneOffsetMinutes;
+    const offsetSign = offset >= 0 ? +1 : -1;
+    const absOffset = Math.abs(offset);
+    return {
+      hour: offsetSign * Math.floor(absOffset / 60),
+      minute: offsetSign * Math.floor(absOffset % 60),
+      totalMinutes: offset
+    };
+  }
+
+  getDate() {
+    if (this.microsecondsSinceEpoch === undefined) {
+      if (this.millisecondsSinceEpoch !== undefined) {
+        this.microsecondsSinceEpoch = 1000 * this.millisecondsSinceEpoch;
+      } else if (this.secondsSinceEpoch !== undefined) {
+        this.microsecondsSinceEpoch = 1000000 * this.secondsSinceEpoch;
+      }
+    }
+
+    if (this.microsecondsSinceEpoch !== undefined) {
+      const date = new Date(this.microsecondsSinceEpoch / 1000);
+      const offset = this.getTimezoneOffsetOfDate(date);
+      date.setUTCMinutes(date.getUTCMinutes() - offset.totalMinutes);
+      return date;
+    }
+
+    const date = new Date();
+
+    if (this.year === undefined && this.twoDigitYear !== undefined) {
+      if (this.century === undefined) {
+        this.year = getYearFromTwoDigits(this.twoDigitYear);
+      } else {
+        this.year = 100 * this.century + this.twoDigitYear;
+      }
+    } else if (this.isoYear === undefined && this.isoTwoDigitYear !== undefined) {
+      this.isoYear = getYearFromTwoDigits(this.isoTwoDigitYear);
+    } else if (this.year === undefined && this.century !== undefined) {
+      this.year = 100 * this.century;
+    }
+
+    if (this.era && this.year !== undefined) {
+      this.year = 1 - this.year;
+    }
+
+    if (this.hour !== undefined && this.meridiem !== undefined) {
+      this.hour = this.hour % 12 + (this.meridiem ? 12 : 0);
+    }
+
+    if (this.microsecond === undefined && this.millisecond !== undefined) {
+      this.microsecond = 1000 * this.millisecond;
+    }
+
+    if (this.isoYear !== undefined && this.isoWeekOfYear !== undefined && (this.month === undefined || this.dayOfMonth === undefined)) {
+      getDateFromISOWeekDate(this, this.isoYear, this.isoWeekOfYear, this.dayOfWeek || 0);
+    } else if (this.dayOfYear !== undefined) {
+      const year = this.year !== undefined ? this.year : date.getFullYear();
+
+      if (this.month === undefined) {
+        this.month = getMonthFromDayOfYear(year, this.dayOfYear);
+      }
+
+      if (this.dayOfMonth === undefined) {
+        this.dayOfMonth = getDayOfMonthFromDayOfYear(year, this.dayOfYear);
+      }
+    } else if (this.weekOfYearFromSunday !== undefined && (this.month === undefined || this.dayOfMonth === undefined)) {
+      const year = this.year !== undefined ? this.year : date.getFullYear();
+      getDateFromSundayWeekDate(this, year, this.weekOfYearFromSunday, this.dayOfWeek || 0);
+    } else if (this.weekOfYearFromMonday !== undefined && (this.month === undefined || this.dayOfMonth === undefined)) {
+      const year = this.year !== undefined ? this.year : date.getFullYear();
+      getDateFromMondayWeekDate(this, year, this.weekOfYearFromMonday, this.dayOfWeek || 0);
+    }
+
+    if (this.year !== undefined) {
+      date.setUTCFullYear(this.year);
+    }
+
+    if (this.month !== undefined) {
+      date.setUTCMonth(this.month - 1);
+    }
+
+    if (this.dayOfMonth !== undefined) {
+      date.setUTCDate(this.dayOfMonth);
+    }
+
+    const offset = this.getTimezoneOffsetOfDate(date);
+
+    if (offset.totalMinutes) {
+      this.hour = (this.hour || 0) - offset.hour;
+      this.minute = (this.minute || 0) - offset.minute;
+    }
+
+    date.setUTCHours(this.hour || 0);
+    date.setUTCMinutes(this.minute || 0);
+    date.setUTCSeconds(this.second || 0);
+    date.setUTCMilliseconds(this.microsecond ? this.microsecond / 1000 : 0);
+    return date;
+  }
+
+  copy() {
+    const parser = new TimestampParser(this.string, this.format, this.tokens);
+
+    for (let key in this) {
+      parser[key] = this[key];
+    }
+
+    return parser;
+  }
+
+  fork(length, startTokenIndex) {
+    const parser = this.copy();
+    parser.forkLength = length;
+    return parser.parse(startTokenIndex);
+  }
+
+  parse(startTokenIndex) {
+    for (let i = startTokenIndex || 0; i < this.tokens.length; i++) {
+      const token = this.tokens[i];
+      this.currentToken = token;
+      if (this.index >= this.string.length) throw new TimestampParseError("Timestamp is too short to match the whole format.", this);
+
+      if (token instanceof Directive.StringToken) {
+        this.parseStringToken(token.string);
+      } else if (token.hasParseFunction()) {
+        token.parse(this);
+      } else if (token.hasStoreFunction() && !token.text) {
+        const next = this.tokens[1 + i];
+
+        if (next instanceof Directive.StringToken && isDigit(next.string[0]) || (next instanceof Directive || next instanceof Directive.Token) && !next.text) {
+          const result = this.parseAmbiguousNumber(token, i);
+          if (result) return result;
+        } else {
+          token.store(this, this.parseNumber(token));
+        }
+      } else {
+        throw new TimestampParseError("Invalid directive.", this);
+      }
+    }
+
+    this.currentToken = undefined;
+    if (1 + this.index < this.string.length) throw new TimestampParseError(`Timestamp is too long for the given format. Text remaining: "${this.string.slice(this.index)}".`, this);
+    return this;
+  }
+
+  parseStringToken(token) {
+    for (let i = 0; i < token.length; i++) {
+      if (this.string[this.index] !== token[i]) {
+        throw new TimestampParseError(`String literal "${token}" not matched.`, this);
+      }
+
+      this.index++;
+    }
+  }
+
+  parseAmbiguousNumber(token, tokenIndex) {
+    if (this.forkLength === 0) {
+      const likelyLength = token.getLikelyLength();
+
+      if (likelyLength) {
+        try {
+          return this.fork(likelyLength, tokenIndex);
+        } catch (error) {
+          if (!(error instanceof TimestampParseError)) throw error;
+        }
+      }
+
+      let lastWholeError = undefined;
+
+      for (let i = 1; i < this.string.length - this.index; i++) {
+        if (i === token.likelyLength) continue;
+
+        try {
+          return this.fork(i, tokenIndex);
+        } catch (error) {
+          if (!(error instanceof TimestampParseError)) throw error;
+
+          if (error.message = "Timestamp is too short to match the whole format.") {
+            lastWholeError = error;
+          }
+        }
+      }
+
+      if (lastWholeError) {
+        throw lastWholeError;
+      } else {
+        throw new TimestampParseError("Failed to parse ambiguous number.", this);
+      }
+    } else {
+      const number = this.parseNumber(token, this.forkLength);
+      token.store(this, number);
+      this.forkLength = 0;
+    }
+  }
+
+  parseNumber(directive, lengthLimit = Infinity) {
+    const negative = this.string[this.index] === "-";
+
+    if (negative && !directive.getCanBeNegative()) {
+      throw new TimestampParseError("Number cannot be negative.", this);
+    } else if (negative) {
+      this.index++;
+    }
+
+    const start = this.index;
+
+    while (this.index < this.string.length && this.string[this.index] === " ") {
+      this.index++;
+    }
+
+    while (this.index < this.string.length && this.index - start < lengthLimit && isDigit(this.string[this.index])) {
+      this.index++;
+    }
+
+    const value = +this.string.slice(start, this.index).trim();
+
+    if (!Number.isInteger(value)) {
+      throw new TimestampParseError("Failed to parse number.", this);
+    } else if (!directive.numberInBounds(value)) {
+      throw new TimestampParseError(`Number [${value}] is out of bounds ${directive.getBoundsString()}.`, this);
+    }
+
+    const result = negative ? -value : value;
+
+    if (directive.isOrdinal()) {
+      const ordinal = this.ordinalTransform(result);
+      this.index += ordinal.length - (this.index - start);
+    }
+
+    return result;
+  }
+
+  parseMonthName() {
+    const names = this.shortMonthNames.slice();
+    names.push(...this.longMonthNames);
+    const index = this.parseIndexInList(names);
+    if (index === undefined) throw new TimestampParseError("Failed to parse month name.", this);
+    return index % 12;
+  }
+
+  parseWeekdayName() {
+    const names = this.shortWeekdayNames.slice();
+    names.push(...this.longWeekdayNames);
+    const index = this.parseIndexInList(names);
+    if (index === undefined) throw new TimestampParseError("Failed to parse weekday name.", this);
+    return index % 7;
+  }
+
+  parseMeridiemName() {
+    const index = this.parseIndexInList(this.meridiemNames);
+    if (index === undefined) throw new TimestampParseError("Failed to parse AM/PM.", this);
+    return index % 2;
+  }
+
+  parseEraName() {
+    const index = this.parseIndexInList(this.eraNames);
+    if (index === undefined) throw new TimestampParseError("Failed to parse era name.", this);
+    return index % 2;
+  }
+
+  parseIndexInList(list) {
+    const possible = list.slice();
+    let possibleCount = possible.length;
+    let matchIndex = undefined;
+    let matchLength = 0;
+
+    for (let i = 0; possibleCount && this.index + i < this.string.length; i++) {
+      const ch = this.string[this.index + i].toLowerCase();
+
+      for (let j = 0; j < possible.length; j++) {
+        const item = possible[j];
+        if (!item) continue;
+
+        if (i >= item.length || item[i].toLowerCase() !== ch) {
+          possible[j] = null;
+          possibleCount--;
+        } else if (1 + i === item.length) {
+          matchIndex = j;
+          matchLength = 1 + i;
+        }
+      }
+    }
+
+    if (matchIndex === undefined) {
+      return undefined;
+    } else {
+      this.index += matchLength;
+      return matchIndex;
+    }
+  }
+
+  getTimezoneNameList() {
+    if (!this.timezoneNameList) {
+      this.timezoneNameList = [];
+
+      for (let key in this.timezoneNames) {
+        this.timezoneNameList.push(key);
+      }
+    }
+
+    return this.timezoneNameList;
+  }
+
+  parseTimezoneOffset(modifier) {
+    const start = this.index;
+    const sign = this.string[this.index];
+    const hours = +this.string.slice(this.index + 1, this.index + 3);
+    let minutes;
+
+    if (this.string[this.index + 3] === ":") {
+      minutes = +this.string.slice(this.index + 4, this.index + 6);
+      this.index += 6;
+    } else {
+      minutes = +this.string.slice(this.index + 3, this.index + 5);
+      this.index += 5;
+    }
+
+    if (!Number.isInteger(hours) || !Number.isInteger(minutes)) {
+      throw new TimestampParseError(`Failed to parse timezone offset from string ` + `"${this.string.slice(start, this.index)}".`, this);
+    }
+
+    const offset = minutes + 60 * hours;
+    if (sign === "+" || sign === "±") return +offset;else if (sign === "-") return -offset;else throw new TimestampParseError(`Unknown timezone offset sign "${sign}".`, this);
+  }
+
+}
+
+TimestampParser.parseFormatString = function parseFormatString(format) {
+  const tokens = [];
+  let directive = false;
+  let modifier = undefined;
+  const formatString = String(format);
+
+  if (!formatString) {
+    throw new TimestampParseError(`Empty format string.`, {
+      format: formatString
+    });
+  }
+
+  function addCharacter(ch) {
+    if (tokens.length && tokens[tokens.length - 1] instanceof Directive.StringToken) {
+      if (isDigit(ch) === isDigit(tokens[tokens.length - 1].string[0])) {
+        tokens[tokens.length - 1].addCharacter(ch);
+      } else {
+        tokens.push(new Directive.StringToken(ch));
+      }
+    } else {
+      tokens.push(new Directive.StringToken(ch));
+    }
+  }
+
+  for (let ch of formatString) {
+    if (directive && ch === "%") {
+      addCharacter("%");
+      modifier = "";
+      directive = false;
+    } else if (directive && ch === "n") {
+      addCharacter("\n");
+      modifier = "";
+      directive = false;
+    } else if (directive && ch === "t") {
+      addCharacter("\t");
+      modifier = "";
+      directive = false;
+    } else if (directive && !modifier && (ch === "-" || ch === "_" || ch === "^" || ch === ":")) {
+      modifier += ch;
+    } else if (directive) {
+      const dir = Directive.getByName(ch);
+      if (!dir) throw new TimestampParseError(`Unknown directive "%${modifier}${ch}".`, {
+        format: formatString
+      });else if (dir.rewrite) tokens.push(...dir.getRewriteParsed(TimestampParser.parseFormatString));else tokens.push(new Directive.Token(modifier, dir));
+      modifier = "";
+      directive = false;
+    } else if (ch === "%") {
+      modifier = "";
+      directive = true;
+    } else {
+      addCharacter(ch);
+    }
+  }
+
+  if (directive) throw new TimestampParseError("Found unterminated directive at the end of the format string.", {
+    format: formatString
+  });
+
+  if (tokens.length && tokens[tokens.length - 1].string === "Z") {
+    tokens.zuluTimezone = true;
+  }
+
+  return tokens;
+};
+
+function isLeapYear(year) {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+
+const monthLengths = {
+  common: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  leap: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  forYear: function (year) {
+    return isLeapYear(year) ? monthLengths.leap : monthLengths.common;
+  }
+}; // https://stackoverflow.com/a/478992/4099022
+
+function getFirstWeekdayInYear(year) {
+  const y = year - 1;
+  return (year * 365 + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400)) % 7;
+}
+
+const defaultTimezoneNames = {
+  "ACDT": +10.5,
+  "ACST": +9.5,
+  "ACT": -5,
+  "ACWST": +8.75,
+  "ADT": -3,
+  "AEDT": +11,
+  "AEST": +10,
+  "AFT": +4.5,
+  "AKDT": -8,
+  "AKST": -9,
+  "AMST": -3,
+  "AMT": -4,
+  "AMT": +4,
+  "ART": -3,
+  "AST": +3,
+  "AST": -4,
+  "AWST": +8,
+  "AZOST": 0,
+  "AZOT": -1,
+  "AZT": +4,
+  "BDT": +8,
+  "BIOT": +6,
+  "BIT": -12,
+  "BOT": -4,
+  "BRST": -2,
+  "BRT": -3,
+  "BST": +6,
+  "BST": +11,
+  "BST": +1,
+  "BTT": +6,
+  "CAT": +2,
+  "CCT": +6.5,
+  "CDT": -5,
+  "CDT": -4,
+  "CEST": +2,
+  "CET": +1,
+  "CHADT": +13.75,
+  "CHAST": +12.75,
+  "CHOT": +8,
+  "CHOST": +9,
+  "CHST": +10,
+  "CHUT": +10,
+  "CIST": -8,
+  "CIT": +8,
+  "CKT": -10,
+  "CLST": -3,
+  "CLT": -4,
+  "COST": -4,
+  "COT": -5,
+  "CST": -6,
+  "CST": +8,
+  "CST": -5,
+  "CT": +8,
+  "CVT": -1,
+  "CWST": +8.75,
+  "CXT": +7,
+  "DAVT": +7,
+  "DDUT": +10,
+  "DFT": +1,
+  "EASST": -5,
+  "EAST": -6,
+  "EAT": +3,
+  "ECT": -4,
+  "ECT": -5,
+  "EDT": -4,
+  "EEST": +3,
+  "EET": +2,
+  "EGST": 0,
+  "EGT": -1,
+  "EIT": +9,
+  "EST": -5,
+  "FET": +3,
+  "FJT": +12,
+  "FKST": -3,
+  "FKT": -4,
+  "FNT": -2,
+  "GALT": -6,
+  "GAMT": -9,
+  "GET": +4,
+  "GFT": -3,
+  "GILT": +12,
+  "GIT": -9,
+  "GMT": 0,
+  "GST": -2,
+  "GST": +4,
+  "GYT": -4,
+  "HDT": -9,
+  "HAEC": +2,
+  "HST": -10,
+  "HKT": +8,
+  "HMT": +5,
+  "HOVST": +8,
+  "HOVT": +7,
+  "ICT": +7,
+  "IDLW": -12,
+  "IDT": +3,
+  "IOT": +3,
+  "IRDT": +4.5,
+  "IRKT": +8,
+  "IRST": +3.5,
+  "IST": +5.5,
+  "IST": +1,
+  "IST": +2,
+  "JST": +9,
+  "KGT": +6,
+  "KOST": +11,
+  "KRAT": +7,
+  "KST": +9,
+  "LHST": +10.5,
+  "LHST": +11,
+  "LINT": +14,
+  "MAGT": +12,
+  "MART": -9.5,
+  "MAWT": +5,
+  "MDT": -6,
+  "MET": +1,
+  "MEST": +2,
+  "MHT": +12,
+  "MIST": +11,
+  "MIT": -9.5,
+  "MMT": +6.5,
+  "MSK": +3,
+  "MST": +8,
+  "MST": -7,
+  "MUT": +4,
+  "MVT": +5,
+  "MYT": +8,
+  "NCT": +11,
+  "NDT": -2.5,
+  "NFT": +11,
+  "NPT": +5.75,
+  "NST": -3.5,
+  "NT": -3.5,
+  "NUT": -11,
+  "NZDT": +13,
+  "NZST": +12,
+  "OMST": +6,
+  "ORAT": +5,
+  "PDT": -7,
+  "PET": -5,
+  "PETT": +12,
+  "PGT": +10,
+  "PHOT": +13,
+  "PHT": +8,
+  "PKT": +5,
+  "PMDT": -2,
+  "PMST": -3,
+  "PONT": +11,
+  "PST": -8,
+  "PST": +8,
+  "PYST": -3,
+  "PYT": -4,
+  "RET": +4,
+  "ROTT": -3,
+  "SAKT": +11,
+  "SAMT": +4,
+  "SAST": +2,
+  "SBT": +11,
+  "SCT": +4,
+  "SDT": -10,
+  "SGT": +8,
+  "SLST": +5.5,
+  "SRET": +11,
+  "SRT": -3,
+  "SST": -11,
+  "SST": +8,
+  "SYOT": +3,
+  "TAHT": -10,
+  "THA": +7,
+  "TFT": +5,
+  "TJT": +5,
+  "TKT": +13,
+  "TLT": +9,
+  "TMT": +5,
+  "TRT": +3,
+  "TOT": +13,
+  "TVT": +12,
+  "ULAST": +9,
+  "ULAT": +8,
+  "USZ": +2,
+  "UTC": 0,
+  "UYST": -2,
+  "UYT": -3,
+  "UZT": +5,
+  "VET": -4,
+  "VLAT": +10,
+  "VOLT": +4,
+  "VOST": +6,
+  "VUT": +11,
+  "WAKT": +12,
+  "WAST": +2,
+  "WAT": +1,
+  "WEST": +1,
+  "WET": 0,
+  "WIT": +7,
+  "WST": +8,
+  "YAKT": +9,
+  "YEKT": +5,
+  "Z": 0
+};
+
+if (true) {
+  module.exports = strtime;
+} else {}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var currencySymbolMap = __webpack_require__(9);
+
+module.exports = function getSymbolFromCurrency(currencyCode) {
+  if (typeof currencyCode !== 'string') return undefined;
+  var code = currencyCode.toUpperCase();
+  if (!currencySymbolMap.hasOwnProperty(code)) return undefined;
+  return currencySymbolMap[code];
+};
+
+module.exports.currencySymbolMap = currencySymbolMap;
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n  Author Tobias Koppers @sokra\n*/\n// css base code, injected by the css-loader\n\nmodule.exports = function (useSourceMap) {\n  var list = []; // return the list of modules as css string\n\n  list.toString = function toString() {\n    return this.map(function (item) {\n      var content = cssWithMappingToString(item, useSourceMap);\n\n      if (item[2]) {\n        return '@media ' + item[2] + '{' + content + '}';\n      } else {\n        return content;\n      }\n    }).join('');\n  }; // import a list of modules into the list\n\n\n  list.i = function (modules, mediaQuery) {\n    if (typeof modules === 'string') {\n      modules = [[null, modules, '']];\n    }\n\n    var alreadyImportedModules = {};\n\n    for (var i = 0; i < this.length; i++) {\n      var id = this[i][0];\n\n      if (id != null) {\n        alreadyImportedModules[id] = true;\n      }\n    }\n\n    for (i = 0; i < modules.length; i++) {\n      var item = modules[i]; // skip already imported module\n      // this implementation is not 100% perfect for weird media query combinations\n      // when a module is imported multiple times with different media queries.\n      // I hope this will never occur (Hey this way we have smaller bundles)\n\n      if (item[0] == null || !alreadyImportedModules[item[0]]) {\n        if (mediaQuery && !item[2]) {\n          item[2] = mediaQuery;\n        } else if (mediaQuery) {\n          item[2] = '(' + item[2] + ') and (' + mediaQuery + ')';\n        }\n\n        list.push(item);\n      }\n    }\n  };\n\n  return list;\n};\n\nfunction cssWithMappingToString(item, useSourceMap) {\n  var content = item[1] || '';\n  var cssMapping = item[3];\n\n  if (!cssMapping) {\n    return content;\n  }\n\n  if (useSourceMap && typeof btoa === 'function') {\n    var sourceMapping = toComment(cssMapping);\n    var sourceURLs = cssMapping.sources.map(function (source) {\n      return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';\n    });\n    return [content].concat(sourceURLs).concat([sourceMapping]).join('\\n');\n  }\n\n  return [content].join('\\n');\n} // Adapted from convert-source-map (MIT)\n\n\nfunction toComment(sourceMap) {\n  // eslint-disable-next-line no-undef\n  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));\n  var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;\n  return '/*# ' + data + ' */';\n}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/css-loader/dist/runtime/api.js?");
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+
+module.exports = function (useSourceMap) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
+
+      if (item[2]) {
+        return '@media ' + item[2] + '{' + content + '}';
+      } else {
+        return content;
+      }
+    }).join('');
+  }; // import a list of modules into the list
+
+
+  list.i = function (modules, mediaQuery) {
+    if (typeof modules === 'string') {
+      modules = [[null, modules, '']];
+    }
+
+    var alreadyImportedModules = {};
+
+    for (var i = 0; i < this.length; i++) {
+      var id = this[i][0];
+
+      if (id != null) {
+        alreadyImportedModules[id] = true;
+      }
+    }
+
+    for (i = 0; i < modules.length; i++) {
+      var item = modules[i]; // skip already imported module
+      // this implementation is not 100% perfect for weird media query combinations
+      // when a module is imported multiple times with different media queries.
+      // I hope this will never occur (Hey this way we have smaller bundles)
+
+      if (item[0] == null || !alreadyImportedModules[item[0]]) {
+        if (mediaQuery && !item[2]) {
+          item[2] = mediaQuery;
+        } else if (mediaQuery) {
+          item[2] = '(' + item[2] + ') and (' + mediaQuery + ')';
+        }
+
+        list.push(item);
+      }
+    }
+  };
+
+  return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+  var content = item[1] || '';
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
+
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
+
+
+function toComment(sourceMap) {
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+  return '/*# ' + data + ' */';
+}
 
 /***/ }),
-
-/***/ "./node_modules/currency-symbol-map/currency-symbol-map.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/currency-symbol-map/currency-symbol-map.js ***!
-  \*****************************************************************/
-/*! no static exports found */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var currencySymbolMap = __webpack_require__(/*! ./map */ \"./node_modules/currency-symbol-map/map.js\");\n\nmodule.exports = function getSymbolFromCurrency(currencyCode) {\n  if (typeof currencyCode !== 'string') return undefined;\n  var code = currencyCode.toUpperCase();\n  if (!currencySymbolMap.hasOwnProperty(code)) return undefined;\n  return currencySymbolMap[code];\n};\n\nmodule.exports.currencySymbolMap = currencySymbolMap;\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/currency-symbol-map/currency-symbol-map.js?");
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(12);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
 
 /***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ "./node_modules/currency-symbol-map/map.js":
-/*!*************************************************!*\
-  !*** ./node_modules/currency-symbol-map/map.js ***!
-  \*************************************************/
-/*! no static exports found */
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.14.7
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+var timeoutDuration = 0;
+
+for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+    timeoutDuration = 1;
+    break;
+  }
+}
+
+function microtaskDebounce(fn) {
+  var called = false;
+  return function () {
+    if (called) {
+      return;
+    }
+
+    called = true;
+    window.Promise.resolve().then(function () {
+      called = false;
+      fn();
+    });
+  };
+}
+
+function taskDebounce(fn) {
+  var scheduled = false;
+  return function () {
+    if (!scheduled) {
+      scheduled = true;
+      setTimeout(function () {
+        scheduled = false;
+        fn();
+      }, timeoutDuration);
+    }
+  };
+}
+
+var supportsMicroTasks = isBrowser && window.Promise;
+/**
+* Create a debounced version of a method, that's asynchronously deferred
+* but called in the minimum time possible.
+*
+* @method
+* @memberof Popper.Utils
+* @argument {Function} fn
+* @returns {Function}
+*/
+
+var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
+/**
+ * Check if the given variable is a function
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Any} functionToCheck - variable to check
+ * @returns {Boolean} answer to: is a function?
+ */
+
+function isFunction(functionToCheck) {
+  var getType = {};
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+/**
+ * Get CSS computed property of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Eement} element
+ * @argument {String} property
+ */
+
+
+function getStyleComputedProperty(element, property) {
+  if (element.nodeType !== 1) {
+    return [];
+  } // NOTE: 1 DOM access here
+
+
+  var window = element.ownerDocument.defaultView;
+  var css = window.getComputedStyle(element, null);
+  return property ? css[property] : css;
+}
+/**
+ * Returns the parentNode or the host of the element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} parent
+ */
+
+
+function getParentNode(element) {
+  if (element.nodeName === 'HTML') {
+    return element;
+  }
+
+  return element.parentNode || element.host;
+}
+/**
+ * Returns the scrolling parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} scroll parent
+ */
+
+
+function getScrollParent(element) {
+  // Return body, `getScroll` will take care to get the correct `scrollTop` from it
+  if (!element) {
+    return document.body;
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body;
+
+    case '#document':
+      return element.body;
+  } // Firefox want us to check `-x` and `-y` variations as well
+
+
+  var _getStyleComputedProp = getStyleComputedProperty(element),
+      overflow = _getStyleComputedProp.overflow,
+      overflowX = _getStyleComputedProp.overflowX,
+      overflowY = _getStyleComputedProp.overflowY;
+
+  if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
+    return element;
+  }
+
+  return getScrollParent(getParentNode(element));
+}
+
+var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);
+var isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent);
+/**
+ * Determines if the browser is Internet Explorer
+ * @method
+ * @memberof Popper.Utils
+ * @param {Number} version to check
+ * @returns {Boolean} isIE
+ */
+
+function isIE(version) {
+  if (version === 11) {
+    return isIE11;
+  }
+
+  if (version === 10) {
+    return isIE10;
+  }
+
+  return isIE11 || isIE10;
+}
+/**
+ * Returns the offset parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} offset parent
+ */
+
+
+function getOffsetParent(element) {
+  if (!element) {
+    return document.documentElement;
+  }
+
+  var noOffsetParent = isIE(10) ? document.body : null; // NOTE: 1 DOM access here
+
+  var offsetParent = element.offsetParent || null; // Skip hidden elements which don't have an offsetParent
+
+  while (offsetParent === noOffsetParent && element.nextElementSibling) {
+    offsetParent = (element = element.nextElementSibling).offsetParent;
+  }
+
+  var nodeName = offsetParent && offsetParent.nodeName;
+
+  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+    return element ? element.ownerDocument.documentElement : document.documentElement;
+  } // .offsetParent will return the closest TH, TD or TABLE in case
+  // no offsetParent is present, I hate this job...
+
+
+  if (['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+    return getOffsetParent(offsetParent);
+  }
+
+  return offsetParent;
+}
+
+function isOffsetContainer(element) {
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY') {
+    return false;
+  }
+
+  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;
+}
+/**
+ * Finds the root node (document, shadowDOM root) of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} node
+ * @returns {Element} root node
+ */
+
+
+function getRoot(node) {
+  if (node.parentNode !== null) {
+    return getRoot(node.parentNode);
+  }
+
+  return node;
+}
+/**
+ * Finds the offset parent common to the two provided nodes
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element1
+ * @argument {Element} element2
+ * @returns {Element} common offset parent
+ */
+
+
+function findCommonOffsetParent(element1, element2) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
+    return document.documentElement;
+  } // Here we make sure to give as "start" the element that comes first in the DOM
+
+
+  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  var start = order ? element1 : element2;
+  var end = order ? element2 : element1; // Get common ancestor container
+
+  var range = document.createRange();
+  range.setStart(start, 0);
+  range.setEnd(end, 0);
+  var commonAncestorContainer = range.commonAncestorContainer; // Both nodes are inside #document
+
+  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
+    if (isOffsetContainer(commonAncestorContainer)) {
+      return commonAncestorContainer;
+    }
+
+    return getOffsetParent(commonAncestorContainer);
+  } // one of the nodes is inside shadowDOM, find which one
+
+
+  var element1root = getRoot(element1);
+
+  if (element1root.host) {
+    return findCommonOffsetParent(element1root.host, element2);
+  } else {
+    return findCommonOffsetParent(element1, getRoot(element2).host);
+  }
+}
+/**
+ * Gets the scroll value of the given element in the given side (top and left)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {String} side `top` or `left`
+ * @returns {number} amount of scrolled pixels
+ */
+
+
+function getScroll(element) {
+  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';
+  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    var html = element.ownerDocument.documentElement;
+    var scrollingElement = element.ownerDocument.scrollingElement || html;
+    return scrollingElement[upperSide];
+  }
+
+  return element[upperSide];
+}
+/*
+ * Sum or subtract the element scroll values (left and top) from a given rect object
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} rect - Rect object you want to change
+ * @param {HTMLElement} element - The element from the function reads the scroll values
+ * @param {Boolean} subtract - set to true if you want to subtract the scroll values
+ * @return {Object} rect - The modifier rect object
+ */
+
+
+function includeScroll(rect, element) {
+  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var scrollTop = getScroll(element, 'top');
+  var scrollLeft = getScroll(element, 'left');
+  var modifier = subtract ? -1 : 1;
+  rect.top += scrollTop * modifier;
+  rect.bottom += scrollTop * modifier;
+  rect.left += scrollLeft * modifier;
+  rect.right += scrollLeft * modifier;
+  return rect;
+}
+/*
+ * Helper to detect borders of a given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {CSSStyleDeclaration} styles
+ * Result of `getStyleComputedProperty` on the given element
+ * @param {String} axis - `x` or `y`
+ * @return {number} borders - The borders size of the given axis
+ */
+
+
+function getBordersSize(styles, axis) {
+  var sideA = axis === 'x' ? 'Left' : 'Top';
+  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+}
+
+function getSize(axis, body, html, computedStyle) {
+  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? parseInt(html['offset' + axis]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')]) : 0);
+}
+
+function getWindowSizes(document) {
+  var body = document.body;
+  var html = document.documentElement;
+  var computedStyle = isIE(10) && getComputedStyle(html);
+  return {
+    height: getSize('Height', body, html, computedStyle),
+    width: getSize('Width', body, html, computedStyle)
+  };
+}
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+/**
+ * Given element offsets, generate an output similar to getBoundingClientRect
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} offsets
+ * @returns {Object} ClientRect like output
+ */
+
+
+function getClientRect(offsets) {
+  return _extends({}, offsets, {
+    right: offsets.left + offsets.width,
+    bottom: offsets.top + offsets.height
+  });
+}
+/**
+ * Get bounding client rect of given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} element
+ * @return {Object} client rect
+ */
+
+
+function getBoundingClientRect(element) {
+  var rect = {}; // IE10 10 FIX: Please, don't ask, the element isn't
+  // considered in DOM in some circumstances...
+  // This isn't reproducible in IE10 compatibility mode of IE11
+
+  try {
+    if (isIE(10)) {
+      rect = element.getBoundingClientRect();
+      var scrollTop = getScroll(element, 'top');
+      var scrollLeft = getScroll(element, 'left');
+      rect.top += scrollTop;
+      rect.left += scrollLeft;
+      rect.bottom += scrollTop;
+      rect.right += scrollLeft;
+    } else {
+      rect = element.getBoundingClientRect();
+    }
+  } catch (e) {}
+
+  var result = {
+    left: rect.left,
+    top: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
+  }; // subtract scrollbar size from sizes
+
+  var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {};
+  var width = sizes.width || element.clientWidth || result.right - result.left;
+  var height = sizes.height || element.clientHeight || result.bottom - result.top;
+  var horizScrollbar = element.offsetWidth - width;
+  var vertScrollbar = element.offsetHeight - height; // if an hypothetical scrollbar is detected, we must be sure it's not a `border`
+  // we make this check conditional for performance reasons
+
+  if (horizScrollbar || vertScrollbar) {
+    var styles = getStyleComputedProperty(element);
+    horizScrollbar -= getBordersSize(styles, 'x');
+    vertScrollbar -= getBordersSize(styles, 'y');
+    result.width -= horizScrollbar;
+    result.height -= vertScrollbar;
+  }
+
+  return getClientRect(result);
+}
+
+function getOffsetRectRelativeToArbitraryNode(children, parent) {
+  var fixedPosition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var isIE10 = isIE(10);
+  var isHTML = parent.nodeName === 'HTML';
+  var childrenRect = getBoundingClientRect(children);
+  var parentRect = getBoundingClientRect(parent);
+  var scrollParent = getScrollParent(children);
+  var styles = getStyleComputedProperty(parent);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10); // In cases where the parent is fixed, we must ignore negative scroll in offset calc
+
+  if (fixedPosition && isHTML) {
+    parentRect.top = Math.max(parentRect.top, 0);
+    parentRect.left = Math.max(parentRect.left, 0);
+  }
+
+  var offsets = getClientRect({
+    top: childrenRect.top - parentRect.top - borderTopWidth,
+    left: childrenRect.left - parentRect.left - borderLeftWidth,
+    width: childrenRect.width,
+    height: childrenRect.height
+  });
+  offsets.marginTop = 0;
+  offsets.marginLeft = 0; // Subtract margins of documentElement in case it's being used as parent
+  // we do this only on HTML because it's the only element that behaves
+  // differently when margins are applied to it. The margins are included in
+  // the box of the documentElement, in the other cases not.
+
+  if (!isIE10 && isHTML) {
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
+    offsets.top -= borderTopWidth - marginTop;
+    offsets.bottom -= borderTopWidth - marginTop;
+    offsets.left -= borderLeftWidth - marginLeft;
+    offsets.right -= borderLeftWidth - marginLeft; // Attach marginTop and marginLeft because in some circumstances we may need them
+
+    offsets.marginTop = marginTop;
+    offsets.marginLeft = marginLeft;
+  }
+
+  if (isIE10 && !fixedPosition ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {
+    offsets = includeScroll(offsets, parent);
+  }
+
+  return offsets;
+}
+
+function getViewportOffsetRectRelativeToArtbitraryNode(element) {
+  var excludeScroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var html = element.ownerDocument.documentElement;
+  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
+  var width = Math.max(html.clientWidth, window.innerWidth || 0);
+  var height = Math.max(html.clientHeight, window.innerHeight || 0);
+  var scrollTop = !excludeScroll ? getScroll(html) : 0;
+  var scrollLeft = !excludeScroll ? getScroll(html, 'left') : 0;
+  var offset = {
+    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
+    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
+    width: width,
+    height: height
+  };
+  return getClientRect(offset);
+}
+/**
+ * Check if the given element is fixed or is inside a fixed parent
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {Element} customContainer
+ * @returns {Boolean} answer to "isFixed?"
+ */
+
+
+function isFixed(element) {
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    return false;
+  }
+
+  if (getStyleComputedProperty(element, 'position') === 'fixed') {
+    return true;
+  }
+
+  var parentNode = getParentNode(element);
+
+  if (!parentNode) {
+    return false;
+  }
+
+  return isFixed(parentNode);
+}
+/**
+ * Finds the first parent of an element that has a transformed property defined
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} first transformed parent or documentElement
+ */
+
+
+function getFixedPositionOffsetParent(element) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element || !element.parentElement || isIE()) {
+    return document.documentElement;
+  }
+
+  var el = element.parentElement;
+
+  while (el && getStyleComputedProperty(el, 'transform') === 'none') {
+    el = el.parentElement;
+  }
+
+  return el || document.documentElement;
+}
+/**
+ * Computed the boundaries limits and return them
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} popper
+ * @param {HTMLElement} reference
+ * @param {number} padding
+ * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @param {Boolean} fixedPosition - Is in fixed position mode
+ * @returns {Object} Coordinates of the boundaries
+ */
+
+
+function getBoundaries(popper, reference, padding, boundariesElement) {
+  var fixedPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false; // NOTE: 1 DOM access here
+
+  var boundaries = {
+    top: 0,
+    left: 0
+  };
+  var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference); // Handle viewport case
+
+  if (boundariesElement === 'viewport') {
+    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
+  } else {
+    // Handle other cases based on DOM element used as boundaries
+    var boundariesNode = void 0;
+
+    if (boundariesElement === 'scrollParent') {
+      boundariesNode = getScrollParent(getParentNode(reference));
+
+      if (boundariesNode.nodeName === 'BODY') {
+        boundariesNode = popper.ownerDocument.documentElement;
+      }
+    } else if (boundariesElement === 'window') {
+      boundariesNode = popper.ownerDocument.documentElement;
+    } else {
+      boundariesNode = boundariesElement;
+    }
+
+    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition); // In case of HTML, we need a different computation
+
+    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
+      var _getWindowSizes = getWindowSizes(popper.ownerDocument),
+          height = _getWindowSizes.height,
+          width = _getWindowSizes.width;
+
+      boundaries.top += offsets.top - offsets.marginTop;
+      boundaries.bottom = height + offsets.top;
+      boundaries.left += offsets.left - offsets.marginLeft;
+      boundaries.right = width + offsets.left;
+    } else {
+      // for all the other DOM elements, this one is good
+      boundaries = offsets;
+    }
+  } // Add paddings
+
+
+  padding = padding || 0;
+  var isPaddingNumber = typeof padding === 'number';
+  boundaries.left += isPaddingNumber ? padding : padding.left || 0;
+  boundaries.top += isPaddingNumber ? padding : padding.top || 0;
+  boundaries.right -= isPaddingNumber ? padding : padding.right || 0;
+  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;
+  return boundaries;
+}
+
+function getArea(_ref) {
+  var width = _ref.width,
+      height = _ref.height;
+  return width * height;
+}
+/**
+ * Utility used to transform the `auto` placement to the placement with more
+ * available space.
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+
+  if (placement.indexOf('auto') === -1) {
+    return placement;
+  }
+
+  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+  var rects = {
+    top: {
+      width: boundaries.width,
+      height: refRect.top - boundaries.top
+    },
+    right: {
+      width: boundaries.right - refRect.right,
+      height: boundaries.height
+    },
+    bottom: {
+      width: boundaries.width,
+      height: boundaries.bottom - refRect.bottom
+    },
+    left: {
+      width: refRect.left - boundaries.left,
+      height: boundaries.height
+    }
+  };
+  var sortedAreas = Object.keys(rects).map(function (key) {
+    return _extends({
+      key: key
+    }, rects[key], {
+      area: getArea(rects[key])
+    });
+  }).sort(function (a, b) {
+    return b.area - a.area;
+  });
+  var filteredAreas = sortedAreas.filter(function (_ref2) {
+    var width = _ref2.width,
+        height = _ref2.height;
+    return width >= popper.clientWidth && height >= popper.clientHeight;
+  });
+  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
+  var variation = placement.split('-')[1];
+  return computedPlacement + (variation ? '-' + variation : '');
+}
+/**
+ * Get offsets to the reference element
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} state
+ * @param {Element} popper - the popper element
+ * @param {Element} reference - the reference element (the popper will be relative to this)
+ * @param {Element} fixedPosition - is in fixed position mode
+ * @returns {Object} An object containing the offsets which will be applied to the popper
+ */
+
+
+function getReferenceOffsets(state, popper, reference) {
+  var fixedPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+  var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);
+}
+/**
+ * Get the outer sizes of the given element (offset size + margins)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Object} object containing width and height properties
+ */
+
+
+function getOuterSizes(element) {
+  var window = element.ownerDocument.defaultView;
+  var styles = window.getComputedStyle(element);
+  var x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);
+  var y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);
+  var result = {
+    width: element.offsetWidth + y,
+    height: element.offsetHeight + x
+  };
+  return result;
+}
+/**
+ * Get the opposite placement of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement
+ * @returns {String} flipped placement
+ */
+
+
+function getOppositePlacement(placement) {
+  var hash = {
+    left: 'right',
+    right: 'left',
+    bottom: 'top',
+    top: 'bottom'
+  };
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return hash[matched];
+  });
+}
+/**
+ * Get offsets to the popper
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} position - CSS position the Popper will get applied
+ * @param {HTMLElement} popper - the popper element
+ * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
+ * @param {String} placement - one of the valid placement options
+ * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
+ */
+
+
+function getPopperOffsets(popper, referenceOffsets, placement) {
+  placement = placement.split('-')[0]; // Get popper node sizes
+
+  var popperRect = getOuterSizes(popper); // Add position, width and height to our offsets object
+
+  var popperOffsets = {
+    width: popperRect.width,
+    height: popperRect.height
+  }; // depending by the popper placement we have to compute its offsets slightly differently
+
+  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;
+  var mainSide = isHoriz ? 'top' : 'left';
+  var secondarySide = isHoriz ? 'left' : 'top';
+  var measurement = isHoriz ? 'height' : 'width';
+  var secondaryMeasurement = !isHoriz ? 'height' : 'width';
+  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
+
+  if (placement === secondarySide) {
+    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
+  } else {
+    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
+  }
+
+  return popperOffsets;
+}
+/**
+ * Mimics the `find` method of Array
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+
+
+function find(arr, check) {
+  // use native find if supported
+  if (Array.prototype.find) {
+    return arr.find(check);
+  } // use `filter` to obtain the same behavior of `find`
+
+
+  return arr.filter(check)[0];
+}
+/**
+ * Return the index of the matching object
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+
+
+function findIndex(arr, prop, value) {
+  // use native findIndex if supported
+  if (Array.prototype.findIndex) {
+    return arr.findIndex(function (cur) {
+      return cur[prop] === value;
+    });
+  } // use `find` + `indexOf` if `findIndex` isn't supported
+
+
+  var match = find(arr, function (obj) {
+    return obj[prop] === value;
+  });
+  return arr.indexOf(match);
+}
+/**
+ * Loop trough the list of modifiers and run them in order,
+ * each of them will then edit the data object.
+ * @method
+ * @memberof Popper.Utils
+ * @param {dataObject} data
+ * @param {Array} modifiers
+ * @param {String} ends - Optional modifier name used as stopper
+ * @returns {dataObject}
+ */
+
+
+function runModifiers(modifiers, data, ends) {
+  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
+  modifiersToRun.forEach(function (modifier) {
+    if (modifier['function']) {
+      // eslint-disable-line dot-notation
+      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
+    }
+
+    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
+
+    if (modifier.enabled && isFunction(fn)) {
+      // Add properties to offsets to make them a complete clientRect object
+      // we do this before each modifier to make sure the previous one doesn't
+      // mess with these values
+      data.offsets.popper = getClientRect(data.offsets.popper);
+      data.offsets.reference = getClientRect(data.offsets.reference);
+      data = fn(data, modifier);
+    }
+  });
+  return data;
+}
+/**
+ * Updates the position of the popper, computing the new offsets and applying
+ * the new style.<br />
+ * Prefer `scheduleUpdate` over `update` because of performance reasons.
+ * @method
+ * @memberof Popper
+ */
+
+
+function update() {
+  // if popper is destroyed, don't perform any further update
+  if (this.state.isDestroyed) {
+    return;
+  }
+
+  var data = {
+    instance: this,
+    styles: {},
+    arrowStyles: {},
+    attributes: {},
+    flipped: false,
+    offsets: {}
+  }; // compute reference element offsets
+
+  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed); // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+
+  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding); // store the computed placement inside `originalPlacement`
+
+  data.originalPlacement = data.placement;
+  data.positionFixed = this.options.positionFixed; // compute the popper offsets
+
+  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
+  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute'; // run the modifiers
+
+  data = runModifiers(this.modifiers, data); // the first `update` will call `onCreate` callback
+  // the other ones will call `onUpdate` callback
+
+  if (!this.state.isCreated) {
+    this.state.isCreated = true;
+    this.options.onCreate(data);
+  } else {
+    this.options.onUpdate(data);
+  }
+}
+/**
+ * Helper used to know if the given modifier is enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean}
+ */
+
+
+function isModifierEnabled(modifiers, modifierName) {
+  return modifiers.some(function (_ref) {
+    var name = _ref.name,
+        enabled = _ref.enabled;
+    return enabled && name === modifierName;
+  });
+}
+/**
+ * Get the prefixed supported property name
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} property (camelCase)
+ * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
+ */
+
+
+function getSupportedPropertyName(property) {
+  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
+  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
+
+  for (var i = 0; i < prefixes.length; i++) {
+    var prefix = prefixes[i];
+    var toCheck = prefix ? '' + prefix + upperProp : property;
+
+    if (typeof document.body.style[toCheck] !== 'undefined') {
+      return toCheck;
+    }
+  }
+
+  return null;
+}
+/**
+ * Destroys the popper.
+ * @method
+ * @memberof Popper
+ */
+
+
+function destroy() {
+  this.state.isDestroyed = true; // touch DOM only if `applyStyle` modifier is enabled
+
+  if (isModifierEnabled(this.modifiers, 'applyStyle')) {
+    this.popper.removeAttribute('x-placement');
+    this.popper.style.position = '';
+    this.popper.style.top = '';
+    this.popper.style.left = '';
+    this.popper.style.right = '';
+    this.popper.style.bottom = '';
+    this.popper.style.willChange = '';
+    this.popper.style[getSupportedPropertyName('transform')] = '';
+  }
+
+  this.disableEventListeners(); // remove the popper if user explicity asked for the deletion on destroy
+  // do not use `remove` because IE11 doesn't support it
+
+  if (this.options.removeOnDestroy) {
+    this.popper.parentNode.removeChild(this.popper);
+  }
+
+  return this;
+}
+/**
+ * Get the window associated with the element
+ * @argument {Element} element
+ * @returns {Window}
+ */
+
+
+function getWindow(element) {
+  var ownerDocument = element.ownerDocument;
+  return ownerDocument ? ownerDocument.defaultView : window;
+}
+
+function attachToScrollParents(scrollParent, event, callback, scrollParents) {
+  var isBody = scrollParent.nodeName === 'BODY';
+  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
+  target.addEventListener(event, callback, {
+    passive: true
+  });
+
+  if (!isBody) {
+    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
+  }
+
+  scrollParents.push(target);
+}
+/**
+ * Setup needed event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+
+
+function setupEventListeners(reference, options, state, updateBound) {
+  // Resize event listener on window
+  state.updateBound = updateBound;
+  getWindow(reference).addEventListener('resize', state.updateBound, {
+    passive: true
+  }); // Scroll event listener on scroll parents
+
+  var scrollElement = getScrollParent(reference);
+  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
+  state.scrollElement = scrollElement;
+  state.eventsEnabled = true;
+  return state;
+}
+/**
+ * It will add resize/scroll events and start recalculating
+ * position of the popper element when they are triggered.
+ * @method
+ * @memberof Popper
+ */
+
+
+function enableEventListeners() {
+  if (!this.state.eventsEnabled) {
+    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
+  }
+}
+/**
+ * Remove event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+
+
+function removeEventListeners(reference, state) {
+  // Remove resize event listener on window
+  getWindow(reference).removeEventListener('resize', state.updateBound); // Remove scroll event listener on scroll parents
+
+  state.scrollParents.forEach(function (target) {
+    target.removeEventListener('scroll', state.updateBound);
+  }); // Reset state
+
+  state.updateBound = null;
+  state.scrollParents = [];
+  state.scrollElement = null;
+  state.eventsEnabled = false;
+  return state;
+}
+/**
+ * It will remove resize/scroll events and won't recalculate popper position
+ * when they are triggered. It also won't trigger `onUpdate` callback anymore,
+ * unless you call `update` method manually.
+ * @method
+ * @memberof Popper
+ */
+
+
+function disableEventListeners() {
+  if (this.state.eventsEnabled) {
+    cancelAnimationFrame(this.scheduleUpdate);
+    this.state = removeEventListeners(this.reference, this.state);
+  }
+}
+/**
+ * Tells if a given input is a number
+ * @method
+ * @memberof Popper.Utils
+ * @param {*} input to check
+ * @return {Boolean}
+ */
+
+
+function isNumeric(n) {
+  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
+}
+/**
+ * Set the style to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the style to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+
+
+function setStyles(element, styles) {
+  Object.keys(styles).forEach(function (prop) {
+    var unit = ''; // add unit if the value is numeric and is one of the following
+
+    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
+      unit = 'px';
+    }
+
+    element.style[prop] = styles[prop] + unit;
+  });
+}
+/**
+ * Set the attributes to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the attributes to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+
+
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach(function (prop) {
+    var value = attributes[prop];
+
+    if (value !== false) {
+      element.setAttribute(prop, attributes[prop]);
+    } else {
+      element.removeAttribute(prop);
+    }
+  });
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} data.styles - List of style properties - values to apply to popper element
+ * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The same data object
+ */
+
+
+function applyStyle(data) {
+  // any property present in `data.styles` will be applied to the popper,
+  // in this way we can make the 3rd party modifiers add custom styles to it
+  // Be aware, modifiers could override the properties defined in the previous
+  // lines of this modifier!
+  setStyles(data.instance.popper, data.styles); // any property present in `data.attributes` will be applied to the popper,
+  // they will be set as HTML attributes of the element
+
+  setAttributes(data.instance.popper, data.attributes); // if arrowElement is defined and arrowStyles has some properties
+
+  if (data.arrowElement && Object.keys(data.arrowStyles).length) {
+    setStyles(data.arrowElement, data.arrowStyles);
+  }
+
+  return data;
+}
+/**
+ * Set the x-placement attribute before everything else because it could be used
+ * to add margins to the popper margins needs to be calculated to get the
+ * correct popper offsets.
+ * @method
+ * @memberof Popper.modifiers
+ * @param {HTMLElement} reference - The reference element used to position the popper
+ * @param {HTMLElement} popper - The HTML element used as popper
+ * @param {Object} options - Popper.js options
+ */
+
+
+function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+  // compute reference element offsets
+  var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed); // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+
+  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
+  popper.setAttribute('x-placement', placement); // Apply `position` to popper before anything else because
+  // without the position applied we can't guarantee correct computations
+
+  setStyles(popper, {
+    position: options.positionFixed ? 'fixed' : 'absolute'
+  });
+  return options;
+}
+/**
+ * @function
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Boolean} shouldRound - If the offsets should be rounded at all
+ * @returns {Object} The popper's position offsets rounded
+ *
+ * The tale of pixel-perfect positioning. It's still not 100% perfect, but as
+ * good as it can be within reason.
+ * Discussion here: https://github.com/FezVrasta/popper.js/pull/715
+ *
+ * Low DPI screens cause a popper to be blurry if not using full pixels (Safari
+ * as well on High DPI screens).
+ *
+ * Firefox prefers no rounding for positioning and does not have blurriness on
+ * high DPI screens.
+ *
+ * Only horizontal placement and left/right values need to be considered.
+ */
+
+
+function getRoundedOffsets(data, shouldRound) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+  var round = Math.round,
+      floor = Math.floor;
+
+  var noRound = function noRound(v) {
+    return v;
+  };
+
+  var referenceWidth = round(reference.width);
+  var popperWidth = round(popper.width);
+  var isVertical = ['left', 'right'].indexOf(data.placement) !== -1;
+  var isVariation = data.placement.indexOf('-') !== -1;
+  var sameWidthParity = referenceWidth % 2 === popperWidth % 2;
+  var bothOddWidth = referenceWidth % 2 === 1 && popperWidth % 2 === 1;
+  var horizontalToInteger = !shouldRound ? noRound : isVertical || isVariation || sameWidthParity ? round : floor;
+  var verticalToInteger = !shouldRound ? noRound : round;
+  return {
+    left: horizontalToInteger(bothOddWidth && !isVariation && shouldRound ? popper.left - 1 : popper.left),
+    top: verticalToInteger(popper.top),
+    bottom: verticalToInteger(popper.bottom),
+    right: horizontalToInteger(popper.right)
+  };
+}
+
+var isFirefox = isBrowser && /Firefox/i.test(navigator.userAgent);
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+function computeStyle(data, options) {
+  var x = options.x,
+      y = options.y;
+  var popper = data.offsets.popper; // Remove this legacy support in Popper.js v2
+
+  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'applyStyle';
+  }).gpuAcceleration;
+
+  if (legacyGpuAccelerationOption !== undefined) {
+    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
+  }
+
+  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;
+  var offsetParent = getOffsetParent(data.instance.popper);
+  var offsetParentRect = getBoundingClientRect(offsetParent); // Styles
+
+  var styles = {
+    position: popper.position
+  };
+  var offsets = getRoundedOffsets(data, window.devicePixelRatio < 2 || !isFirefox);
+  var sideA = x === 'bottom' ? 'top' : 'bottom';
+  var sideB = y === 'right' ? 'left' : 'right'; // if gpuAcceleration is set to `true` and transform is supported,
+  //  we use `translate3d` to apply the position to the popper we
+  // automatically use the supported prefixed version if needed
+
+  var prefixedProperty = getSupportedPropertyName('transform'); // now, let's make a step back and look at this code closely (wtf?)
+  // If the content of the popper grows once it's been positioned, it
+  // may happen that the popper gets misplaced because of the new content
+  // overflowing its reference element
+  // To avoid this problem, we provide two options (x and y), which allow
+  // the consumer to define the offset origin.
+  // If we position a popper on top of a reference element, we can set
+  // `x` to `top` to make the popper grow towards its top instead of
+  // its bottom.
+
+  var left = void 0,
+      top = void 0;
+
+  if (sideA === 'bottom') {
+    // when offsetParent is <html> the positioning is relative to the bottom of the screen (excluding the scrollbar)
+    // and not the bottom of the html element
+    if (offsetParent.nodeName === 'HTML') {
+      top = -offsetParent.clientHeight + offsets.bottom;
+    } else {
+      top = -offsetParentRect.height + offsets.bottom;
+    }
+  } else {
+    top = offsets.top;
+  }
+
+  if (sideB === 'right') {
+    if (offsetParent.nodeName === 'HTML') {
+      left = -offsetParent.clientWidth + offsets.right;
+    } else {
+      left = -offsetParentRect.width + offsets.right;
+    }
+  } else {
+    left = offsets.left;
+  }
+
+  if (gpuAcceleration && prefixedProperty) {
+    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+    styles[sideA] = 0;
+    styles[sideB] = 0;
+    styles.willChange = 'transform';
+  } else {
+    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties
+    var invertTop = sideA === 'bottom' ? -1 : 1;
+    var invertLeft = sideB === 'right' ? -1 : 1;
+    styles[sideA] = top * invertTop;
+    styles[sideB] = left * invertLeft;
+    styles.willChange = sideA + ', ' + sideB;
+  } // Attributes
+
+
+  var attributes = {
+    'x-placement': data.placement
+  }; // Update `data` attributes, styles and arrowStyles
+
+  data.attributes = _extends({}, attributes, data.attributes);
+  data.styles = _extends({}, styles, data.styles);
+  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
+  return data;
+}
+/**
+ * Helper used to know if the given modifier depends from another one.<br />
+ * It checks if the needed modifier is listed and enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @param {Array} modifiers - list of modifiers
+ * @param {String} requestingName - name of requesting modifier
+ * @param {String} requestedName - name of requested modifier
+ * @returns {Boolean}
+ */
+
+
+function isModifierRequired(modifiers, requestingName, requestedName) {
+  var requesting = find(modifiers, function (_ref) {
+    var name = _ref.name;
+    return name === requestingName;
+  });
+  var isRequired = !!requesting && modifiers.some(function (modifier) {
+    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
+  });
+
+  if (!isRequired) {
+    var _requesting = '`' + requestingName + '`';
+
+    var requested = '`' + requestedName + '`';
+    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
+  }
+
+  return isRequired;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function arrow(data, options) {
+  var _data$offsets$arrow; // arrow depends on keepTogether in order to work
+
+
+  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
+    return data;
+  }
+
+  var arrowElement = options.element; // if arrowElement is a string, suppose it's a CSS selector
+
+  if (typeof arrowElement === 'string') {
+    arrowElement = data.instance.popper.querySelector(arrowElement); // if arrowElement is not found, don't run the modifier
+
+    if (!arrowElement) {
+      return data;
+    }
+  } else {
+    // if the arrowElement isn't a query selector we must check that the
+    // provided DOM node is child of its popper node
+    if (!data.instance.popper.contains(arrowElement)) {
+      console.warn('WARNING: `arrow.element` must be child of its popper element!');
+      return data;
+    }
+  }
+
+  var placement = data.placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+  var isVertical = ['left', 'right'].indexOf(placement) !== -1;
+  var len = isVertical ? 'height' : 'width';
+  var sideCapitalized = isVertical ? 'Top' : 'Left';
+  var side = sideCapitalized.toLowerCase();
+  var altSide = isVertical ? 'left' : 'top';
+  var opSide = isVertical ? 'bottom' : 'right';
+  var arrowElementSize = getOuterSizes(arrowElement)[len]; //
+  // extends keepTogether behavior making sure the popper and its
+  // reference have enough pixels in conjunction
+  //
+  // top/left side
+
+  if (reference[opSide] - arrowElementSize < popper[side]) {
+    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
+  } // bottom/right side
+
+
+  if (reference[side] + arrowElementSize > popper[opSide]) {
+    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
+  }
+
+  data.offsets.popper = getClientRect(data.offsets.popper); // compute center of the popper
+
+  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2; // Compute the sideValue using the updated popper offsets
+  // take popper margin in account because we don't have this info available
+
+  var css = getStyleComputedProperty(data.instance.popper);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide; // prevent arrowElement from being placed not contiguously to its popper
+
+  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
+  data.arrowElement = arrowElement;
+  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
+  return data;
+}
+/**
+ * Get the opposite placement variation of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement variation
+ * @returns {String} flipped placement variation
+ */
+
+
+function getOppositeVariation(variation) {
+  if (variation === 'end') {
+    return 'start';
+  } else if (variation === 'start') {
+    return 'end';
+  }
+
+  return variation;
+}
+/**
+ * List of accepted placements to use as values of the `placement` option.<br />
+ * Valid placements are:
+ * - `auto`
+ * - `top`
+ * - `right`
+ * - `bottom`
+ * - `left`
+ *
+ * Each placement can have a variation from this list:
+ * - `-start`
+ * - `-end`
+ *
+ * Variations are interpreted easily if you think of them as the left to right
+ * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`
+ * is right.<br />
+ * Vertically (`left` and `right`), `start` is top and `end` is bottom.
+ *
+ * Some valid examples are:
+ * - `top-end` (on top of reference, right aligned)
+ * - `right-start` (on right of reference, top aligned)
+ * - `bottom` (on bottom, centered)
+ * - `auto-end` (on the side with more space available, alignment depends by placement)
+ *
+ * @static
+ * @type {Array}
+ * @enum {String}
+ * @readonly
+ * @method placements
+ * @memberof Popper
+ */
+
+
+var placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']; // Get rid of `auto` `auto-start` and `auto-end`
+
+var validPlacements = placements.slice(3);
+/**
+ * Given an initial placement, returns all the subsequent placements
+ * clockwise (or counter-clockwise).
+ *
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement - A valid placement (it accepts variations)
+ * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
+ * @returns {Array} placements including their variations
+ */
+
+function clockwise(placement) {
+  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var index = validPlacements.indexOf(placement);
+  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
+  return counter ? arr.reverse() : arr;
+}
+
+var BEHAVIORS = {
+  FLIP: 'flip',
+  CLOCKWISE: 'clockwise',
+  COUNTERCLOCKWISE: 'counterclockwise'
+};
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+function flip(data, options) {
+  // if `inner` modifier is enabled, we can't use the `flip` modifier
+  if (isModifierEnabled(data.instance.modifiers, 'inner')) {
+    return data;
+  }
+
+  if (data.flipped && data.placement === data.originalPlacement) {
+    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides
+    return data;
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, data.positionFixed);
+  var placement = data.placement.split('-')[0];
+  var placementOpposite = getOppositePlacement(placement);
+  var variation = data.placement.split('-')[1] || '';
+  var flipOrder = [];
+
+  switch (options.behavior) {
+    case BEHAVIORS.FLIP:
+      flipOrder = [placement, placementOpposite];
+      break;
+
+    case BEHAVIORS.CLOCKWISE:
+      flipOrder = clockwise(placement);
+      break;
+
+    case BEHAVIORS.COUNTERCLOCKWISE:
+      flipOrder = clockwise(placement, true);
+      break;
+
+    default:
+      flipOrder = options.behavior;
+  }
+
+  flipOrder.forEach(function (step, index) {
+    if (placement !== step || flipOrder.length === index + 1) {
+      return data;
+    }
+
+    placement = data.placement.split('-')[0];
+    placementOpposite = getOppositePlacement(placement);
+    var popperOffsets = data.offsets.popper;
+    var refOffsets = data.offsets.reference; // using floor because the reference offsets may contain decimals we are not going to consider here
+
+    var floor = Math.floor;
+    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);
+    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
+    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
+    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
+    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
+    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom; // flip the variation if required
+
+    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    if (overlapsRef || overflowsBoundaries || flippedVariation) {
+      // this boolean to detect any flip loop
+      data.flipped = true;
+
+      if (overlapsRef || overflowsBoundaries) {
+        placement = flipOrder[index + 1];
+      }
+
+      if (flippedVariation) {
+        variation = getOppositeVariation(variation);
+      }
+
+      data.placement = placement + (variation ? '-' + variation : ''); // this object contains `position`, we want to preserve it along with
+      // any additional property we may add in the future
+
+      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
+      data = runModifiers(data.instance.modifiers, data, 'flip');
+    }
+  });
+  return data;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function keepTogether(data) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+  var placement = data.placement.split('-')[0];
+  var floor = Math.floor;
+  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+  var side = isVertical ? 'right' : 'bottom';
+  var opSide = isVertical ? 'left' : 'top';
+  var measurement = isVertical ? 'width' : 'height';
+
+  if (popper[side] < floor(reference[opSide])) {
+    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
+  }
+
+  if (popper[opSide] > floor(reference[side])) {
+    data.offsets.popper[opSide] = floor(reference[side]);
+  }
+
+  return data;
+}
+/**
+ * Converts a string containing value + unit into a px value number
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} str - Value + unit string
+ * @argument {String} measurement - `height` or `width`
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @returns {Number|String}
+ * Value in pixels, or original string if no values were extracted
+ */
+
+
+function toValue(str, measurement, popperOffsets, referenceOffsets) {
+  // separate value from unit
+  var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
+  var value = +split[1];
+  var unit = split[2]; // If it's not a number it's an operator, I guess
+
+  if (!value) {
+    return str;
+  }
+
+  if (unit.indexOf('%') === 0) {
+    var element = void 0;
+
+    switch (unit) {
+      case '%p':
+        element = popperOffsets;
+        break;
+
+      case '%':
+      case '%r':
+      default:
+        element = referenceOffsets;
+    }
+
+    var rect = getClientRect(element);
+    return rect[measurement] / 100 * value;
+  } else if (unit === 'vh' || unit === 'vw') {
+    // if is a vh or vw, we calculate the size based on the viewport
+    var size = void 0;
+
+    if (unit === 'vh') {
+      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    } else {
+      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    }
+
+    return size / 100 * value;
+  } else {
+    // if is an explicit pixel unit, we get rid of the unit and keep the value
+    // if is an implicit unit, it's px, and we return just the value
+    return value;
+  }
+}
+/**
+ * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} offset
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @argument {String} basePlacement
+ * @returns {Array} a two cells array with x and y offsets in numbers
+ */
+
+
+function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
+  var offsets = [0, 0]; // Use height if placement is left or right and index is 0 otherwise use width
+  // in this way the first offset will use an axis and the second one
+  // will use the other one
+
+  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1; // Split the offset string to obtain a list of values and operands
+  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
+
+  var fragments = offset.split(/(\+|\-)/).map(function (frag) {
+    return frag.trim();
+  }); // Detect if the offset string contains a pair of values or a single one
+  // they could be separated by comma or space
+
+  var divider = fragments.indexOf(find(fragments, function (frag) {
+    return frag.search(/,|\s/) !== -1;
+  }));
+
+  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
+    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');
+  } // If divider is found, we divide the list of values and operands to divide
+  // them by ofset X and Y.
+
+
+  var splitRegex = /\s*,\s*|\s+/;
+  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments]; // Convert the values with units to absolute pixels to allow our computations
+
+  ops = ops.map(function (op, index) {
+    // Most of the units rely on the orientation of the popper
+    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
+    var mergeWithPrevious = false;
+    return op // This aggregates any `+` or `-` sign that aren't considered operators
+    // e.g.: 10 + +5 => [10, +, +5]
+    .reduce(function (a, b) {
+      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+        a[a.length - 1] = b;
+        mergeWithPrevious = true;
+        return a;
+      } else if (mergeWithPrevious) {
+        a[a.length - 1] += b;
+        mergeWithPrevious = false;
+        return a;
+      } else {
+        return a.concat(b);
+      }
+    }, []) // Here we convert the string values into number values (in px)
+    .map(function (str) {
+      return toValue(str, measurement, popperOffsets, referenceOffsets);
+    });
+  }); // Loop trough the offsets arrays and execute the operations
+
+  ops.forEach(function (op, index) {
+    op.forEach(function (frag, index2) {
+      if (isNumeric(frag)) {
+        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);
+      }
+    });
+  });
+  return offsets;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @argument {Number|String} options.offset=0
+ * The offset value as described in the modifier description
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function offset(data, _ref) {
+  var offset = _ref.offset;
+  var placement = data.placement,
+      _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+  var basePlacement = placement.split('-')[0];
+  var offsets = void 0;
+
+  if (isNumeric(+offset)) {
+    offsets = [+offset, 0];
+  } else {
+    offsets = parseOffset(offset, popper, reference, basePlacement);
+  }
+
+  if (basePlacement === 'left') {
+    popper.top += offsets[0];
+    popper.left -= offsets[1];
+  } else if (basePlacement === 'right') {
+    popper.top += offsets[0];
+    popper.left += offsets[1];
+  } else if (basePlacement === 'top') {
+    popper.left += offsets[0];
+    popper.top -= offsets[1];
+  } else if (basePlacement === 'bottom') {
+    popper.left += offsets[0];
+    popper.top += offsets[1];
+  }
+
+  data.popper = popper;
+  return data;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function preventOverflow(data, options) {
+  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper); // If offsetParent is the reference element, we really want to
+  // go one step up and use the next offsetParent as reference to
+  // avoid to make this modifier completely useless and look like broken
+
+  if (data.instance.reference === boundariesElement) {
+    boundariesElement = getOffsetParent(boundariesElement);
+  } // NOTE: DOM access here
+  // resets the popper's position so that the document size can be calculated excluding
+  // the size of the popper element itself
+
+
+  var transformProp = getSupportedPropertyName('transform');
+  var popperStyles = data.instance.popper.style; // assignment to help minification
+
+  var top = popperStyles.top,
+      left = popperStyles.left,
+      transform = popperStyles[transformProp];
+  popperStyles.top = '';
+  popperStyles.left = '';
+  popperStyles[transformProp] = '';
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, data.positionFixed); // NOTE: DOM access here
+  // restores the original style properties after the offsets have been computed
+
+  popperStyles.top = top;
+  popperStyles.left = left;
+  popperStyles[transformProp] = transform;
+  options.boundaries = boundaries;
+  var order = options.priority;
+  var popper = data.offsets.popper;
+  var check = {
+    primary: function primary(placement) {
+      var value = popper[placement];
+
+      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
+        value = Math.max(popper[placement], boundaries[placement]);
+      }
+
+      return defineProperty({}, placement, value);
+    },
+    secondary: function secondary(placement) {
+      var mainSide = placement === 'right' ? 'left' : 'top';
+      var value = popper[mainSide];
+
+      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
+        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));
+      }
+
+      return defineProperty({}, mainSide, value);
+    }
+  };
+  order.forEach(function (placement) {
+    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';
+    popper = _extends({}, popper, check[side](placement));
+  });
+  data.offsets.popper = popper;
+  return data;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function shift(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var shiftvariation = placement.split('-')[1]; // if shift shiftvariation is specified, run the modifier
+
+  if (shiftvariation) {
+    var _data$offsets = data.offsets,
+        reference = _data$offsets.reference,
+        popper = _data$offsets.popper;
+    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;
+    var side = isVertical ? 'left' : 'top';
+    var measurement = isVertical ? 'width' : 'height';
+    var shiftOffsets = {
+      start: defineProperty({}, side, reference[side]),
+      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
+    };
+    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
+  }
+
+  return data;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function hide(data) {
+  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
+    return data;
+  }
+
+  var refRect = data.offsets.reference;
+  var bound = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'preventOverflow';
+  }).boundaries;
+
+  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === true) {
+      return data;
+    }
+
+    data.hide = true;
+    data.attributes['x-out-of-boundaries'] = '';
+  } else {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === false) {
+      return data;
+    }
+
+    data.hide = false;
+    data.attributes['x-out-of-boundaries'] = false;
+  }
+
+  return data;
+}
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+
+
+function inner(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;
+  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;
+  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);
+  data.placement = getOppositePlacement(placement);
+  data.offsets.popper = getClientRect(popper);
+  return data;
+}
+/**
+ * Modifier function, each modifier can have a function of this type assigned
+ * to its `fn` property.<br />
+ * These functions will be called on each update, this means that you must
+ * make sure they are performant enough to avoid performance bottlenecks.
+ *
+ * @function ModifierFn
+ * @argument {dataObject} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {dataObject} The data object, properly modified
+ */
+
+/**
+ * Modifiers are plugins used to alter the behavior of your poppers.<br />
+ * Popper.js uses a set of 9 modifiers to provide all the basic functionalities
+ * needed by the library.
+ *
+ * Usually you don't want to override the `order`, `fn` and `onLoad` props.
+ * All the other properties are configurations that could be tweaked.
+ * @namespace modifiers
+ */
+
+
+var modifiers = {
+  /**
+   * Modifier used to shift the popper on the start or end of its reference
+   * element.<br />
+   * It will read the variation of the `placement` property.<br />
+   * It can be one either `-end` or `-start`.
+   * @memberof modifiers
+   * @inner
+   */
+  shift: {
+    /** @prop {number} order=100 - Index used to define the order of execution */
+    order: 100,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: shift
+  },
+
+  /**
+   * The `offset` modifier can shift your popper on both its axis.
+   *
+   * It accepts the following units:
+   * - `px` or unit-less, interpreted as pixels
+   * - `%` or `%r`, percentage relative to the length of the reference element
+   * - `%p`, percentage relative to the length of the popper element
+   * - `vw`, CSS viewport width unit
+   * - `vh`, CSS viewport height unit
+   *
+   * For length is intended the main axis relative to the placement of the popper.<br />
+   * This means that if the placement is `top` or `bottom`, the length will be the
+   * `width`. In case of `left` or `right`, it will be the `height`.
+   *
+   * You can provide a single value (as `Number` or `String`), or a pair of values
+   * as `String` divided by a comma or one (or more) white spaces.<br />
+   * The latter is a deprecated method because it leads to confusion and will be
+   * removed in v2.<br />
+   * Additionally, it accepts additions and subtractions between different units.
+   * Note that multiplications and divisions aren't supported.
+   *
+   * Valid examples are:
+   * ```
+   * 10
+   * '10%'
+   * '10, 10'
+   * '10%, 10'
+   * '10 + 10%'
+   * '10 - 5vh + 3%'
+   * '-10px + 5vh, 5px - 6%'
+   * ```
+   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
+   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
+   * > You can read more on this at this [issue](https://github.com/FezVrasta/popper.js/issues/373).
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  offset: {
+    /** @prop {number} order=200 - Index used to define the order of execution */
+    order: 200,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: offset,
+
+    /** @prop {Number|String} offset=0
+     * The offset value as described in the modifier description
+     */
+    offset: 0
+  },
+
+  /**
+   * Modifier used to prevent the popper from being positioned outside the boundary.
+   *
+   * A scenario exists where the reference itself is not within the boundaries.<br />
+   * We can say it has "escaped the boundaries" — or just "escaped".<br />
+   * In this case we need to decide whether the popper should either:
+   *
+   * - detach from the reference and remain "trapped" in the boundaries, or
+   * - if it should ignore the boundary and "escape with its reference"
+   *
+   * When `escapeWithReference` is set to`true` and reference is completely
+   * outside its boundaries, the popper will overflow (or completely leave)
+   * the boundaries in order to remain attached to the edge of the reference.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  preventOverflow: {
+    /** @prop {number} order=300 - Index used to define the order of execution */
+    order: 300,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: preventOverflow,
+
+    /**
+     * @prop {Array} [priority=['left','right','top','bottom']]
+     * Popper will try to prevent overflow following these priorities by default,
+     * then, it could overflow on the left and on top of the `boundariesElement`
+     */
+    priority: ['left', 'right', 'top', 'bottom'],
+
+    /**
+     * @prop {number} padding=5
+     * Amount of pixel used to define a minimum distance between the boundaries
+     * and the popper. This makes sure the popper always has a little padding
+     * between the edges of its container
+     */
+    padding: 5,
+
+    /**
+     * @prop {String|HTMLElement} boundariesElement='scrollParent'
+     * Boundaries used by the modifier. Can be `scrollParent`, `window`,
+     * `viewport` or any DOM element.
+     */
+    boundariesElement: 'scrollParent'
+  },
+
+  /**
+   * Modifier used to make sure the reference and its popper stay near each other
+   * without leaving any gap between the two. Especially useful when the arrow is
+   * enabled and you want to ensure that it points to its reference element.
+   * It cares only about the first axis. You can still have poppers with margin
+   * between the popper and its reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  keepTogether: {
+    /** @prop {number} order=400 - Index used to define the order of execution */
+    order: 400,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: keepTogether
+  },
+
+  /**
+   * This modifier is used to move the `arrowElement` of the popper to make
+   * sure it is positioned between the reference element and its popper element.
+   * It will read the outer size of the `arrowElement` node to detect how many
+   * pixels of conjunction are needed.
+   *
+   * It has no effect if no `arrowElement` is provided.
+   * @memberof modifiers
+   * @inner
+   */
+  arrow: {
+    /** @prop {number} order=500 - Index used to define the order of execution */
+    order: 500,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: arrow,
+
+    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
+    element: '[x-arrow]'
+  },
+
+  /**
+   * Modifier used to flip the popper's placement when it starts to overlap its
+   * reference element.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   *
+   * **NOTE:** this modifier will interrupt the current update cycle and will
+   * restart it if it detects the need to flip the placement.
+   * @memberof modifiers
+   * @inner
+   */
+  flip: {
+    /** @prop {number} order=600 - Index used to define the order of execution */
+    order: 600,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: flip,
+
+    /**
+     * @prop {String|Array} behavior='flip'
+     * The behavior used to change the popper's placement. It can be one of
+     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
+     * placements (with optional variations)
+     */
+    behavior: 'flip',
+
+    /**
+     * @prop {number} padding=5
+     * The popper will flip if it hits the edges of the `boundariesElement`
+     */
+    padding: 5,
+
+    /**
+     * @prop {String|HTMLElement} boundariesElement='viewport'
+     * The element which will define the boundaries of the popper position.
+     * The popper will never be placed outside of the defined boundaries
+     * (except if `keepTogether` is enabled)
+     */
+    boundariesElement: 'viewport'
+  },
+
+  /**
+   * Modifier used to make the popper flow toward the inner of the reference element.
+   * By default, when this modifier is disabled, the popper will be placed outside
+   * the reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  inner: {
+    /** @prop {number} order=700 - Index used to define the order of execution */
+    order: 700,
+
+    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+    enabled: false,
+
+    /** @prop {ModifierFn} */
+    fn: inner
+  },
+
+  /**
+   * Modifier used to hide the popper when its reference element is outside of the
+   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can
+   * be used to hide with a CSS selector the popper when its reference is
+   * out of boundaries.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   * @memberof modifiers
+   * @inner
+   */
+  hide: {
+    /** @prop {number} order=800 - Index used to define the order of execution */
+    order: 800,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: hide
+  },
+
+  /**
+   * Computes the style that will be applied to the popper element to gets
+   * properly positioned.
+   *
+   * Note that this modifier will not touch the DOM, it just prepares the styles
+   * so that `applyStyle` modifier can apply it. This separation is useful
+   * in case you need to replace `applyStyle` with a custom implementation.
+   *
+   * This modifier has `850` as `order` value to maintain backward compatibility
+   * with previous versions of Popper.js. Expect the modifiers ordering method
+   * to change in future major versions of the library.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  computeStyle: {
+    /** @prop {number} order=850 - Index used to define the order of execution */
+    order: 850,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: computeStyle,
+
+    /**
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3D transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties
+     */
+    gpuAcceleration: true,
+
+    /**
+     * @prop {string} [x='bottom']
+     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
+     * Change this if your popper should grow in a direction different from `bottom`
+     */
+    x: 'bottom',
+
+    /**
+     * @prop {string} [x='left']
+     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
+     * Change this if your popper should grow in a direction different from `right`
+     */
+    y: 'right'
+  },
+
+  /**
+   * Applies the computed styles to the popper element.
+   *
+   * All the DOM manipulations are limited to this modifier. This is useful in case
+   * you want to integrate Popper.js inside a framework or view library and you
+   * want to delegate all the DOM manipulations to it.
+   *
+   * Note that if you disable this modifier, you must make sure the popper element
+   * has its position set to `absolute` before Popper.js can do its work!
+   *
+   * Just disable this modifier and define your own to achieve the desired effect.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  applyStyle: {
+    /** @prop {number} order=900 - Index used to define the order of execution */
+    order: 900,
+
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+
+    /** @prop {ModifierFn} */
+    fn: applyStyle,
+
+    /** @prop {Function} */
+    onLoad: applyStyleOnLoad,
+
+    /**
+     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3D transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties
+     */
+    gpuAcceleration: undefined
+  }
+};
+/**
+ * The `dataObject` is an object containing all the information used by Popper.js.
+ * This object is passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
+ * @name dataObject
+ * @property {Object} data.instance The Popper.js instance
+ * @property {String} data.placement Placement applied to popper
+ * @property {String} data.originalPlacement Placement originally defined on init
+ * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
+ * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper
+ * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
+ * @property {Object} data.styles Any CSS property defined here will be applied to the popper. It expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow. It expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.boundaries Offsets of the popper boundaries
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements
+ * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
+ */
+
+/**
+ * Default options provided to Popper.js constructor.<br />
+ * These can be overridden using the `options` argument of Popper.js.<br />
+ * To override an option, simply pass an object with the same
+ * structure of the `options` object, as the 3rd argument. For example:
+ * ```
+ * new Popper(ref, pop, {
+ *   modifiers: {
+ *     preventOverflow: { enabled: false }
+ *   }
+ * })
+ * ```
+ * @type {Object}
+ * @static
+ * @memberof Popper
+ */
+
+var Defaults = {
+  /**
+   * Popper's placement.
+   * @prop {Popper.placements} placement='bottom'
+   */
+  placement: 'bottom',
+
+  /**
+   * Set this to true if you want popper to position it self in 'fixed' mode
+   * @prop {Boolean} positionFixed=false
+   */
+  positionFixed: false,
+
+  /**
+   * Whether events (resize, scroll) are initially enabled.
+   * @prop {Boolean} eventsEnabled=true
+   */
+  eventsEnabled: true,
+
+  /**
+   * Set to true if you want to automatically remove the popper when
+   * you call the `destroy` method.
+   * @prop {Boolean} removeOnDestroy=false
+   */
+  removeOnDestroy: false,
+
+  /**
+   * Callback called when the popper is created.<br />
+   * By default, it is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onCreate}
+   */
+  onCreate: function onCreate() {},
+
+  /**
+   * Callback called when the popper is updated. This callback is not called
+   * on the initialization/creation of the popper, but only on subsequent
+   * updates.<br />
+   * By default, it is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onUpdate}
+   */
+  onUpdate: function onUpdate() {},
+
+  /**
+   * List of modifiers used to modify the offsets before they are applied to the popper.
+   * They provide most of the functionalities of Popper.js.
+   * @prop {modifiers}
+   */
+  modifiers: modifiers
+};
+/**
+ * @callback onCreate
+ * @param {dataObject} data
+ */
+
+/**
+ * @callback onUpdate
+ * @param {dataObject} data
+ */
+// Utils
+// Methods
+
+var Popper = function () {
+  /**
+   * Creates a new Popper.js instance.
+   * @class Popper
+   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
+   * @param {HTMLElement} popper - The HTML element used as the popper
+   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
+   * @return {Object} instance - The generated Popper.js instance
+   */
+  function Popper(reference, popper) {
+    var _this = this;
+
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    classCallCheck(this, Popper);
+
+    this.scheduleUpdate = function () {
+      return requestAnimationFrame(_this.update);
+    }; // make update() debounced, so that it only runs at most once-per-tick
+
+
+    this.update = debounce(this.update.bind(this)); // with {} we create a new object with the options inside it
+
+    this.options = _extends({}, Popper.Defaults, options); // init state
+
+    this.state = {
+      isDestroyed: false,
+      isCreated: false,
+      scrollParents: []
+    }; // get reference and popper elements (allow jQuery wrappers)
+
+    this.reference = reference && reference.jquery ? reference[0] : reference;
+    this.popper = popper && popper.jquery ? popper[0] : popper; // Deep merge modifiers options
+
+    this.options.modifiers = {};
+    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+    }); // Refactoring modifiers' list (Object => Array)
+
+    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+      return _extends({
+        name: name
+      }, _this.options.modifiers[name]);
+    }) // sort the modifiers by order
+    .sort(function (a, b) {
+      return a.order - b.order;
+    }); // modifiers have the ability to execute arbitrary code when Popper.js get inited
+    // such code is executed in the same order of its modifier
+    // they could add new properties to their options configuration
+    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+
+    this.modifiers.forEach(function (modifierOptions) {
+      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+      }
+    }); // fire the first update to position the popper in the right place
+
+    this.update();
+    var eventsEnabled = this.options.eventsEnabled;
+
+    if (eventsEnabled) {
+      // setup event listeners, they will take care of update the position in specific situations
+      this.enableEventListeners();
+    }
+
+    this.state.eventsEnabled = eventsEnabled;
+  } // We can't use class properties because they don't get listed in the
+  // class prototype and break stuff like Sinon stubs
+
+
+  createClass(Popper, [{
+    key: 'update',
+    value: function update$$1() {
+      return update.call(this);
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy$$1() {
+      return destroy.call(this);
+    }
+  }, {
+    key: 'enableEventListeners',
+    value: function enableEventListeners$$1() {
+      return enableEventListeners.call(this);
+    }
+  }, {
+    key: 'disableEventListeners',
+    value: function disableEventListeners$$1() {
+      return disableEventListeners.call(this);
+    }
+    /**
+     * Schedules an update. It will run on the next UI update available.
+     * @method scheduleUpdate
+     * @memberof Popper
+     */
+
+    /**
+     * Collection of utilities useful when writing custom modifiers.
+     * Starting from version 1.7, this method is available only if you
+     * include `popper-utils.js` before `popper.js`.
+     *
+     * **DEPRECATION**: This way to access PopperUtils is deprecated
+     * and will be removed in v2! Use the PopperUtils module directly instead.
+     * Due to the high instability of the methods contained in Utils, we can't
+     * guarantee them to follow semver. Use them at your own risk!
+     * @static
+     * @private
+     * @type {Object}
+     * @deprecated since version 1.8
+     * @member Utils
+     * @memberof Popper
+     */
+
+  }]);
+  return Popper;
+}();
+/**
+ * The `referenceObject` is an object that provides an interface compatible with Popper.js
+ * and lets you use it as replacement of a real DOM node.<br />
+ * You can use this method to position a popper relatively to a set of coordinates
+ * in case you don't have a DOM node to use as reference.
+ *
+ * ```
+ * new Popper(referenceObject, popperNode);
+ * ```
+ *
+ * NB: This feature isn't supported in Internet Explorer 10.
+ * @name referenceObject
+ * @property {Function} data.getBoundingClientRect
+ * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
+ * @property {number} data.clientWidth
+ * An ES6 getter that will return the width of the virtual reference element.
+ * @property {number} data.clientHeight
+ * An ES6 getter that will return the height of the virtual reference element.
+ */
+
+
+Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
+Popper.placements = placements;
+Popper.Defaults = Defaults;
+/* harmony default export */ __webpack_exports__["a"] = (Popper);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(10)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(13);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"insertAt":"top","singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(5)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global document, module, VERSION, require, window */
+const Calendar = __webpack_require__(14); // Export WidgetUtils
+
+
+window.BookingSyncWidgetUtils = __webpack_require__(0); // in order to export clean constructor to global namespace "BookingSyncCalendarWidget"
+// need to mix require with imports
+
+const CalendarConst = Calendar.default;
+
+CalendarConst.init = opts => {
+  const initialized = [];
+  const options = opts || {};
+  const CalendarConstElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');
+  CalendarConstElements.forEach(element => {
+    options.el = element;
+    const cal = new CalendarConst(options);
+    initialized.push(cal);
+  });
+  CalendarConst.instances = initialized;
+  return initialized;
+};
+
+CalendarConst.VERSION = "1.2.4";
+
+if (CalendarConst.autoInit !== false) {
+  if (document.readyState !== 'loading') {
+    CalendarConst.init();
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      CalendarConst.init();
+    });
+  }
+}
+
+module.exports = CalendarConst;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports) {
 
-eval("module.exports = {\n  'AED': 'د.إ',\n  'AFN': '؋',\n  'ALL': 'L',\n  'AMD': '֏',\n  'ANG': 'ƒ',\n  'AOA': 'Kz',\n  'ARS': '$',\n  'AUD': '$',\n  'AWG': 'ƒ',\n  'AZN': '₼',\n  'BAM': 'KM',\n  'BBD': '$',\n  'BDT': '৳',\n  'BGN': 'лв',\n  'BHD': '.د.ب',\n  'BIF': 'FBu',\n  'BMD': '$',\n  'BND': '$',\n  'BOB': '$b',\n  'BRL': 'R$',\n  'BSD': '$',\n  'BTC': '฿',\n  'BTN': 'Nu.',\n  'BWP': 'P',\n  'BYR': 'Br',\n  'BYN': 'Br',\n  'BZD': 'BZ$',\n  'CAD': '$',\n  'CDF': 'FC',\n  'CHF': 'CHF',\n  'CLP': '$',\n  'CNY': '¥',\n  'COP': '$',\n  'CRC': '₡',\n  'CUC': '$',\n  'CUP': '₱',\n  'CVE': '$',\n  'CZK': 'Kč',\n  'DJF': 'Fdj',\n  'DKK': 'kr',\n  'DOP': 'RD$',\n  'DZD': 'دج',\n  'EEK': 'kr',\n  'EGP': '£',\n  'ERN': 'Nfk',\n  'ETB': 'Br',\n  'ETH': 'Ξ',\n  'EUR': '€',\n  'FJD': '$',\n  'FKP': '£',\n  'GBP': '£',\n  'GEL': '₾',\n  'GGP': '£',\n  'GHC': '₵',\n  'GHS': 'GH₵',\n  'GIP': '£',\n  'GMD': 'D',\n  'GNF': 'FG',\n  'GTQ': 'Q',\n  'GYD': '$',\n  'HKD': '$',\n  'HNL': 'L',\n  'HRK': 'kn',\n  'HTG': 'G',\n  'HUF': 'Ft',\n  'IDR': 'Rp',\n  'ILS': '₪',\n  'IMP': '£',\n  'INR': '₹',\n  'IQD': 'ع.د',\n  'IRR': '﷼',\n  'ISK': 'kr',\n  'JEP': '£',\n  'JMD': 'J$',\n  'JOD': 'JD',\n  'JPY': '¥',\n  'KES': 'KSh',\n  'KGS': 'лв',\n  'KHR': '៛',\n  'KMF': 'CF',\n  'KPW': '₩',\n  'KRW': '₩',\n  'KWD': 'KD',\n  'KYD': '$',\n  'KZT': 'лв',\n  'LAK': '₭',\n  'LBP': '£',\n  'LKR': '₨',\n  'LRD': '$',\n  'LSL': 'M',\n  'LTC': 'Ł',\n  'LTL': 'Lt',\n  'LVL': 'Ls',\n  'LYD': 'LD',\n  'MAD': 'MAD',\n  'MDL': 'lei',\n  'MGA': 'Ar',\n  'MKD': 'ден',\n  'MMK': 'K',\n  'MNT': '₮',\n  'MOP': 'MOP$',\n  'MRO': 'UM',\n  'MRU': 'UM',\n  'MUR': '₨',\n  'MVR': 'Rf',\n  'MWK': 'MK',\n  'MXN': '$',\n  'MYR': 'RM',\n  'MZN': 'MT',\n  'NAD': '$',\n  'NGN': '₦',\n  'NIO': 'C$',\n  'NOK': 'kr',\n  'NPR': '₨',\n  'NZD': '$',\n  'OMR': '﷼',\n  'PAB': 'B/.',\n  'PEN': 'S/.',\n  'PGK': 'K',\n  'PHP': '₱',\n  'PKR': '₨',\n  'PLN': 'zł',\n  'PYG': 'Gs',\n  'QAR': '﷼',\n  'RMB': '￥',\n  'RON': 'lei',\n  'RSD': 'Дин.',\n  'RUB': '₽',\n  'RWF': 'R₣',\n  'SAR': '﷼',\n  'SBD': '$',\n  'SCR': '₨',\n  'SDG': 'ج.س.',\n  'SEK': 'kr',\n  'SGD': '$',\n  'SHP': '£',\n  'SLL': 'Le',\n  'SOS': 'S',\n  'SRD': '$',\n  'SSP': '£',\n  'STD': 'Db',\n  'STN': 'Db',\n  'SVC': '$',\n  'SYP': '£',\n  'SZL': 'E',\n  'THB': '฿',\n  'TJS': 'SM',\n  'TMT': 'T',\n  'TND': 'د.ت',\n  'TOP': 'T$',\n  'TRL': '₤',\n  'TRY': '₺',\n  'TTD': 'TT$',\n  'TVD': '$',\n  'TWD': 'NT$',\n  'TZS': 'TSh',\n  'UAH': '₴',\n  'UGX': 'USh',\n  'USD': '$',\n  'UYU': '$U',\n  'UZS': 'лв',\n  'VEF': 'Bs',\n  'VND': '₫',\n  'VUV': 'VT',\n  'WST': 'WS$',\n  'XAF': 'FCFA',\n  'XBT': 'Ƀ',\n  'XCD': '$',\n  'XOF': 'CFA',\n  'XPF': '₣',\n  'YER': '﷼',\n  'ZAR': 'R',\n  'ZWD': 'Z$'\n};\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/currency-symbol-map/map.js?");
+module.exports = {
+  'AED': 'د.إ',
+  'AFN': '؋',
+  'ALL': 'L',
+  'AMD': '֏',
+  'ANG': 'ƒ',
+  'AOA': 'Kz',
+  'ARS': '$',
+  'AUD': '$',
+  'AWG': 'ƒ',
+  'AZN': '₼',
+  'BAM': 'KM',
+  'BBD': '$',
+  'BDT': '৳',
+  'BGN': 'лв',
+  'BHD': '.د.ب',
+  'BIF': 'FBu',
+  'BMD': '$',
+  'BND': '$',
+  'BOB': '$b',
+  'BRL': 'R$',
+  'BSD': '$',
+  'BTC': '฿',
+  'BTN': 'Nu.',
+  'BWP': 'P',
+  'BYR': 'Br',
+  'BYN': 'Br',
+  'BZD': 'BZ$',
+  'CAD': '$',
+  'CDF': 'FC',
+  'CHF': 'CHF',
+  'CLP': '$',
+  'CNY': '¥',
+  'COP': '$',
+  'CRC': '₡',
+  'CUC': '$',
+  'CUP': '₱',
+  'CVE': '$',
+  'CZK': 'Kč',
+  'DJF': 'Fdj',
+  'DKK': 'kr',
+  'DOP': 'RD$',
+  'DZD': 'دج',
+  'EEK': 'kr',
+  'EGP': '£',
+  'ERN': 'Nfk',
+  'ETB': 'Br',
+  'ETH': 'Ξ',
+  'EUR': '€',
+  'FJD': '$',
+  'FKP': '£',
+  'GBP': '£',
+  'GEL': '₾',
+  'GGP': '£',
+  'GHC': '₵',
+  'GHS': 'GH₵',
+  'GIP': '£',
+  'GMD': 'D',
+  'GNF': 'FG',
+  'GTQ': 'Q',
+  'GYD': '$',
+  'HKD': '$',
+  'HNL': 'L',
+  'HRK': 'kn',
+  'HTG': 'G',
+  'HUF': 'Ft',
+  'IDR': 'Rp',
+  'ILS': '₪',
+  'IMP': '£',
+  'INR': '₹',
+  'IQD': 'ع.د',
+  'IRR': '﷼',
+  'ISK': 'kr',
+  'JEP': '£',
+  'JMD': 'J$',
+  'JOD': 'JD',
+  'JPY': '¥',
+  'KES': 'KSh',
+  'KGS': 'лв',
+  'KHR': '៛',
+  'KMF': 'CF',
+  'KPW': '₩',
+  'KRW': '₩',
+  'KWD': 'KD',
+  'KYD': '$',
+  'KZT': 'лв',
+  'LAK': '₭',
+  'LBP': '£',
+  'LKR': '₨',
+  'LRD': '$',
+  'LSL': 'M',
+  'LTC': 'Ł',
+  'LTL': 'Lt',
+  'LVL': 'Ls',
+  'LYD': 'LD',
+  'MAD': 'MAD',
+  'MDL': 'lei',
+  'MGA': 'Ar',
+  'MKD': 'ден',
+  'MMK': 'K',
+  'MNT': '₮',
+  'MOP': 'MOP$',
+  'MRO': 'UM',
+  'MRU': 'UM',
+  'MUR': '₨',
+  'MVR': 'Rf',
+  'MWK': 'MK',
+  'MXN': '$',
+  'MYR': 'RM',
+  'MZN': 'MT',
+  'NAD': '$',
+  'NGN': '₦',
+  'NIO': 'C$',
+  'NOK': 'kr',
+  'NPR': '₨',
+  'NZD': '$',
+  'OMR': '﷼',
+  'PAB': 'B/.',
+  'PEN': 'S/.',
+  'PGK': 'K',
+  'PHP': '₱',
+  'PKR': '₨',
+  'PLN': 'zł',
+  'PYG': 'Gs',
+  'QAR': '﷼',
+  'RMB': '￥',
+  'RON': 'lei',
+  'RSD': 'Дин.',
+  'RUB': '₽',
+  'RWF': 'R₣',
+  'SAR': '﷼',
+  'SBD': '$',
+  'SCR': '₨',
+  'SDG': 'ج.س.',
+  'SEK': 'kr',
+  'SGD': '$',
+  'SHP': '£',
+  'SLL': 'Le',
+  'SOS': 'S',
+  'SRD': '$',
+  'SSP': '£',
+  'STD': 'Db',
+  'STN': 'Db',
+  'SVC': '$',
+  'SYP': '£',
+  'SZL': 'E',
+  'THB': '฿',
+  'TJS': 'SM',
+  'TMT': 'T',
+  'TND': 'د.ت',
+  'TOP': 'T$',
+  'TRL': '₤',
+  'TRY': '₺',
+  'TTD': 'TT$',
+  'TVD': '$',
+  'TWD': 'NT$',
+  'TZS': 'TSh',
+  'UAH': '₴',
+  'UGX': 'USh',
+  'USD': '$',
+  'UYU': '$U',
+  'UZS': 'лв',
+  'VEF': 'Bs',
+  'VND': '₫',
+  'VUV': 'VT',
+  'WST': 'WS$',
+  'XAF': 'FCFA',
+  'XBT': 'Ƀ',
+  'XCD': '$',
+  'XOF': 'CFA',
+  'XPF': '₣',
+  'YER': '﷼',
+  'ZAR': 'R',
+  'ZWD': 'Z$'
+};
 
 /***/ }),
-
-/***/ "./node_modules/popper.js/dist/esm/popper.js":
-/*!***************************************************!*\
-  !*** ./node_modules/popper.js/dist/esm/popper.js ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* WEBPACK VAR INJECTION */(function(global) {/**!\n * @fileOverview Kickass library to create and place poppers near their reference elements.\n * @version 1.14.6\n * @license\n * Copyright (c) 2016 Federico Zivolo and contributors\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in all\n * copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n * SOFTWARE.\n */\nvar isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';\nvar longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];\nvar timeoutDuration = 0;\n\nfor (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {\n  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {\n    timeoutDuration = 1;\n    break;\n  }\n}\n\nfunction microtaskDebounce(fn) {\n  var called = false;\n  return function () {\n    if (called) {\n      return;\n    }\n\n    called = true;\n    window.Promise.resolve().then(function () {\n      called = false;\n      fn();\n    });\n  };\n}\n\nfunction taskDebounce(fn) {\n  var scheduled = false;\n  return function () {\n    if (!scheduled) {\n      scheduled = true;\n      setTimeout(function () {\n        scheduled = false;\n        fn();\n      }, timeoutDuration);\n    }\n  };\n}\n\nvar supportsMicroTasks = isBrowser && window.Promise;\n/**\n* Create a debounced version of a method, that's asynchronously deferred\n* but called in the minimum time possible.\n*\n* @method\n* @memberof Popper.Utils\n* @argument {Function} fn\n* @returns {Function}\n*/\n\nvar debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;\n/**\n * Check if the given variable is a function\n * @method\n * @memberof Popper.Utils\n * @argument {Any} functionToCheck - variable to check\n * @returns {Boolean} answer to: is a function?\n */\n\nfunction isFunction(functionToCheck) {\n  var getType = {};\n  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';\n}\n/**\n * Get CSS computed property of the given element\n * @method\n * @memberof Popper.Utils\n * @argument {Eement} element\n * @argument {String} property\n */\n\n\nfunction getStyleComputedProperty(element, property) {\n  if (element.nodeType !== 1) {\n    return [];\n  } // NOTE: 1 DOM access here\n\n\n  var window = element.ownerDocument.defaultView;\n  var css = window.getComputedStyle(element, null);\n  return property ? css[property] : css;\n}\n/**\n * Returns the parentNode or the host of the element\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @returns {Element} parent\n */\n\n\nfunction getParentNode(element) {\n  if (element.nodeName === 'HTML') {\n    return element;\n  }\n\n  return element.parentNode || element.host;\n}\n/**\n * Returns the scrolling parent of the given element\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @returns {Element} scroll parent\n */\n\n\nfunction getScrollParent(element) {\n  // Return body, `getScroll` will take care to get the correct `scrollTop` from it\n  if (!element) {\n    return document.body;\n  }\n\n  switch (element.nodeName) {\n    case 'HTML':\n    case 'BODY':\n      return element.ownerDocument.body;\n\n    case '#document':\n      return element.body;\n  } // Firefox want us to check `-x` and `-y` variations as well\n\n\n  var _getStyleComputedProp = getStyleComputedProperty(element),\n      overflow = _getStyleComputedProp.overflow,\n      overflowX = _getStyleComputedProp.overflowX,\n      overflowY = _getStyleComputedProp.overflowY;\n\n  if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {\n    return element;\n  }\n\n  return getScrollParent(getParentNode(element));\n}\n\nvar isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);\nvar isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent);\n/**\n * Determines if the browser is Internet Explorer\n * @method\n * @memberof Popper.Utils\n * @param {Number} version to check\n * @returns {Boolean} isIE\n */\n\nfunction isIE(version) {\n  if (version === 11) {\n    return isIE11;\n  }\n\n  if (version === 10) {\n    return isIE10;\n  }\n\n  return isIE11 || isIE10;\n}\n/**\n * Returns the offset parent of the given element\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @returns {Element} offset parent\n */\n\n\nfunction getOffsetParent(element) {\n  if (!element) {\n    return document.documentElement;\n  }\n\n  var noOffsetParent = isIE(10) ? document.body : null; // NOTE: 1 DOM access here\n\n  var offsetParent = element.offsetParent || null; // Skip hidden elements which don't have an offsetParent\n\n  while (offsetParent === noOffsetParent && element.nextElementSibling) {\n    offsetParent = (element = element.nextElementSibling).offsetParent;\n  }\n\n  var nodeName = offsetParent && offsetParent.nodeName;\n\n  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {\n    return element ? element.ownerDocument.documentElement : document.documentElement;\n  } // .offsetParent will return the closest TH, TD or TABLE in case\n  // no offsetParent is present, I hate this job...\n\n\n  if (['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {\n    return getOffsetParent(offsetParent);\n  }\n\n  return offsetParent;\n}\n\nfunction isOffsetContainer(element) {\n  var nodeName = element.nodeName;\n\n  if (nodeName === 'BODY') {\n    return false;\n  }\n\n  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;\n}\n/**\n * Finds the root node (document, shadowDOM root) of the given element\n * @method\n * @memberof Popper.Utils\n * @argument {Element} node\n * @returns {Element} root node\n */\n\n\nfunction getRoot(node) {\n  if (node.parentNode !== null) {\n    return getRoot(node.parentNode);\n  }\n\n  return node;\n}\n/**\n * Finds the offset parent common to the two provided nodes\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element1\n * @argument {Element} element2\n * @returns {Element} common offset parent\n */\n\n\nfunction findCommonOffsetParent(element1, element2) {\n  // This check is needed to avoid errors in case one of the elements isn't defined for any reason\n  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {\n    return document.documentElement;\n  } // Here we make sure to give as \"start\" the element that comes first in the DOM\n\n\n  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;\n  var start = order ? element1 : element2;\n  var end = order ? element2 : element1; // Get common ancestor container\n\n  var range = document.createRange();\n  range.setStart(start, 0);\n  range.setEnd(end, 0);\n  var commonAncestorContainer = range.commonAncestorContainer; // Both nodes are inside #document\n\n  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {\n    if (isOffsetContainer(commonAncestorContainer)) {\n      return commonAncestorContainer;\n    }\n\n    return getOffsetParent(commonAncestorContainer);\n  } // one of the nodes is inside shadowDOM, find which one\n\n\n  var element1root = getRoot(element1);\n\n  if (element1root.host) {\n    return findCommonOffsetParent(element1root.host, element2);\n  } else {\n    return findCommonOffsetParent(element1, getRoot(element2).host);\n  }\n}\n/**\n * Gets the scroll value of the given element in the given side (top and left)\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @argument {String} side `top` or `left`\n * @returns {number} amount of scrolled pixels\n */\n\n\nfunction getScroll(element) {\n  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';\n  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';\n  var nodeName = element.nodeName;\n\n  if (nodeName === 'BODY' || nodeName === 'HTML') {\n    var html = element.ownerDocument.documentElement;\n    var scrollingElement = element.ownerDocument.scrollingElement || html;\n    return scrollingElement[upperSide];\n  }\n\n  return element[upperSide];\n}\n/*\n * Sum or subtract the element scroll values (left and top) from a given rect object\n * @method\n * @memberof Popper.Utils\n * @param {Object} rect - Rect object you want to change\n * @param {HTMLElement} element - The element from the function reads the scroll values\n * @param {Boolean} subtract - set to true if you want to subtract the scroll values\n * @return {Object} rect - The modifier rect object\n */\n\n\nfunction includeScroll(rect, element) {\n  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;\n  var scrollTop = getScroll(element, 'top');\n  var scrollLeft = getScroll(element, 'left');\n  var modifier = subtract ? -1 : 1;\n  rect.top += scrollTop * modifier;\n  rect.bottom += scrollTop * modifier;\n  rect.left += scrollLeft * modifier;\n  rect.right += scrollLeft * modifier;\n  return rect;\n}\n/*\n * Helper to detect borders of a given element\n * @method\n * @memberof Popper.Utils\n * @param {CSSStyleDeclaration} styles\n * Result of `getStyleComputedProperty` on the given element\n * @param {String} axis - `x` or `y`\n * @return {number} borders - The borders size of the given axis\n */\n\n\nfunction getBordersSize(styles, axis) {\n  var sideA = axis === 'x' ? 'Left' : 'Top';\n  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';\n  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);\n}\n\nfunction getSize(axis, body, html, computedStyle) {\n  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? parseInt(html['offset' + axis]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')]) : 0);\n}\n\nfunction getWindowSizes(document) {\n  var body = document.body;\n  var html = document.documentElement;\n  var computedStyle = isIE(10) && getComputedStyle(html);\n  return {\n    height: getSize('Height', body, html, computedStyle),\n    width: getSize('Width', body, html, computedStyle)\n  };\n}\n\nvar classCallCheck = function (instance, Constructor) {\n  if (!(instance instanceof Constructor)) {\n    throw new TypeError(\"Cannot call a class as a function\");\n  }\n};\n\nvar createClass = function () {\n  function defineProperties(target, props) {\n    for (var i = 0; i < props.length; i++) {\n      var descriptor = props[i];\n      descriptor.enumerable = descriptor.enumerable || false;\n      descriptor.configurable = true;\n      if (\"value\" in descriptor) descriptor.writable = true;\n      Object.defineProperty(target, descriptor.key, descriptor);\n    }\n  }\n\n  return function (Constructor, protoProps, staticProps) {\n    if (protoProps) defineProperties(Constructor.prototype, protoProps);\n    if (staticProps) defineProperties(Constructor, staticProps);\n    return Constructor;\n  };\n}();\n\nvar defineProperty = function (obj, key, value) {\n  if (key in obj) {\n    Object.defineProperty(obj, key, {\n      value: value,\n      enumerable: true,\n      configurable: true,\n      writable: true\n    });\n  } else {\n    obj[key] = value;\n  }\n\n  return obj;\n};\n\nvar _extends = Object.assign || function (target) {\n  for (var i = 1; i < arguments.length; i++) {\n    var source = arguments[i];\n\n    for (var key in source) {\n      if (Object.prototype.hasOwnProperty.call(source, key)) {\n        target[key] = source[key];\n      }\n    }\n  }\n\n  return target;\n};\n/**\n * Given element offsets, generate an output similar to getBoundingClientRect\n * @method\n * @memberof Popper.Utils\n * @argument {Object} offsets\n * @returns {Object} ClientRect like output\n */\n\n\nfunction getClientRect(offsets) {\n  return _extends({}, offsets, {\n    right: offsets.left + offsets.width,\n    bottom: offsets.top + offsets.height\n  });\n}\n/**\n * Get bounding client rect of given element\n * @method\n * @memberof Popper.Utils\n * @param {HTMLElement} element\n * @return {Object} client rect\n */\n\n\nfunction getBoundingClientRect(element) {\n  var rect = {}; // IE10 10 FIX: Please, don't ask, the element isn't\n  // considered in DOM in some circumstances...\n  // This isn't reproducible in IE10 compatibility mode of IE11\n\n  try {\n    if (isIE(10)) {\n      rect = element.getBoundingClientRect();\n      var scrollTop = getScroll(element, 'top');\n      var scrollLeft = getScroll(element, 'left');\n      rect.top += scrollTop;\n      rect.left += scrollLeft;\n      rect.bottom += scrollTop;\n      rect.right += scrollLeft;\n    } else {\n      rect = element.getBoundingClientRect();\n    }\n  } catch (e) {}\n\n  var result = {\n    left: rect.left,\n    top: rect.top,\n    width: rect.right - rect.left,\n    height: rect.bottom - rect.top\n  }; // subtract scrollbar size from sizes\n\n  var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {};\n  var width = sizes.width || element.clientWidth || result.right - result.left;\n  var height = sizes.height || element.clientHeight || result.bottom - result.top;\n  var horizScrollbar = element.offsetWidth - width;\n  var vertScrollbar = element.offsetHeight - height; // if an hypothetical scrollbar is detected, we must be sure it's not a `border`\n  // we make this check conditional for performance reasons\n\n  if (horizScrollbar || vertScrollbar) {\n    var styles = getStyleComputedProperty(element);\n    horizScrollbar -= getBordersSize(styles, 'x');\n    vertScrollbar -= getBordersSize(styles, 'y');\n    result.width -= horizScrollbar;\n    result.height -= vertScrollbar;\n  }\n\n  return getClientRect(result);\n}\n\nfunction getOffsetRectRelativeToArbitraryNode(children, parent) {\n  var fixedPosition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;\n  var isIE10 = isIE(10);\n  var isHTML = parent.nodeName === 'HTML';\n  var childrenRect = getBoundingClientRect(children);\n  var parentRect = getBoundingClientRect(parent);\n  var scrollParent = getScrollParent(children);\n  var styles = getStyleComputedProperty(parent);\n  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);\n  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10); // In cases where the parent is fixed, we must ignore negative scroll in offset calc\n\n  if (fixedPosition && isHTML) {\n    parentRect.top = Math.max(parentRect.top, 0);\n    parentRect.left = Math.max(parentRect.left, 0);\n  }\n\n  var offsets = getClientRect({\n    top: childrenRect.top - parentRect.top - borderTopWidth,\n    left: childrenRect.left - parentRect.left - borderLeftWidth,\n    width: childrenRect.width,\n    height: childrenRect.height\n  });\n  offsets.marginTop = 0;\n  offsets.marginLeft = 0; // Subtract margins of documentElement in case it's being used as parent\n  // we do this only on HTML because it's the only element that behaves\n  // differently when margins are applied to it. The margins are included in\n  // the box of the documentElement, in the other cases not.\n\n  if (!isIE10 && isHTML) {\n    var marginTop = parseFloat(styles.marginTop, 10);\n    var marginLeft = parseFloat(styles.marginLeft, 10);\n    offsets.top -= borderTopWidth - marginTop;\n    offsets.bottom -= borderTopWidth - marginTop;\n    offsets.left -= borderLeftWidth - marginLeft;\n    offsets.right -= borderLeftWidth - marginLeft; // Attach marginTop and marginLeft because in some circumstances we may need them\n\n    offsets.marginTop = marginTop;\n    offsets.marginLeft = marginLeft;\n  }\n\n  if (isIE10 && !fixedPosition ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {\n    offsets = includeScroll(offsets, parent);\n  }\n\n  return offsets;\n}\n\nfunction getViewportOffsetRectRelativeToArtbitraryNode(element) {\n  var excludeScroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n  var html = element.ownerDocument.documentElement;\n  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);\n  var width = Math.max(html.clientWidth, window.innerWidth || 0);\n  var height = Math.max(html.clientHeight, window.innerHeight || 0);\n  var scrollTop = !excludeScroll ? getScroll(html) : 0;\n  var scrollLeft = !excludeScroll ? getScroll(html, 'left') : 0;\n  var offset = {\n    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,\n    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,\n    width: width,\n    height: height\n  };\n  return getClientRect(offset);\n}\n/**\n * Check if the given element is fixed or is inside a fixed parent\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @argument {Element} customContainer\n * @returns {Boolean} answer to \"isFixed?\"\n */\n\n\nfunction isFixed(element) {\n  var nodeName = element.nodeName;\n\n  if (nodeName === 'BODY' || nodeName === 'HTML') {\n    return false;\n  }\n\n  if (getStyleComputedProperty(element, 'position') === 'fixed') {\n    return true;\n  }\n\n  return isFixed(getParentNode(element));\n}\n/**\n * Finds the first parent of an element that has a transformed property defined\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @returns {Element} first transformed parent or documentElement\n */\n\n\nfunction getFixedPositionOffsetParent(element) {\n  // This check is needed to avoid errors in case one of the elements isn't defined for any reason\n  if (!element || !element.parentElement || isIE()) {\n    return document.documentElement;\n  }\n\n  var el = element.parentElement;\n\n  while (el && getStyleComputedProperty(el, 'transform') === 'none') {\n    el = el.parentElement;\n  }\n\n  return el || document.documentElement;\n}\n/**\n * Computed the boundaries limits and return them\n * @method\n * @memberof Popper.Utils\n * @param {HTMLElement} popper\n * @param {HTMLElement} reference\n * @param {number} padding\n * @param {HTMLElement} boundariesElement - Element used to define the boundaries\n * @param {Boolean} fixedPosition - Is in fixed position mode\n * @returns {Object} Coordinates of the boundaries\n */\n\n\nfunction getBoundaries(popper, reference, padding, boundariesElement) {\n  var fixedPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false; // NOTE: 1 DOM access here\n\n  var boundaries = {\n    top: 0,\n    left: 0\n  };\n  var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference); // Handle viewport case\n\n  if (boundariesElement === 'viewport') {\n    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);\n  } else {\n    // Handle other cases based on DOM element used as boundaries\n    var boundariesNode = void 0;\n\n    if (boundariesElement === 'scrollParent') {\n      boundariesNode = getScrollParent(getParentNode(reference));\n\n      if (boundariesNode.nodeName === 'BODY') {\n        boundariesNode = popper.ownerDocument.documentElement;\n      }\n    } else if (boundariesElement === 'window') {\n      boundariesNode = popper.ownerDocument.documentElement;\n    } else {\n      boundariesNode = boundariesElement;\n    }\n\n    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition); // In case of HTML, we need a different computation\n\n    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {\n      var _getWindowSizes = getWindowSizes(popper.ownerDocument),\n          height = _getWindowSizes.height,\n          width = _getWindowSizes.width;\n\n      boundaries.top += offsets.top - offsets.marginTop;\n      boundaries.bottom = height + offsets.top;\n      boundaries.left += offsets.left - offsets.marginLeft;\n      boundaries.right = width + offsets.left;\n    } else {\n      // for all the other DOM elements, this one is good\n      boundaries = offsets;\n    }\n  } // Add paddings\n\n\n  padding = padding || 0;\n  var isPaddingNumber = typeof padding === 'number';\n  boundaries.left += isPaddingNumber ? padding : padding.left || 0;\n  boundaries.top += isPaddingNumber ? padding : padding.top || 0;\n  boundaries.right -= isPaddingNumber ? padding : padding.right || 0;\n  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;\n  return boundaries;\n}\n\nfunction getArea(_ref) {\n  var width = _ref.width,\n      height = _ref.height;\n  return width * height;\n}\n/**\n * Utility used to transform the `auto` placement to the placement with more\n * available space.\n * @method\n * @memberof Popper.Utils\n * @argument {Object} data - The data object generated by update method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {\n  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;\n\n  if (placement.indexOf('auto') === -1) {\n    return placement;\n  }\n\n  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);\n  var rects = {\n    top: {\n      width: boundaries.width,\n      height: refRect.top - boundaries.top\n    },\n    right: {\n      width: boundaries.right - refRect.right,\n      height: boundaries.height\n    },\n    bottom: {\n      width: boundaries.width,\n      height: boundaries.bottom - refRect.bottom\n    },\n    left: {\n      width: refRect.left - boundaries.left,\n      height: boundaries.height\n    }\n  };\n  var sortedAreas = Object.keys(rects).map(function (key) {\n    return _extends({\n      key: key\n    }, rects[key], {\n      area: getArea(rects[key])\n    });\n  }).sort(function (a, b) {\n    return b.area - a.area;\n  });\n  var filteredAreas = sortedAreas.filter(function (_ref2) {\n    var width = _ref2.width,\n        height = _ref2.height;\n    return width >= popper.clientWidth && height >= popper.clientHeight;\n  });\n  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;\n  var variation = placement.split('-')[1];\n  return computedPlacement + (variation ? '-' + variation : '');\n}\n/**\n * Get offsets to the reference element\n * @method\n * @memberof Popper.Utils\n * @param {Object} state\n * @param {Element} popper - the popper element\n * @param {Element} reference - the reference element (the popper will be relative to this)\n * @param {Element} fixedPosition - is in fixed position mode\n * @returns {Object} An object containing the offsets which will be applied to the popper\n */\n\n\nfunction getReferenceOffsets(state, popper, reference) {\n  var fixedPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;\n  var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);\n  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);\n}\n/**\n * Get the outer sizes of the given element (offset size + margins)\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element\n * @returns {Object} object containing width and height properties\n */\n\n\nfunction getOuterSizes(element) {\n  var window = element.ownerDocument.defaultView;\n  var styles = window.getComputedStyle(element);\n  var x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);\n  var y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);\n  var result = {\n    width: element.offsetWidth + y,\n    height: element.offsetHeight + x\n  };\n  return result;\n}\n/**\n * Get the opposite placement of the given one\n * @method\n * @memberof Popper.Utils\n * @argument {String} placement\n * @returns {String} flipped placement\n */\n\n\nfunction getOppositePlacement(placement) {\n  var hash = {\n    left: 'right',\n    right: 'left',\n    bottom: 'top',\n    top: 'bottom'\n  };\n  return placement.replace(/left|right|bottom|top/g, function (matched) {\n    return hash[matched];\n  });\n}\n/**\n * Get offsets to the popper\n * @method\n * @memberof Popper.Utils\n * @param {Object} position - CSS position the Popper will get applied\n * @param {HTMLElement} popper - the popper element\n * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)\n * @param {String} placement - one of the valid placement options\n * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper\n */\n\n\nfunction getPopperOffsets(popper, referenceOffsets, placement) {\n  placement = placement.split('-')[0]; // Get popper node sizes\n\n  var popperRect = getOuterSizes(popper); // Add position, width and height to our offsets object\n\n  var popperOffsets = {\n    width: popperRect.width,\n    height: popperRect.height\n  }; // depending by the popper placement we have to compute its offsets slightly differently\n\n  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;\n  var mainSide = isHoriz ? 'top' : 'left';\n  var secondarySide = isHoriz ? 'left' : 'top';\n  var measurement = isHoriz ? 'height' : 'width';\n  var secondaryMeasurement = !isHoriz ? 'height' : 'width';\n  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;\n\n  if (placement === secondarySide) {\n    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];\n  } else {\n    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];\n  }\n\n  return popperOffsets;\n}\n/**\n * Mimics the `find` method of Array\n * @method\n * @memberof Popper.Utils\n * @argument {Array} arr\n * @argument prop\n * @argument value\n * @returns index or -1\n */\n\n\nfunction find(arr, check) {\n  // use native find if supported\n  if (Array.prototype.find) {\n    return arr.find(check);\n  } // use `filter` to obtain the same behavior of `find`\n\n\n  return arr.filter(check)[0];\n}\n/**\n * Return the index of the matching object\n * @method\n * @memberof Popper.Utils\n * @argument {Array} arr\n * @argument prop\n * @argument value\n * @returns index or -1\n */\n\n\nfunction findIndex(arr, prop, value) {\n  // use native findIndex if supported\n  if (Array.prototype.findIndex) {\n    return arr.findIndex(function (cur) {\n      return cur[prop] === value;\n    });\n  } // use `find` + `indexOf` if `findIndex` isn't supported\n\n\n  var match = find(arr, function (obj) {\n    return obj[prop] === value;\n  });\n  return arr.indexOf(match);\n}\n/**\n * Loop trough the list of modifiers and run them in order,\n * each of them will then edit the data object.\n * @method\n * @memberof Popper.Utils\n * @param {dataObject} data\n * @param {Array} modifiers\n * @param {String} ends - Optional modifier name used as stopper\n * @returns {dataObject}\n */\n\n\nfunction runModifiers(modifiers, data, ends) {\n  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));\n  modifiersToRun.forEach(function (modifier) {\n    if (modifier['function']) {\n      // eslint-disable-line dot-notation\n      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');\n    }\n\n    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation\n\n    if (modifier.enabled && isFunction(fn)) {\n      // Add properties to offsets to make them a complete clientRect object\n      // we do this before each modifier to make sure the previous one doesn't\n      // mess with these values\n      data.offsets.popper = getClientRect(data.offsets.popper);\n      data.offsets.reference = getClientRect(data.offsets.reference);\n      data = fn(data, modifier);\n    }\n  });\n  return data;\n}\n/**\n * Updates the position of the popper, computing the new offsets and applying\n * the new style.<br />\n * Prefer `scheduleUpdate` over `update` because of performance reasons.\n * @method\n * @memberof Popper\n */\n\n\nfunction update() {\n  // if popper is destroyed, don't perform any further update\n  if (this.state.isDestroyed) {\n    return;\n  }\n\n  var data = {\n    instance: this,\n    styles: {},\n    arrowStyles: {},\n    attributes: {},\n    flipped: false,\n    offsets: {}\n  }; // compute reference element offsets\n\n  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed); // compute auto placement, store placement inside the data object,\n  // modifiers will be able to edit `placement` if needed\n  // and refer to originalPlacement to know the original value\n\n  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding); // store the computed placement inside `originalPlacement`\n\n  data.originalPlacement = data.placement;\n  data.positionFixed = this.options.positionFixed; // compute the popper offsets\n\n  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);\n  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute'; // run the modifiers\n\n  data = runModifiers(this.modifiers, data); // the first `update` will call `onCreate` callback\n  // the other ones will call `onUpdate` callback\n\n  if (!this.state.isCreated) {\n    this.state.isCreated = true;\n    this.options.onCreate(data);\n  } else {\n    this.options.onUpdate(data);\n  }\n}\n/**\n * Helper used to know if the given modifier is enabled.\n * @method\n * @memberof Popper.Utils\n * @returns {Boolean}\n */\n\n\nfunction isModifierEnabled(modifiers, modifierName) {\n  return modifiers.some(function (_ref) {\n    var name = _ref.name,\n        enabled = _ref.enabled;\n    return enabled && name === modifierName;\n  });\n}\n/**\n * Get the prefixed supported property name\n * @method\n * @memberof Popper.Utils\n * @argument {String} property (camelCase)\n * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)\n */\n\n\nfunction getSupportedPropertyName(property) {\n  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];\n  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);\n\n  for (var i = 0; i < prefixes.length; i++) {\n    var prefix = prefixes[i];\n    var toCheck = prefix ? '' + prefix + upperProp : property;\n\n    if (typeof document.body.style[toCheck] !== 'undefined') {\n      return toCheck;\n    }\n  }\n\n  return null;\n}\n/**\n * Destroys the popper.\n * @method\n * @memberof Popper\n */\n\n\nfunction destroy() {\n  this.state.isDestroyed = true; // touch DOM only if `applyStyle` modifier is enabled\n\n  if (isModifierEnabled(this.modifiers, 'applyStyle')) {\n    this.popper.removeAttribute('x-placement');\n    this.popper.style.position = '';\n    this.popper.style.top = '';\n    this.popper.style.left = '';\n    this.popper.style.right = '';\n    this.popper.style.bottom = '';\n    this.popper.style.willChange = '';\n    this.popper.style[getSupportedPropertyName('transform')] = '';\n  }\n\n  this.disableEventListeners(); // remove the popper if user explicity asked for the deletion on destroy\n  // do not use `remove` because IE11 doesn't support it\n\n  if (this.options.removeOnDestroy) {\n    this.popper.parentNode.removeChild(this.popper);\n  }\n\n  return this;\n}\n/**\n * Get the window associated with the element\n * @argument {Element} element\n * @returns {Window}\n */\n\n\nfunction getWindow(element) {\n  var ownerDocument = element.ownerDocument;\n  return ownerDocument ? ownerDocument.defaultView : window;\n}\n\nfunction attachToScrollParents(scrollParent, event, callback, scrollParents) {\n  var isBody = scrollParent.nodeName === 'BODY';\n  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;\n  target.addEventListener(event, callback, {\n    passive: true\n  });\n\n  if (!isBody) {\n    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);\n  }\n\n  scrollParents.push(target);\n}\n/**\n * Setup needed event listeners used to update the popper position\n * @method\n * @memberof Popper.Utils\n * @private\n */\n\n\nfunction setupEventListeners(reference, options, state, updateBound) {\n  // Resize event listener on window\n  state.updateBound = updateBound;\n  getWindow(reference).addEventListener('resize', state.updateBound, {\n    passive: true\n  }); // Scroll event listener on scroll parents\n\n  var scrollElement = getScrollParent(reference);\n  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);\n  state.scrollElement = scrollElement;\n  state.eventsEnabled = true;\n  return state;\n}\n/**\n * It will add resize/scroll events and start recalculating\n * position of the popper element when they are triggered.\n * @method\n * @memberof Popper\n */\n\n\nfunction enableEventListeners() {\n  if (!this.state.eventsEnabled) {\n    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);\n  }\n}\n/**\n * Remove event listeners used to update the popper position\n * @method\n * @memberof Popper.Utils\n * @private\n */\n\n\nfunction removeEventListeners(reference, state) {\n  // Remove resize event listener on window\n  getWindow(reference).removeEventListener('resize', state.updateBound); // Remove scroll event listener on scroll parents\n\n  state.scrollParents.forEach(function (target) {\n    target.removeEventListener('scroll', state.updateBound);\n  }); // Reset state\n\n  state.updateBound = null;\n  state.scrollParents = [];\n  state.scrollElement = null;\n  state.eventsEnabled = false;\n  return state;\n}\n/**\n * It will remove resize/scroll events and won't recalculate popper position\n * when they are triggered. It also won't trigger `onUpdate` callback anymore,\n * unless you call `update` method manually.\n * @method\n * @memberof Popper\n */\n\n\nfunction disableEventListeners() {\n  if (this.state.eventsEnabled) {\n    cancelAnimationFrame(this.scheduleUpdate);\n    this.state = removeEventListeners(this.reference, this.state);\n  }\n}\n/**\n * Tells if a given input is a number\n * @method\n * @memberof Popper.Utils\n * @param {*} input to check\n * @return {Boolean}\n */\n\n\nfunction isNumeric(n) {\n  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);\n}\n/**\n * Set the style to the given popper\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element - Element to apply the style to\n * @argument {Object} styles\n * Object with a list of properties and values which will be applied to the element\n */\n\n\nfunction setStyles(element, styles) {\n  Object.keys(styles).forEach(function (prop) {\n    var unit = ''; // add unit if the value is numeric and is one of the following\n\n    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {\n      unit = 'px';\n    }\n\n    element.style[prop] = styles[prop] + unit;\n  });\n}\n/**\n * Set the attributes to the given popper\n * @method\n * @memberof Popper.Utils\n * @argument {Element} element - Element to apply the attributes to\n * @argument {Object} styles\n * Object with a list of properties and values which will be applied to the element\n */\n\n\nfunction setAttributes(element, attributes) {\n  Object.keys(attributes).forEach(function (prop) {\n    var value = attributes[prop];\n\n    if (value !== false) {\n      element.setAttribute(prop, attributes[prop]);\n    } else {\n      element.removeAttribute(prop);\n    }\n  });\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by `update` method\n * @argument {Object} data.styles - List of style properties - values to apply to popper element\n * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The same data object\n */\n\n\nfunction applyStyle(data) {\n  // any property present in `data.styles` will be applied to the popper,\n  // in this way we can make the 3rd party modifiers add custom styles to it\n  // Be aware, modifiers could override the properties defined in the previous\n  // lines of this modifier!\n  setStyles(data.instance.popper, data.styles); // any property present in `data.attributes` will be applied to the popper,\n  // they will be set as HTML attributes of the element\n\n  setAttributes(data.instance.popper, data.attributes); // if arrowElement is defined and arrowStyles has some properties\n\n  if (data.arrowElement && Object.keys(data.arrowStyles).length) {\n    setStyles(data.arrowElement, data.arrowStyles);\n  }\n\n  return data;\n}\n/**\n * Set the x-placement attribute before everything else because it could be used\n * to add margins to the popper margins needs to be calculated to get the\n * correct popper offsets.\n * @method\n * @memberof Popper.modifiers\n * @param {HTMLElement} reference - The reference element used to position the popper\n * @param {HTMLElement} popper - The HTML element used as popper\n * @param {Object} options - Popper.js options\n */\n\n\nfunction applyStyleOnLoad(reference, popper, options, modifierOptions, state) {\n  // compute reference element offsets\n  var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed); // compute auto placement, store placement inside the data object,\n  // modifiers will be able to edit `placement` if needed\n  // and refer to originalPlacement to know the original value\n\n  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);\n  popper.setAttribute('x-placement', placement); // Apply `position` to popper before anything else because\n  // without the position applied we can't guarantee correct computations\n\n  setStyles(popper, {\n    position: options.positionFixed ? 'fixed' : 'absolute'\n  });\n  return options;\n}\n/**\n * @function\n * @memberof Popper.Utils\n * @argument {Object} data - The data object generated by `update` method\n * @argument {Boolean} shouldRound - If the offsets should be rounded at all\n * @returns {Object} The popper's position offsets rounded\n *\n * The tale of pixel-perfect positioning. It's still not 100% perfect, but as\n * good as it can be within reason.\n * Discussion here: https://github.com/FezVrasta/popper.js/pull/715\n *\n * Low DPI screens cause a popper to be blurry if not using full pixels (Safari\n * as well on High DPI screens).\n *\n * Firefox prefers no rounding for positioning and does not have blurriness on\n * high DPI screens.\n *\n * Only horizontal placement and left/right values need to be considered.\n */\n\n\nfunction getRoundedOffsets(data, shouldRound) {\n  var _data$offsets = data.offsets,\n      popper = _data$offsets.popper,\n      reference = _data$offsets.reference;\n  var isVertical = ['left', 'right'].indexOf(data.placement) !== -1;\n  var isVariation = data.placement.indexOf('-') !== -1;\n  var sameWidthOddness = reference.width % 2 === popper.width % 2;\n  var bothOddWidth = reference.width % 2 === 1 && popper.width % 2 === 1;\n\n  var noRound = function noRound(v) {\n    return v;\n  };\n\n  var horizontalToInteger = !shouldRound ? noRound : isVertical || isVariation || sameWidthOddness ? Math.round : Math.floor;\n  var verticalToInteger = !shouldRound ? noRound : Math.round;\n  return {\n    left: horizontalToInteger(bothOddWidth && !isVariation && shouldRound ? popper.left - 1 : popper.left),\n    top: verticalToInteger(popper.top),\n    bottom: verticalToInteger(popper.bottom),\n    right: horizontalToInteger(popper.right)\n  };\n}\n\nvar isFirefox = isBrowser && /Firefox/i.test(navigator.userAgent);\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by `update` method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\nfunction computeStyle(data, options) {\n  var x = options.x,\n      y = options.y;\n  var popper = data.offsets.popper; // Remove this legacy support in Popper.js v2\n\n  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {\n    return modifier.name === 'applyStyle';\n  }).gpuAcceleration;\n\n  if (legacyGpuAccelerationOption !== undefined) {\n    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');\n  }\n\n  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;\n  var offsetParent = getOffsetParent(data.instance.popper);\n  var offsetParentRect = getBoundingClientRect(offsetParent); // Styles\n\n  var styles = {\n    position: popper.position\n  };\n  var offsets = getRoundedOffsets(data, window.devicePixelRatio < 2 || !isFirefox);\n  var sideA = x === 'bottom' ? 'top' : 'bottom';\n  var sideB = y === 'right' ? 'left' : 'right'; // if gpuAcceleration is set to `true` and transform is supported,\n  //  we use `translate3d` to apply the position to the popper we\n  // automatically use the supported prefixed version if needed\n\n  var prefixedProperty = getSupportedPropertyName('transform'); // now, let's make a step back and look at this code closely (wtf?)\n  // If the content of the popper grows once it's been positioned, it\n  // may happen that the popper gets misplaced because of the new content\n  // overflowing its reference element\n  // To avoid this problem, we provide two options (x and y), which allow\n  // the consumer to define the offset origin.\n  // If we position a popper on top of a reference element, we can set\n  // `x` to `top` to make the popper grow towards its top instead of\n  // its bottom.\n\n  var left = void 0,\n      top = void 0;\n\n  if (sideA === 'bottom') {\n    // when offsetParent is <html> the positioning is relative to the bottom of the screen (excluding the scrollbar)\n    // and not the bottom of the html element\n    if (offsetParent.nodeName === 'HTML') {\n      top = -offsetParent.clientHeight + offsets.bottom;\n    } else {\n      top = -offsetParentRect.height + offsets.bottom;\n    }\n  } else {\n    top = offsets.top;\n  }\n\n  if (sideB === 'right') {\n    if (offsetParent.nodeName === 'HTML') {\n      left = -offsetParent.clientWidth + offsets.right;\n    } else {\n      left = -offsetParentRect.width + offsets.right;\n    }\n  } else {\n    left = offsets.left;\n  }\n\n  if (gpuAcceleration && prefixedProperty) {\n    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';\n    styles[sideA] = 0;\n    styles[sideB] = 0;\n    styles.willChange = 'transform';\n  } else {\n    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties\n    var invertTop = sideA === 'bottom' ? -1 : 1;\n    var invertLeft = sideB === 'right' ? -1 : 1;\n    styles[sideA] = top * invertTop;\n    styles[sideB] = left * invertLeft;\n    styles.willChange = sideA + ', ' + sideB;\n  } // Attributes\n\n\n  var attributes = {\n    'x-placement': data.placement\n  }; // Update `data` attributes, styles and arrowStyles\n\n  data.attributes = _extends({}, attributes, data.attributes);\n  data.styles = _extends({}, styles, data.styles);\n  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);\n  return data;\n}\n/**\n * Helper used to know if the given modifier depends from another one.<br />\n * It checks if the needed modifier is listed and enabled.\n * @method\n * @memberof Popper.Utils\n * @param {Array} modifiers - list of modifiers\n * @param {String} requestingName - name of requesting modifier\n * @param {String} requestedName - name of requested modifier\n * @returns {Boolean}\n */\n\n\nfunction isModifierRequired(modifiers, requestingName, requestedName) {\n  var requesting = find(modifiers, function (_ref) {\n    var name = _ref.name;\n    return name === requestingName;\n  });\n  var isRequired = !!requesting && modifiers.some(function (modifier) {\n    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;\n  });\n\n  if (!isRequired) {\n    var _requesting = '`' + requestingName + '`';\n\n    var requested = '`' + requestedName + '`';\n    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');\n  }\n\n  return isRequired;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by update method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction arrow(data, options) {\n  var _data$offsets$arrow; // arrow depends on keepTogether in order to work\n\n\n  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {\n    return data;\n  }\n\n  var arrowElement = options.element; // if arrowElement is a string, suppose it's a CSS selector\n\n  if (typeof arrowElement === 'string') {\n    arrowElement = data.instance.popper.querySelector(arrowElement); // if arrowElement is not found, don't run the modifier\n\n    if (!arrowElement) {\n      return data;\n    }\n  } else {\n    // if the arrowElement isn't a query selector we must check that the\n    // provided DOM node is child of its popper node\n    if (!data.instance.popper.contains(arrowElement)) {\n      console.warn('WARNING: `arrow.element` must be child of its popper element!');\n      return data;\n    }\n  }\n\n  var placement = data.placement.split('-')[0];\n  var _data$offsets = data.offsets,\n      popper = _data$offsets.popper,\n      reference = _data$offsets.reference;\n  var isVertical = ['left', 'right'].indexOf(placement) !== -1;\n  var len = isVertical ? 'height' : 'width';\n  var sideCapitalized = isVertical ? 'Top' : 'Left';\n  var side = sideCapitalized.toLowerCase();\n  var altSide = isVertical ? 'left' : 'top';\n  var opSide = isVertical ? 'bottom' : 'right';\n  var arrowElementSize = getOuterSizes(arrowElement)[len]; //\n  // extends keepTogether behavior making sure the popper and its\n  // reference have enough pixels in conjunction\n  //\n  // top/left side\n\n  if (reference[opSide] - arrowElementSize < popper[side]) {\n    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);\n  } // bottom/right side\n\n\n  if (reference[side] + arrowElementSize > popper[opSide]) {\n    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];\n  }\n\n  data.offsets.popper = getClientRect(data.offsets.popper); // compute center of the popper\n\n  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2; // Compute the sideValue using the updated popper offsets\n  // take popper margin in account because we don't have this info available\n\n  var css = getStyleComputedProperty(data.instance.popper);\n  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);\n  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);\n  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide; // prevent arrowElement from being placed not contiguously to its popper\n\n  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);\n  data.arrowElement = arrowElement;\n  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);\n  return data;\n}\n/**\n * Get the opposite placement variation of the given one\n * @method\n * @memberof Popper.Utils\n * @argument {String} placement variation\n * @returns {String} flipped placement variation\n */\n\n\nfunction getOppositeVariation(variation) {\n  if (variation === 'end') {\n    return 'start';\n  } else if (variation === 'start') {\n    return 'end';\n  }\n\n  return variation;\n}\n/**\n * List of accepted placements to use as values of the `placement` option.<br />\n * Valid placements are:\n * - `auto`\n * - `top`\n * - `right`\n * - `bottom`\n * - `left`\n *\n * Each placement can have a variation from this list:\n * - `-start`\n * - `-end`\n *\n * Variations are interpreted easily if you think of them as the left to right\n * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`\n * is right.<br />\n * Vertically (`left` and `right`), `start` is top and `end` is bottom.\n *\n * Some valid examples are:\n * - `top-end` (on top of reference, right aligned)\n * - `right-start` (on right of reference, top aligned)\n * - `bottom` (on bottom, centered)\n * - `auto-end` (on the side with more space available, alignment depends by placement)\n *\n * @static\n * @type {Array}\n * @enum {String}\n * @readonly\n * @method placements\n * @memberof Popper\n */\n\n\nvar placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']; // Get rid of `auto` `auto-start` and `auto-end`\n\nvar validPlacements = placements.slice(3);\n/**\n * Given an initial placement, returns all the subsequent placements\n * clockwise (or counter-clockwise).\n *\n * @method\n * @memberof Popper.Utils\n * @argument {String} placement - A valid placement (it accepts variations)\n * @argument {Boolean} counter - Set to true to walk the placements counterclockwise\n * @returns {Array} placements including their variations\n */\n\nfunction clockwise(placement) {\n  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n  var index = validPlacements.indexOf(placement);\n  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));\n  return counter ? arr.reverse() : arr;\n}\n\nvar BEHAVIORS = {\n  FLIP: 'flip',\n  CLOCKWISE: 'clockwise',\n  COUNTERCLOCKWISE: 'counterclockwise'\n};\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by update method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\nfunction flip(data, options) {\n  // if `inner` modifier is enabled, we can't use the `flip` modifier\n  if (isModifierEnabled(data.instance.modifiers, 'inner')) {\n    return data;\n  }\n\n  if (data.flipped && data.placement === data.originalPlacement) {\n    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides\n    return data;\n  }\n\n  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, data.positionFixed);\n  var placement = data.placement.split('-')[0];\n  var placementOpposite = getOppositePlacement(placement);\n  var variation = data.placement.split('-')[1] || '';\n  var flipOrder = [];\n\n  switch (options.behavior) {\n    case BEHAVIORS.FLIP:\n      flipOrder = [placement, placementOpposite];\n      break;\n\n    case BEHAVIORS.CLOCKWISE:\n      flipOrder = clockwise(placement);\n      break;\n\n    case BEHAVIORS.COUNTERCLOCKWISE:\n      flipOrder = clockwise(placement, true);\n      break;\n\n    default:\n      flipOrder = options.behavior;\n  }\n\n  flipOrder.forEach(function (step, index) {\n    if (placement !== step || flipOrder.length === index + 1) {\n      return data;\n    }\n\n    placement = data.placement.split('-')[0];\n    placementOpposite = getOppositePlacement(placement);\n    var popperOffsets = data.offsets.popper;\n    var refOffsets = data.offsets.reference; // using floor because the reference offsets may contain decimals we are not going to consider here\n\n    var floor = Math.floor;\n    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);\n    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);\n    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);\n    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);\n    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);\n    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom; // flip the variation if required\n\n    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;\n    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);\n\n    if (overlapsRef || overflowsBoundaries || flippedVariation) {\n      // this boolean to detect any flip loop\n      data.flipped = true;\n\n      if (overlapsRef || overflowsBoundaries) {\n        placement = flipOrder[index + 1];\n      }\n\n      if (flippedVariation) {\n        variation = getOppositeVariation(variation);\n      }\n\n      data.placement = placement + (variation ? '-' + variation : ''); // this object contains `position`, we want to preserve it along with\n      // any additional property we may add in the future\n\n      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));\n      data = runModifiers(data.instance.modifiers, data, 'flip');\n    }\n  });\n  return data;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by update method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction keepTogether(data) {\n  var _data$offsets = data.offsets,\n      popper = _data$offsets.popper,\n      reference = _data$offsets.reference;\n  var placement = data.placement.split('-')[0];\n  var floor = Math.floor;\n  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;\n  var side = isVertical ? 'right' : 'bottom';\n  var opSide = isVertical ? 'left' : 'top';\n  var measurement = isVertical ? 'width' : 'height';\n\n  if (popper[side] < floor(reference[opSide])) {\n    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];\n  }\n\n  if (popper[opSide] > floor(reference[side])) {\n    data.offsets.popper[opSide] = floor(reference[side]);\n  }\n\n  return data;\n}\n/**\n * Converts a string containing value + unit into a px value number\n * @function\n * @memberof {modifiers~offset}\n * @private\n * @argument {String} str - Value + unit string\n * @argument {String} measurement - `height` or `width`\n * @argument {Object} popperOffsets\n * @argument {Object} referenceOffsets\n * @returns {Number|String}\n * Value in pixels, or original string if no values were extracted\n */\n\n\nfunction toValue(str, measurement, popperOffsets, referenceOffsets) {\n  // separate value from unit\n  var split = str.match(/((?:\\-|\\+)?\\d*\\.?\\d*)(.*)/);\n  var value = +split[1];\n  var unit = split[2]; // If it's not a number it's an operator, I guess\n\n  if (!value) {\n    return str;\n  }\n\n  if (unit.indexOf('%') === 0) {\n    var element = void 0;\n\n    switch (unit) {\n      case '%p':\n        element = popperOffsets;\n        break;\n\n      case '%':\n      case '%r':\n      default:\n        element = referenceOffsets;\n    }\n\n    var rect = getClientRect(element);\n    return rect[measurement] / 100 * value;\n  } else if (unit === 'vh' || unit === 'vw') {\n    // if is a vh or vw, we calculate the size based on the viewport\n    var size = void 0;\n\n    if (unit === 'vh') {\n      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);\n    } else {\n      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);\n    }\n\n    return size / 100 * value;\n  } else {\n    // if is an explicit pixel unit, we get rid of the unit and keep the value\n    // if is an implicit unit, it's px, and we return just the value\n    return value;\n  }\n}\n/**\n * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.\n * @function\n * @memberof {modifiers~offset}\n * @private\n * @argument {String} offset\n * @argument {Object} popperOffsets\n * @argument {Object} referenceOffsets\n * @argument {String} basePlacement\n * @returns {Array} a two cells array with x and y offsets in numbers\n */\n\n\nfunction parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {\n  var offsets = [0, 0]; // Use height if placement is left or right and index is 0 otherwise use width\n  // in this way the first offset will use an axis and the second one\n  // will use the other one\n\n  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1; // Split the offset string to obtain a list of values and operands\n  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)\n\n  var fragments = offset.split(/(\\+|\\-)/).map(function (frag) {\n    return frag.trim();\n  }); // Detect if the offset string contains a pair of values or a single one\n  // they could be separated by comma or space\n\n  var divider = fragments.indexOf(find(fragments, function (frag) {\n    return frag.search(/,|\\s/) !== -1;\n  }));\n\n  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {\n    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');\n  } // If divider is found, we divide the list of values and operands to divide\n  // them by ofset X and Y.\n\n\n  var splitRegex = /\\s*,\\s*|\\s+/;\n  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments]; // Convert the values with units to absolute pixels to allow our computations\n\n  ops = ops.map(function (op, index) {\n    // Most of the units rely on the orientation of the popper\n    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';\n    var mergeWithPrevious = false;\n    return op // This aggregates any `+` or `-` sign that aren't considered operators\n    // e.g.: 10 + +5 => [10, +, +5]\n    .reduce(function (a, b) {\n      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {\n        a[a.length - 1] = b;\n        mergeWithPrevious = true;\n        return a;\n      } else if (mergeWithPrevious) {\n        a[a.length - 1] += b;\n        mergeWithPrevious = false;\n        return a;\n      } else {\n        return a.concat(b);\n      }\n    }, []) // Here we convert the string values into number values (in px)\n    .map(function (str) {\n      return toValue(str, measurement, popperOffsets, referenceOffsets);\n    });\n  }); // Loop trough the offsets arrays and execute the operations\n\n  ops.forEach(function (op, index) {\n    op.forEach(function (frag, index2) {\n      if (isNumeric(frag)) {\n        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);\n      }\n    });\n  });\n  return offsets;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by update method\n * @argument {Object} options - Modifiers configuration and options\n * @argument {Number|String} options.offset=0\n * The offset value as described in the modifier description\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction offset(data, _ref) {\n  var offset = _ref.offset;\n  var placement = data.placement,\n      _data$offsets = data.offsets,\n      popper = _data$offsets.popper,\n      reference = _data$offsets.reference;\n  var basePlacement = placement.split('-')[0];\n  var offsets = void 0;\n\n  if (isNumeric(+offset)) {\n    offsets = [+offset, 0];\n  } else {\n    offsets = parseOffset(offset, popper, reference, basePlacement);\n  }\n\n  if (basePlacement === 'left') {\n    popper.top += offsets[0];\n    popper.left -= offsets[1];\n  } else if (basePlacement === 'right') {\n    popper.top += offsets[0];\n    popper.left += offsets[1];\n  } else if (basePlacement === 'top') {\n    popper.left += offsets[0];\n    popper.top -= offsets[1];\n  } else if (basePlacement === 'bottom') {\n    popper.left += offsets[0];\n    popper.top += offsets[1];\n  }\n\n  data.popper = popper;\n  return data;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by `update` method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction preventOverflow(data, options) {\n  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper); // If offsetParent is the reference element, we really want to\n  // go one step up and use the next offsetParent as reference to\n  // avoid to make this modifier completely useless and look like broken\n\n  if (data.instance.reference === boundariesElement) {\n    boundariesElement = getOffsetParent(boundariesElement);\n  } // NOTE: DOM access here\n  // resets the popper's position so that the document size can be calculated excluding\n  // the size of the popper element itself\n\n\n  var transformProp = getSupportedPropertyName('transform');\n  var popperStyles = data.instance.popper.style; // assignment to help minification\n\n  var top = popperStyles.top,\n      left = popperStyles.left,\n      transform = popperStyles[transformProp];\n  popperStyles.top = '';\n  popperStyles.left = '';\n  popperStyles[transformProp] = '';\n  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, data.positionFixed); // NOTE: DOM access here\n  // restores the original style properties after the offsets have been computed\n\n  popperStyles.top = top;\n  popperStyles.left = left;\n  popperStyles[transformProp] = transform;\n  options.boundaries = boundaries;\n  var order = options.priority;\n  var popper = data.offsets.popper;\n  var check = {\n    primary: function primary(placement) {\n      var value = popper[placement];\n\n      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {\n        value = Math.max(popper[placement], boundaries[placement]);\n      }\n\n      return defineProperty({}, placement, value);\n    },\n    secondary: function secondary(placement) {\n      var mainSide = placement === 'right' ? 'left' : 'top';\n      var value = popper[mainSide];\n\n      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {\n        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));\n      }\n\n      return defineProperty({}, mainSide, value);\n    }\n  };\n  order.forEach(function (placement) {\n    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';\n    popper = _extends({}, popper, check[side](placement));\n  });\n  data.offsets.popper = popper;\n  return data;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by `update` method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction shift(data) {\n  var placement = data.placement;\n  var basePlacement = placement.split('-')[0];\n  var shiftvariation = placement.split('-')[1]; // if shift shiftvariation is specified, run the modifier\n\n  if (shiftvariation) {\n    var _data$offsets = data.offsets,\n        reference = _data$offsets.reference,\n        popper = _data$offsets.popper;\n    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;\n    var side = isVertical ? 'left' : 'top';\n    var measurement = isVertical ? 'width' : 'height';\n    var shiftOffsets = {\n      start: defineProperty({}, side, reference[side]),\n      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])\n    };\n    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);\n  }\n\n  return data;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by update method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction hide(data) {\n  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {\n    return data;\n  }\n\n  var refRect = data.offsets.reference;\n  var bound = find(data.instance.modifiers, function (modifier) {\n    return modifier.name === 'preventOverflow';\n  }).boundaries;\n\n  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {\n    // Avoid unnecessary DOM access if visibility hasn't changed\n    if (data.hide === true) {\n      return data;\n    }\n\n    data.hide = true;\n    data.attributes['x-out-of-boundaries'] = '';\n  } else {\n    // Avoid unnecessary DOM access if visibility hasn't changed\n    if (data.hide === false) {\n      return data;\n    }\n\n    data.hide = false;\n    data.attributes['x-out-of-boundaries'] = false;\n  }\n\n  return data;\n}\n/**\n * @function\n * @memberof Modifiers\n * @argument {Object} data - The data object generated by `update` method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {Object} The data object, properly modified\n */\n\n\nfunction inner(data) {\n  var placement = data.placement;\n  var basePlacement = placement.split('-')[0];\n  var _data$offsets = data.offsets,\n      popper = _data$offsets.popper,\n      reference = _data$offsets.reference;\n  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;\n  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;\n  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);\n  data.placement = getOppositePlacement(placement);\n  data.offsets.popper = getClientRect(popper);\n  return data;\n}\n/**\n * Modifier function, each modifier can have a function of this type assigned\n * to its `fn` property.<br />\n * These functions will be called on each update, this means that you must\n * make sure they are performant enough to avoid performance bottlenecks.\n *\n * @function ModifierFn\n * @argument {dataObject} data - The data object generated by `update` method\n * @argument {Object} options - Modifiers configuration and options\n * @returns {dataObject} The data object, properly modified\n */\n\n/**\n * Modifiers are plugins used to alter the behavior of your poppers.<br />\n * Popper.js uses a set of 9 modifiers to provide all the basic functionalities\n * needed by the library.\n *\n * Usually you don't want to override the `order`, `fn` and `onLoad` props.\n * All the other properties are configurations that could be tweaked.\n * @namespace modifiers\n */\n\n\nvar modifiers = {\n  /**\n   * Modifier used to shift the popper on the start or end of its reference\n   * element.<br />\n   * It will read the variation of the `placement` property.<br />\n   * It can be one either `-end` or `-start`.\n   * @memberof modifiers\n   * @inner\n   */\n  shift: {\n    /** @prop {number} order=100 - Index used to define the order of execution */\n    order: 100,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: shift\n  },\n\n  /**\n   * The `offset` modifier can shift your popper on both its axis.\n   *\n   * It accepts the following units:\n   * - `px` or unit-less, interpreted as pixels\n   * - `%` or `%r`, percentage relative to the length of the reference element\n   * - `%p`, percentage relative to the length of the popper element\n   * - `vw`, CSS viewport width unit\n   * - `vh`, CSS viewport height unit\n   *\n   * For length is intended the main axis relative to the placement of the popper.<br />\n   * This means that if the placement is `top` or `bottom`, the length will be the\n   * `width`. In case of `left` or `right`, it will be the `height`.\n   *\n   * You can provide a single value (as `Number` or `String`), or a pair of values\n   * as `String` divided by a comma or one (or more) white spaces.<br />\n   * The latter is a deprecated method because it leads to confusion and will be\n   * removed in v2.<br />\n   * Additionally, it accepts additions and subtractions between different units.\n   * Note that multiplications and divisions aren't supported.\n   *\n   * Valid examples are:\n   * ```\n   * 10\n   * '10%'\n   * '10, 10'\n   * '10%, 10'\n   * '10 + 10%'\n   * '10 - 5vh + 3%'\n   * '-10px + 5vh, 5px - 6%'\n   * ```\n   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap\n   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.\n   * > You can read more on this at this [issue](https://github.com/FezVrasta/popper.js/issues/373).\n   *\n   * @memberof modifiers\n   * @inner\n   */\n  offset: {\n    /** @prop {number} order=200 - Index used to define the order of execution */\n    order: 200,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: offset,\n\n    /** @prop {Number|String} offset=0\n     * The offset value as described in the modifier description\n     */\n    offset: 0\n  },\n\n  /**\n   * Modifier used to prevent the popper from being positioned outside the boundary.\n   *\n   * A scenario exists where the reference itself is not within the boundaries.<br />\n   * We can say it has \"escaped the boundaries\" — or just \"escaped\".<br />\n   * In this case we need to decide whether the popper should either:\n   *\n   * - detach from the reference and remain \"trapped\" in the boundaries, or\n   * - if it should ignore the boundary and \"escape with its reference\"\n   *\n   * When `escapeWithReference` is set to`true` and reference is completely\n   * outside its boundaries, the popper will overflow (or completely leave)\n   * the boundaries in order to remain attached to the edge of the reference.\n   *\n   * @memberof modifiers\n   * @inner\n   */\n  preventOverflow: {\n    /** @prop {number} order=300 - Index used to define the order of execution */\n    order: 300,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: preventOverflow,\n\n    /**\n     * @prop {Array} [priority=['left','right','top','bottom']]\n     * Popper will try to prevent overflow following these priorities by default,\n     * then, it could overflow on the left and on top of the `boundariesElement`\n     */\n    priority: ['left', 'right', 'top', 'bottom'],\n\n    /**\n     * @prop {number} padding=5\n     * Amount of pixel used to define a minimum distance between the boundaries\n     * and the popper. This makes sure the popper always has a little padding\n     * between the edges of its container\n     */\n    padding: 5,\n\n    /**\n     * @prop {String|HTMLElement} boundariesElement='scrollParent'\n     * Boundaries used by the modifier. Can be `scrollParent`, `window`,\n     * `viewport` or any DOM element.\n     */\n    boundariesElement: 'scrollParent'\n  },\n\n  /**\n   * Modifier used to make sure the reference and its popper stay near each other\n   * without leaving any gap between the two. Especially useful when the arrow is\n   * enabled and you want to ensure that it points to its reference element.\n   * It cares only about the first axis. You can still have poppers with margin\n   * between the popper and its reference element.\n   * @memberof modifiers\n   * @inner\n   */\n  keepTogether: {\n    /** @prop {number} order=400 - Index used to define the order of execution */\n    order: 400,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: keepTogether\n  },\n\n  /**\n   * This modifier is used to move the `arrowElement` of the popper to make\n   * sure it is positioned between the reference element and its popper element.\n   * It will read the outer size of the `arrowElement` node to detect how many\n   * pixels of conjunction are needed.\n   *\n   * It has no effect if no `arrowElement` is provided.\n   * @memberof modifiers\n   * @inner\n   */\n  arrow: {\n    /** @prop {number} order=500 - Index used to define the order of execution */\n    order: 500,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: arrow,\n\n    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */\n    element: '[x-arrow]'\n  },\n\n  /**\n   * Modifier used to flip the popper's placement when it starts to overlap its\n   * reference element.\n   *\n   * Requires the `preventOverflow` modifier before it in order to work.\n   *\n   * **NOTE:** this modifier will interrupt the current update cycle and will\n   * restart it if it detects the need to flip the placement.\n   * @memberof modifiers\n   * @inner\n   */\n  flip: {\n    /** @prop {number} order=600 - Index used to define the order of execution */\n    order: 600,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: flip,\n\n    /**\n     * @prop {String|Array} behavior='flip'\n     * The behavior used to change the popper's placement. It can be one of\n     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid\n     * placements (with optional variations)\n     */\n    behavior: 'flip',\n\n    /**\n     * @prop {number} padding=5\n     * The popper will flip if it hits the edges of the `boundariesElement`\n     */\n    padding: 5,\n\n    /**\n     * @prop {String|HTMLElement} boundariesElement='viewport'\n     * The element which will define the boundaries of the popper position.\n     * The popper will never be placed outside of the defined boundaries\n     * (except if `keepTogether` is enabled)\n     */\n    boundariesElement: 'viewport'\n  },\n\n  /**\n   * Modifier used to make the popper flow toward the inner of the reference element.\n   * By default, when this modifier is disabled, the popper will be placed outside\n   * the reference element.\n   * @memberof modifiers\n   * @inner\n   */\n  inner: {\n    /** @prop {number} order=700 - Index used to define the order of execution */\n    order: 700,\n\n    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */\n    enabled: false,\n\n    /** @prop {ModifierFn} */\n    fn: inner\n  },\n\n  /**\n   * Modifier used to hide the popper when its reference element is outside of the\n   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can\n   * be used to hide with a CSS selector the popper when its reference is\n   * out of boundaries.\n   *\n   * Requires the `preventOverflow` modifier before it in order to work.\n   * @memberof modifiers\n   * @inner\n   */\n  hide: {\n    /** @prop {number} order=800 - Index used to define the order of execution */\n    order: 800,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: hide\n  },\n\n  /**\n   * Computes the style that will be applied to the popper element to gets\n   * properly positioned.\n   *\n   * Note that this modifier will not touch the DOM, it just prepares the styles\n   * so that `applyStyle` modifier can apply it. This separation is useful\n   * in case you need to replace `applyStyle` with a custom implementation.\n   *\n   * This modifier has `850` as `order` value to maintain backward compatibility\n   * with previous versions of Popper.js. Expect the modifiers ordering method\n   * to change in future major versions of the library.\n   *\n   * @memberof modifiers\n   * @inner\n   */\n  computeStyle: {\n    /** @prop {number} order=850 - Index used to define the order of execution */\n    order: 850,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: computeStyle,\n\n    /**\n     * @prop {Boolean} gpuAcceleration=true\n     * If true, it uses the CSS 3D transformation to position the popper.\n     * Otherwise, it will use the `top` and `left` properties\n     */\n    gpuAcceleration: true,\n\n    /**\n     * @prop {string} [x='bottom']\n     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.\n     * Change this if your popper should grow in a direction different from `bottom`\n     */\n    x: 'bottom',\n\n    /**\n     * @prop {string} [x='left']\n     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.\n     * Change this if your popper should grow in a direction different from `right`\n     */\n    y: 'right'\n  },\n\n  /**\n   * Applies the computed styles to the popper element.\n   *\n   * All the DOM manipulations are limited to this modifier. This is useful in case\n   * you want to integrate Popper.js inside a framework or view library and you\n   * want to delegate all the DOM manipulations to it.\n   *\n   * Note that if you disable this modifier, you must make sure the popper element\n   * has its position set to `absolute` before Popper.js can do its work!\n   *\n   * Just disable this modifier and define your own to achieve the desired effect.\n   *\n   * @memberof modifiers\n   * @inner\n   */\n  applyStyle: {\n    /** @prop {number} order=900 - Index used to define the order of execution */\n    order: 900,\n\n    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */\n    enabled: true,\n\n    /** @prop {ModifierFn} */\n    fn: applyStyle,\n\n    /** @prop {Function} */\n    onLoad: applyStyleOnLoad,\n\n    /**\n     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier\n     * @prop {Boolean} gpuAcceleration=true\n     * If true, it uses the CSS 3D transformation to position the popper.\n     * Otherwise, it will use the `top` and `left` properties\n     */\n    gpuAcceleration: undefined\n  }\n};\n/**\n * The `dataObject` is an object containing all the information used by Popper.js.\n * This object is passed to modifiers and to the `onCreate` and `onUpdate` callbacks.\n * @name dataObject\n * @property {Object} data.instance The Popper.js instance\n * @property {String} data.placement Placement applied to popper\n * @property {String} data.originalPlacement Placement originally defined on init\n * @property {Boolean} data.flipped True if popper has been flipped by flip modifier\n * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper\n * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier\n * @property {Object} data.styles Any CSS property defined here will be applied to the popper. It expects the JavaScript nomenclature (eg. `marginBottom`)\n * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow. It expects the JavaScript nomenclature (eg. `marginBottom`)\n * @property {Object} data.boundaries Offsets of the popper boundaries\n * @property {Object} data.offsets The measurements of popper, reference and arrow elements\n * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values\n * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values\n * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0\n */\n\n/**\n * Default options provided to Popper.js constructor.<br />\n * These can be overridden using the `options` argument of Popper.js.<br />\n * To override an option, simply pass an object with the same\n * structure of the `options` object, as the 3rd argument. For example:\n * ```\n * new Popper(ref, pop, {\n *   modifiers: {\n *     preventOverflow: { enabled: false }\n *   }\n * })\n * ```\n * @type {Object}\n * @static\n * @memberof Popper\n */\n\nvar Defaults = {\n  /**\n   * Popper's placement.\n   * @prop {Popper.placements} placement='bottom'\n   */\n  placement: 'bottom',\n\n  /**\n   * Set this to true if you want popper to position it self in 'fixed' mode\n   * @prop {Boolean} positionFixed=false\n   */\n  positionFixed: false,\n\n  /**\n   * Whether events (resize, scroll) are initially enabled.\n   * @prop {Boolean} eventsEnabled=true\n   */\n  eventsEnabled: true,\n\n  /**\n   * Set to true if you want to automatically remove the popper when\n   * you call the `destroy` method.\n   * @prop {Boolean} removeOnDestroy=false\n   */\n  removeOnDestroy: false,\n\n  /**\n   * Callback called when the popper is created.<br />\n   * By default, it is set to no-op.<br />\n   * Access Popper.js instance with `data.instance`.\n   * @prop {onCreate}\n   */\n  onCreate: function onCreate() {},\n\n  /**\n   * Callback called when the popper is updated. This callback is not called\n   * on the initialization/creation of the popper, but only on subsequent\n   * updates.<br />\n   * By default, it is set to no-op.<br />\n   * Access Popper.js instance with `data.instance`.\n   * @prop {onUpdate}\n   */\n  onUpdate: function onUpdate() {},\n\n  /**\n   * List of modifiers used to modify the offsets before they are applied to the popper.\n   * They provide most of the functionalities of Popper.js.\n   * @prop {modifiers}\n   */\n  modifiers: modifiers\n};\n/**\n * @callback onCreate\n * @param {dataObject} data\n */\n\n/**\n * @callback onUpdate\n * @param {dataObject} data\n */\n// Utils\n// Methods\n\nvar Popper = function () {\n  /**\n   * Creates a new Popper.js instance.\n   * @class Popper\n   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper\n   * @param {HTMLElement} popper - The HTML element used as the popper\n   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)\n   * @return {Object} instance - The generated Popper.js instance\n   */\n  function Popper(reference, popper) {\n    var _this = this;\n\n    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};\n    classCallCheck(this, Popper);\n\n    this.scheduleUpdate = function () {\n      return requestAnimationFrame(_this.update);\n    }; // make update() debounced, so that it only runs at most once-per-tick\n\n\n    this.update = debounce(this.update.bind(this)); // with {} we create a new object with the options inside it\n\n    this.options = _extends({}, Popper.Defaults, options); // init state\n\n    this.state = {\n      isDestroyed: false,\n      isCreated: false,\n      scrollParents: []\n    }; // get reference and popper elements (allow jQuery wrappers)\n\n    this.reference = reference && reference.jquery ? reference[0] : reference;\n    this.popper = popper && popper.jquery ? popper[0] : popper; // Deep merge modifiers options\n\n    this.options.modifiers = {};\n    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {\n      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});\n    }); // Refactoring modifiers' list (Object => Array)\n\n    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {\n      return _extends({\n        name: name\n      }, _this.options.modifiers[name]);\n    }) // sort the modifiers by order\n    .sort(function (a, b) {\n      return a.order - b.order;\n    }); // modifiers have the ability to execute arbitrary code when Popper.js get inited\n    // such code is executed in the same order of its modifier\n    // they could add new properties to their options configuration\n    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!\n\n    this.modifiers.forEach(function (modifierOptions) {\n      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {\n        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);\n      }\n    }); // fire the first update to position the popper in the right place\n\n    this.update();\n    var eventsEnabled = this.options.eventsEnabled;\n\n    if (eventsEnabled) {\n      // setup event listeners, they will take care of update the position in specific situations\n      this.enableEventListeners();\n    }\n\n    this.state.eventsEnabled = eventsEnabled;\n  } // We can't use class properties because they don't get listed in the\n  // class prototype and break stuff like Sinon stubs\n\n\n  createClass(Popper, [{\n    key: 'update',\n    value: function update$$1() {\n      return update.call(this);\n    }\n  }, {\n    key: 'destroy',\n    value: function destroy$$1() {\n      return destroy.call(this);\n    }\n  }, {\n    key: 'enableEventListeners',\n    value: function enableEventListeners$$1() {\n      return enableEventListeners.call(this);\n    }\n  }, {\n    key: 'disableEventListeners',\n    value: function disableEventListeners$$1() {\n      return disableEventListeners.call(this);\n    }\n    /**\n     * Schedules an update. It will run on the next UI update available.\n     * @method scheduleUpdate\n     * @memberof Popper\n     */\n\n    /**\n     * Collection of utilities useful when writing custom modifiers.\n     * Starting from version 1.7, this method is available only if you\n     * include `popper-utils.js` before `popper.js`.\n     *\n     * **DEPRECATION**: This way to access PopperUtils is deprecated\n     * and will be removed in v2! Use the PopperUtils module directly instead.\n     * Due to the high instability of the methods contained in Utils, we can't\n     * guarantee them to follow semver. Use them at your own risk!\n     * @static\n     * @private\n     * @type {Object}\n     * @deprecated since version 1.8\n     * @member Utils\n     * @memberof Popper\n     */\n\n  }]);\n  return Popper;\n}();\n/**\n * The `referenceObject` is an object that provides an interface compatible with Popper.js\n * and lets you use it as replacement of a real DOM node.<br />\n * You can use this method to position a popper relatively to a set of coordinates\n * in case you don't have a DOM node to use as reference.\n *\n * ```\n * new Popper(referenceObject, popperNode);\n * ```\n *\n * NB: This feature isn't supported in Internet Explorer 10.\n * @name referenceObject\n * @property {Function} data.getBoundingClientRect\n * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.\n * @property {number} data.clientWidth\n * An ES6 getter that will return the width of the virtual reference element.\n * @property {number} data.clientHeight\n * An ES6 getter that will return the height of the virtual reference element.\n */\n\n\nPopper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;\nPopper.placements = placements;\nPopper.Defaults = Defaults;\n/* harmony default export */ __webpack_exports__[\"default\"] = (Popper);\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/popper.js/dist/esm/popper.js?");
-
-/***/ }),
-
-/***/ "./node_modules/strtime/dist/strtime.js":
-/*!**********************************************!*\
-  !*** ./node_modules/strtime/dist/strtime.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("// github.com/pineapplemachine/strtime-js\n// MIT license, Copyright (c) 2018 Sophie Kirschner (sophiek@pineapplemachine.com)\n// References:\n// https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rtref/strpti.htm\n// https://www.gnu.org/software/libc/manual/html_node/Formatting-Calendar-Time.html\n// https://www.gnu.org/software/libc/manual/html_node/Low_002dLevel-Time-String-Parsing.html\n// http://man7.org/linux/man-pages/man3/strptime.3.html\n// https://apidock.com/ruby/DateTime/strftime\n// http://strftime.org/\nfunction getFormatOptions(timezone, options) {\n  let useOptions;\n  let tz = undefined;\n\n  if (timezone === null || timezone === undefined || Number.isFinite(timezone) || typeof timezone === \"string\") {\n    tz = timezone;\n    useOptions = options || {};\n  } else if (timezone && !options) {\n    useOptions = timezone;\n    tz = useOptions.tz;\n  } else {\n    useOptions = {};\n  }\n\n  return {\n    tz: tz,\n    options: useOptions\n  };\n}\n\nfunction getDateTimeFormat(tz) {\n  return new Intl.DateTimeFormat(\"en-US\", {\n    hour12: false,\n    timeZone: tz,\n    year: \"numeric\",\n    month: \"2-digit\",\n    day: \"2-digit\",\n    hour: \"2-digit\",\n    minute: \"2-digit\",\n    second: \"2-digit\"\n  });\n}\n\nfunction parseDateTimeFormatString(string) {\n  const month = +string.slice(0, 2);\n  const day = +string.slice(3, 5);\n  const year = +string.slice(6, string.length - 10);\n  const hour = +string.slice(string.length - 8, string.length - 6);\n  const minute = +string.slice(string.length - 5, string.length - 3);\n  const second = +string.slice(string.length - 2, string.length);\n  const utcDate = new Date();\n  utcDate.setUTCFullYear(year);\n  utcDate.setUTCMonth(month - 1);\n  utcDate.setUTCDate(day);\n  utcDate.setUTCHours(hour);\n  utcDate.setUTCMinutes(minute);\n  utcDate.setUTCSeconds(second);\n  return utcDate;\n}\n\nfunction getTimezoneOffsetAtIANADate(tz, date) {\n  // Get the offset as though the input date was UTC\n  const format = getDateTimeFormat(tz);\n  const timestamp = format.format(date);\n  const parsedDate = parseDateTimeFormatString(timestamp);\n  parsedDate.setUTCMilliseconds(date.getUTCMilliseconds());\n  const probableOffset = (parsedDate.getTime() - date.getTime()) / 60000; // If this offset is correct (and it *probably* is) then this is\n  // the UTC date corresponding to the date input\n\n  const probableDate = new Date(date);\n  probableDate.setUTCMinutes(probableDate.getUTCMinutes() - probableOffset); // See whether reversing the operation gives the input date\n\n  const checkTimestamp = format.format(probableDate);\n  const checkedDate = parseDateTimeFormatString(checkTimestamp);\n  checkedDate.setUTCMilliseconds(date.getUTCMilliseconds()); // This offset will be 0 if probableOffset was correct, otherwise it\n  // will be the number of minutes that the offset was off by.\n\n  const checkOffset = (checkedDate.getTime() - date.getTime()) / 60000;\n  return probableOffset + checkOffset;\n}\n\nfunction getTimezoneOffsetAtUTCDate(tz, date) {\n  const format = getDateTimeFormat(tz);\n  const timestamp = format.format(date);\n  const parsedDate = parseDateTimeFormatString(timestamp);\n  parsedDate.setUTCMilliseconds(date.getUTCMilliseconds());\n  const offset = parsedDate.getTime() - date.getTime();\n  return offset / 60000; // millseconds => minutes\n}\n\nfunction getTimezoneOffsetMinutes(date, tz) {\n  if (tz === null || tz === undefined) {\n    return 0;\n  } else if (tz >= -16 && tz <= +16) {\n    return Math.floor(60 * tz);\n  } else if (Number.isFinite(tz)) {\n    return Math.floor(tz);\n  } else if (tz === \"local\") {\n    return -(date || new Date()).getTimezoneOffset();\n  } else {\n    const tzString = String(tz);\n\n    if (tzString.startsWith(\"Etc/GMT\")) {\n      const offset = +tzString.slice(7);\n      if (Number.isInteger(offset)) return 60 * -offset;\n    } else if (typeof Intl !== \"undefined\" && tzString.indexOf(\"/\") >= 0) {\n      return {\n        formatOffset: date => getTimezoneOffsetAtUTCDate(tz, date),\n        parseOffset: date => getTimezoneOffsetAtIANADate(tz, date)\n      };\n    } else {\n      const tzUpper = String(tz).toUpperCase();\n\n      if (tzUpper in defaultTimezoneNames) {\n        const offset = Math.floor(60 * defaultTimezoneNames[tzUpper]);\n        if (Number.isFinite(offset)) return offset;\n      }\n    }\n  }\n\n  throw new Error(`Unrecognized timezone option \"${tz}\".`);\n}\n\nfunction strftime(date, format, timezone, options) {\n  if (Number.isFinite(date)) {\n    // Accept unix timestamps (milliseconds since epoch)\n    date = new Date(date);\n  } else if (!date) {\n    throw new Error(\"No date input was provided.\");\n  } else if (typeof date.toDate === \"function\") {\n    // Support date objects from https://www.npmjs.com/package/moment\n    // Support date objects from https://www.npmjs.com/package/dayjs\n    date = date.toDate();\n  } else if (typeof date.toJSDate === \"function\") {\n    // Support date objects from https://www.npmjs.com/package/luxon\n    date = date.toJSDate();\n  }\n\n  if (!(date instanceof Date)) {\n    throw new Error(\"Failed to get Date instance from date input.\");\n  }\n\n  if (!Number.isFinite(date.getTime())) {\n    throw new Error(\"Can't format an invalid date.\");\n  }\n\n  const tokens = TimestampParser.parseFormatString(format);\n  const useOptions = getFormatOptions(timezone, options);\n  const timezoneOffsetMinutes = getTimezoneOffsetMinutes(date, useOptions.tz);\n  const tzDate = new Date(date);\n\n  if (Number.isFinite(timezoneOffsetMinutes)) {\n    tzDate.setUTCMinutes(date.getUTCMinutes() + timezoneOffsetMinutes);\n  }\n\n  let output = \"\";\n\n  for (let token of tokens) {\n    if (token instanceof Directive) {\n      output += token.write(tzDate, \"\", useOptions.options, timezoneOffsetMinutes);\n    } else if (token instanceof Directive.Token) {\n      output += token.write(tzDate, useOptions.options, timezoneOffsetMinutes);\n    } else {\n      output += token;\n    }\n  }\n\n  return output;\n}\n\nfunction strptime(timestamp, format, timezone, options) {\n  const useOptions = getFormatOptions(timezone, options);\n  const parser = new TimestampParser(timestamp, format);\n  const timezoneOffsetMinutes = getTimezoneOffsetMinutes(undefined, useOptions.tz);\n\n  if (timezoneOffsetMinutes !== undefined) {\n    parser.timezoneOffsetMinutes = timezoneOffsetMinutes;\n  }\n\n  if (useOptions.options) {\n    for (let key in useOptions.options) {\n      parser[key] = useOptions.options[key];\n    }\n  }\n\n  const result = parser.parse();\n  return result.getDate();\n}\n\nconst strtime = {\n  strftime: strftime,\n  strptime: strptime\n};\nconst english = {\n  eraNames: [\"CE\", \"BCE\"],\n  meridiemNames: [\"AM\", \"PM\"],\n  shortWeekdayNames: [\"Sun\", \"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\"],\n  longWeekdayNames: [\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\"],\n  shortMonthNames: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\", \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\"],\n  longMonthNames: [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"],\n  ordinalTransform: function (number) {\n    const digit = Math.floor(number % 10);\n    if (number > 3 && number <= 20) return `${number}th`;\n    if (digit === 1) return `${number}st`;else if (digit === 2) return `${number}nd`;else if (digit === 3) return `${number}rd`;else return `${number}th`;\n  }\n};\n\nfunction leftPad(char, length, text) {\n  let string = String(text);\n\n  while (string.length < length) {\n    string = char + string;\n  }\n\n  return string;\n}\n\nfunction writeTimezoneOffset(offsetMinutes, modifier) {\n  const absOffset = Math.abs(offsetMinutes);\n  const sign = offsetMinutes >= 0 ? \"+\" : \"-\";\n  const hour = leftPad(\"0\", 2, Math.floor(absOffset / 60));\n  const minute = leftPad(\"0\", 2, absOffset % 60);\n\n  if (modifier === \"::\") {\n    return sign + hour + \":\" + minute + \":00\";\n  } else if (modifier === \":\") {\n    return sign + hour + \":\" + minute;\n  } else {\n    return sign + hour + minute;\n  }\n} // Get the day of the week given an input Date.\n// Returns 0 for Sunday, 1 for Monday, etc.\n// https://www.quora.com/How-does-Tomohiko-Sakamotos-Algorithm-work/answer/Raziman-T-V?srid=u2HNX\n\n\nfunction getDayOfWeek(date) {\n  const offsets = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];\n  let year = date.getUTCFullYear();\n  let month = date.getUTCMonth();\n  let day = date.getUTCDate();\n\n  if (month < 2) {\n    year--;\n  }\n\n  return (offsets[month] + year + day + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400)) % 7;\n} // Get the day of the year as a number (1-366)\n\n\nfunction getDayOfYear(date) {\n  const lengths = monthLengths.forYear(date.getUTCFullYear());\n  const months = lengths.slice(0, date.getUTCMonth());\n  return date.getUTCDate() + (months.length && months.reduce((a, b) => a + b) || 0);\n} // Get the week of the year (starting with Sunday) (0-53)\n\n\nfunction getWeekOfYearFromSunday(date) {\n  const dayOfYear = getDayOfYear(date);\n  const firstDayOfWeek = getFirstWeekdayInYear(date.getUTCFullYear());\n  return Math.floor((dayOfYear + (firstDayOfWeek || 7) - 1) / 7);\n} // Get the week of the year (starting with Monday) (0-53)\n\n\nfunction getWeekOfYearFromMonday(date) {\n  const dayOfYear = getDayOfYear(date);\n  const dayOfWeek = getDayOfWeek(date);\n  const firstDayOfWeek = getFirstWeekdayInYear(date.getUTCFullYear());\n  const sundayWeek = Math.floor((dayOfYear + (firstDayOfWeek || 7) - 1) / 7);\n  return sundayWeek - (dayOfWeek === 0 ? 1 : 0) + (firstDayOfWeek === 1 ? 1 : 0);\n}\n\nfunction getISOWeeksInYear(year) {\n  const priorYear = year - 1;\n  const a = (year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400)) % 7;\n  const b = (priorYear + Math.floor(priorYear / 4) - Math.floor(priorYear / 100) + Math.floor(priorYear / 400)) % 7;\n  return a === 4 || b === 3 ? 53 : 52;\n} // Get the ISO week of the year\n// https://en.wikipedia.org/wiki/ISO_week_date\n// https://en.wikipedia.org/wiki/ISO_8601#Week_dates\n\n\nfunction getISOWeekOfYear(date) {\n  const year = date.getUTCFullYear();\n  const dayOfYear = getDayOfYear(date);\n  const dayOfWeek = getDayOfWeek(date);\n  const weekNumber = Math.floor((10 + dayOfYear - (dayOfWeek || 7)) / 7);\n\n  if (weekNumber < 1) {\n    return getISOWeeksInYear(year - 1);\n  } else if (weekNumber > getISOWeeksInYear(year)) {\n    return 1;\n  } else {\n    return weekNumber;\n  }\n} // https://en.wikipedia.org/wiki/ISO_week_date\n\n\nfunction getISOWeekDateYear(date) {\n  const year = date.getUTCFullYear();\n  const dayOfYear = getDayOfYear(date);\n  const dayOfWeek = getDayOfWeek(date);\n  const weekNumber = Math.floor((10 + dayOfYear - (dayOfWeek || 7)) / 7);\n\n  if (weekNumber < 1) {\n    return year - 1;\n  } else if (weekNumber > getISOWeeksInYear(year)) {\n    return year + 1;\n  } else {\n    return year;\n  }\n}\n\nclass Directive {\n  constructor(options) {\n    // List of possible names for this directive\n    this.names = options.names; // Pad numbers to this length (normally)\n\n    this.padLength = options.padLength; // A likely (but not strict) length to be used when resolving\n    // ambiguous parsing inputs\n\n    this.likelyLength = options.likelyLength; // Indicates that this directive uses text (as opposed to numbers)\n\n    this.text = options.text; // The minimum permitted numeric value for a directive\n\n    this.minimum = options.minimum; // The maximum permitted numeric value for a directive\n\n    this.maximum = options.maximum; // Whether this directive represents a number that can be negative\n\n    this.canBeNegative = options.canBeNegative; // This directive should always be rewritten using a combination of\n    // other directives\n\n    this.rewrite = options.rewrite; // Function to parse content from a string\n\n    this.parseFunction = options.parse; // Function to write content as a string, given a date to format\n\n    this.writeFunction = options.write; // Function to store a parsed numeric value\n\n    this.storeFunction = options.store;\n  }\n\n  static getByName(name) {\n    for (let directive of Directive.list) {\n      if (directive.names.indexOf(name) >= 0) {\n        return directive;\n      }\n    }\n\n    return undefined;\n  }\n\n  isOrdinal() {\n    return false;\n  }\n\n  getCanBeNegative() {\n    return this.canBeNegative;\n  }\n\n  getLikelyLength() {\n    return this.likelyLength;\n  }\n\n  getRewriteParsed(parseFormatString) {\n    if (!this.rewriteParsedValue) {\n      this.rewriteParsedValue = parseFormatString(this.rewrite);\n\n      for (let token of this.rewriteParsedValue) {\n        token.expandedFrom = this;\n      }\n    }\n\n    return this.rewriteParsedValue;\n  }\n\n  hasParseFunction() {\n    return !!this.parseFunction;\n  }\n\n  hasStoreFunction() {\n    return !!this.storeFunction;\n  }\n\n  parse(parser) {\n    return this.parseFunction.call(parser);\n  }\n\n  store(parser, number) {\n    this.storeFunction.call(parser, number);\n  }\n\n  write(date, modifier, options, timezoneOffsetMinutes) {\n    return this.writeFunction(date, modifier, options, timezoneOffsetMinutes);\n  }\n\n  numberInBounds(value) {\n    return (!Number.isFinite(this.minimum) || value >= this.minimum) && (!Number.isFinite(this.maximum) || value <= this.maximum);\n  }\n\n  getBoundsString() {\n    if (Number.isFinite(this.minimum) && Number.isFinite(this.maximum)) {\n      return `[${this.minimum}, ${this.maximum}]`;\n    } else if (Number.isFinite(this.minimum)) {\n      return `[${this.minimum}, ...]`;\n    } else if (Number.isFinite(this.maximum)) {\n      return `[..., ${this.maximum}]`;\n    } else {\n      return undefined;\n    }\n  }\n\n  toString() {\n    return \"%\" + this.names[0];\n  }\n\n}\n\nDirective.Token = class DirectiveToken {\n  constructor(modifier, directive) {\n    this.modifier = modifier;\n    this.directive = directive;\n    this.expandedFrom = undefined;\n  }\n\n  isOrdinal() {\n    return this.modifier === \":\";\n  }\n\n  getCanBeNegative() {\n    return this.directive.canBeNegative;\n  }\n\n  getLikelyLength() {\n    return this.directive.likelyLength;\n  }\n\n  hasParseFunction() {\n    return this.directive.hasParseFunction();\n  }\n\n  hasStoreFunction() {\n    return this.directive.hasStoreFunction();\n  }\n\n  parse(parser) {\n    return this.directive.parseFunction.call(parser, this.modifier);\n  }\n\n  store(parser, number) {\n    this.directive.storeFunction.call(parser, number);\n  }\n\n  write(date, options, timezoneOffsetMinutes) {\n    const result = this.directive.write(date, this.modifier, options, timezoneOffsetMinutes);\n\n    if (this.modifier === \"^\") {\n      const resultString = String(result);\n      if (typeof result === \"number\") return resultString;\n      const upper = resultString.toUpperCase();\n      return upper !== resultString ? upper : resultString.toLowerCase();\n    } else if (this.modifier === \"_\" && this.directive.padLength) {\n      return leftPad(\" \", this.directive.padLength, result);\n    } else if (this.modifier === \"_\" && this.directive.text) {\n      return String(result).toLowerCase();\n    } else if (this.modifier === \"-\" && this.directive.padLength) {\n      return String(result);\n    } else if (this.modifier === \":\" && !this.directive.text) {\n      const transform = options && options.ordinalTransform || english.ordinalTransform;\n      return transform(result);\n    } else if (!this.directive.text && this.directive.padLength) {\n      return result >= 0 ? leftPad(\"0\", this.directive.padLength, result) : `-${leftPad(\"0\", this.directive.padLength, -result)}`;\n    } else {\n      return String(result);\n    }\n  }\n\n  numberInBounds(value) {\n    return this.directive.numberInBounds(value);\n  }\n\n  getBoundsString() {\n    return this.directive.getBoundsString();\n  }\n\n  toString() {\n    return \"%\" + this.modifier + this.directive.names[0];\n  }\n\n};\nDirective.StringToken = class DirectiveStringToken {\n  constructor(string) {\n    this.string = string || \"\";\n    this.expandedFrom = undefined;\n  }\n\n  addCharacter(ch) {\n    this.string += ch;\n  }\n\n  toString() {\n    return this.string;\n  }\n\n};\nDirective.list = [// Abbreviated weekday name\nnew Directive({\n  names: [\"a\"],\n  text: true,\n  parse: function () {\n    this.dayOfWeek = this.parseWeekdayName(this);\n  },\n  write: function (date, modifier, options) {\n    const names = options && options.shortWeekdayNames || english.shortWeekdayNames;\n    return names[date.getUTCDay() % 7];\n  }\n}), // Long weekday name\nnew Directive({\n  names: [\"A\"],\n  text: true,\n  parse: function () {\n    this.dayOfWeek = this.parseWeekdayName(this);\n  },\n  write: function (date, modifier, options) {\n    const names = options && options.longWeekdayNames || english.longWeekdayNames;\n    return names[date.getUTCDay() % 7];\n  }\n}), // Abbreviated month name\nnew Directive({\n  names: [\"b\", \"h\"],\n  text: true,\n  parse: function () {\n    this.month = 1 + this.parseMonthName(this);\n  },\n  write: function (date, modifier, options) {\n    const names = options && options.shortMonthNames || english.shortMonthNames;\n    return names[date.getUTCMonth() % 12];\n  }\n}), // Long month name\nnew Directive({\n  names: [\"B\"],\n  text: true,\n  parse: function () {\n    this.month = 1 + this.parseMonthName(this);\n  },\n  write: function (date, modifier, options) {\n    const names = options && options.longMonthNames || english.longMonthNames;\n    return names[date.getUTCMonth() % 12];\n  }\n}), // Combination date and time, same as \"%a %b %e %H:%M:%S %Y\"\nnew Directive({\n  names: [\"c\"],\n  rewrite: \"%a %b %e %H:%M:%S %Y\"\n}), // Century (complements %y)\nnew Directive({\n  names: [\"C\"],\n  likelyLength: 2,\n  canBeNegative: true,\n  store: function (number) {\n    this.century = number;\n  },\n  write: function (date) {\n    return Math.floor(date.getUTCFullYear() / 100);\n  }\n}), // Two-digit day of month\nnew Directive({\n  names: [\"d\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 1,\n  maximum: 31,\n  store: function (number) {\n    this.dayOfMonth = number;\n  },\n  write: function (date) {\n    return date.getUTCDate();\n  }\n}), // Same as %m/%d/%y\nnew Directive({\n  names: [\"D\", \"x\"],\n  rewrite: \"%m/%d/%y\"\n}), // Day of month padded with spaces (same as \"%_d\")\nnew Directive({\n  names: [\"e\"],\n  likelyLength: 2,\n  minimum: 1,\n  maximum: 31,\n  store: function (number) {\n    this.dayOfMonth = number;\n  },\n  write: function (date, modifier) {\n    if (!modifier) {\n      return leftPad(\" \", 2, date.getUTCDate());\n    } else {\n      return date.getUTCDate();\n    }\n  }\n}), // Six-digit microsecond\nnew Directive({\n  names: [\"f\"],\n  padLength: 6,\n  likelyLength: 6,\n  minimum: 0,\n  maximum: 999999,\n  store: function (number) {\n    this.microsecond = number;\n  },\n  write: function (date) {\n    return 1000 * date.getUTCMilliseconds();\n  }\n}), // Same as %Y-%m-%d\nnew Directive({\n  names: [\"F\"],\n  rewrite: \"%Y-%m-%d\"\n}), // Two-digit ISO week year\nnew Directive({\n  names: [\"g\"],\n  likelyLength: 2,\n  store: function (number) {\n    this.isoTwoDigitYear = number;\n  },\n  write: function (date) {\n    return getISOWeekDateYear(date) % 100;\n  }\n}), // Full ISO week year\nnew Directive({\n  names: [\"G\"],\n  padLength: 4,\n  likelyLength: 4,\n  canBeNegative: true,\n  store: function (number) {\n    this.isoYear = number;\n  },\n  write: function (date) {\n    return getISOWeekDateYear(date);\n  }\n}), // Two-digit hour (0-23)\nnew Directive({\n  names: [\"H\", \"k\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 0,\n  maximum: 23,\n  store: function (number) {\n    this.hour = number;\n  },\n  write: function (date) {\n    return date.getUTCHours();\n  }\n}), // Two-digit hour (1-12) to be used in combination with %p (AM/PM)\nnew Directive({\n  names: [\"I\", \"l\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 1,\n  maximum: 12,\n  store: function (number) {\n    this.hour = number;\n  },\n  write: function (date) {\n    return date.getUTCHours() % 12 || 12;\n  }\n}), // Day in year\nnew Directive({\n  names: [\"j\"],\n  padLength: 3,\n  likelyLength: 3,\n  minimum: 1,\n  maximum: 366,\n  store: function (number) {\n    this.dayOfYear = number;\n  },\n  write: function (date) {\n    return getDayOfYear(date);\n  }\n}), // Three-digit millisecond\nnew Directive({\n  names: [\"L\"],\n  padLength: 3,\n  likelyLength: 3,\n  minimum: 0,\n  maximum: 999,\n  store: function (number) {\n    this.millisecond = number;\n  },\n  write: function (date) {\n    return date.getUTCMilliseconds();\n  }\n}), // Two-digit month number (1-12)\nnew Directive({\n  names: [\"m\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 1,\n  maximum: 12,\n  store: function (number) {\n    this.month = number;\n  },\n  write: function (date) {\n    return 1 + date.getUTCMonth();\n  }\n}), // Two-digit minute (0-59)\nnew Directive({\n  names: [\"M\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 0,\n  maximum: 59,\n  store: function (number) {\n    this.minute = number;\n  },\n  write: function (date) {\n    return date.getUTCMinutes();\n  }\n}), // AM or PM (uppercase)\nnew Directive({\n  names: [\"p\"],\n  text: true,\n  parse: function () {\n    this.meridiem = this.parseMeridiemName();\n  },\n  write: function (date, modifier, options) {\n    const index = date.getUTCHours() < 12 ? 0 : 1;\n    return (options && options.meridiemNames || english.meridiemNames)[index];\n  }\n}), // AM or PM (lowercase)\nnew Directive({\n  names: [\"P\"],\n  likelyLength: 2,\n  text: true,\n  parse: function () {\n    this.meridiem = this.parseMeridiemName();\n  },\n  write: function (date, modifier, options) {\n    const index = date.getUTCHours() < 12 ? 0 : 1;\n    return (options && options.meridiemNames || english.meridiemNames)[index].toLowerCase();\n  }\n}), // Number of mircoseconds since epoch\nnew Directive({\n  names: [\"Q\"],\n  canBeNegative: true,\n  store: function (number) {\n    this.microsecondsSinceEpoch = number;\n  },\n  write: function (date) {\n    return Math.floor(date.getTime() * 1000);\n  }\n}), // Same as \"%I:%M:%S %p\"\nnew Directive({\n  names: [\"r\"],\n  rewrite: \"%I:%M:%S %p\"\n}), // Same as \"%H:%M\"\nnew Directive({\n  names: [\"R\"],\n  rewrite: \"%H:%M\"\n}), // Number of seconds since epoch\nnew Directive({\n  names: [\"s\"],\n  canBeNegative: true,\n  store: function (number) {\n    this.secondsSinceEpoch = number;\n  },\n  write: function (date) {\n    return Math.floor(date.getTime() / 1000);\n  }\n}), // Two-digit second (0-61)\nnew Directive({\n  names: [\"S\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 0,\n  maximum: 61,\n  store: function (number) {\n    this.second = number;\n  },\n  write: function (date) {\n    return Math.min(59, date.getUTCSeconds());\n  }\n}), // Same as %H:%M:%S\nnew Directive({\n  names: [\"T\", \"X\"],\n  rewrite: \"%H:%M:%S\"\n}), // Weekday number, starting with Monday (1-7)\nnew Directive({\n  names: [\"u\"],\n  likelyLength: 1,\n  minimum: 1,\n  maximum: 7,\n  store: function (number) {\n    this.dayOfWeek = number % 7;\n  },\n  write: function (date) {\n    return getDayOfWeek(date) || 7;\n  }\n}), // Week of the year, starting with Sunday (0-53)\nnew Directive({\n  names: [\"U\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 0,\n  maximum: 53,\n  store: function (number) {\n    this.weekOfYearFromSunday = number;\n  },\n  write: function (date) {\n    return getWeekOfYearFromSunday(date);\n  }\n}), // VMS date, same as \"%e-%b-%Y\"\nnew Directive({\n  names: [\"v\"],\n  rewrite: \"%e-%b-%Y\"\n}), // ISO 8601:1988 week number (1-53), complements %g/%G\nnew Directive({\n  names: [\"V\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 1,\n  maximum: 53,\n  store: function (number) {\n    this.isoWeekOfYear = number;\n  },\n  write: function (date) {\n    return getISOWeekOfYear(date);\n  }\n}), // Weekday number, starting with Sunday (0-6)\nnew Directive({\n  names: [\"w\"],\n  likelyLength: 1,\n  minimum: 0,\n  maximum: 6,\n  store: function (number) {\n    this.dayOfWeek = number % 7;\n  },\n  write: function (date) {\n    return getDayOfWeek(date);\n  }\n}), // Week of the year, starting with Monday (0-53)\nnew Directive({\n  names: [\"W\"],\n  padLength: 2,\n  likelyLength: 2,\n  minimum: 0,\n  maximum: 53,\n  store: function (number) {\n    this.weekOfYearFromMonday = number;\n  },\n  write: function (date) {\n    return getWeekOfYearFromMonday(date);\n  }\n}), // Two-digit year\nnew Directive({\n  names: [\"y\"],\n  padLength: 2,\n  likelyLength: 2,\n  store: function (number) {\n    this.twoDigitYear = number;\n  },\n  write: function (date) {\n    return date.getUTCFullYear() % 100;\n  }\n}), // Full year (usually four-digit, but not strictly so)\nnew Directive({\n  names: [\"Y\"],\n  padLength: 4,\n  likelyLength: 4,\n  canBeNegative: true,\n  store: function (number) {\n    this.year = number;\n  },\n  write: function (date, modifier) {\n    const year = date.getUTCFullYear(); // Modifier \"^\" produces unsigned year, for combination with era \"%#\"\n\n    if (year <= 0 && modifier === \"^\") return 1 - year;else return year;\n  }\n}), // Timezone offset e.g. +0500 or -1200\nnew Directive({\n  names: [\"z\"],\n  text: true,\n  parse: function (modifier) {\n    this.timezoneOffsetMinutes = this.parseTimezoneOffset(modifier);\n  },\n  write: function (date, modifier, options, timezoneOffsetMinutes) {\n    const offset = Number.isFinite(timezoneOffsetMinutes) ? timezoneOffsetMinutes : -date.getTimezoneOffset();\n    return writeTimezoneOffset(offset, modifier);\n  }\n}), // Timezone offset or name e.g. UTC or GMT or EST or +0500 or -1200\nnew Directive({\n  names: [\"Z\"],\n  likelyLength: 5,\n  text: true,\n  parse: function (modifier) {\n    const tzList = this.getTimezoneNameList();\n    const index = this.parseIndexInList(tzList);\n\n    if (index !== undefined) {\n      this.timezoneOffsetMinutes = 60 * this.timezoneNames[tzList[index]];\n    } else {\n      this.timezoneOffsetMinutes = this.parseTimezoneOffset(modifier);\n    }\n  },\n  write: function (date, modifier, options, timezoneOffsetMinutes) {\n    const offset = Number.isFinite(timezoneOffsetMinutes) ? timezoneOffsetMinutes : -date.getTimezoneOffset();\n    if (offset === 0) return \"UTC\";else return writeTimezoneOffset(offset, modifier);\n  }\n}), // Same as \"%a %b %e %H:%M:%S %Z %Y\"\nnew Directive({\n  names: [\"+\"],\n  rewrite: \"%a %b %e %H:%M:%S %Z %Y\"\n}), // Era (BC/BCE)\nnew Directive({\n  names: [\"#\"],\n  text: true,\n  parse: function () {\n    this.era = this.parseEraName();\n  },\n  write: function (date, modifier, options) {\n    const index = date.getUTCFullYear() <= 0 ? 1 : 0;\n    return (options && options.eraNames || english.eraNames)[index];\n  }\n})]; // The assertion-error package was used as a basis for the TimestampParseError type\n// https://github.com/chaijs/assertion-error/blob/master/index.js\n// The constructor\n\nfunction TimestampParseError(reason, parser) {\n  Error.call(this);\n  this.reason = reason;\n  this.format = parser.format;\n  this.timestamp = parser.string;\n  this.token = parser.currentToken;\n  this.index = parser.index;\n  if (this.token && this.token.expandedFrom && this.index !== undefined) this.message = `Failed to parse token \"${this.token}\" ` + `(expanded from \"${this.token.expandedFrom}\") at position [${this.index}] ` + `in timestamp \"${this.timestamp}\" with format \"${this.format}\": ` + `${this.reason}`;else if (this.token && this.index !== undefined) this.message = `Failed to parse token \"${this.token}\" at position [${this.index}] ` + `in timestamp \"${this.timestamp}\" with format \"${this.format}\": ` + `${this.reason}`;else if (this.token) this.message = `Failed to parse token \"${this.token}\" ` + `in format \"${this.format}\": ${this.reason}`;else this.message = `Failed with format \"${this.format}\": ${this.reason}`; // https://nodejs.org/api/errors.html#errors_error_capturestacktrace_targetobject_constructoropt\n\n  if (Error.captureStackTrace) {\n    Error.captureStackTrace(this, this.constructor);\n  } else {\n    try {\n      throw new Error();\n    } catch (error) {\n      this.stack = error.stack;\n    }\n  }\n} // Prototype wrangling\n\n\nTimestampParseError.prototype = Object.create(Error.prototype);\nTimestampParseError.prototype.name = \"TimestampParseError\";\nTimestampParseError.prototype.constructor = TimestampParseError;\n\nfunction isDigit(ch) {\n  return ch === \"0\" || ch === \"1\" || ch === \"2\" || ch === \"3\" || ch === \"4\" || ch === \"5\" || ch === \"6\" || ch === \"7\" || ch === \"8\" || ch === \"9\";\n} // Matches GNU C strptime behavior\n// https://www.gnu.org/software/libc/manual/html_node/Low_002dLevel-Time-String-Parsing.html\n\n\nfunction getYearFromTwoDigits(year) {\n  return year + (year <= 68 ? 2000 : 1900);\n}\n\nfunction getMonthFromDayOfYear(year, dayOfYear) {\n  const months = monthLengths.forYear(year);\n  let days = 0;\n\n  for (let i = 0; i < months.length; i++) {\n    if (days >= dayOfYear) return i;\n    days += months[i];\n  }\n\n  return 12;\n}\n\nfunction getDayOfMonthFromDayOfYear(year, dayOfYear) {\n  const months = monthLengths.forYear(year);\n  let days = 0;\n\n  for (let i = 0; i < months.length; i++) {\n    if (dayOfYear - days <= months[i]) return dayOfYear - days;\n    days += months[i];\n  }\n\n  return dayOfYear - days;\n} // https://en.wikipedia.org/wiki/ISO_week_date\n// https://en.wikipedia.org/wiki/ISO_8601#Week_dates\n\n\nfunction getDateFromISOWeekDate(parser, isoYear, isoWeekOfYear, dayOfWeek) {\n  const firstDayOfWeek = getFirstWeekdayInYear(isoYear);\n  const weekdayOfJan4 = (3 + firstDayOfWeek) % 7 || 7;\n  const daysInYear = isLeapYear(isoYear) ? 366 : 365;\n  let dayOfYear = 7 * isoWeekOfYear + (dayOfWeek || 7) - weekdayOfJan4 - 3;\n\n  if (dayOfYear < 1) {\n    parser.year = isoYear - 1;\n    dayOfYear += daysInYear;\n  } else if (dayOfYear > daysInYear) {\n    parser.year = 1 + isoYear;\n    dayOfYear -= daysInYear;\n  } else {\n    parser.year = isoYear;\n  }\n\n  parser.month = getMonthFromDayOfYear(parser.year, dayOfYear);\n  parser.dayOfMonth = getDayOfMonthFromDayOfYear(parser.year, dayOfYear);\n}\n\nfunction getDateFromSundayWeekDate(parser, year, weekOfYear, dayOfWeek) {\n  const firstDayOfWeek = getFirstWeekdayInYear(year);\n  const dayOfYear = 1 + 7 * weekOfYear - (firstDayOfWeek || 7) + dayOfWeek;\n  parser.year = year;\n  parser.month = getMonthFromDayOfYear(year, dayOfYear);\n  parser.dayOfMonth = getDayOfMonthFromDayOfYear(year, dayOfYear);\n}\n\nfunction getDateFromMondayWeekDate(parser, year, weekOfYear, dayOfWeek) {\n  const firstDayOfWeek = getFirstWeekdayInYear(year);\n  const sundayDayOfYear = 1 + 7 * weekOfYear - (firstDayOfWeek || 7) + dayOfWeek;\n  const dayOfYear = sundayDayOfYear + ((dayOfWeek === 0 ? 7 : 0) - (firstDayOfWeek === 1 ? 7 : 0));\n  parser.year = year;\n  parser.month = getMonthFromDayOfYear(year, dayOfYear);\n  parser.dayOfMonth = getDayOfMonthFromDayOfYear(year, dayOfYear);\n}\n\nclass TimestampParser {\n  constructor(timestamp, format, tokens) {\n    // Parser state\n    this.index = 0;\n    this.string = String(timestamp);\n    this.format = String(format);\n    this.tokens = tokens || TimestampParser.parseFormatString(this.format);\n    this.forkLength = 0;\n    this.currentToken = undefined; // Parser settings\n\n    this.shortWeekdayNames = english.shortWeekdayNames;\n    this.longWeekdayNames = english.longWeekdayNames;\n    this.shortMonthNames = english.shortMonthNames;\n    this.longMonthNames = english.longMonthNames;\n    this.eraNames = english.eraNames;\n    this.meridiemNames = english.meridiemNames;\n    this.ordinalTransform = english.ordinalTransform;\n    this.timezoneNames = defaultTimezoneNames; // Storage values from parsing tokens\n\n    this.era = undefined;\n    this.century = undefined;\n    this.year = undefined;\n    this.twoDigitYear = undefined;\n    this.isoYear = undefined;\n    this.isoTwoDigitYear = undefined;\n    this.month = undefined;\n    this.isoWeekOfYear = undefined;\n    this.weekOfYearFromSunday = undefined;\n    this.weekOfYearFromMonday = undefined;\n    this.dayOfYear = undefined;\n    this.dayOfMonth = undefined;\n    this.dayOfWeek = undefined;\n    this.hour = undefined;\n    this.minute = undefined;\n    this.second = undefined;\n    this.millisecond = undefined;\n    this.microsecond = undefined;\n    this.meridiem = undefined;\n    this.timezoneOffsetMinutes = undefined;\n    this.secondsSinceEpoch = undefined;\n    this.millisecondsSinceEpoch = undefined;\n    this.microsecondsSinceEpoch = undefined;\n  }\n\n  getTimezoneOffsetOfDate(date) {\n    const offset = this.timezoneOffsetMinutes === undefined ? -date.getTimezoneOffset() : this.timezoneOffsetMinutes;\n    const offsetSign = offset >= 0 ? +1 : -1;\n    const absOffset = Math.abs(offset);\n    return {\n      hour: offsetSign * Math.floor(absOffset / 60),\n      minute: offsetSign * Math.floor(absOffset % 60),\n      totalMinutes: offset\n    };\n  }\n\n  getDate() {\n    if (this.microsecondsSinceEpoch === undefined) {\n      if (this.millisecondsSinceEpoch !== undefined) {\n        this.microsecondsSinceEpoch = 1000 * this.millisecondsSinceEpoch;\n      } else if (this.secondsSinceEpoch !== undefined) {\n        this.microsecondsSinceEpoch = 1000000 * this.secondsSinceEpoch;\n      }\n    }\n\n    if (this.microsecondsSinceEpoch !== undefined) {\n      const date = new Date(this.microsecondsSinceEpoch / 1000);\n      const offset = this.getTimezoneOffsetOfDate(date);\n      date.setUTCMinutes(date.getUTCMinutes() - offset.totalMinutes);\n      return date;\n    }\n\n    const date = new Date();\n\n    if (this.year === undefined && this.twoDigitYear !== undefined) {\n      if (this.century === undefined) {\n        this.year = getYearFromTwoDigits(this.twoDigitYear);\n      } else {\n        this.year = 100 * this.century + this.twoDigitYear;\n      }\n    } else if (this.isoYear === undefined && this.isoTwoDigitYear !== undefined) {\n      this.isoYear = getYearFromTwoDigits(this.isoTwoDigitYear);\n    } else if (this.year === undefined && this.century !== undefined) {\n      this.year = 100 * this.century;\n    }\n\n    if (this.era && this.year !== undefined) {\n      this.year = 1 - this.year;\n    }\n\n    if (this.hour !== undefined && this.meridiem !== undefined) {\n      this.hour = this.hour % 12 + (this.meridiem ? 12 : 0);\n    }\n\n    if (this.microsecond === undefined && this.millisecond !== undefined) {\n      this.microsecond = 1000 * this.millisecond;\n    }\n\n    if (this.isoYear !== undefined && this.isoWeekOfYear !== undefined && (this.month === undefined || this.dayOfMonth === undefined)) {\n      getDateFromISOWeekDate(this, this.isoYear, this.isoWeekOfYear, this.dayOfWeek || 0);\n    } else if (this.dayOfYear !== undefined) {\n      const year = this.year !== undefined ? this.year : date.getFullYear();\n\n      if (this.month === undefined) {\n        this.month = getMonthFromDayOfYear(year, this.dayOfYear);\n      }\n\n      if (this.dayOfMonth === undefined) {\n        this.dayOfMonth = getDayOfMonthFromDayOfYear(year, this.dayOfYear);\n      }\n    } else if (this.weekOfYearFromSunday !== undefined && (this.month === undefined || this.dayOfMonth === undefined)) {\n      const year = this.year !== undefined ? this.year : date.getFullYear();\n      getDateFromSundayWeekDate(this, year, this.weekOfYearFromSunday, this.dayOfWeek || 0);\n    } else if (this.weekOfYearFromMonday !== undefined && (this.month === undefined || this.dayOfMonth === undefined)) {\n      const year = this.year !== undefined ? this.year : date.getFullYear();\n      getDateFromMondayWeekDate(this, year, this.weekOfYearFromMonday, this.dayOfWeek || 0);\n    }\n\n    if (this.year !== undefined) {\n      date.setUTCFullYear(this.year);\n    }\n\n    if (this.month !== undefined) {\n      date.setUTCMonth(this.month - 1);\n    }\n\n    if (this.dayOfMonth !== undefined) {\n      date.setUTCDate(this.dayOfMonth);\n    }\n\n    const offset = this.getTimezoneOffsetOfDate(date);\n\n    if (offset.totalMinutes) {\n      this.hour = (this.hour || 0) - offset.hour;\n      this.minute = (this.minute || 0) - offset.minute;\n    }\n\n    date.setUTCHours(this.hour || 0);\n    date.setUTCMinutes(this.minute || 0);\n    date.setUTCSeconds(this.second || 0);\n    date.setUTCMilliseconds(this.microsecond ? this.microsecond / 1000 : 0);\n    return date;\n  }\n\n  copy() {\n    const parser = new TimestampParser(this.string, this.format, this.tokens);\n\n    for (let key in this) {\n      parser[key] = this[key];\n    }\n\n    return parser;\n  }\n\n  fork(length, startTokenIndex) {\n    const parser = this.copy();\n    parser.forkLength = length;\n    return parser.parse(startTokenIndex);\n  }\n\n  parse(startTokenIndex) {\n    for (let i = startTokenIndex || 0; i < this.tokens.length; i++) {\n      const token = this.tokens[i];\n      this.currentToken = token;\n      if (this.index >= this.string.length) throw new TimestampParseError(\"Timestamp is too short to match the whole format.\", this);\n\n      if (token instanceof Directive.StringToken) {\n        this.parseStringToken(token.string);\n      } else if (token.hasParseFunction()) {\n        token.parse(this);\n      } else if (token.hasStoreFunction() && !token.text) {\n        const next = this.tokens[1 + i];\n\n        if (next instanceof Directive.StringToken && isDigit(next.string[0]) || (next instanceof Directive || next instanceof Directive.Token) && !next.text) {\n          const result = this.parseAmbiguousNumber(token, i);\n          if (result) return result;\n        } else {\n          token.store(this, this.parseNumber(token));\n        }\n      } else {\n        throw new TimestampParseError(\"Invalid directive.\", this);\n      }\n    }\n\n    this.currentToken = undefined;\n    if (1 + this.index < this.string.length) throw new TimestampParseError(`Timestamp is too long for the given format. Text remaining: \"${this.string.slice(this.index)}\".`, this);\n    return this;\n  }\n\n  parseStringToken(token) {\n    for (let i = 0; i < token.length; i++) {\n      if (this.string[this.index] !== token[i]) {\n        throw new TimestampParseError(`String literal \"${token}\" not matched.`, this);\n      }\n\n      this.index++;\n    }\n  }\n\n  parseAmbiguousNumber(token, tokenIndex) {\n    if (this.forkLength === 0) {\n      const likelyLength = token.getLikelyLength();\n\n      if (likelyLength) {\n        try {\n          return this.fork(likelyLength, tokenIndex);\n        } catch (error) {\n          if (!(error instanceof TimestampParseError)) throw error;\n        }\n      }\n\n      let lastWholeError = undefined;\n\n      for (let i = 1; i < this.string.length - this.index; i++) {\n        if (i === token.likelyLength) continue;\n\n        try {\n          return this.fork(i, tokenIndex);\n        } catch (error) {\n          if (!(error instanceof TimestampParseError)) throw error;\n\n          if (error.message = \"Timestamp is too short to match the whole format.\") {\n            lastWholeError = error;\n          }\n        }\n      }\n\n      if (lastWholeError) {\n        throw lastWholeError;\n      } else {\n        throw new TimestampParseError(\"Failed to parse ambiguous number.\", this);\n      }\n    } else {\n      const number = this.parseNumber(token, this.forkLength);\n      token.store(this, number);\n      this.forkLength = 0;\n    }\n  }\n\n  parseNumber(directive, lengthLimit = Infinity) {\n    const negative = this.string[this.index] === \"-\";\n\n    if (negative && !directive.getCanBeNegative()) {\n      throw new TimestampParseError(\"Number cannot be negative.\", this);\n    } else if (negative) {\n      this.index++;\n    }\n\n    const start = this.index;\n\n    while (this.index < this.string.length && this.string[this.index] === \" \") {\n      this.index++;\n    }\n\n    while (this.index < this.string.length && this.index - start < lengthLimit && isDigit(this.string[this.index])) {\n      this.index++;\n    }\n\n    const value = +this.string.slice(start, this.index).trim();\n\n    if (!Number.isInteger(value)) {\n      throw new TimestampParseError(\"Failed to parse number.\", this);\n    } else if (!directive.numberInBounds(value)) {\n      throw new TimestampParseError(`Number [${value}] is out of bounds ${directive.getBoundsString()}.`, this);\n    }\n\n    const result = negative ? -value : value;\n\n    if (directive.isOrdinal()) {\n      const ordinal = this.ordinalTransform(result);\n      this.index += ordinal.length - (this.index - start);\n    }\n\n    return result;\n  }\n\n  parseMonthName() {\n    const names = this.shortMonthNames.slice();\n    names.push(...this.longMonthNames);\n    const index = this.parseIndexInList(names);\n    if (index === undefined) throw new TimestampParseError(\"Failed to parse month name.\", this);\n    return index % 12;\n  }\n\n  parseWeekdayName() {\n    const names = this.shortWeekdayNames.slice();\n    names.push(...this.longWeekdayNames);\n    const index = this.parseIndexInList(names);\n    if (index === undefined) throw new TimestampParseError(\"Failed to parse weekday name.\", this);\n    return index % 7;\n  }\n\n  parseMeridiemName() {\n    const index = this.parseIndexInList(this.meridiemNames);\n    if (index === undefined) throw new TimestampParseError(\"Failed to parse AM/PM.\", this);\n    return index % 2;\n  }\n\n  parseEraName() {\n    const index = this.parseIndexInList(this.eraNames);\n    if (index === undefined) throw new TimestampParseError(\"Failed to parse era name.\", this);\n    return index % 2;\n  }\n\n  parseIndexInList(list) {\n    const possible = list.slice();\n    let possibleCount = possible.length;\n    let matchIndex = undefined;\n    let matchLength = 0;\n\n    for (let i = 0; possibleCount && this.index + i < this.string.length; i++) {\n      const ch = this.string[this.index + i].toLowerCase();\n\n      for (let j = 0; j < possible.length; j++) {\n        const item = possible[j];\n        if (!item) continue;\n\n        if (i >= item.length || item[i].toLowerCase() !== ch) {\n          possible[j] = null;\n          possibleCount--;\n        } else if (1 + i === item.length) {\n          matchIndex = j;\n          matchLength = 1 + i;\n        }\n      }\n    }\n\n    if (matchIndex === undefined) {\n      return undefined;\n    } else {\n      this.index += matchLength;\n      return matchIndex;\n    }\n  }\n\n  getTimezoneNameList() {\n    if (!this.timezoneNameList) {\n      this.timezoneNameList = [];\n\n      for (let key in this.timezoneNames) {\n        this.timezoneNameList.push(key);\n      }\n    }\n\n    return this.timezoneNameList;\n  }\n\n  parseTimezoneOffset(modifier) {\n    const start = this.index;\n    const sign = this.string[this.index];\n    const hours = +this.string.slice(this.index + 1, this.index + 3);\n    let minutes;\n\n    if (this.string[this.index + 3] === \":\") {\n      minutes = +this.string.slice(this.index + 4, this.index + 6);\n      this.index += 6;\n    } else {\n      minutes = +this.string.slice(this.index + 3, this.index + 5);\n      this.index += 5;\n    }\n\n    if (!Number.isInteger(hours) || !Number.isInteger(minutes)) {\n      throw new TimestampParseError(`Failed to parse timezone offset from string ` + `\"${this.string.slice(start, this.index)}\".`, this);\n    }\n\n    const offset = minutes + 60 * hours;\n    if (sign === \"+\" || sign === \"±\") return +offset;else if (sign === \"-\") return -offset;else throw new TimestampParseError(`Unknown timezone offset sign \"${sign}\".`, this);\n  }\n\n}\n\nTimestampParser.parseFormatString = function parseFormatString(format) {\n  const tokens = [];\n  let directive = false;\n  let modifier = undefined;\n  const formatString = String(format);\n\n  if (!formatString) {\n    throw new TimestampParseError(`Empty format string.`, {\n      format: formatString\n    });\n  }\n\n  function addCharacter(ch) {\n    if (tokens.length && tokens[tokens.length - 1] instanceof Directive.StringToken) {\n      if (isDigit(ch) === isDigit(tokens[tokens.length - 1].string[0])) {\n        tokens[tokens.length - 1].addCharacter(ch);\n      } else {\n        tokens.push(new Directive.StringToken(ch));\n      }\n    } else {\n      tokens.push(new Directive.StringToken(ch));\n    }\n  }\n\n  for (let ch of formatString) {\n    if (directive && ch === \"%\") {\n      addCharacter(\"%\");\n      modifier = \"\";\n      directive = false;\n    } else if (directive && ch === \"n\") {\n      addCharacter(\"\\n\");\n      modifier = \"\";\n      directive = false;\n    } else if (directive && ch === \"t\") {\n      addCharacter(\"\\t\");\n      modifier = \"\";\n      directive = false;\n    } else if (directive && !modifier && (ch === \"-\" || ch === \"_\" || ch === \"^\" || ch === \":\")) {\n      modifier += ch;\n    } else if (directive) {\n      const dir = Directive.getByName(ch);\n      if (!dir) throw new TimestampParseError(`Unknown directive \"%${modifier}${ch}\".`, {\n        format: formatString\n      });else if (dir.rewrite) tokens.push(...dir.getRewriteParsed(TimestampParser.parseFormatString));else tokens.push(new Directive.Token(modifier, dir));\n      modifier = \"\";\n      directive = false;\n    } else if (ch === \"%\") {\n      modifier = \"\";\n      directive = true;\n    } else {\n      addCharacter(ch);\n    }\n  }\n\n  if (directive) throw new TimestampParseError(\"Found unterminated directive at the end of the format string.\", {\n    format: formatString\n  });\n\n  if (tokens.length && tokens[tokens.length - 1].string === \"Z\") {\n    tokens.zuluTimezone = true;\n  }\n\n  return tokens;\n};\n\nfunction isLeapYear(year) {\n  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);\n}\n\nconst monthLengths = {\n  common: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],\n  leap: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],\n  forYear: function (year) {\n    return isLeapYear(year) ? monthLengths.leap : monthLengths.common;\n  }\n}; // https://stackoverflow.com/a/478992/4099022\n\nfunction getFirstWeekdayInYear(year) {\n  const y = year - 1;\n  return (year * 365 + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400)) % 7;\n}\n\nconst defaultTimezoneNames = {\n  \"ACDT\": +10.5,\n  \"ACST\": +9.5,\n  \"ACT\": -5,\n  \"ACWST\": +8.75,\n  \"ADT\": -3,\n  \"AEDT\": +11,\n  \"AEST\": +10,\n  \"AFT\": +4.5,\n  \"AKDT\": -8,\n  \"AKST\": -9,\n  \"AMST\": -3,\n  \"AMT\": -4,\n  \"AMT\": +4,\n  \"ART\": -3,\n  \"AST\": +3,\n  \"AST\": -4,\n  \"AWST\": +8,\n  \"AZOST\": 0,\n  \"AZOT\": -1,\n  \"AZT\": +4,\n  \"BDT\": +8,\n  \"BIOT\": +6,\n  \"BIT\": -12,\n  \"BOT\": -4,\n  \"BRST\": -2,\n  \"BRT\": -3,\n  \"BST\": +6,\n  \"BST\": +11,\n  \"BST\": +1,\n  \"BTT\": +6,\n  \"CAT\": +2,\n  \"CCT\": +6.5,\n  \"CDT\": -5,\n  \"CDT\": -4,\n  \"CEST\": +2,\n  \"CET\": +1,\n  \"CHADT\": +13.75,\n  \"CHAST\": +12.75,\n  \"CHOT\": +8,\n  \"CHOST\": +9,\n  \"CHST\": +10,\n  \"CHUT\": +10,\n  \"CIST\": -8,\n  \"CIT\": +8,\n  \"CKT\": -10,\n  \"CLST\": -3,\n  \"CLT\": -4,\n  \"COST\": -4,\n  \"COT\": -5,\n  \"CST\": -6,\n  \"CST\": +8,\n  \"CST\": -5,\n  \"CT\": +8,\n  \"CVT\": -1,\n  \"CWST\": +8.75,\n  \"CXT\": +7,\n  \"DAVT\": +7,\n  \"DDUT\": +10,\n  \"DFT\": +1,\n  \"EASST\": -5,\n  \"EAST\": -6,\n  \"EAT\": +3,\n  \"ECT\": -4,\n  \"ECT\": -5,\n  \"EDT\": -4,\n  \"EEST\": +3,\n  \"EET\": +2,\n  \"EGST\": 0,\n  \"EGT\": -1,\n  \"EIT\": +9,\n  \"EST\": -5,\n  \"FET\": +3,\n  \"FJT\": +12,\n  \"FKST\": -3,\n  \"FKT\": -4,\n  \"FNT\": -2,\n  \"GALT\": -6,\n  \"GAMT\": -9,\n  \"GET\": +4,\n  \"GFT\": -3,\n  \"GILT\": +12,\n  \"GIT\": -9,\n  \"GMT\": 0,\n  \"GST\": -2,\n  \"GST\": +4,\n  \"GYT\": -4,\n  \"HDT\": -9,\n  \"HAEC\": +2,\n  \"HST\": -10,\n  \"HKT\": +8,\n  \"HMT\": +5,\n  \"HOVST\": +8,\n  \"HOVT\": +7,\n  \"ICT\": +7,\n  \"IDLW\": -12,\n  \"IDT\": +3,\n  \"IOT\": +3,\n  \"IRDT\": +4.5,\n  \"IRKT\": +8,\n  \"IRST\": +3.5,\n  \"IST\": +5.5,\n  \"IST\": +1,\n  \"IST\": +2,\n  \"JST\": +9,\n  \"KGT\": +6,\n  \"KOST\": +11,\n  \"KRAT\": +7,\n  \"KST\": +9,\n  \"LHST\": +10.5,\n  \"LHST\": +11,\n  \"LINT\": +14,\n  \"MAGT\": +12,\n  \"MART\": -9.5,\n  \"MAWT\": +5,\n  \"MDT\": -6,\n  \"MET\": +1,\n  \"MEST\": +2,\n  \"MHT\": +12,\n  \"MIST\": +11,\n  \"MIT\": -9.5,\n  \"MMT\": +6.5,\n  \"MSK\": +3,\n  \"MST\": +8,\n  \"MST\": -7,\n  \"MUT\": +4,\n  \"MVT\": +5,\n  \"MYT\": +8,\n  \"NCT\": +11,\n  \"NDT\": -2.5,\n  \"NFT\": +11,\n  \"NPT\": +5.75,\n  \"NST\": -3.5,\n  \"NT\": -3.5,\n  \"NUT\": -11,\n  \"NZDT\": +13,\n  \"NZST\": +12,\n  \"OMST\": +6,\n  \"ORAT\": +5,\n  \"PDT\": -7,\n  \"PET\": -5,\n  \"PETT\": +12,\n  \"PGT\": +10,\n  \"PHOT\": +13,\n  \"PHT\": +8,\n  \"PKT\": +5,\n  \"PMDT\": -2,\n  \"PMST\": -3,\n  \"PONT\": +11,\n  \"PST\": -8,\n  \"PST\": +8,\n  \"PYST\": -3,\n  \"PYT\": -4,\n  \"RET\": +4,\n  \"ROTT\": -3,\n  \"SAKT\": +11,\n  \"SAMT\": +4,\n  \"SAST\": +2,\n  \"SBT\": +11,\n  \"SCT\": +4,\n  \"SDT\": -10,\n  \"SGT\": +8,\n  \"SLST\": +5.5,\n  \"SRET\": +11,\n  \"SRT\": -3,\n  \"SST\": -11,\n  \"SST\": +8,\n  \"SYOT\": +3,\n  \"TAHT\": -10,\n  \"THA\": +7,\n  \"TFT\": +5,\n  \"TJT\": +5,\n  \"TKT\": +13,\n  \"TLT\": +9,\n  \"TMT\": +5,\n  \"TRT\": +3,\n  \"TOT\": +13,\n  \"TVT\": +12,\n  \"ULAST\": +9,\n  \"ULAT\": +8,\n  \"USZ\": +2,\n  \"UTC\": 0,\n  \"UYST\": -2,\n  \"UYT\": -3,\n  \"UZT\": +5,\n  \"VET\": -4,\n  \"VLAT\": +10,\n  \"VOLT\": +4,\n  \"VOST\": +6,\n  \"VUT\": +11,\n  \"WAKT\": +12,\n  \"WAST\": +2,\n  \"WAT\": +1,\n  \"WEST\": +1,\n  \"WET\": 0,\n  \"WIT\": +7,\n  \"WST\": +8,\n  \"YAKT\": +9,\n  \"YEKT\": +5,\n  \"Z\": 0\n};\n\nif (true) {\n  module.exports = strtime;\n} else {}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/strtime/dist/strtime.js?");
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/lib/addStyles.js":
-/*!****************************************************!*\
-  !*** ./node_modules/style-loader/lib/addStyles.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/*\n\tMIT License http://www.opensource.org/licenses/mit-license.php\n\tAuthor Tobias Koppers @sokra\n*/\n\nvar stylesInDom = {};\n\nvar\tmemoize = function (fn) {\n\tvar memo;\n\n\treturn function () {\n\t\tif (typeof memo === \"undefined\") memo = fn.apply(this, arguments);\n\t\treturn memo;\n\t};\n};\n\nvar isOldIE = memoize(function () {\n\t// Test for IE <= 9 as proposed by Browserhacks\n\t// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805\n\t// Tests for existence of standard globals is to allow style-loader\n\t// to operate correctly into non-standard environments\n\t// @see https://github.com/webpack-contrib/style-loader/issues/177\n\treturn window && document && document.all && !window.atob;\n});\n\nvar getTarget = function (target, parent) {\n  if (parent){\n    return parent.querySelector(target);\n  }\n  return document.querySelector(target);\n};\n\nvar getElement = (function (fn) {\n\tvar memo = {};\n\n\treturn function(target, parent) {\n                // If passing function in options, then use it for resolve \"head\" element.\n                // Useful for Shadow Root style i.e\n                // {\n                //   insertInto: function () { return document.querySelector(\"#foo\").shadowRoot }\n                // }\n                if (typeof target === 'function') {\n                        return target();\n                }\n                if (typeof memo[target] === \"undefined\") {\n\t\t\tvar styleTarget = getTarget.call(this, target, parent);\n\t\t\t// Special case to return head of iframe instead of iframe itself\n\t\t\tif (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {\n\t\t\t\ttry {\n\t\t\t\t\t// This will throw an exception if access to iframe is blocked\n\t\t\t\t\t// due to cross-origin restrictions\n\t\t\t\t\tstyleTarget = styleTarget.contentDocument.head;\n\t\t\t\t} catch(e) {\n\t\t\t\t\tstyleTarget = null;\n\t\t\t\t}\n\t\t\t}\n\t\t\tmemo[target] = styleTarget;\n\t\t}\n\t\treturn memo[target]\n\t};\n})();\n\nvar singleton = null;\nvar\tsingletonCounter = 0;\nvar\tstylesInsertedAtTop = [];\n\nvar\tfixUrls = __webpack_require__(/*! ./urls */ \"./node_modules/style-loader/lib/urls.js\");\n\nmodule.exports = function(list, options) {\n\tif (typeof DEBUG !== \"undefined\" && DEBUG) {\n\t\tif (typeof document !== \"object\") throw new Error(\"The style-loader cannot be used in a non-browser environment\");\n\t}\n\n\toptions = options || {};\n\n\toptions.attrs = typeof options.attrs === \"object\" ? options.attrs : {};\n\n\t// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>\n\t// tags it will allow on a page\n\tif (!options.singleton && typeof options.singleton !== \"boolean\") options.singleton = isOldIE();\n\n\t// By default, add <style> tags to the <head> element\n        if (!options.insertInto) options.insertInto = \"head\";\n\n\t// By default, add <style> tags to the bottom of the target\n\tif (!options.insertAt) options.insertAt = \"bottom\";\n\n\tvar styles = listToStyles(list, options);\n\n\taddStylesToDom(styles, options);\n\n\treturn function update (newList) {\n\t\tvar mayRemove = [];\n\n\t\tfor (var i = 0; i < styles.length; i++) {\n\t\t\tvar item = styles[i];\n\t\t\tvar domStyle = stylesInDom[item.id];\n\n\t\t\tdomStyle.refs--;\n\t\t\tmayRemove.push(domStyle);\n\t\t}\n\n\t\tif(newList) {\n\t\t\tvar newStyles = listToStyles(newList, options);\n\t\t\taddStylesToDom(newStyles, options);\n\t\t}\n\n\t\tfor (var i = 0; i < mayRemove.length; i++) {\n\t\t\tvar domStyle = mayRemove[i];\n\n\t\t\tif(domStyle.refs === 0) {\n\t\t\t\tfor (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();\n\n\t\t\t\tdelete stylesInDom[domStyle.id];\n\t\t\t}\n\t\t}\n\t};\n};\n\nfunction addStylesToDom (styles, options) {\n\tfor (var i = 0; i < styles.length; i++) {\n\t\tvar item = styles[i];\n\t\tvar domStyle = stylesInDom[item.id];\n\n\t\tif(domStyle) {\n\t\t\tdomStyle.refs++;\n\n\t\t\tfor(var j = 0; j < domStyle.parts.length; j++) {\n\t\t\t\tdomStyle.parts[j](item.parts[j]);\n\t\t\t}\n\n\t\t\tfor(; j < item.parts.length; j++) {\n\t\t\t\tdomStyle.parts.push(addStyle(item.parts[j], options));\n\t\t\t}\n\t\t} else {\n\t\t\tvar parts = [];\n\n\t\t\tfor(var j = 0; j < item.parts.length; j++) {\n\t\t\t\tparts.push(addStyle(item.parts[j], options));\n\t\t\t}\n\n\t\t\tstylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};\n\t\t}\n\t}\n}\n\nfunction listToStyles (list, options) {\n\tvar styles = [];\n\tvar newStyles = {};\n\n\tfor (var i = 0; i < list.length; i++) {\n\t\tvar item = list[i];\n\t\tvar id = options.base ? item[0] + options.base : item[0];\n\t\tvar css = item[1];\n\t\tvar media = item[2];\n\t\tvar sourceMap = item[3];\n\t\tvar part = {css: css, media: media, sourceMap: sourceMap};\n\n\t\tif(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});\n\t\telse newStyles[id].parts.push(part);\n\t}\n\n\treturn styles;\n}\n\nfunction insertStyleElement (options, style) {\n\tvar target = getElement(options.insertInto)\n\n\tif (!target) {\n\t\tthrow new Error(\"Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.\");\n\t}\n\n\tvar lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];\n\n\tif (options.insertAt === \"top\") {\n\t\tif (!lastStyleElementInsertedAtTop) {\n\t\t\ttarget.insertBefore(style, target.firstChild);\n\t\t} else if (lastStyleElementInsertedAtTop.nextSibling) {\n\t\t\ttarget.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);\n\t\t} else {\n\t\t\ttarget.appendChild(style);\n\t\t}\n\t\tstylesInsertedAtTop.push(style);\n\t} else if (options.insertAt === \"bottom\") {\n\t\ttarget.appendChild(style);\n\t} else if (typeof options.insertAt === \"object\" && options.insertAt.before) {\n\t\tvar nextSibling = getElement(options.insertAt.before, target);\n\t\ttarget.insertBefore(style, nextSibling);\n\t} else {\n\t\tthrow new Error(\"[Style Loader]\\n\\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\\n Must be 'top', 'bottom', or Object.\\n (https://github.com/webpack-contrib/style-loader#insertat)\\n\");\n\t}\n}\n\nfunction removeStyleElement (style) {\n\tif (style.parentNode === null) return false;\n\tstyle.parentNode.removeChild(style);\n\n\tvar idx = stylesInsertedAtTop.indexOf(style);\n\tif(idx >= 0) {\n\t\tstylesInsertedAtTop.splice(idx, 1);\n\t}\n}\n\nfunction createStyleElement (options) {\n\tvar style = document.createElement(\"style\");\n\n\tif(options.attrs.type === undefined) {\n\t\toptions.attrs.type = \"text/css\";\n\t}\n\n\tif(options.attrs.nonce === undefined) {\n\t\tvar nonce = getNonce();\n\t\tif (nonce) {\n\t\t\toptions.attrs.nonce = nonce;\n\t\t}\n\t}\n\n\taddAttrs(style, options.attrs);\n\tinsertStyleElement(options, style);\n\n\treturn style;\n}\n\nfunction createLinkElement (options) {\n\tvar link = document.createElement(\"link\");\n\n\tif(options.attrs.type === undefined) {\n\t\toptions.attrs.type = \"text/css\";\n\t}\n\toptions.attrs.rel = \"stylesheet\";\n\n\taddAttrs(link, options.attrs);\n\tinsertStyleElement(options, link);\n\n\treturn link;\n}\n\nfunction addAttrs (el, attrs) {\n\tObject.keys(attrs).forEach(function (key) {\n\t\tel.setAttribute(key, attrs[key]);\n\t});\n}\n\nfunction getNonce() {\n\tif (false) {}\n\n\treturn __webpack_require__.nc;\n}\n\nfunction addStyle (obj, options) {\n\tvar style, update, remove, result;\n\n\t// If a transform function was defined, run it on the css\n\tif (options.transform && obj.css) {\n\t    result = typeof options.transform === 'function'\n\t\t ? options.transform(obj.css) \n\t\t : options.transform.default(obj.css);\n\n\t    if (result) {\n\t    \t// If transform returns a value, use that instead of the original css.\n\t    \t// This allows running runtime transformations on the css.\n\t    \tobj.css = result;\n\t    } else {\n\t    \t// If the transform function returns a falsy value, don't add this css.\n\t    \t// This allows conditional loading of css\n\t    \treturn function() {\n\t    \t\t// noop\n\t    \t};\n\t    }\n\t}\n\n\tif (options.singleton) {\n\t\tvar styleIndex = singletonCounter++;\n\n\t\tstyle = singleton || (singleton = createStyleElement(options));\n\n\t\tupdate = applyToSingletonTag.bind(null, style, styleIndex, false);\n\t\tremove = applyToSingletonTag.bind(null, style, styleIndex, true);\n\n\t} else if (\n\t\tobj.sourceMap &&\n\t\ttypeof URL === \"function\" &&\n\t\ttypeof URL.createObjectURL === \"function\" &&\n\t\ttypeof URL.revokeObjectURL === \"function\" &&\n\t\ttypeof Blob === \"function\" &&\n\t\ttypeof btoa === \"function\"\n\t) {\n\t\tstyle = createLinkElement(options);\n\t\tupdate = updateLink.bind(null, style, options);\n\t\tremove = function () {\n\t\t\tremoveStyleElement(style);\n\n\t\t\tif(style.href) URL.revokeObjectURL(style.href);\n\t\t};\n\t} else {\n\t\tstyle = createStyleElement(options);\n\t\tupdate = applyToTag.bind(null, style);\n\t\tremove = function () {\n\t\t\tremoveStyleElement(style);\n\t\t};\n\t}\n\n\tupdate(obj);\n\n\treturn function updateStyle (newObj) {\n\t\tif (newObj) {\n\t\t\tif (\n\t\t\t\tnewObj.css === obj.css &&\n\t\t\t\tnewObj.media === obj.media &&\n\t\t\t\tnewObj.sourceMap === obj.sourceMap\n\t\t\t) {\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\tupdate(obj = newObj);\n\t\t} else {\n\t\t\tremove();\n\t\t}\n\t};\n}\n\nvar replaceText = (function () {\n\tvar textStore = [];\n\n\treturn function (index, replacement) {\n\t\ttextStore[index] = replacement;\n\n\t\treturn textStore.filter(Boolean).join('\\n');\n\t};\n})();\n\nfunction applyToSingletonTag (style, index, remove, obj) {\n\tvar css = remove ? \"\" : obj.css;\n\n\tif (style.styleSheet) {\n\t\tstyle.styleSheet.cssText = replaceText(index, css);\n\t} else {\n\t\tvar cssNode = document.createTextNode(css);\n\t\tvar childNodes = style.childNodes;\n\n\t\tif (childNodes[index]) style.removeChild(childNodes[index]);\n\n\t\tif (childNodes.length) {\n\t\t\tstyle.insertBefore(cssNode, childNodes[index]);\n\t\t} else {\n\t\t\tstyle.appendChild(cssNode);\n\t\t}\n\t}\n}\n\nfunction applyToTag (style, obj) {\n\tvar css = obj.css;\n\tvar media = obj.media;\n\n\tif(media) {\n\t\tstyle.setAttribute(\"media\", media)\n\t}\n\n\tif(style.styleSheet) {\n\t\tstyle.styleSheet.cssText = css;\n\t} else {\n\t\twhile(style.firstChild) {\n\t\t\tstyle.removeChild(style.firstChild);\n\t\t}\n\n\t\tstyle.appendChild(document.createTextNode(css));\n\t}\n}\n\nfunction updateLink (link, options, obj) {\n\tvar css = obj.css;\n\tvar sourceMap = obj.sourceMap;\n\n\t/*\n\t\tIf convertToAbsoluteUrls isn't defined, but sourcemaps are enabled\n\t\tand there is no publicPath defined then lets turn convertToAbsoluteUrls\n\t\ton by default.  Otherwise default to the convertToAbsoluteUrls option\n\t\tdirectly\n\t*/\n\tvar autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;\n\n\tif (options.convertToAbsoluteUrls || autoFixUrls) {\n\t\tcss = fixUrls(css);\n\t}\n\n\tif (sourceMap) {\n\t\t// http://stackoverflow.com/a/26603875\n\t\tcss += \"\\n/*# sourceMappingURL=data:application/json;base64,\" + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + \" */\";\n\t}\n\n\tvar blob = new Blob([css], { type: \"text/css\" });\n\n\tvar oldSrc = link.href;\n\n\tlink.href = URL.createObjectURL(blob);\n\n\tif(oldSrc) URL.revokeObjectURL(oldSrc);\n}\n\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/style-loader/lib/addStyles.js?");
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/lib/urls.js":
-/*!***********************************************!*\
-  !*** ./node_modules/style-loader/lib/urls.js ***!
-  \***********************************************/
-/*! no static exports found */
+/* 10 */
 /***/ (function(module, exports) {
 
-eval("/**\n * When source maps are enabled, `style-loader` uses a link element with a data-uri to\n * embed the css on the page. This breaks all relative urls because now they are relative to a\n * bundle instead of the current page.\n *\n * One solution is to only use full urls, but that may be impossible.\n *\n * Instead, this function \"fixes\" the relative urls to be absolute according to the current page location.\n *\n * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.\n *\n */\nmodule.exports = function (css) {\n  // get current location\n  var location = typeof window !== \"undefined\" && window.location;\n\n  if (!location) {\n    throw new Error(\"fixUrls requires window.location\");\n  } // blank or null?\n\n\n  if (!css || typeof css !== \"string\") {\n    return css;\n  }\n\n  var baseUrl = location.protocol + \"//\" + location.host;\n  var currentDir = baseUrl + location.pathname.replace(/\\/[^\\/]*$/, \"/\"); // convert each url(...)\n\n  /*\n  This regular expression is just a way to recursively match brackets within\n  a string.\n  \t /url\\s*\\(  = Match on the word \"url\" with any whitespace after it and then a parens\n     (  = Start a capturing group\n       (?:  = Start a non-capturing group\n           [^)(]  = Match anything that isn't a parentheses\n           |  = OR\n           \\(  = Match a start parentheses\n               (?:  = Start another non-capturing groups\n                   [^)(]+  = Match anything that isn't a parentheses\n                   |  = OR\n                   \\(  = Match a start parentheses\n                       [^)(]*  = Match anything that isn't a parentheses\n                   \\)  = Match a end parentheses\n               )  = End Group\n               *\\) = Match anything and then a close parens\n           )  = Close non-capturing group\n           *  = Match anything\n        )  = Close capturing group\n   \\)  = Match a close parens\n  \t /gi  = Get all matches, not the first.  Be case insensitive.\n   */\n\n  var fixedCss = css.replace(/url\\s*\\(((?:[^)(]|\\((?:[^)(]+|\\([^)(]*\\))*\\))*)\\)/gi, function (fullMatch, origUrl) {\n    // strip quotes (if they exist)\n    var unquotedOrigUrl = origUrl.trim().replace(/^\"(.*)\"$/, function (o, $1) {\n      return $1;\n    }).replace(/^'(.*)'$/, function (o, $1) {\n      return $1;\n    }); // already a full url? no change\n\n    if (/^(#|data:|http:\\/\\/|https:\\/\\/|file:\\/\\/\\/|\\s*$)/i.test(unquotedOrigUrl)) {\n      return fullMatch;\n    } // convert the url to a full url\n\n\n    var newUrl;\n\n    if (unquotedOrigUrl.indexOf(\"//\") === 0) {\n      //TODO: should we add protocol?\n      newUrl = unquotedOrigUrl;\n    } else if (unquotedOrigUrl.indexOf(\"/\") === 0) {\n      // path should be relative to the base url\n      newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'\n    } else {\n      // path should be relative to current directory\n      newUrl = currentDir + unquotedOrigUrl.replace(/^\\.\\//, \"\"); // Strip leading './'\n    } // send back the fixed url(...)\n\n\n    return \"url(\" + JSON.stringify(newUrl) + \")\";\n  }); // send back the fixed css\n\n  return fixedCss;\n};\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/style-loader/lib/urls.js?");
+var g; // This works in non-strict mode
+
+g = function () {
+  return this;
+}();
+
+try {
+  // This works if eval is allowed (see CSP)
+  g = g || new Function("return this")();
+} catch (e) {
+  // This works if the window reference is available
+  if (typeof window === "object") g = window;
+} // g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+
+module.exports = g;
 
 /***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
+exports = module.exports = __webpack_require__(4)(false);
+// Imports
+exports.push([module.i, "@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);", ""]);
+
+// Module
+exports.push([module.i, "/********************************************************\n\n\t\t\t\t     loader\n\n********************************************************/\n@-webkit-keyframes BookingSyncCalendar__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes BookingSyncCalendar__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-webkit-keyframes BookingSyncCalendar__pulse {\n  50% {\n    background: white; } }\n\n@keyframes BookingSyncCalendar__pulse {\n  50% {\n    background: white; } }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__loading {\n  border-radius: 50%;\n  width: 24px;\n  height: 24px;\n  border: 0.25rem solid #cacaca;\n  border-top-color: #000;\n  -webkit-animation: BookingSyncCalendar__spin 1s infinite linear;\n  animation: BookingSyncCalendar__spin 1s infinite linear;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -12px;\n  margin-top: -12px; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__loadingLayer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.55);\n  right: 0;\n  z-index: 10; }\n\n.BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic {\n  position: absolute;\n  display: none;\n  max-width: 100%;\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\n  border: 1px solid #e0e0e0;\n  background: #fff;\n  margin: 0;\n  padding-top: .5rem;\n  font-family: inherit;\n  line-height: 1.5em;\n  z-index: 10; }\n  .BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic.BookingSyncCalendar__visible {\n    display: block; }\n  .BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic .BookingSyncCalendar__mCell {\n    margin-bottom: 1rem; }\n\n/********************************************************\n\n\t\t\t\t      colors\n\n********************************************************/\n.BookingSyncCalendar__calendar {\n  font: 1rem/1.4 \"Open Sans\", Helvetica, Arial, sans-serif;\n  position: relative;\n  margin: 0 -1rem 3rem;\n  padding-top: 0.5rem;\n  background: #ffffff; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__caption {\n    font-weight: 700;\n    margin-bottom: 1.3rem;\n    padding-top: 0.3rem;\n    text-align: center; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__monthsWrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__mCell {\n    font-size: 0.875rem;\n    margin: 0 1rem 2rem;\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 25%;\n    flex: 1 1 25%; }\n    @media (max-width: 767px) {\n      .BookingSyncCalendar__calendar .BookingSyncCalendar__mCell {\n        -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n        flex: 1 1 100%; } }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__month {\n    border-collapse: collapse;\n    padding: 0;\n    margin: 0;\n    width: 100%; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__tableHeader,\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__body {\n    margin: 0; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__th {\n    border-bottom: 1px solid #cbcbcb;\n    font-size: 0.85rem;\n    color: #aaaaaa;\n    height: 25px;\n    width: 30px;\n    text-align: center; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cell {\n    text-align: center;\n    padding: 0;\n    position: relative;\n    border: 1px solid #dedfe2;\n    vertical-align: middle;\n    color: #444444;\n    background-clip: padding-box;\n    overflow: hidden;\n    width: 30px; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cell:after {\n    content: '';\n    display: block;\n    margin-top: 100%; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cnt {\n    position: absolute;\n    top: 50%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n    line-height: 0; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__infoExtra,\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__info {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    font-size: 0.6875rem;\n    padding: 1px 3px;\n    text-align: right;\n    color: rgba(60, 60, 60, 0.5);\n    right: 0; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__infoExtra {\n    left: 0;\n    text-align: left;\n    right: auto; }\n\n.BookingSyncCalendar__focus {\n  border-color: #8acdf6; }\n\n/********************************************************\n\n\t\t\t\t  selections, start and ends\n\n\t\t\t\t  N.B. Edit at your own risk\n\t\t\t\t  one cell can have 10 states and lots of these combinations\n\n\t\t\t\t  enabled\n\n\t\t\t\t  disabled\n\t\t\t\t  morningDisabled\n\t\t\t\t  nightDisabled\n\n\t\t\t\t  highlighted\n\t\t\t\t  morningSelected\n\t\t\t\t  nightSelected\n\n\t\t\t\t  invalid\n\t\t\t\t  morningInvalid\n\t\t\t\t  nightInvalid\n\n\n********************************************************/\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selected {\n  color: inherit;\n  /* selected cell generic styles */ }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__reversed {\n  color: inherit;\n  /* selecting reversed (e.g. check-out first) */ }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__direct {\n  color: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectingReversed {\n  color: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectingDirect {\n  color: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__disabled,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__disabled:hover {\n  color: #bfbfbf;\n  cursor: default;\n  background-color: #f0f0f0; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__highlighted {\n  border-color: #bde3ff; }\n\n.BookingSyncCalendar__direct [data-enabled]:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedStart {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__highlighted:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedEnd {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2; }\n\n.BookingSyncCalendar__reversed [data-available-out]:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__highlighted:hover {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__selectedEnd,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__selectedEnd:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__nightDisabled,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__nightDisabled:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);\n  color: #444444; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__morningDisabled,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__morningDisabled:hover {\n  background: linear-gradient(to left top, transparent 50%, #f0f0f0 50%); }\n\n.BookingSyncCalendar__direct [data-enabled]:hover,\n.BookingSyncCalendar__reversed [data-available-out]:hover,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedStart,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedEnd,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__highlighted {\n  background-color: #8acdf6;\n  cursor: pointer; }\n\n.BookingSyncCalendar__direct [data-enabled]:hover,\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__reversed [data-available-out]:hover,\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__actionsEnabled .BookingSyncCalendar__invalid:not(.BookingSyncCalendar__selectedStart) {\n  background: #c0c0c0;\n  color: #ffffff;\n  border-color: #cacaca; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__invalid:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #c0c0c0 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2;\n  color: #444444; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__invalid.BookingSyncCalendar__selectedEnd,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__invalid:hover {\n  background: linear-gradient(to left top, transparent 50%, #c0c0c0 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2;\n  color: #444444; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid {\n  background-color: #c0c0c0;\n  border-bottom-color: #cacaca;\n  border-right-color: #cacaca; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__infoExtra {\n  cursor: default; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid.BookingSyncCalendar__disabled:hover {\n  background-color: #f0f0f0; }\n\n/********************************************************\n\n\t\t\t\t     buttons\n\n********************************************************/\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back {\n  cursor: pointer;\n  height: 23px;\n  width: 23px;\n  fill: #444444;\n  padding: 6px 10px;\n  border-radius: 1px;\n  top: .25rem;\n  left: 1rem;\n  z-index: 2;\n  position: absolute; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__forward svg,\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__back svg {\n    height: inherit;\n    width: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward {\n  right: 1rem;\n  left: auto; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:active,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:focus,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:active,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:focus {\n  outline: none; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:hover {\n  fill: #3895d9; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward[disabled],\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward[disabled]:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back[disabled],\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back[disabled]:hover {\n  opacity: 0.5;\n  cursor: default;\n  fill: #444444; }\n\n/********************************************************\n\n\t\t\t\t     mods\n\n********************************************************/\n/* chunky layout */\n.BookingSyncCalendar__chunky .BookingSyncCalendar__cnt {\n  left: 0;\n  top: .8rem;\n  text-align: right;\n  margin-right: .5rem;\n  font-size: 0.6875rem;\n  color: rgba(60, 60, 60, 0.5); }\n\n.BookingSyncCalendar__chunky .BookingSyncCalendar__info {\n  top: 39%;\n  text-align: center;\n  font-size: 0.75rem;\n  color: #444444; }\n\n.BookingSyncCalendar__chunky .BookingSyncCalendar__infoExtra {\n  text-align: center;\n  right: 0;\n  bottom: 3px; }\n\n.BookingSyncCalendar__chunky .BookingSyncCalendar__mCell {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 46%;\n  flex: 1 1 46%; }\n", ""]);
+
+// Exports
+exports.locals = {
+	"calendar": "BookingSyncCalendar__calendar",
+	"loading": "BookingSyncCalendar__loading",
+	"spin": "BookingSyncCalendar__spin",
+	"loadingLayer": "BookingSyncCalendar__loadingLayer",
+	"dropBasic": "BookingSyncCalendar__dropBasic",
+	"visible": "BookingSyncCalendar__visible",
+	"mCell": "BookingSyncCalendar__mCell",
+	"caption": "BookingSyncCalendar__caption",
+	"monthsWrapper": "BookingSyncCalendar__monthsWrapper",
+	"month": "BookingSyncCalendar__month",
+	"tableHeader": "BookingSyncCalendar__tableHeader",
+	"body": "BookingSyncCalendar__body",
+	"th": "BookingSyncCalendar__th",
+	"cell": "BookingSyncCalendar__cell",
+	"cnt": "BookingSyncCalendar__cnt",
+	"infoExtra": "BookingSyncCalendar__infoExtra",
+	"info": "BookingSyncCalendar__info",
+	"focus": "BookingSyncCalendar__focus",
+	"selected": "BookingSyncCalendar__selected",
+	"reversed": "BookingSyncCalendar__reversed",
+	"direct": "BookingSyncCalendar__direct",
+	"selectingReversed": "BookingSyncCalendar__selectingReversed",
+	"selectingDirect": "BookingSyncCalendar__selectingDirect",
+	"disabled": "BookingSyncCalendar__disabled",
+	"highlighted": "BookingSyncCalendar__highlighted",
+	"selectedStart": "BookingSyncCalendar__selectedStart",
+	"selectedEnd": "BookingSyncCalendar__selectedEnd",
+	"nightDisabled": "BookingSyncCalendar__nightDisabled",
+	"morningDisabled": "BookingSyncCalendar__morningDisabled",
+	"actionsEnabled": "BookingSyncCalendar__actionsEnabled",
+	"invalid": "BookingSyncCalendar__invalid",
+	"forward": "BookingSyncCalendar__forward",
+	"back": "BookingSyncCalendar__back",
+	"chunky": "BookingSyncCalendar__chunky",
+	"pulse": "BookingSyncCalendar__pulse"
+};
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports) {
 
-eval("var g; // This works in non-strict mode\n\ng = function () {\n  return this;\n}();\n\ntry {\n  // This works if eval is allowed (see CSP)\n  g = g || new Function(\"return this\")();\n} catch (e) {\n  // This works if the window reference is available\n  if (typeof window === \"object\") g = window;\n} // g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\n\nmodule.exports = g;\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/(webpack)/buildin/global.js?");
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  } // blank or null?
+
+
+  if (!css || typeof css !== "string") {
+    return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/"); // convert each url(...)
+
+  /*
+  This regular expression is just a way to recursively match brackets within
+  a string.
+  	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+     (  = Start a capturing group
+       (?:  = Start a non-capturing group
+           [^)(]  = Match anything that isn't a parentheses
+           |  = OR
+           \(  = Match a start parentheses
+               (?:  = Start another non-capturing groups
+                   [^)(]+  = Match anything that isn't a parentheses
+                   |  = OR
+                   \(  = Match a start parentheses
+                       [^)(]*  = Match anything that isn't a parentheses
+                   \)  = Match a end parentheses
+               )  = End Group
+               *\) = Match anything and then a close parens
+           )  = Close non-capturing group
+           *  = Match anything
+        )  = Close capturing group
+   \)  = Match a close parens
+  	 /gi  = Get all matches, not the first.  Be case insensitive.
+   */
+
+  var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function (fullMatch, origUrl) {
+    // strip quotes (if they exist)
+    var unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function (o, $1) {
+      return $1;
+    }).replace(/^'(.*)'$/, function (o, $1) {
+      return $1;
+    }); // already a full url? no change
+
+    if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+      return fullMatch;
+    } // convert the url to a full url
+
+
+    var newUrl;
+
+    if (unquotedOrigUrl.indexOf("//") === 0) {
+      //TODO: should we add protocol?
+      newUrl = unquotedOrigUrl;
+    } else if (unquotedOrigUrl.indexOf("/") === 0) {
+      // path should be relative to the base url
+      newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+    } else {
+      // path should be relative to current directory
+      newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+    } // send back the fixed url(...)
+
+
+    return "url(" + JSON.stringify(newUrl) + ")";
+  }); // send back the fixed css
+
+  return fixedCss;
+};
 
 /***/ }),
-
-/***/ "./node_modules/widget-utils/src/emitter.js":
-/*!**************************************************!*\
-  !*** ./node_modules/widget-utils/src/emitter.js ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Emitter; });\nclass Emitter {\n  on(event, listener) {\n    this.events = this.events || {};\n    this.events[event] = this.events[event] || [];\n    this.events[event].push(listener);\n    return this;\n  }\n\n  once(event, listener) {\n    const self = this;\n\n    function fn(...args) {\n      self.off(event, fn);\n      listener.apply(this, args);\n    }\n\n    fn.listener = listener;\n    this.on(event, fn);\n    return this;\n  }\n\n  off(event, listener) {\n    let listeners;\n\n    if (this.events && this.events[event]) {\n      listeners = this.events[event];\n      listeners.forEach((fn, i) => {\n        if (fn === listener || fn.listener === listener) {\n          listeners.splice(i, 1);\n        }\n      });\n\n      if (listeners.length === 0) {\n        delete this.events[event];\n      }\n    }\n\n    return this;\n  }\n\n  emit(event, ...args) {\n    let listeners;\n\n    if (this.events && this.events[event]) {\n      listeners = this.events[event];\n      listeners = listeners.slice(0);\n      listeners.forEach(fn => fn.apply(this, args));\n    }\n\n    return this;\n  }\n\n}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/widget-utils/src/emitter.js?");
-
-/***/ }),
-
-/***/ "./node_modules/widget-utils/src/index.js":
-/*!************************************************!*\
-  !*** ./node_modules/widget-utils/src/index.js ***!
-  \************************************************/
-/*! exports provided: toUnderscore, dashToCapital, underscoreToCapital, currencyFormatter, traverseObj, merge, pick, capitalizeObj, serialize, findByClassName, getClassName, setClassName, createElement, elementFromString, destroyElement, removeClass, addClass, hasClass, traverseToParentWithAttr, getParentAttribute, isInside, monthLength, ajax, validate, isObject, isArray, isFunction, isString, isNumeric, is, Emitter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toUnderscore\", function() { return toUnderscore; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dashToCapital\", function() { return dashToCapital; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"underscoreToCapital\", function() { return underscoreToCapital; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"currencyFormatter\", function() { return currencyFormatter; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"traverseObj\", function() { return traverseObj; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"merge\", function() { return merge; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"pick\", function() { return pick; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"capitalizeObj\", function() { return capitalizeObj; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"serialize\", function() { return serialize; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"findByClassName\", function() { return findByClassName; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getClassName\", function() { return getClassName; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setClassName\", function() { return setClassName; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createElement\", function() { return createElement; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"elementFromString\", function() { return elementFromString; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"destroyElement\", function() { return destroyElement; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeClass\", function() { return removeClass; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"addClass\", function() { return addClass; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"hasClass\", function() { return hasClass; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"traverseToParentWithAttr\", function() { return traverseToParentWithAttr; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getParentAttribute\", function() { return getParentAttribute; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isInside\", function() { return isInside; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"monthLength\", function() { return monthLength; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ajax\", function() { return ajax; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"validate\", function() { return validate; });\n/* harmony import */ var currency_symbol_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! currency-symbol-map */ \"./node_modules/currency-symbol-map/currency-symbol-map.js\");\n/* harmony import */ var currency_symbol_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(currency_symbol_map__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _typechecks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./typechecks */ \"./node_modules/widget-utils/src/typechecks.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"isObject\", function() { return _typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"isArray\", function() { return _typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isArray\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"isFunction\", function() { return _typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isFunction\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"isString\", function() { return _typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isString\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"isNumeric\", function() { return _typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isNumeric\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"is\", function() { return _typechecks__WEBPACK_IMPORTED_MODULE_1__[\"is\"]; });\n\n/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./emitter */ \"./node_modules/widget-utils/src/emitter.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Emitter\", function() { return _emitter__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n/* global XMLHttpRequest, document, Intl */\n\n\n\nconst {\n  keys\n} = Object;\nconst {\n  parse,\n  stringify\n} = JSON; // string transforms\n\nconst toUnderscore = str => str.replace(/([A-Z])/g, s => `_${s.toLowerCase()}`);\nconst dashToCapital = str => str.replace(/-([a-z])/ig, (s, i) => i.toUpperCase());\nconst underscoreToCapital = str => str.replace(/_([a-z])/ig, (s, i) => i.toUpperCase());\n\nfunction toLocaleStringSupportsOptions() {\n  return !!(typeof Intl === 'object' && Intl && typeof Intl.NumberFormat === 'function');\n}\n\nconst currencyFormatter = (value, lang, currency, minimumFractionDigits = 0, maximumFractionDigits = 3) => {\n  if (toLocaleStringSupportsOptions() && currency) {\n    const isDollar = () => Object(currency_symbol_map__WEBPACK_IMPORTED_MODULE_0__[\"getSymbolFromCurrency\"])(currency) === '$';\n\n    const options = {\n      style: 'currency',\n      currency,\n      currencyDisplay: isDollar ? 'symbol' : 'code',\n      minimumFractionDigits,\n      maximumFractionDigits\n    };\n    const numberFormat = new Intl.NumberFormat(lang, options);\n    const str = numberFormat.format(value);\n\n    if (isDollar || !Object(currency_symbol_map__WEBPACK_IMPORTED_MODULE_0__[\"getSymbolFromCurrency\"])(currency)) {\n      return str;\n    }\n\n    return str.replace(currency, Object(currency_symbol_map__WEBPACK_IMPORTED_MODULE_0__[\"getSymbolFromCurrency\"])(currency));\n  }\n\n  return value;\n}; // object helpers\n\n/**\n * Recursively traverse object own properties and apply transform function on keys or values\n * let a = { lastName: \"Roman\", firstName: \"Khudyakov\" }\n * traverseObj(a, toUnderscore)\n * => { last_name: \"Roman\", first_name: \"Khudyakov\" }\n *\n * @param obj {Object}\n * @param fnKey {Function | Boolean}\n * @param fnValue {Function | Boolean}\n */\n\nconst traverseObj = (obj, fnKey = false, fnValue = false) => {\n  if (!Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"])(obj)) {\n    return obj;\n  }\n\n  return keys(obj).reduce((curr, next) => {\n    let nextProperty = obj[next];\n    const o = curr;\n\n    if (Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isArray\"])(nextProperty)) {\n      nextProperty = nextProperty.map(i => traverseObj(i, fnKey, fnValue));\n    }\n\n    if (fnValue) {\n      o[fnKey ? fnKey(next) : next] = Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"])(nextProperty) ? traverseObj(nextProperty, fnKey, fnValue) : fnValue(nextProperty, next);\n    } else {\n      o[fnKey ? fnKey(next) : next] = Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"])(nextProperty) ? traverseObj(nextProperty, fnKey) : nextProperty;\n    }\n\n    return o;\n  }, {});\n};\n/**\n * Merge two objects\n * @param {Object} obj1\n * @param {Object} obj2\n * @param {Boolean} isDeep\n * @returns {Object}\n */\n\nconst merge = (obj1, obj2, isDeep) => {\n  const obj3 = {};\n  keys(obj1).forEach(i => {\n    if (isDeep && Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"])(obj1[i])) {\n      obj3[i] = merge(obj1[i], {}, true);\n    } else {\n      obj3[i] = obj1[i];\n    }\n  });\n  keys(obj2).forEach(i => {\n    if (isDeep && Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"])(obj2[i])) {\n      obj3[i] = merge(obj3[i] || {}, obj2[i], true);\n    } else {\n      obj3[i] = obj2[i];\n    }\n  });\n  return obj3;\n};\n/**\n * Pick properties from object\n * let a = { name: \"Roman\", phone: 123, country: \"any\" };\n * pick(a, 'name', 'country')\n * => { name: \"Roman\", country: \"any\" }\n *\n * @param obj {Object}\n * @param args {String}\n * @returns {Object}\n */\n\nconst pick = (obj, ...args) => args.reduce((i, t) => {\n  const pickedObj = i;\n  pickedObj[t] = obj[t];\n  return pickedObj;\n}, {});\nconst capitalizeObj = object => {\n  object = traverseObj(object, dashToCapital);\n  object = traverseObj(object, underscoreToCapital);\n  return object;\n}; // serialize query params with additional transform function\n\nconst serialize = (obj, transform) => {\n  const component = keys(obj).map(p => `${transform(encodeURIComponent(p))}=${encodeURIComponent(obj[p])}`);\n  return component.join('&');\n}; // DOM helpers\n\nconst findByClassName = (context, name) => context.querySelector(`.${name}`);\nconst getClassName = el => {\n  // Can't use just SVGAnimatedString here since nodes within a Frame in IE have\n  // completely separately SVGAnimatedString base classes\n  if (el.className instanceof el.ownerDocument.defaultView.SVGAnimatedString) {\n    return el.className.baseVal;\n  }\n\n  return el.className;\n};\nconst setClassName = (el, className) => {\n  el.setAttribute('class', className);\n};\n/**\n * Create HTMLElement with attributes\n * @param name {String}\n * @param attrs {Object}\n * @returns {HTMLElement}\n */\n\nconst createElement = (name, attrs) => {\n  const params = attrs || {};\n  const element = document.createElement(name);\n  keys(params).map(i => element.setAttribute(i, params[i]));\n  return element;\n};\nconst elementFromString = string => {\n  const element = createElement('div');\n  element.innerHTML = string;\n  return element.children[0];\n};\nconst destroyElement = element => {\n  if (element.parentNode && element.parentNode.removeChild) {\n    element.parentNode.removeChild(element);\n  }\n\n  return element;\n};\nconst removeClass = (el, ...classNames) => {\n  const name = classNames;\n\n  if (typeof el.classList !== 'undefined') {\n    name.forEach(cls => {\n      if (cls.trim()) {\n        el.classList.remove(cls);\n      }\n    });\n  } else {\n    const regex = new RegExp(`(^| )${name.join('|')}( |$)`, 'gi');\n    const className = getClassName(el).replace(regex, ' ');\n    setClassName(el, className);\n  }\n};\nconst addClass = (el, ...classNames) => {\n  const name = classNames;\n\n  if (typeof el.classList !== 'undefined') {\n    name.forEach(cls => {\n      if (cls.trim()) {\n        el.classList.add(cls);\n      }\n    });\n  } else {\n    removeClass(el, name);\n    const cls = `${getClassName(el)} ${name.join(' ')}`;\n    setClassName(el, cls);\n  }\n};\nconst hasClass = (el, name) => {\n  if (typeof el.classList !== 'undefined') {\n    return el.classList.contains(name);\n  }\n\n  const className = getClassName(el);\n  return new RegExp(`(^| )${name}( |$)`, 'gi').test(className);\n};\nconst traverseToParentWithAttr = (element, attribute) => {\n  let parent = element;\n  let value = element.getAttribute(attribute);\n\n  while (!Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"is\"])(value)) {\n    parent = parent.parentNode;\n\n    if (parent && typeof parent.getAttribute === 'function') {\n      value = parent.getAttribute(attribute);\n    } else {\n      parent = null;\n      break;\n    }\n  }\n\n  return {\n    value,\n    parent\n  };\n};\n/**\n * Find HTMLElement attribute, in the dom-tree, bubbles up\n * @param el {HTMLElement}\n * @param attr\n * @returns {string}\n */\n\nconst getParentAttribute = (el, attr) => traverseToParentWithAttr(el, attr).value;\n/**\n * Check if some HTMLElement is inside another one\n * @param child {HTMLElement}\n * @param parent {HTMLElement}\n * @returns {boolean}\n */\n\nconst isInside = (child, parent) => {\n  let current = child;\n\n  while (current !== parent) {\n    if (!Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"is\"])(current) || current.tagName === 'BODY' || current.tagName === 'HTML') {\n      return false;\n    }\n\n    current = current.parentNode;\n  }\n\n  return true;\n}; // Date utils\n\nconst daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\n\nconst isLeapYear = year => year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;\n\nconst monthLength = (year, month) => {\n  let days = daysInMonth[month];\n\n  if (month === 1 && isLeapYear(year)) {\n    days = 29;\n  }\n\n  return days;\n}; // ajax wrapper\n\nconst ajax = (apiUrl, success, error, params, method = 'GET') => {\n  const xmlHttp = new XMLHttpRequest();\n  const url = method === 'GET' && params ? `${apiUrl}?${serialize(params, toUnderscore)}` : apiUrl;\n\n  const isSuccess = status => status >= 200 && status < 300 || status === 304;\n\n  xmlHttp.open(method, url);\n  xmlHttp.setRequestHeader('Content-type', 'application/vnd.api+json');\n\n  xmlHttp.onreadystatechange = () => {\n    let response;\n\n    if (xmlHttp.readyState === 4) {\n      if (isSuccess(xmlHttp.status)) {\n        try {\n          response = parse(xmlHttp.responseText);\n        } catch (e) {\n          response = xmlHttp;\n        }\n\n        success(response);\n      } else {\n        error(xmlHttp);\n      }\n    }\n  };\n\n  if (Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isObject\"])(params) && method !== 'GET') {\n    xmlHttp.send(stringify(params));\n  } else {\n    xmlHttp.send();\n  }\n}; // Validations\n\nconst validate = {\n  isBlank(o) {\n    return Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"is\"])(o);\n  },\n\n  isNumeric(o) {\n    return Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"isNumeric\"])(o);\n  },\n\n  isEmail(o) {\n    return typeof o === 'string' && Object(_typechecks__WEBPACK_IMPORTED_MODULE_1__[\"is\"])(o.match(/^[^@\\s]+@([^@\\s]+\\.)+[^@\\W]+$/));\n  },\n\n  isBoundedBy(o, min, max) {\n    return typeof o === 'number' && o >= min && o <= max;\n  }\n\n};\n\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/widget-utils/src/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/widget-utils/src/typechecks.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/widget-utils/src/typechecks.js ***!
-  \*****************************************************/
-/*! exports provided: isObject, isArray, isFunction, isString, isNumeric, is */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isObject\", function() { return isObject; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isArray\", function() { return isArray; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isFunction\", function() { return isFunction; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isString\", function() { return isString; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isNumeric\", function() { return isNumeric; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"is\", function() { return is; });\nconst {\n  prototype: {\n    toString\n  }\n} = Object;\n\nconst isNaNPolyfill = value => typeof value === 'number' && Number.isNaN(value); // datatype checks\n\n\nconst isObject = o => {\n  return toString.call(o) === '[object Object]';\n};\nconst isArray = a => {\n  return toString.call(a) === '[object Array]';\n};\nconst isFunction = f => {\n  return typeof f === 'function';\n};\nconst isString = f => {\n  return typeof f === 'string';\n};\nconst isNumeric = n => {\n  return !isArray(n) && !isNaNPolyfill(parseInt(n, 10));\n};\nconst is = o => {\n  return typeof o !== 'undefined' && o !== null && !isNaNPolyfill(o);\n};\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./node_modules/widget-utils/src/typechecks.js?");
-
-/***/ }),
-
-/***/ "./src/bookingsync-calendar-widget.js":
-/*!********************************************!*\
-  !*** ./src/bookingsync-calendar-widget.js ***!
-  \********************************************/
-/*! no static exports found */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* global document, module, VERSION, require, window */\nconst Calendar = __webpack_require__(/*! ./calendar */ \"./src/calendar.js\"); // Export WidgetUtils\n\n\nwindow.BookingSyncWidgetUtils = __webpack_require__(/*! widget-utils */ \"./node_modules/widget-utils/src/index.js\"); // in order to export clean constructor to global namespace \"BookingSyncCalendarWidget\"\n// need to mix require with imports\n\nconst CalendarConst = Calendar.default;\n\nCalendarConst.init = opts => {\n  const initialized = [];\n  const options = opts || {};\n  const CalendarConstElements = document.querySelectorAll('[data-bookingsync-calendar-widget]');\n  CalendarConstElements.forEach(element => {\n    options.el = element;\n    const cal = new CalendarConst(options);\n    initialized.push(cal);\n  });\n  CalendarConst.instances = initialized;\n  return initialized;\n};\n\nCalendarConst.VERSION = \"1.2.4\";\n\nif (CalendarConst.autoInit !== false) {\n  if (document.readyState !== 'loading') {\n    CalendarConst.init();\n  } else {\n    document.addEventListener('DOMContentLoaded', () => {\n      CalendarConst.init();\n    });\n  }\n}\n\nmodule.exports = CalendarConst;\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/bookingsync-calendar-widget.js?");
+exports = module.exports = __webpack_require__(4)(false);
+// Module
+exports.push([module.i, ".BookingSyncCalendar__reset div, .BookingSyncCalendar__reset span, .BookingSyncCalendar__reset applet, .BookingSyncCalendar__reset object, .BookingSyncCalendar__reset iframe, .BookingSyncCalendar__reset h1, .BookingSyncCalendar__reset h2, .BookingSyncCalendar__reset h3, .BookingSyncCalendar__reset h4, .BookingSyncCalendar__reset h5, .BookingSyncCalendar__reset h6, .BookingSyncCalendar__reset p, .BookingSyncCalendar__reset blockquote, .BookingSyncCalendar__reset pre, .BookingSyncCalendar__reset a, .BookingSyncCalendar__reset abbr, .BookingSyncCalendar__reset acronym, .BookingSyncCalendar__reset address, .BookingSyncCalendar__reset big, .BookingSyncCalendar__reset cite, .BookingSyncCalendar__reset code, .BookingSyncCalendar__reset del, .BookingSyncCalendar__reset dfn, .BookingSyncCalendar__reset em, .BookingSyncCalendar__reset img, .BookingSyncCalendar__reset ins, .BookingSyncCalendar__reset kbd, .BookingSyncCalendar__reset q, .BookingSyncCalendar__reset s, .BookingSyncCalendar__reset samp, .BookingSyncCalendar__reset small, .BookingSyncCalendar__reset strike, .BookingSyncCalendar__reset strong, .BookingSyncCalendar__reset sub, .BookingSyncCalendar__reset sup, .BookingSyncCalendar__reset tt, .BookingSyncCalendar__reset var, .BookingSyncCalendar__reset b, .BookingSyncCalendar__reset u, .BookingSyncCalendar__reset i, .BookingSyncCalendar__reset center, .BookingSyncCalendar__reset dl, .BookingSyncCalendar__reset dt, .BookingSyncCalendar__reset dd, .BookingSyncCalendar__reset ol, .BookingSyncCalendar__reset ul, .BookingSyncCalendar__reset li, .BookingSyncCalendar__reset fieldset, .BookingSyncCalendar__reset form, .BookingSyncCalendar__reset div.BookingSyncCalendar__form, .BookingSyncCalendar__reset label, .BookingSyncCalendar__reset legend, .BookingSyncCalendar__reset table, .BookingSyncCalendar__reset caption, .BookingSyncCalendar__reset tbody, .BookingSyncCalendar__reset tfoot, .BookingSyncCalendar__reset thead, .BookingSyncCalendar__reset tr, .BookingSyncCalendar__reset th, .BookingSyncCalendar__reset td, .BookingSyncCalendar__reset article, .BookingSyncCalendar__reset aside, .BookingSyncCalendar__reset canvas, .BookingSyncCalendar__reset details, .BookingSyncCalendar__reset figcaption, .BookingSyncCalendar__reset figure, .BookingSyncCalendar__reset footer, .BookingSyncCalendar__reset header, .BookingSyncCalendar__reset hgroup, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset nav, .BookingSyncCalendar__reset section, .BookingSyncCalendar__reset summary, .BookingSyncCalendar__reset time, .BookingSyncCalendar__reset mark, .BookingSyncCalendar__reset audio, .BookingSyncCalendar__reset video, .BookingSyncCalendar__reset button, .BookingSyncCalendar__reset textarea, .BookingSyncCalendar__reset input,\n.BookingSyncCalendar__reset .BookingSyncCalendar__button, .BookingSyncCalendar__reset .BookingSyncCalendar__legend {\n  font-family: \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size-adjust: none;\n  font-size: 100%;\n  font-style: normal;\n  letter-spacing: normal;\n  font-stretch: normal;\n  font-variant: normal;\n  font-weight: normal;\n  font: normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  text-align: left;\n  -moz-text-align-last: initial;\n  text-align-last: initial;\n  text-decoration: none;\n  -webkit-text-emphasis: none;\n  text-emphasis: none;\n  text-height: auto;\n  text-indent: 0;\n  text-justify: auto;\n  text-outline: none;\n  text-shadow: none;\n  text-transform: none;\n  text-wrap: normal;\n  alignment-adjust: auto;\n  alignment-baseline: baseline;\n  -webkit-animation: none 0 ease 0 1 normal;\n  animation: none 0 ease 0 1 normal;\n  -webkit-animation-play-state: running;\n  animation-play-state: running;\n  appearance: normal;\n  azimuth: center;\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  background: none 0 0 auto repeat scroll padding-box transparent;\n  background-color: transparent;\n  background-image: none;\n  baseline-shift: baseline;\n  binding: none;\n  bleed: 6pt;\n  bookmark-label: content();\n  bookmark-level: none;\n  bookmark-state: open;\n  bookmark-target: none;\n  border: 0 none transparent;\n  border-radius: 0;\n  bottom: auto;\n  box-align: stretch;\n  -webkit-box-decoration-break: slice;\n  box-decoration-break: slice;\n  box-direction: normal;\n  flex: 0.0;\n  flex-group: 1;\n  box-lines: single;\n  box-ordinal-group: 1;\n  box-orient: inline-axis;\n  box-pack: start;\n  box-shadow: none;\n  box-sizing: content-box;\n  -webkit-break-after: auto;\n  -moz-break-after: auto;\n  break-after: auto;\n  -webkit-break-before: auto;\n  -moz-break-before: auto;\n  break-before: auto;\n  -webkit-column-break-inside: auto;\n  page-break-inside: auto;\n  break-inside: auto;\n  caption-side: top;\n  clear: none;\n  clip: auto;\n  color: inherit;\n  color-profile: auto;\n  -webkit-column-count: auto;\n  -moz-column-count: auto;\n  column-count: auto;\n  -webkit-column-fill: balance;\n  -moz-column-fill: balance;\n  column-fill: balance;\n  -webkit-column-gap: normal;\n  -moz-column-gap: normal;\n  column-gap: normal;\n  -webkit-column-rule: medium medium #1f1f1f;\n  -moz-column-rule: medium medium #1f1f1f;\n  column-rule: medium medium #1f1f1f;\n  -webkit-column-span: 1;\n  -moz-column-span: 1;\n  column-span: 1;\n  -webkit-column-width: auto;\n  -moz-column-width: auto;\n  column-width: auto;\n  -webkit-columns: auto auto;\n  -moz-columns: auto auto;\n  columns: auto auto;\n  content: normal;\n  counter-increment: none;\n  counter-reset: none;\n  crop: auto;\n  cursor: auto;\n  direction: ltr;\n  display: inline;\n  dominant-baseline: auto;\n  drop-initial-after-adjust: text-after-edge;\n  drop-initial-after-align: baseline;\n  drop-initial-before-adjust: text-before-edge;\n  drop-initial-before-align: caps-height;\n  drop-initial-size: auto;\n  drop-initial-value: initial;\n  elevation: level;\n  empty-cells: show;\n  fit: fill;\n  fit-position: 0% 0%;\n  float: none;\n  float-offset: 0 0;\n  grid-columns: none;\n  grid-rows: none;\n  hanging-punctuation: none;\n  height: auto;\n  hyphenate-after: auto;\n  hyphenate-before: auto;\n  hyphenate-character: auto;\n  hyphenate-lines: no-limit;\n  hyphenate-resource: none;\n  -webkit-hyphens: manual;\n  -moz-hyphens: manual;\n  -ms-hyphens: manual;\n  hyphens: manual;\n  icon: auto;\n  image-orientation: auto;\n  image-rendering: auto;\n  image-resolution: normal;\n  inline-box-align: last;\n  left: auto;\n  line-height: inherit;\n  line-stacking: inline-line-height exclude-ruby consider-shifts;\n  list-style: disc outside none;\n  margin: 0;\n  marks: none;\n  marquee-direction: forward;\n  marquee-loop: 1;\n  marquee-play-count: 1;\n  marquee-speed: normal;\n  marquee-style: scroll;\n  max-height: none;\n  max-width: none;\n  min-height: 0;\n  min-width: 0;\n  move-to: normal;\n  nav-down: auto;\n  nav-index: auto;\n  nav-left: auto;\n  nav-right: auto;\n  nav-up: auto;\n  opacity: 1;\n  orphans: 2;\n  outline: invert none medium;\n  outline-offset: 0;\n  overflow: visible;\n  overflow-style: auto;\n  padding: 0;\n  page: auto;\n  page-break-after: auto;\n  page-break-before: auto;\n  page-break-inside: auto;\n  page-policy: start;\n  -webkit-perspective: none;\n  perspective: none;\n  -webkit-perspective-origin: 50% 50%;\n  perspective-origin: 50% 50%;\n  position: static;\n  presentation-level: 0;\n  punctuation-trim: none;\n  quotes: none;\n  rendering-intent: auto;\n  resize: none;\n  right: auto;\n  rotation: 0;\n  rotation-point: 50% 50%;\n  ruby-align: auto;\n  ruby-overhang: none;\n  ruby-position: before;\n  ruby-span: none;\n  size: auto;\n  string-set: none;\n  table-layout: auto;\n  top: auto;\n  -webkit-transform: none;\n  -ms-transform: none;\n  transform: none;\n  -webkit-transform-origin: 50% 50% 0;\n  -ms-transform-origin: 50% 50% 0;\n  transform-origin: 50% 50% 0;\n  -webkit-transform-style: flat;\n  transform-style: flat;\n  transition: all 0 ease 0;\n  unicode-bidi: normal;\n  vertical-align: baseline;\n  white-space: normal;\n  white-space-collapse: collapse;\n  widows: 2;\n  width: auto;\n  word-break: normal;\n  word-spacing: normal;\n  word-wrap: normal;\n  z-index: auto;\n  text-align: start;\n  /* And disable MS gradients */\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.BookingSyncCalendar__reset address, .BookingSyncCalendar__reset blockquote, .BookingSyncCalendar__reset dd, .BookingSyncCalendar__reset div, .BookingSyncCalendar__reset dl, .BookingSyncCalendar__reset dt, .BookingSyncCalendar__reset fieldset, .BookingSyncCalendar__reset form, .BookingSyncCalendar__reset div.BookingSyncCalendar__form, .BookingSyncCalendar__reset frame, .BookingSyncCalendar__reset frameset, .BookingSyncCalendar__reset h1, .BookingSyncCalendar__reset h2, .BookingSyncCalendar__reset h3, .BookingSyncCalendar__reset h4, .BookingSyncCalendar__reset h5, .BookingSyncCalendar__reset h6, .BookingSyncCalendar__reset noframes, .BookingSyncCalendar__reset ol, .BookingSyncCalendar__reset p, .BookingSyncCalendar__reset ul, .BookingSyncCalendar__reset center, .BookingSyncCalendar__reset dir, .BookingSyncCalendar__reset hr, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset pre, .BookingSyncCalendar__reset article, .BookingSyncCalendar__reset aside, .BookingSyncCalendar__reset canvas, .BookingSyncCalendar__reset details, .BookingSyncCalendar__reset figcaption, .BookingSyncCalendar__reset figure, .BookingSyncCalendar__reset footer, .BookingSyncCalendar__reset header, .BookingSyncCalendar__reset hgroup, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset nav, .BookingSyncCalendar__reset section, .BookingSyncCalendar__reset summary {\n  display: block; }\n\n.BookingSyncCalendar__reset li {\n  display: list-item; }\n\n.BookingSyncCalendar__reset table {\n  display: table; }\n\n.BookingSyncCalendar__reset tr {\n  display: table-row; }\n\n.BookingSyncCalendar__reset thead {\n  display: table-header-group; }\n\n.BookingSyncCalendar__reset tbody {\n  display: table-row-group; }\n\n.BookingSyncCalendar__reset tfoot {\n  display: table-footer-group; }\n\n.BookingSyncCalendar__reset col {\n  display: table-column; }\n\n.BookingSyncCalendar__reset colgroup {\n  display: table-column-group; }\n\n.BookingSyncCalendar__reset td, .BookingSyncCalendar__reset th {\n  display: table-cell; }\n\n.BookingSyncCalendar__reset caption {\n  display: table-caption; }\n\n.BookingSyncCalendar__reset input, .BookingSyncCalendar__reset select {\n  display: inline-block; }\n\n.BookingSyncCalendar__reset b, .BookingSyncCalendar__reset strong {\n  font-weight: bold; }\n\n.BookingSyncCalendar__reset b > i, .BookingSyncCalendar__reset strong > i, .BookingSyncCalendar__reset b > em, .BookingSyncCalendar__reset strong > em, .BookingSyncCalendar__reset i > b, .BookingSyncCalendar__reset i > strong, .BookingSyncCalendar__reset em > b, .BookingSyncCalendar__reset em > strong {\n  font-weight: bold;\n  font-style: italic; }\n\n.BookingSyncCalendar__reset textarea, .BookingSyncCalendar__reset input {\n  cursor: text; }\n", ""]);
+
+// Exports
+exports.locals = {
+	"reset": "BookingSyncCalendar__reset",
+	"form": "BookingSyncCalendar__form",
+	"button": "BookingSyncCalendar__button",
+	"legend": "BookingSyncCalendar__legend"
+};
 
 /***/ }),
-
-/***/ "./src/calendar-tree.js":
-/*!******************************!*\
-  !*** ./src/calendar-tree.js ***!
-  \******************************/
-/*! exports provided: default */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return CalendarTree; });\n/* harmony import */ var widget_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! widget-utils */ \"./node_modules/widget-utils/src/index.js\");\n\n/**\n *  please refer to /tests/unit/calendarTree.specs.js for usage\n *  TODO docs, merge availability with calendar tree, use one data-structure\n *  TODO minStay + availability map considerations fo disabling dates\n */\n\nconst genArrayRange = (a, b) => {\n  const list = [];\n\n  for (let i = a; i <= b; i += 1) {\n    list.push(i);\n  }\n\n  return list;\n};\n\nconst parseISOString = (str\n/* yyyy-mm-dd */\n) => {\n  const arrStr = str.split('-').map(parseFloat);\n  return {\n    year: arrStr[0],\n    month: arrStr[1] - 1,\n    date: arrStr[2]\n  };\n};\n\nclass CalendarTree {\n  /**\n   * @param {Function} validateCell\n   * @param {Object} tree\n   */\n  constructor(validateCell, tree) {\n    this.validateCell = validateCell;\n    this.tree = tree;\n  }\n\n  addTree(obj) {\n    if (!this.tree) {\n      this.tree = obj;\n    } else {\n      this.tree = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"merge\"])(this.tree || {}, obj, true);\n    }\n\n    return this;\n  }\n  /**\n   * select range from the tree, returns array items\n   * start date is ALWAYS < then end date , as we are selecting time range in days.\n   *\n   * @param {Array} start e.g. [2016, 0, 1]\n   * @param {Array} end        [2016, 1, 3]\n   * @returns {{range: Array, isValid: {Boolean}}}\n   */\n\n\n  selectRange(start, end) {\n    let range = [];\n    const a = start.slice(); // if year and month the same, just slice the current month\n\n    if (a[0] === end[0] && a[1] === end[1]) {\n      range = this.selectDaysInMonth(a[0], a[1], a[2], end[2]);\n    } else {\n      const monthDays = this.tree[a[0]][a[1]]; // slice the piece of current monthDays from start of range till end of the monthDays\n\n      range = range.concat(this.selectDaysInMonth(a[0], a[1], a[2], monthDays.length)); // shift start month, b/c we already selected days in it\n\n      a[1] += 1; // if end date year > start date\n      // select everything in start year till the end of start year\n      // e.g. start is 20 October, so select November and December, October was selected above\n\n      if (end[0] > start[0]) {\n        range = range.concat(this.selectMonthsInYear(a[0], a[1], 11)); // and set start year to end year\n        // month to 0 (January)\n\n        var _ref = [end[0], 0];\n        a[0] = _ref[0];\n        a[1] = _ref[1];\n      } // now we are at the same year and have the case if end month > start month\n      // then select everything between those months\n\n\n      if (end[1] > a[1]) {\n        // e.g. start 20 October end 20 December, select full November\n        range = range.concat(this.selectMonthsInYear(a[0], a[1], end[1] - 1));\n        a[1] = end;\n      } // the missing part is days in end selection month\n\n\n      range = range.concat(this.selectDaysInMonth(end[0], end[1], 1, end[2]));\n    }\n\n    return {\n      range,\n      isValid: this.isRangeValid(range)\n    };\n  }\n\n  selectMonthsInYear(year, start, end) {\n    let selection = [];\n    const monthRange = genArrayRange(start, end);\n    monthRange.forEach(month => {\n      const y = this.tree[year];\n      const m = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"is\"])(y) ? this.tree[year][month] : null;\n\n      if (y && m) {\n        selection = selection.concat(this.selectDaysInMonth(year, month, 1, m.length));\n      }\n    });\n    return selection;\n  }\n\n  selectDaysInMonth(year, month, startDay, endDay) {\n    const y = this.tree[year];\n    const m = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"is\"])(y) ? this.tree[year][month] : null;\n\n    if (y && m) {\n      return m.slice(startDay - 1, endDay);\n    }\n\n    return [];\n  }\n\n  selectDay(year, month, day) {\n    const y = this.tree[year];\n    const m = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"is\"])(y) ? this.tree[year][month] : null;\n\n    if (y && m) {\n      return m[day - 1];\n    }\n\n    return null;\n  }\n\n  isRangeValid(range, fn) {\n    const validateCell = this.validateCell || fn;\n    let isValid = true;\n\n    if (typeof validateCell === 'function') {\n      isValid = range.filter((a, i) => this.validateCell(a, i, range)).length === 0;\n    }\n\n    return isValid;\n  }\n\n  replaceMaps(map, updatedAt) {\n    this.map = CalendarTree.mapsToTree(map, updatedAt);\n    return this;\n  }\n\n  removeMap() {\n    this.map = {};\n    return this;\n  }\n  /**\n   *  Create a tree structure from maps\n   *  for n-time day access, e.g. this.map[year][month][day].isAvailable;\n   * {\n   *   2106: {\n   *      1: {\n   *        1: ,\n   *        2: ,\n   *        3:\n   *        ...\n   *      }\n   *      ...\n   *      12: {\n   *\n   *      }\n   *    }\n   * }\n   * @param {Object} maps\n   * @param {String | Date} mapStartAt\n   * @returns {Object}\n   */\n\n\n  static mapsToTree(maps, mapStartAt) {\n    if (!(Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isString\"])(maps.availability) || Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isString\"])(maps.nightly_rates) || Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isString\"])(maps.minimum_stays))) {\n      return null;\n    }\n\n    const avail = maps.availability.split('').map(parseFloat);\n    const rates = maps.nightly_rates.split(',').map(parseFloat);\n    const minMap = maps.minimum_stays.split(',').map(parseFloat);\n\n    let _parseISOString = parseISOString(mapStartAt),\n        year = _parseISOString.year,\n        month = _parseISOString.month,\n        dayShift = _parseISOString.date;\n\n    let day = 1; // trick to add extra unavailable date for proper calculations of check-out dates\n\n    if (avail[avail.length - 1] === 0) {\n      avail.push(1);\n    }\n\n    return avail.reduce((curr, state, index, arr) => {\n      const length = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"monthLength\"])(year, month);\n      const tree = curr;\n      const minStay = minMap[index];\n      const rate = rates[index];\n      const isAvailable = state === 0;\n      const prevAvailable = arr[index - 1] === 0;\n      const isMorningBlocked = isAvailable && !prevAvailable;\n\n      if (!tree[year]) {\n        tree[year] = {};\n      }\n\n      if (!tree[year][month]) {\n        tree[year][month] = {};\n      }\n\n      if (dayShift) {\n        day = dayShift;\n        dayShift = null;\n      } // if minStay > available days in future\n      // consider current day as unavailable as well\n      // if (isAvailable && minStay > 1) {\n      //   let daysAvailable = 1;\n      //   let i             = index + 1;\n      //   while (arr[i] === 0) {\n      //     daysAvailable += 1;\n      //     i += 1;\n      //   }\n      //\n      //   if (minStay > daysAvailable) {\n      //     isAvailable = false;\n      //   }\n      // }\n\n\n      tree[year][month][day] = {\n        rate,\n        minStay,\n        isAvailable,\n        isMorningBlocked,\n        isOutAvailable: !isMorningBlocked && isAvailable || !isAvailable && prevAvailable === true\n      };\n\n      if (day < length) {\n        day += 1;\n      } else {\n        if (month > 10) {\n          month = 0;\n          year += 1;\n        } else {\n          month += 1;\n        }\n\n        day = 1;\n      }\n\n      return tree;\n    }, {});\n  }\n\n  getDayProperty(year, month, day, property) {\n    let prop;\n\n    if (this.map) {\n      try {\n        prop = this.map[year][month][day][property];\n      } catch (e) {// continue regardless of error\n      }\n    }\n\n    return prop;\n  }\n\n  isDayDisabled(year, month, day) {\n    return !this.getDayProperty(year, month, day, 'isAvailable');\n  }\n\n}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/calendar-tree.js?");
+__webpack_require__.r(__webpack_exports__);
 
-/***/ }),
+// EXTERNAL MODULE: ./node_modules/widget-utils/src/index.js + 2 modules
+var src = __webpack_require__(0);
 
-/***/ "./src/calendar.js":
-/*!*************************!*\
-  !*** ./src/calendar.js ***!
-  \*************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+// EXTERNAL MODULE: ./node_modules/popper.js/dist/esm/popper.js
+var popper = __webpack_require__(6);
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Calendar; });\n/* harmony import */ var widget_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! widget-utils */ \"./node_modules/widget-utils/src/index.js\");\n/* harmony import */ var popper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! popper.js */ \"./node_modules/popper.js/dist/esm/popper.js\");\n/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./templates */ \"./src/templates.js\");\n/* harmony import */ var _calendar_tree__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./calendar-tree */ \"./src/calendar-tree.js\");\n/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./config */ \"./src/config.js\");\n/* harmony import */ var _locales__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./locales */ \"./src/locales.js\");\n/* harmony import */ var strtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! strtime */ \"./node_modules/strtime/dist/strtime.js\");\n/* harmony import */ var strtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(strtime__WEBPACK_IMPORTED_MODULE_6__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n/* harmony import */ var _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/calendar.scss */ \"./src/styles/calendar.scss\");\n/* harmony import */ var _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__);\n/* harmony import */ var _styles_reset_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/reset.scss */ \"./src/styles/reset.scss\");\n/* harmony import */ var _styles_reset_scss__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_styles_reset_scss__WEBPACK_IMPORTED_MODULE_9__);\n/* global VERSION, Node, CSS_PREFIX, document, console */\n\n\n\n\n\n\n\n\n\n\nclass Calendar extends widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"Emitter\"] {\n  constructor(opts, maps) {\n    super();\n    this.name = _config__WEBPACK_IMPORTED_MODULE_4__[\"default\"].name;\n    this.VERSION = \"1.2.4\";\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isObject\"])(opts)) {\n      if (!opts.el) {\n        this.logger('el must be HTML element', 'error');\n        return;\n      }\n\n      const configDataset = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"merge\"])(_config__WEBPACK_IMPORTED_MODULE_4__[\"default\"], opts.el.dataset);\n      this.opts = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"merge\"])(configDataset, opts);\n      this.opts = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"traverseObj\"])(this.opts, a => a, b => {\n        if (b === 'true' || b === 'false') {\n          return b === 'true';\n        }\n\n        if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isNumeric\"])(b)) {\n          return parseInt(b, 10);\n        }\n\n        return b;\n      });\n\n      if (this.opts.isDropDown) {\n        this.initCalendarDrop();\n      } else {\n        this.el = opts.el;\n      }\n\n      this.opts.lang = this.opts.lang && this.opts.lang in _locales__WEBPACK_IMPORTED_MODULE_5__[\"default\"] ? this.opts.lang : 'en-US';\n      this.locale = _locales__WEBPACK_IMPORTED_MODULE_5__[\"default\"][this.opts.lang];\n      this.format = this.opts.formatDate || this.locale.formatDate || '%D';\n      this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;\n    }\n\n    this.dom = {};\n    this.cTree = new _calendar_tree__WEBPACK_IMPORTED_MODULE_3__[\"default\"](_utils__WEBPACK_IMPORTED_MODULE_7__[\"validationOfRange\"], {});\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isObject\"])(maps)) {\n      this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);\n    } // selection and highlights\n\n\n    this.isSelecting = false;\n    this.highlightedBounds = [];\n    this.hasValidRange = true; // user selects end date first\n\n    this.isReverseSelectable = this.opts.isReverseSelectable;\n    this.init();\n  }\n\n  init() {\n    Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"calendar\"], _styles_reset_scss__WEBPACK_IMPORTED_MODULE_9__[\"reset\"]);\n\n    if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {\n      if (this.opts.elStartAt.value && this.opts.elEndAt.value) {\n        this.selectionStart = Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToArray\"])(this.opts.elStartAt.value, this.format, this.locale);\n        this.selectionEnd = Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToArray\"])(this.opts.elEndAt.value, this.format, this.locale);\n        this.completeSelection();\n      }\n    }\n\n    this.dom.monthsWrapper = this.el.appendChild(Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"elementFromString\"])(_templates__WEBPACK_IMPORTED_MODULE_2__[\"main\"]));\n    this.dom.forward = this.el.appendChild(Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"elementFromString\"])(_templates__WEBPACK_IMPORTED_MODULE_2__[\"forward\"]));\n    this.dom.back = this.el.appendChild(Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"elementFromString\"])(_templates__WEBPACK_IMPORTED_MODULE_2__[\"back\"]));\n    this.renderMonths(this.opts.yearStart, this.opts.monthStart);\n    this.addBtnsEvents();\n\n    if (this.opts.rentalId) {\n      if (this.opts.showRates || this.opts.showMinStay) {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"chunky\"]);\n      }\n\n      this.loadMaps(this.opts.rentalId);\n    }\n\n    this.logger('inited');\n    this.emit('init');\n  }\n\n  changeSelectionOrder(isReverse) {\n    if (isReverse !== this.isReverseSelectable && !this.isSelecting) {\n      this.isReverseSelectable = isReverse;\n      this.destroyMonths();\n      this.renderMonths(this.yearStart, this.monthStart);\n    }\n  }\n\n  renderMonths(yearStart, monthStart) {\n    // construct dom tree\n    const _this$createTree = this.createTree(yearStart, monthStart, this.opts.displayMonths),\n          tree = _this$createTree.tree,\n          yearEnd = _this$createTree.yearEnd,\n          monthEnd = _this$createTree.monthEnd,\n          months = _this$createTree.months;\n\n    this.cTree.addTree(tree);\n    this.monthStart = monthStart;\n    this.yearStart = yearStart;\n    this.monthEnd = monthEnd;\n    this.yearEnd = yearEnd;\n    this.recoverSelections();\n\n    if (this.opts.selectable) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, this.isReverseSelectable ? _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"reversed\"] : _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"direct\"]);\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.el, this.isReverseSelectable ? _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"direct\"] : _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"reversed\"]);\n    }\n\n    this.dom.months = months;\n    this.dom.months.forEach(m => {\n      this.dom.monthsWrapper.appendChild(m);\n\n      if (this.opts.selectable) {\n        this.addMonthEvents(m);\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"actionsEnabled\"]);\n      }\n    });\n    this.disableBackBtn();\n  }\n\n  recoverSelections() {\n    if (this.selectionStart) {\n      this.selectStart(this.selectionStart, this.cTree.selectDay(...this.selectionStart));\n    }\n\n    if (this.selectionEnd) {\n      this.selectEnd(this.selectionEnd, this.cTree.selectDay(...this.selectionEnd));\n    }\n\n    if (this.selectionStart && this.selectionEnd) {\n      if (this.highlightedBounds.length > 0) {\n        this.highLightRange(...this.highlightedBounds);\n      } else {\n        this.highLightRange(this.selectionStart, this.selectionEnd);\n      }\n    }\n  }\n\n  disableBackBtn() {\n    if (this.opts.isBackDisabled) {\n      const startDate = Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(this.yearStart, this.monthStart, 1);\n      const curr = Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(this.opts.currDate.getFullYear(), this.opts.currDate.getMonth(), 1);\n      this.dom.back.disabled = startDate <= curr;\n    }\n  }\n\n  toggleLoading() {\n    if (!this.loaderEl) {\n      this.loaderEl = this.el.appendChild(Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"elementFromString\"])(_templates__WEBPACK_IMPORTED_MODULE_2__[\"loading\"]));\n      this.emit('loading-show');\n    } else {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"destroyElement\"])(this.loaderEl);\n      this.loaderEl = null;\n      this.emit('loading-hide');\n    }\n  }\n\n  addMaps(maps) {\n    this.cTree.replaceMaps(maps, maps.start_date);\n    this.destroyMonths();\n    this.renderMonths(this.opts.yearStart || this.yearStart, this.opts.monthStart || this.monthStart);\n  }\n\n  addBtnsEvents() {\n    this.dom.forward.addEventListener('click', e => {\n      this.destroyMonths();\n      this.renderMonths(this.yearEnd, this.monthEnd);\n      e.preventDefault();\n    });\n    this.dom.back.addEventListener('click', e => {\n      this.destroyMonths();\n      let monthToRender = this.monthStart - this.opts.displayMonths;\n      let yearToRender = this.yearStart;\n\n      if (monthToRender < 0) {\n        monthToRender += 12;\n        yearToRender -= 1;\n      }\n\n      this.renderMonths(yearToRender, monthToRender);\n      e.preventDefault();\n    });\n  }\n\n  addMonthEvents(el) {\n    el.addEventListener('click', e => {\n      const isEndFirst = this.isReverseSelectable;\n      const weekDayEl = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"traverseToParentWithAttr\"])(e.target, 'data-value').parent;\n      let value, cell; // cancel selection if day is invalid\n\n      if (weekDayEl && Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"hasClass\"])(weekDayEl, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"invalid\"])) {\n        this.resetSelection();\n      }\n\n      if (this.isSelecting) {\n        var _traverseToParentWith = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"traverseToParentWithAttr\"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out');\n\n        value = _traverseToParentWith.value;\n        cell = _traverseToParentWith.parent;\n      } else {\n        var _traverseToParentWith2 = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"traverseToParentWithAttr\"])(e.target, isEndFirst ? 'data-available-out' : 'data-enabled');\n\n        value = _traverseToParentWith2.value;\n        cell = _traverseToParentWith2.parent;\n      }\n\n      if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"is\"])(value) && cell) {\n        const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)]; // for simplicity just reset selection when user interacts again\n\n        if (!this.isSelecting && this.selectionEnd && this.selectionStart) {\n          this.resetSelection();\n        }\n\n        if (isEndFirst) {\n          this.endDateFirstAction(dateValue, cell);\n        } else {\n          this.startDateFirstAction(dateValue, cell);\n        }\n\n        if (this.selectionEnd && this.selectionStart) {\n          this.completeSelection(isEndFirst, dateValue, cell);\n\n          if (this.opts.isDropDown && this.calDrop) {\n            this.closeDrop(null, true);\n          }\n        }\n      }\n    });\n    el.addEventListener('mouseover', e => {\n      const _traverseToParentWith3 = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"traverseToParentWithAttr\"])(e.target, 'data-value'),\n            value = _traverseToParentWith3.value,\n            cell = _traverseToParentWith3.parent;\n\n      if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"is\"])(value) && cell) {\n        const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];\n\n        if (this.isSelecting) {\n          this.removeHighlight();\n\n          if (this.isReverseSelectable && this.selectionEnd) {\n            this.highLightRange(current, this.selectionEnd);\n          } else {\n            this.highLightRange(this.selectionStart, current);\n          }\n        }\n      }\n    });\n    el.body.addEventListener('mouseout', e => {\n      /* eslint no-bitwise: [\"error\", { \"allow\": [\"&\"] }] */\n      // simulate 'mouseleave'\n      if (!e.relatedTarget || e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget) & Node.DOCUMENT_POSITION_CONTAINED_BY)) {\n        if (this.isSelecting) {\n          this.removeHighlight();\n        }\n      }\n    });\n  }\n\n  startDateFirstAction(dateValue, cell) {\n    if (this.isSelecting && Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"isLater\"])(this.selectionStart, dateValue)) {\n      if (!this.hasValidRange) {\n        return;\n      }\n\n      this.selectEndAction(dateValue, cell);\n\n      const fn = () => {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectingDirect\"]);\n        cell.removeEventListener('mouseout', fn);\n      };\n\n      cell.addEventListener('mouseout', fn);\n      this.isSelecting = false;\n    } else {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectingDirect\"]);\n      this.isSelecting = true;\n      this.selectStartAction(dateValue, cell);\n    }\n  }\n\n  endDateFirstAction(dateValue, cell) {\n    if (this.isSelecting && Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"isLater\"])(dateValue, this.selectionEnd)) {\n      if (!this.hasValidRange) {\n        return;\n      }\n\n      this.selectStartAction(dateValue, cell);\n\n      const fn = () => {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectingReversed\"]);\n        cell.removeEventListener('mouseout', fn);\n      };\n\n      cell.addEventListener('mouseout', fn);\n      this.isSelecting = false;\n    } else {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectingReversed\"]);\n      this.isSelecting = true;\n      this.selectEndAction(dateValue, cell);\n    }\n  }\n\n  selectStartAction(dateValue, cell) {\n    this.selectStart(dateValue, cell);\n    this.switchInputFocus('end');\n    this.emit('selection-start', Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue, true), Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue));\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isFunction\"])(this.opts.onSelectStart)) {\n      this.opts.onSelectStart(Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue, true), Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue));\n    }\n  }\n\n  selectEndAction(dateValue, cell) {\n    this.selectEnd(dateValue, cell);\n    this.switchInputFocus('start');\n    this.emit('selection-end', Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue, true), Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue));\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isFunction\"])(this.opts.onSelectEnd)) {\n      this.opts.onSelectEnd(Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue, true), Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue));\n    }\n  }\n\n  removeHighlight() {\n    if (this.highlightedBounds.length > 0) {\n      const _this$selectRange = this.selectRange(...this.highlightedBounds),\n            range = _this$selectRange.range;\n\n      range.map(a => Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(a, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"highlighted\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"invalid\"]));\n      this.hasValidRange = true;\n      this.highlightedBounds = [];\n    }\n  }\n\n  highLightRange(start, end) {\n    const _this$selectRange2 = this.selectRange(start, end),\n          range = _this$selectRange2.range,\n          isValid = _this$selectRange2.isValid;\n\n    let hasValidRange = this.opts.rentalId ? isValid : true;\n    const minStay = this.opts.rentalId ? this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay') : this.opts.minStay;\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isArray\"])(range)) {\n      // check that range is valid and longer than minStay\n      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay;\n      range.map(a => {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(a, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"highlighted\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"invalid\"]);\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(a, hasValidRange ? _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"highlighted\"] : _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"invalid\"]);\n        return a;\n      });\n      this.highlightedBounds = [start, end];\n    }\n\n    return hasValidRange;\n  }\n  /** Resets selection, removes highlights\n   * @public\n   * @returns {Calendar}\n   */\n\n\n  resetSelection() {\n    this.removeHighlight();\n    this.isSelecting = false;\n    this.emit('selection-reset', this.selectionStart, this.selectionEnd);\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isFunction\"])(this.opts.onClearSelection)) {\n      this.opts.onClearSelection(this.selectionStart, this.selectionEnd);\n    }\n\n    this.selectionStart = null;\n    this.selectionEnd = null;\n\n    if (this.cellA) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.cellA, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selected\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectedStart\"]);\n      this.cellA = null;\n    }\n\n    if (this.cellB) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.cellB, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selected\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectedEnd\"]);\n      this.cellB = null;\n    }\n\n    if (this.opts.isDropDown && this.opts.elStartAt && this.opts.elEndAt) {\n      this.opts.elStartAt.value = null;\n      this.opts.elEndAt.value = null;\n    }\n\n    return this;\n  }\n\n  selectRange(start, end) {\n    if (Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"isLater\"])(start, end)) {\n      return this.cTree.selectRange(start, end);\n    }\n\n    return {\n      range: null,\n      isValid: false\n    };\n  }\n\n  selectStart(dateValue, cell) {\n    this.selectionStart = dateValue;\n\n    if (this.cellA) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.cellA, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selected\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectedStart\"]);\n    }\n\n    if (cell) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(cell, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selected\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectedStart\"]);\n      this.cellA = cell;\n    }\n\n    this.valueToInput('start', dateValue);\n  }\n\n  selectEnd(dateValue, cell) {\n    this.selectionEnd = dateValue;\n\n    if (this.cellB) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.cellB, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selected\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectedEnd\"]);\n    }\n\n    if (cell) {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(cell, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selected\"], _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"selectedEnd\"]);\n      this.cellB = cell;\n    }\n\n    this.valueToInput('end', dateValue);\n  }\n\n  createTree(yearStart, monthStart, times) {\n    const months = [];\n    const tree = {};\n    let monthEnd = monthStart;\n    let yearEnd = yearStart;\n\n    for (let i = 0; i < times; i += 1) {\n      const mDom = this.domMonth(yearEnd, monthEnd);\n      months.push(mDom);\n\n      if (!tree[yearEnd]) {\n        tree[yearEnd] = {};\n      }\n\n      if (!tree[yearEnd][monthEnd]) {\n        tree[yearEnd][monthEnd] = mDom.dayElements || [];\n      }\n\n      if (monthEnd > 10) {\n        monthEnd = 0;\n        yearEnd += 1;\n      } else {\n        monthEnd += 1;\n      }\n    }\n\n    return {\n      tree,\n      yearEnd,\n      monthEnd,\n      months\n    };\n  }\n\n  domMonth(year, month) {\n    const monthDom = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"elementFromString\"])(_templates__WEBPACK_IMPORTED_MODULE_2__[\"month\"]);\n    monthDom.querySelector(`.${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"tableHeader\"]} tr`).innerHTML = this.headerTplString();\n    monthDom.querySelector(`.${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"caption\"]}`).innerHTML = `${this.locale.longMonthNames[month]} ${year}`;\n    monthDom.body = monthDom.querySelector(`.${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"body\"]}`);\n    monthDom.body.innerHTML = this.daysTplString(year, month);\n    monthDom.month = month;\n    monthDom.year = year;\n    monthDom.dayElements = [].slice.call(monthDom.querySelectorAll('[data-value]'));\n    return monthDom;\n  }\n\n  headerTplString() {\n    // just to make life easier with start of the week calculation\n    const header = [];\n    const weekdaysLabelsExtended = this.locale.shortWeekdayNames.concat(this.locale.shortWeekdayNames);\n\n    for (let i = 0; i < this.opts.daysPerWeek; i += 1) {\n      header.push(_templates__WEBPACK_IMPORTED_MODULE_2__[\"weekDayLabel\"](weekdaysLabelsExtended[i + this.opts.startOfWeek]));\n    }\n\n    return header.join('');\n  }\n\n  daysTplString(year, month) {\n    const startOfMonth = new Date(year, month, 1).getDay();\n    const daysInMonth = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"monthLength\"])(year, month);\n    const rowTemplate = _templates__WEBPACK_IMPORTED_MODULE_2__[\"weekRow\"];\n    const monthTpl = [];\n    const weekShift = this.opts.daysPerWeek - this.opts.startOfWeek;\n    let rows = 5;\n    let weekShiftCorrected = startOfMonth + weekShift;\n    let dayCounter = 0;\n    let dayOfMonth = 1; // don't render full empty week\n\n    if (weekShiftCorrected >= this.opts.daysPerWeek) {\n      weekShiftCorrected -= this.opts.daysPerWeek;\n    } // try to figure out if 5 rows is enough for the month\n\n\n    if (rows * this.opts.daysPerWeek < weekShiftCorrected + daysInMonth) {\n      rows = 6;\n    } // for each week (5 or 6)\n\n\n    for (let i = 0; i < rows; i += 1) {\n      const week = []; // open tag <tr>\n\n      week.push(rowTemplate(i).open); // push days in week\n\n      for (let j = 0; j < this.opts.daysPerWeek; j += 1) {\n        // pushing actual days 1...daysInMonth\n        if (dayCounter >= weekShiftCorrected && dayOfMonth <= daysInMonth) {\n          week.push(this.dayTplString(year, month, dayOfMonth));\n          dayOfMonth += 1; // pushing placeholders instead of days\n        } else {\n          week.push(_templates__WEBPACK_IMPORTED_MODULE_2__[\"weekDayPlaceholder\"]);\n        }\n\n        dayCounter += 1;\n      } // close tag </tr> of week\n\n\n      week.push(rowTemplate().close); // push completed week to month template\n\n      monthTpl.push(week.join(''));\n    }\n\n    return monthTpl.join('');\n  }\n\n  dayTplString(year, month, dayOfMonth) {\n    const cTree = this.cTree;\n    const rate = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;\n    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;\n    let isDisabled = cTree.isDayDisabled(year, month, dayOfMonth);\n    let isOutAvailable = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');\n    let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');\n    const cDate = this.opts.currDate; // in the past any availability does not make sense\n\n    if (Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"isLater\"])([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {\n      isDisabled = true;\n      isDisabledStart = undefined;\n      isOutAvailable = undefined;\n    } // if there is not rentalId and no maps, just render plain calendar\n\n\n    if (!this.opts.rentalId) {\n      isDisabled = false;\n      isOutAvailable = true;\n      isDisabledStart = false;\n    }\n\n    return _templates__WEBPACK_IMPORTED_MODULE_2__[\"weekDay\"](dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, this.opts.allowShorterMinStaySelection ? 1 : minStay, Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"currencyFormatter\"])(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency), Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"tFormatter\"])(minStay, this.locale.minStay));\n  }\n\n  destroyMonths() {\n    if (this.dom && Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isArray\"])(this.dom.months)) {\n      this.dom.months.map(m => Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"destroyElement\"])(m));\n    }\n  }\n\n  destroy() {\n    return Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"destroyElement\"])(this.el);\n  }\n\n  loadMaps(id) {\n    this.toggleLoading();\n\n    const onSuccess = maps => {\n      this.toggleLoading();\n\n      if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isArray\"])(maps.data) && maps.data[0].attributes) {\n        if (this.opts.disableAvailabityMap) {\n          maps.data[0].attributes.availability = maps.data[0].attributes.availability.replace(/[0-9]/g, '0');\n        }\n\n        this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;\n        this.emit('maps-loaded', maps);\n        this.addMaps(maps.data[0].attributes);\n        this.mapsLoaded = true;\n      } else {\n        this.logger('expects json-api data format', 'error');\n      }\n    };\n\n    const onError = () => {\n      this.toggleLoading();\n      this.emit('maps-error');\n      this.logger('Server error happened', 'error');\n    };\n\n    Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"ajax\"])(this.opts.rentalUrl(id), onSuccess, onError);\n  }\n\n  completeSelection() {\n    if (this.opts.isSingleInput) {\n      const singleInputDateFormat = this.singleInputDateFormat || this.locale.formatDate;\n      const dateStart = Object(strtime__WEBPACK_IMPORTED_MODULE_6__[\"strftime\"])(Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...this.selectionStart), singleInputDateFormat, this.locale);\n      const dateEnd = Object(strtime__WEBPACK_IMPORTED_MODULE_6__[\"strftime\"])(Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...this.selectionEnd), singleInputDateFormat, this.locale);\n      this.opts.elSingleInput.value = `${dateStart} ${this.opts.singleInputSeparator} ${dateEnd}`;\n    }\n\n    this.emit('selection-completed', this.selectionStart, this.selectionEnd);\n\n    if (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isFunction\"])(this.opts.onSelectionCompleted)) {\n      this.opts.onSelectionCompleted(Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...this.selectionStart, true), Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...this.selectionEnd, true));\n    }\n  }\n\n  initCalendarDrop() {\n    const element = Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"elementFromString\"])('<div></div>');\n    this.elTarget = this.opts.el;\n    this.el = element;\n    document.body.appendChild(element);\n    this.opts.elStartAt = this.opts.elStartAt || document.querySelector(`.${\"BookingSyncCalendar\"}__start-at`);\n    this.opts.elEndAt = this.opts.elEndAt || document.querySelector(`.${\"BookingSyncCalendar\"}__end-at`);\n    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(`.${\"BookingSyncCalendar\"}__single-input`);\n\n    if (this.opts.hiddenElFormat) {\n      [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {\n        const hiddenInput = input.cloneNode(true);\n        input.parentElement.appendChild(hiddenInput).removeAttribute('name');\n        hiddenInput.className = '';\n        hiddenInput.hidden = true;\n        i ? this.hiddenElEndAt = hiddenInput : this.hiddenElStartAt = hiddenInput;\n      });\n    }\n\n    if (this.opts.isSingleInput) {\n      this.opts.elSingleInput.readOnly = true;\n      [this.opts.elStartAt, this.opts.elEndAt].forEach(input => {\n        input.hidden = true;\n      });\n    }\n\n    Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"dropBasic\"]);\n    const calDrop = new popper_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.elTarget, this.el, {\n      placement: this.opts.dropPlacement || 'bottom-start',\n      hide: true\n    });\n\n    const onFocus = (input, isReversed) => {\n      this.switchInputFocus(input);\n      this.changeSelectionOrder(isReversed);\n\n      if (!Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"hasClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"visible\"])) {\n        calDrop.update();\n        this.emit('drop-open');\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"visible\"]);\n\n        if (!this.mapsLoaded && this.opts.rentalId) {\n          this.loadMaps(this.opts.rentalId);\n        }\n      }\n    };\n\n    if (this.opts.isSingleInput) {\n      this.opts.elSingleInput.addEventListener('focus', () => {\n        onFocus('start', false);\n      });\n    } else {\n      this.opts.elStartAt.addEventListener('focus', () => {\n        onFocus('start', false);\n      });\n      this.opts.elEndAt.addEventListener('focus', () => {\n        onFocus('end', true);\n      });\n    }\n\n    document.addEventListener('click', this.closeDrop.bind(this));\n    this.calDrop = calDrop;\n\n    if (this.opts.elReset) {\n      this.opts.elReset.addEventListener('click', () => {\n        this.resetSelection();\n      });\n    }\n  }\n\n  valueToInput(input, dateValue) {\n    const elStartAt = this.opts.elStartAt;\n    const elEndAt = this.opts.elEndAt;\n    const date = Object(_utils__WEBPACK_IMPORTED_MODULE_7__[\"dateToIso\"])(...dateValue);\n    const value = Object(strtime__WEBPACK_IMPORTED_MODULE_6__[\"strftime\"])(date, this.format, this.locale);\n    const evt = document.createEvent('Event');\n    evt.initEvent('change', false, true);\n\n    if (this.opts.hiddenElFormat) {\n      const hiddenValue = Object(strtime__WEBPACK_IMPORTED_MODULE_6__[\"strftime\"])(date, this.opts.hiddenElFormat, this.locale);\n\n      if (input === 'start' && this.hiddenElStartAt) {\n        this.hiddenElStartAt.value = hiddenValue;\n      } else if (input === 'end' && this.hiddenElEndAt) {\n        this.hiddenElEndAt.value = hiddenValue;\n      }\n    }\n\n    if (input === 'start' && elStartAt) {\n      elStartAt.value = value;\n      elStartAt.dispatchEvent(evt);\n    } else if (input === 'end' && elEndAt) {\n      elEndAt.value = value;\n      elEndAt.dispatchEvent(evt);\n    }\n  }\n\n  switchInputFocus(type) {\n    if (this.opts.elStartAt && this.opts.elEndAt) {\n      if (type === 'start') {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.opts.elStartAt, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"focus\"]);\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.opts.elEndAt, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"focus\"]);\n      }\n\n      if (type === 'end') {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"addClass\"])(this.opts.elEndAt, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"focus\"]);\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.opts.elStartAt, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"focus\"]);\n      }\n\n      if (type === 'any') {\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.opts.elStartAt, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"focus\"]);\n        Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.opts.elEndAt, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"focus\"]);\n      }\n    }\n  }\n\n  closeDrop(e, force) {\n    if (!force && (Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isInside\"])(e.target, this.el) || Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"isInside\"])(e.target, this.elTarget))) {\n      e.stopPropagation();\n    } else {\n      Object(widget_utils__WEBPACK_IMPORTED_MODULE_0__[\"removeClass\"])(this.el, _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_8__[\"visible\"]);\n      this.emit('drop-close');\n      this.switchInputFocus('any');\n    }\n  }\n\n  toString() {\n    return `[${this.name} ${this.VERSION}] `;\n  }\n\n  logger(msg) {\n    let type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'log';\n\n    if (console && console[type]) {\n      console[type](this.toString() + msg);\n    }\n  }\n\n}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/calendar.js?");
+// EXTERNAL MODULE: ./src/styles/calendar.scss
+var calendar = __webpack_require__(1);
+var calendar_default = /*#__PURE__*/__webpack_require__.n(calendar);
 
-/***/ }),
+// CONCATENATED MODULE: ./src/templates.js
+/* eslint "max-len": ["error", 300] */
 
-/***/ "./src/config.js":
-/*!***********************!*\
-  !*** ./src/config.js ***!
-  \***********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+const disabled = calendar_default.a.disabled,
+      info = calendar_default.a.info,
+      infoExtra = calendar_default.a.infoExtra,
+      morningDisabled = calendar_default.a.morningDisabled,
+      nightDisabled = calendar_default.a.nightDisabled,
+      cnt = calendar_default.a.cnt;
+const main = `<div class="${calendar_default.a.monthsWrapper}"></div>`;
+const templates_month = `
+  <div class="${calendar_default.a.mCell} js-month">
+    <table class="${calendar_default.a.month}" role="month">
+      <caption class="${calendar_default.a.caption}"></caption>
+      <thead class="${calendar_default.a.tableHeader}"><tr></tr></thead>
+      <tbody class="${calendar_default.a.body}"></tbody>
+    </table>
+  </div>
+`;
+const weekDayLabel = label => `<th class="${calendar_default.a.th}">${label}</th>`;
+/* eslint prefer-template: 0 */
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* global NODE_ENV, Date */\nconst currDate = new Date();\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: 'BookingSync Calendar Widget',\n  apiHost:  true ? 'http://localhost:3000' : undefined,\n  apiNamespace: '/api/v2/public',\n  apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',\n  apiRentalId: 'rental_id=',\n  apiCurrency: '&exchange_to_currency=',\n\n  rentalUrl(ids) {\n    let route = this.apiMapsRoute.replace('{apiRentalId}', `${this.apiRentalId}${ids}`);\n    route = route.replace('{apiCurrency}', this.currency ? `${this.apiCurrency}${this.currency}` : '');\n    return `${this.apiHost}${this.apiNamespace}${route}`;\n  },\n\n  startOfWeek: 0,\n  // 0 Sun 1 Mon....6 Sat\n  minStay: 1,\n  // can select one night\n  monthStart: currDate.getUTCMonth(),\n  // start with current month by default M '0...12'\n  yearStart: currDate.getUTCFullYear(),\n  // start with current year YYYY\n  daysPerWeek: 7,\n  // FIXME support calendar rendering\n  displayMonths: 2,\n  selectable: false,\n  showRates: false,\n  showMinStay: false,\n  isReverseSelectable: false,\n  // select end date first\n  isBackDisabled: true,\n  isDropDown: false,\n  el: null,\n  elStartAt: null,\n  elEndAt: null,\n  elSingleInput: null,\n  isSingleInput: null,\n  singleInputDateFormat: null,\n  singleInputSeparator: '→',\n  elReset: null,\n  formatDate: null,\n  hiddenElFormat: null,\n  rentalId: null,\n  currency: null,\n  disableAvailabityMap: false,\n  allowShorterMinStaySelection: false,\n  currDate\n});\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/config.js?");
+const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) => `
+  <td ${dis ? 'data-disabled' : 'data-enabled'}
+       ${isOutAvailable ? 'data-available-out' : ''}
+       data-value="${label}"
+       class="${calendar_default.a.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
+       <div class="${cnt}" role="day-value">
+        ${label}
+      </div>
+      ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
+      ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
+  </td>
+`;
+const forward = `
+  <button class="${calendar_default.a.forward}" role="button">
+    <svg viewBox="0 0 1000 1000" width="20" height="20">
+      <path d="M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z"></path>
+    </svg>
+  </button>
+`;
+const back = `
+  <button class="${calendar_default.a.back}" role="button">
+    <svg viewBox="0 0 1000 1000" width="20" height="20">
+      <path d="M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z"></path>
+    </svg>
+  </button>
+`;
+const weekDayPlaceholder = '<td></td>';
+/* eslint arrow-body-style: 0 */
 
-/***/ }),
+const weekRow = num => {
+  return {
+    open: `<tr class="js-body-row-${num}">`,
+    close: '</tr>'
+  };
+};
+const loading = `
+  <div class="${calendar_default.a.loadingLayer}">
+    <div class="${calendar_default.a.loading}"></div>
+  </div>
+`;
+// CONCATENATED MODULE: ./src/calendar-tree.js
 
-/***/ "./src/locales.js":
-/*!************************!*\
-  !*** ./src/locales.js ***!
-  \************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/**
+ *  please refer to /tests/unit/calendarTree.specs.js for usage
+ *  TODO docs, merge availability with calendar tree, use one data-structure
+ *  TODO minStay + availability map considerations fo disabling dates
+ */
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nlet locales = {\n  'en-GB': {\n    shortWeekdayNames: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),\n    longWeekdayNames: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),\n    longMonthNames: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),\n    shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),\n    formatDate: '%b %d, %Y',\n    currency: 'GBP',\n    minStay: '%number+ nights',\n    startOfWeek: 0\n  },\n  'en-US': {\n    shortWeekdayNames: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),\n    longWeekdayNames: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),\n    longMonthNames: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),\n    shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),\n    formatDate: '%b %d, %Y',\n    currency: 'USD',\n    minStay: '%number+ nights',\n    startOfWeek: 1\n  },\n  'de-DE': {\n    shortWeekdayNames: 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),\n    longWeekdayNames: 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),\n    longMonthNames: 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),\n    shortMonthNames: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),\n    formatDate: '%b %d, %Y',\n    currency: 'EUR',\n    minStay: '%number+ nächte',\n    startOfWeek: 1\n  },\n  'es-ES': {\n    shortWeekdayNames: 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),\n    longWeekdayNames: 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),\n    longMonthNames: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),\n    shortMonthNames: 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),\n    formatDate: '%b %d, %Y',\n    currency: 'EUR',\n    minStay: '%number+ noches',\n    startOfWeek: 1\n  },\n  'fr-FR': {\n    shortWeekdayNames: 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),\n    longWeekdayNames: 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),\n    longMonthNames: 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),\n    shortMonthNames: 'jan_fév_mar_avr_mai_juin_juil_aoû_sep_oct_nov_déc'.split('_'),\n    formatDate: '%d %b, %Y',\n    currency: 'EUR',\n    minStay: '%number+ nuits',\n    startOfWeek: 1\n  },\n  'it-IT': {\n    shortWeekdayNames: 'Do_Lu_Ma_Me_Gi_Ve_Sa'.split('_'),\n    longWeekdayNames: 'domenica_lunedì_martedì_mercoledì_giovedì_venerdì_sabato'.split('_'),\n    longMonthNames: 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),\n    shortMonthNames: 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),\n    formatDate: '%b %d, %Y',\n    currency: 'EUR',\n    minStay: '%number+ notti.',\n    startOfWeek: 1\n  },\n  'sv-SE': {\n    shortWeekdayNames: 'sö_må_ti_on_to_fr_lö'.split('_'),\n    longWeekdayNames: 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),\n    longMonthNames: 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),\n    shortMonthNames: 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),\n    formatDate: '%b %d, %Y',\n    currency: 'EUR',\n    minStay: '%number+ nätter',\n    startOfWeek: 1\n  }\n}; // Add aliases\n\nlocales = Object.assign({\n  en: locales['en-US'],\n  de: locales['de-DE'],\n  es: locales['es-ES'],\n  fr: locales['fr-FR'],\n  it: locales['it-IT'],\n  sv: locales['sv-SV']\n}, locales);\n/* harmony default export */ __webpack_exports__[\"default\"] = (locales);\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/locales.js?");
+const genArrayRange = (a, b) => {
+  const list = [];
 
-/***/ }),
+  for (let i = a; i <= b; i += 1) {
+    list.push(i);
+  }
 
-/***/ "./src/styles/calendar.scss":
-/*!**********************************!*\
-  !*** ./src/styles/calendar.scss ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+  return list;
+};
 
-eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/sass-loader/lib/loader.js??ref--6-2!./calendar.scss */ \"./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js?!./src/styles/calendar.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"insertAt\":\"top\",\"singleton\":true,\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/styles/calendar.scss?");
+const parseISOString = (str
+/* yyyy-mm-dd */
+) => {
+  const arrStr = str.split('-').map(parseFloat);
+  return {
+    year: arrStr[0],
+    month: arrStr[1] - 1,
+    date: arrStr[2]
+  };
+};
 
-/***/ }),
+class calendar_tree_CalendarTree {
+  /**
+   * @param {Function} validateCell
+   * @param {Object} tree
+   */
+  constructor(validateCell, tree) {
+    this.validateCell = validateCell;
+    this.tree = tree;
+  }
 
-/***/ "./src/styles/reset.scss":
-/*!*******************************!*\
-  !*** ./src/styles/reset.scss ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+  addTree(obj) {
+    if (!this.tree) {
+      this.tree = obj;
+    } else {
+      this.tree = Object(src["merge"])(this.tree || {}, obj, true);
+    }
 
-eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/sass-loader/lib/loader.js??ref--6-2!./reset.scss */ \"./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js?!./src/styles/reset.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"insertAt\":\"top\",\"singleton\":true,\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/styles/reset.scss?");
+    return this;
+  }
+  /**
+   * select range from the tree, returns array items
+   * start date is ALWAYS < then end date , as we are selecting time range in days.
+   *
+   * @param {Array} start e.g. [2016, 0, 1]
+   * @param {Array} end        [2016, 1, 3]
+   * @returns {{range: Array, isValid: {Boolean}}}
+   */
 
-/***/ }),
 
-/***/ "./src/templates.js":
-/*!**************************!*\
-  !*** ./src/templates.js ***!
-  \**************************/
-/*! exports provided: main, month, weekDayLabel, weekDay, forward, back, weekDayPlaceholder, weekRow, loading */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  selectRange(start, end) {
+    let range = [];
+    const a = start.slice(); // if year and month the same, just slice the current month
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"main\", function() { return main; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"month\", function() { return month; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"weekDayLabel\", function() { return weekDayLabel; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"weekDay\", function() { return weekDay; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"forward\", function() { return forward; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"back\", function() { return back; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"weekDayPlaceholder\", function() { return weekDayPlaceholder; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"weekRow\", function() { return weekRow; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loading\", function() { return loading; });\n/* harmony import */ var _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/calendar.scss */ \"./src/styles/calendar.scss\");\n/* harmony import */ var _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* eslint \"max-len\": [\"error\", 300] */\n\nconst disabled = _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.disabled,\n      info = _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.info,\n      infoExtra = _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.infoExtra,\n      morningDisabled = _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.morningDisabled,\n      nightDisabled = _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.nightDisabled,\n      cnt = _styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.cnt;\nconst main = `<div class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.monthsWrapper}\"></div>`;\nconst month = `\n  <div class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.mCell} js-month\">\n    <table class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.month}\" role=\"month\">\n      <caption class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.caption}\"></caption>\n      <thead class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.tableHeader}\"><tr></tr></thead>\n      <tbody class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.body}\"></tbody>\n    </table>\n  </div>\n`;\nconst weekDayLabel = label => `<th class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.th}\">${label}</th>`;\n/* eslint prefer-template: 0 */\n\nconst weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) => `\n  <td ${dis ? 'data-disabled' : 'data-enabled'}\n       ${isOutAvailable ? 'data-available-out' : ''}\n       data-value=\"${label}\"\n       class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}\">\n       <div class=\"${cnt}\" role=\"day-value\">\n        ${label}\n      </div>\n      ${rate ? '<span class=\"' + info + '\">' + rateT + '</span>' : ''}\n      ${minStay ? '<span class=\"' + infoExtra + '\">' + minStayT + '</span>' : ''}\n  </td>\n`;\nconst forward = `\n  <button class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.forward}\" role=\"button\">\n    <svg viewBox=\"0 0 1000 1000\" width=\"20\" height=\"20\">\n      <path d=\"M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z\"></path>\n    </svg>\n  </button>\n`;\nconst back = `\n  <button class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.back}\" role=\"button\">\n    <svg viewBox=\"0 0 1000 1000\" width=\"20\" height=\"20\">\n      <path d=\"M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z\"></path>\n    </svg>\n  </button>\n`;\nconst weekDayPlaceholder = '<td></td>';\n/* eslint arrow-body-style: 0 */\n\nconst weekRow = num => {\n  return {\n    open: `<tr class=\"js-body-row-${num}\">`,\n    close: '</tr>'\n  };\n};\nconst loading = `\n  <div class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.loadingLayer}\">\n    <div class=\"${_styles_calendar_scss__WEBPACK_IMPORTED_MODULE_0___default.a.loading}\"></div>\n  </div>\n`;\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/templates.js?");
+    if (a[0] === end[0] && a[1] === end[1]) {
+      range = this.selectDaysInMonth(a[0], a[1], a[2], end[2]);
+    } else {
+      const monthDays = this.tree[a[0]][a[1]]; // slice the piece of current monthDays from start of range till end of the monthDays
 
-/***/ }),
+      range = range.concat(this.selectDaysInMonth(a[0], a[1], a[2], monthDays.length)); // shift start month, b/c we already selected days in it
 
-/***/ "./src/utils.js":
-/*!**********************!*\
-  !*** ./src/utils.js ***!
-  \**********************/
-/*! exports provided: dateToIso, dateToArray, isLater, validationOfRange, tFormatter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+      a[1] += 1; // if end date year > start date
+      // select everything in start year till the end of start year
+      // e.g. start is 20 October, so select November and December, October was selected above
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dateToIso\", function() { return dateToIso; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dateToArray\", function() { return dateToArray; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isLater\", function() { return isLater; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"validationOfRange\", function() { return validationOfRange; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"tFormatter\", function() { return tFormatter; });\n/* harmony import */ var strtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! strtime */ \"./node_modules/strtime/dist/strtime.js\");\n/* harmony import */ var strtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(strtime__WEBPACK_IMPORTED_MODULE_0__);\n\nconst dateToIso = function dateToIso(year, month, day) {\n  let isString = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;\n\n  function pad(number) {\n    if (number < 10) {\n      return `0${number}`;\n    }\n\n    return number;\n  }\n\n  if (isString) {\n    return `${year}-${pad(month + 1)}-${pad(day)}`;\n  }\n\n  return new Date(year, month, day + 1);\n};\nconst dateToArray = (val, format, locale) => {\n  try {\n    const date = Object(strtime__WEBPACK_IMPORTED_MODULE_0__[\"strptime\"])(val, format, locale);\n    const a = Object(strtime__WEBPACK_IMPORTED_MODULE_0__[\"strftime\"])(date, '%Y-%m-%d').split('-');\n    return [parseInt(a[0]), // year\n    parseInt(a[1] - 1), // month index\n    parseInt(a[2]) // day\n    ];\n  } catch (e) {\n    return false;\n  }\n};\nconst isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);\nconst validationOfRange = (cell, index, range) => {\n  if (index === range.length - 1) {\n    return cell.getAttribute('data-available-out') !== '';\n  }\n\n  return cell.getAttribute('data-disabled') === '';\n};\nconst tFormatter = (value, str) => str.replace('%number', value);\n\n//# sourceURL=webpack://BookingSyncCalendarWidget/./src/utils.js?");
+      if (end[0] > start[0]) {
+        range = range.concat(this.selectMonthsInYear(a[0], a[1], 11)); // and set start year to end year
+        // month to 0 (January)
+
+        var _ref = [end[0], 0];
+        a[0] = _ref[0];
+        a[1] = _ref[1];
+      } // now we are at the same year and have the case if end month > start month
+      // then select everything between those months
+
+
+      if (end[1] > a[1]) {
+        // e.g. start 20 October end 20 December, select full November
+        range = range.concat(this.selectMonthsInYear(a[0], a[1], end[1] - 1));
+        a[1] = end;
+      } // the missing part is days in end selection month
+
+
+      range = range.concat(this.selectDaysInMonth(end[0], end[1], 1, end[2]));
+    }
+
+    return {
+      range,
+      isValid: this.isRangeValid(range)
+    };
+  }
+
+  selectMonthsInYear(year, start, end) {
+    let selection = [];
+    const monthRange = genArrayRange(start, end);
+    monthRange.forEach(month => {
+      const y = this.tree[year];
+      const m = Object(src["is"])(y) ? this.tree[year][month] : null;
+
+      if (y && m) {
+        selection = selection.concat(this.selectDaysInMonth(year, month, 1, m.length));
+      }
+    });
+    return selection;
+  }
+
+  selectDaysInMonth(year, month, startDay, endDay) {
+    const y = this.tree[year];
+    const m = Object(src["is"])(y) ? this.tree[year][month] : null;
+
+    if (y && m) {
+      return m.slice(startDay - 1, endDay);
+    }
+
+    return [];
+  }
+
+  selectDay(year, month, day) {
+    const y = this.tree[year];
+    const m = Object(src["is"])(y) ? this.tree[year][month] : null;
+
+    if (y && m) {
+      return m[day - 1];
+    }
+
+    return null;
+  }
+
+  isRangeValid(range, fn) {
+    const validateCell = this.validateCell || fn;
+    let isValid = true;
+
+    if (typeof validateCell === 'function') {
+      isValid = range.filter((a, i) => this.validateCell(a, i, range)).length === 0;
+    }
+
+    return isValid;
+  }
+
+  replaceMaps(map, updatedAt) {
+    this.map = calendar_tree_CalendarTree.mapsToTree(map, updatedAt);
+    return this;
+  }
+
+  removeMap() {
+    this.map = {};
+    return this;
+  }
+  /**
+   *  Create a tree structure from maps
+   *  for n-time day access, e.g. this.map[year][month][day].isAvailable;
+   * {
+   *   2106: {
+   *      1: {
+   *        1: ,
+   *        2: ,
+   *        3:
+   *        ...
+   *      }
+   *      ...
+   *      12: {
+   *
+   *      }
+   *    }
+   * }
+   * @param {Object} maps
+   * @param {String | Date} mapStartAt
+   * @returns {Object}
+   */
+
+
+  static mapsToTree(maps, mapStartAt) {
+    if (!(Object(src["isString"])(maps.availability) || Object(src["isString"])(maps.nightly_rates) || Object(src["isString"])(maps.minimum_stays))) {
+      return null;
+    }
+
+    const avail = maps.availability.split('').map(parseFloat);
+    const rates = maps.nightly_rates.split(',').map(parseFloat);
+    const minMap = maps.minimum_stays.split(',').map(parseFloat);
+
+    let _parseISOString = parseISOString(mapStartAt),
+        year = _parseISOString.year,
+        month = _parseISOString.month,
+        dayShift = _parseISOString.date;
+
+    let day = 1; // trick to add extra unavailable date for proper calculations of check-out dates
+
+    if (avail[avail.length - 1] === 0) {
+      avail.push(1);
+    }
+
+    return avail.reduce((curr, state, index, arr) => {
+      const length = Object(src["monthLength"])(year, month);
+      const tree = curr;
+      const minStay = minMap[index];
+      const rate = rates[index];
+      const isAvailable = state === 0;
+      const prevAvailable = arr[index - 1] === 0;
+      const isMorningBlocked = isAvailable && !prevAvailable;
+
+      if (!tree[year]) {
+        tree[year] = {};
+      }
+
+      if (!tree[year][month]) {
+        tree[year][month] = {};
+      }
+
+      if (dayShift) {
+        day = dayShift;
+        dayShift = null;
+      } // if minStay > available days in future
+      // consider current day as unavailable as well
+      // if (isAvailable && minStay > 1) {
+      //   let daysAvailable = 1;
+      //   let i             = index + 1;
+      //   while (arr[i] === 0) {
+      //     daysAvailable += 1;
+      //     i += 1;
+      //   }
+      //
+      //   if (minStay > daysAvailable) {
+      //     isAvailable = false;
+      //   }
+      // }
+
+
+      tree[year][month][day] = {
+        rate,
+        minStay,
+        isAvailable,
+        isMorningBlocked,
+        isOutAvailable: !isMorningBlocked && isAvailable || !isAvailable && prevAvailable === true
+      };
+
+      if (day < length) {
+        day += 1;
+      } else {
+        if (month > 10) {
+          month = 0;
+          year += 1;
+        } else {
+          month += 1;
+        }
+
+        day = 1;
+      }
+
+      return tree;
+    }, {});
+  }
+
+  getDayProperty(year, month, day, property) {
+    let prop;
+
+    if (this.map) {
+      try {
+        prop = this.map[year][month][day][property];
+      } catch (e) {// continue regardless of error
+      }
+    }
+
+    return prop;
+  }
+
+  isDayDisabled(year, month, day) {
+    return !this.getDayProperty(year, month, day, 'isAvailable');
+  }
+
+}
+// CONCATENATED MODULE: ./src/config.js
+/* global NODE_ENV, Date */
+const currDate = new Date();
+/* harmony default export */ var config = ({
+  name: 'BookingSync Calendar Widget',
+  apiHost:  false ? undefined : 'https://www.bookingsync.com',
+  apiNamespace: '/api/v2/public',
+  apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
+  apiRentalId: 'rental_id=',
+  apiCurrency: '&exchange_to_currency=',
+
+  rentalUrl(ids) {
+    let route = this.apiMapsRoute.replace('{apiRentalId}', `${this.apiRentalId}${ids}`);
+    route = route.replace('{apiCurrency}', this.currency ? `${this.apiCurrency}${this.currency}` : '');
+    return `${this.apiHost}${this.apiNamespace}${route}`;
+  },
+
+  startOfWeek: 0,
+  // 0 Sun 1 Mon....6 Sat
+  minStay: 1,
+  // can select one night
+  monthStart: currDate.getUTCMonth(),
+  // start with current month by default M '0...12'
+  yearStart: currDate.getUTCFullYear(),
+  // start with current year YYYY
+  daysPerWeek: 7,
+  // FIXME support calendar rendering
+  displayMonths: 2,
+  selectable: false,
+  showRates: false,
+  showMinStay: false,
+  isReverseSelectable: false,
+  // select end date first
+  isBackDisabled: true,
+  isDropDown: false,
+  el: null,
+  elStartAt: null,
+  elEndAt: null,
+  elSingleInput: null,
+  isSingleInput: null,
+  singleInputDateFormat: null,
+  singleInputSeparator: '→',
+  elReset: null,
+  formatDate: null,
+  hiddenElFormat: null,
+  rentalId: null,
+  currency: null,
+  disableAvailabityMap: false,
+  allowShorterMinStaySelection: false,
+  currDate
+});
+// CONCATENATED MODULE: ./src/locales.js
+let locales = {
+  'en-GB': {
+    shortWeekdayNames: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+    longWeekdayNames: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+    longMonthNames: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+    shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'GBP',
+    minStay: '%number+ nights',
+    startOfWeek: 0
+  },
+  'en-US': {
+    shortWeekdayNames: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+    longWeekdayNames: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+    longMonthNames: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+    shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'USD',
+    minStay: '%number+ nights',
+    startOfWeek: 1
+  },
+  'de-DE': {
+    shortWeekdayNames: 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+    longWeekdayNames: 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
+    longMonthNames: 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+    shortMonthNames: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'EUR',
+    minStay: '%number+ nächte',
+    startOfWeek: 1
+  },
+  'es-ES': {
+    shortWeekdayNames: 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
+    longWeekdayNames: 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+    longMonthNames: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+    shortMonthNames: 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'EUR',
+    minStay: '%number+ noches',
+    startOfWeek: 1
+  },
+  'fr-FR': {
+    shortWeekdayNames: 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+    longWeekdayNames: 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+    longMonthNames: 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+    shortMonthNames: 'jan_fév_mar_avr_mai_juin_juil_aoû_sep_oct_nov_déc'.split('_'),
+    formatDate: '%d %b, %Y',
+    currency: 'EUR',
+    minStay: '%number+ nuits',
+    startOfWeek: 1
+  },
+  'it-IT': {
+    shortWeekdayNames: 'Do_Lu_Ma_Me_Gi_Ve_Sa'.split('_'),
+    longWeekdayNames: 'domenica_lunedì_martedì_mercoledì_giovedì_venerdì_sabato'.split('_'),
+    longMonthNames: 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),
+    shortMonthNames: 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'EUR',
+    minStay: '%number+ notti.',
+    startOfWeek: 1
+  },
+  'sv-SE': {
+    shortWeekdayNames: 'sö_må_ti_on_to_fr_lö'.split('_'),
+    longWeekdayNames: 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
+    longMonthNames: 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),
+    shortMonthNames: 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'EUR',
+    minStay: '%number+ nätter',
+    startOfWeek: 1
+  }
+}; // Add aliases
+
+locales = Object.assign({
+  en: locales['en-US'],
+  de: locales['de-DE'],
+  es: locales['es-ES'],
+  fr: locales['fr-FR'],
+  it: locales['it-IT'],
+  sv: locales['sv-SV']
+}, locales);
+/* harmony default export */ var src_locales = (locales);
+// EXTERNAL MODULE: ./node_modules/strtime/dist/strtime.js
+var strtime = __webpack_require__(2);
+
+// CONCATENATED MODULE: ./src/utils.js
+
+const dateToIso = function dateToIso(year, month, day) {
+  let isString = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  function pad(number) {
+    if (number < 10) {
+      return `0${number}`;
+    }
+
+    return number;
+  }
+
+  if (isString) {
+    return `${year}-${pad(month + 1)}-${pad(day)}`;
+  }
+
+  return new Date(year, month, day + 1);
+};
+const dateToArray = (val, format, locale) => {
+  try {
+    const date = Object(strtime["strptime"])(val, format, locale);
+    const a = Object(strtime["strftime"])(date, '%Y-%m-%d').split('-');
+    return [parseInt(a[0]), // year
+    parseInt(a[1] - 1), // month index
+    parseInt(a[2]) // day
+    ];
+  } catch (e) {
+    return false;
+  }
+};
+const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);
+const validationOfRange = (cell, index, range) => {
+  if (index === range.length - 1) {
+    return cell.getAttribute('data-available-out') !== '';
+  }
+
+  return cell.getAttribute('data-disabled') === '';
+};
+const tFormatter = (value, str) => str.replace('%number', value);
+// EXTERNAL MODULE: ./src/styles/reset.scss
+var styles_reset = __webpack_require__(7);
+
+// CONCATENATED MODULE: ./src/calendar.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return calendar_Calendar; });
+/* global VERSION, Node, CSS_PREFIX, document, console */
+
+
+
+
+
+
+
+
+
+
+class calendar_Calendar extends src["Emitter"] {
+  constructor(opts, maps) {
+    super();
+    this.name = config.name;
+    this.VERSION = "1.2.4";
+
+    if (Object(src["isObject"])(opts)) {
+      if (!opts.el) {
+        this.logger('el must be HTML element', 'error');
+        return;
+      }
+
+      const configDataset = Object(src["merge"])(config, opts.el.dataset);
+      this.opts = Object(src["merge"])(configDataset, opts);
+      this.opts = Object(src["traverseObj"])(this.opts, a => a, b => {
+        if (b === 'true' || b === 'false') {
+          return b === 'true';
+        }
+
+        if (Object(src["isNumeric"])(b)) {
+          return parseInt(b, 10);
+        }
+
+        return b;
+      });
+
+      if (this.opts.isDropDown) {
+        this.initCalendarDrop();
+      } else {
+        this.el = opts.el;
+      }
+
+      this.opts.lang = this.opts.lang && this.opts.lang in src_locales ? this.opts.lang : 'en-US';
+      this.locale = src_locales[this.opts.lang];
+      this.format = this.opts.formatDate || this.locale.formatDate || '%D';
+      this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
+    }
+
+    this.dom = {};
+    this.cTree = new calendar_tree_CalendarTree(validationOfRange, {});
+
+    if (Object(src["isObject"])(maps)) {
+      this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);
+    } // selection and highlights
+
+
+    this.isSelecting = false;
+    this.highlightedBounds = [];
+    this.hasValidRange = true; // user selects end date first
+
+    this.isReverseSelectable = this.opts.isReverseSelectable;
+    this.init();
+  }
+
+  init() {
+    Object(src["addClass"])(this.el, calendar["calendar"], styles_reset["reset"]);
+
+    if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
+      if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
+        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
+        this.selectionEnd = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
+        this.completeSelection();
+      }
+    }
+
+    this.dom.monthsWrapper = this.el.appendChild(Object(src["elementFromString"])(main));
+    this.dom.forward = this.el.appendChild(Object(src["elementFromString"])(forward));
+    this.dom.back = this.el.appendChild(Object(src["elementFromString"])(back));
+    this.renderMonths(this.opts.yearStart, this.opts.monthStart);
+    this.addBtnsEvents();
+
+    if (this.opts.rentalId) {
+      if (this.opts.showRates || this.opts.showMinStay) {
+        Object(src["addClass"])(this.el, calendar["chunky"]);
+      }
+
+      this.loadMaps(this.opts.rentalId);
+    }
+
+    this.logger('inited');
+    this.emit('init');
+  }
+
+  changeSelectionOrder(isReverse) {
+    if (isReverse !== this.isReverseSelectable && !this.isSelecting) {
+      this.isReverseSelectable = isReverse;
+      this.destroyMonths();
+      this.renderMonths(this.yearStart, this.monthStart);
+    }
+  }
+
+  renderMonths(yearStart, monthStart) {
+    // construct dom tree
+    const _this$createTree = this.createTree(yearStart, monthStart, this.opts.displayMonths),
+          tree = _this$createTree.tree,
+          yearEnd = _this$createTree.yearEnd,
+          monthEnd = _this$createTree.monthEnd,
+          months = _this$createTree.months;
+
+    this.cTree.addTree(tree);
+    this.monthStart = monthStart;
+    this.yearStart = yearStart;
+    this.monthEnd = monthEnd;
+    this.yearEnd = yearEnd;
+    this.recoverSelections();
+
+    if (this.opts.selectable) {
+      Object(src["addClass"])(this.el, this.isReverseSelectable ? calendar["reversed"] : calendar["direct"]);
+      Object(src["removeClass"])(this.el, this.isReverseSelectable ? calendar["direct"] : calendar["reversed"]);
+    }
+
+    this.dom.months = months;
+    this.dom.months.forEach(m => {
+      this.dom.monthsWrapper.appendChild(m);
+
+      if (this.opts.selectable) {
+        this.addMonthEvents(m);
+        Object(src["addClass"])(this.el, calendar["actionsEnabled"]);
+      }
+    });
+    this.disableBackBtn();
+  }
+
+  recoverSelections() {
+    if (this.selectionStart) {
+      this.selectStart(this.selectionStart, this.cTree.selectDay(...this.selectionStart));
+    }
+
+    if (this.selectionEnd) {
+      this.selectEnd(this.selectionEnd, this.cTree.selectDay(...this.selectionEnd));
+    }
+
+    if (this.selectionStart && this.selectionEnd) {
+      if (this.highlightedBounds.length > 0) {
+        this.highLightRange(...this.highlightedBounds);
+      } else {
+        this.highLightRange(this.selectionStart, this.selectionEnd);
+      }
+    }
+  }
+
+  disableBackBtn() {
+    if (this.opts.isBackDisabled) {
+      const startDate = dateToIso(this.yearStart, this.monthStart, 1);
+      const curr = dateToIso(this.opts.currDate.getFullYear(), this.opts.currDate.getMonth(), 1);
+      this.dom.back.disabled = startDate <= curr;
+    }
+  }
+
+  toggleLoading() {
+    if (!this.loaderEl) {
+      this.loaderEl = this.el.appendChild(Object(src["elementFromString"])(loading));
+      this.emit('loading-show');
+    } else {
+      Object(src["destroyElement"])(this.loaderEl);
+      this.loaderEl = null;
+      this.emit('loading-hide');
+    }
+  }
+
+  addMaps(maps) {
+    this.cTree.replaceMaps(maps, maps.start_date);
+    this.destroyMonths();
+    this.renderMonths(this.opts.yearStart || this.yearStart, this.opts.monthStart || this.monthStart);
+  }
+
+  addBtnsEvents() {
+    this.dom.forward.addEventListener('click', e => {
+      this.destroyMonths();
+      this.renderMonths(this.yearEnd, this.monthEnd);
+      e.preventDefault();
+    });
+    this.dom.back.addEventListener('click', e => {
+      this.destroyMonths();
+      let monthToRender = this.monthStart - this.opts.displayMonths;
+      let yearToRender = this.yearStart;
+
+      if (monthToRender < 0) {
+        monthToRender += 12;
+        yearToRender -= 1;
+      }
+
+      this.renderMonths(yearToRender, monthToRender);
+      e.preventDefault();
+    });
+  }
+
+  addMonthEvents(el) {
+    el.addEventListener('click', e => {
+      const isEndFirst = this.isReverseSelectable;
+      const weekDayEl = Object(src["traverseToParentWithAttr"])(e.target, 'data-value').parent;
+      let value, cell; // cancel selection if day is invalid
+
+      if (weekDayEl && Object(src["hasClass"])(weekDayEl, calendar["invalid"])) {
+        this.resetSelection();
+      }
+
+      if (this.isSelecting) {
+        var _traverseToParentWith = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out');
+
+        value = _traverseToParentWith.value;
+        cell = _traverseToParentWith.parent;
+      } else {
+        var _traverseToParentWith2 = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-available-out' : 'data-enabled');
+
+        value = _traverseToParentWith2.value;
+        cell = _traverseToParentWith2.parent;
+      }
+
+      if (Object(src["is"])(value) && cell) {
+        const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)]; // for simplicity just reset selection when user interacts again
+
+        if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+          this.resetSelection();
+        }
+
+        if (isEndFirst) {
+          this.endDateFirstAction(dateValue, cell);
+        } else {
+          this.startDateFirstAction(dateValue, cell);
+        }
+
+        if (this.selectionEnd && this.selectionStart) {
+          this.completeSelection(isEndFirst, dateValue, cell);
+
+          if (this.opts.isDropDown && this.calDrop) {
+            this.closeDrop(null, true);
+          }
+        }
+      }
+    });
+    el.addEventListener('mouseover', e => {
+      const _traverseToParentWith3 = Object(src["traverseToParentWithAttr"])(e.target, 'data-value'),
+            value = _traverseToParentWith3.value,
+            cell = _traverseToParentWith3.parent;
+
+      if (Object(src["is"])(value) && cell) {
+        const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+
+        if (this.isSelecting) {
+          this.removeHighlight();
+
+          if (this.isReverseSelectable && this.selectionEnd) {
+            this.highLightRange(current, this.selectionEnd);
+          } else {
+            this.highLightRange(this.selectionStart, current);
+          }
+        }
+      }
+    });
+    el.body.addEventListener('mouseout', e => {
+      /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
+      // simulate 'mouseleave'
+      if (!e.relatedTarget || e.relatedTarget !== el.body && !(el.body.compareDocumentPosition(e.relatedTarget) & Node.DOCUMENT_POSITION_CONTAINED_BY)) {
+        if (this.isSelecting) {
+          this.removeHighlight();
+        }
+      }
+    });
+  }
+
+  startDateFirstAction(dateValue, cell) {
+    if (this.isSelecting && isLater(this.selectionStart, dateValue)) {
+      if (!this.hasValidRange) {
+        return;
+      }
+
+      this.selectEndAction(dateValue, cell);
+
+      const fn = () => {
+        Object(src["removeClass"])(this.el, calendar["selectingDirect"]);
+        cell.removeEventListener('mouseout', fn);
+      };
+
+      cell.addEventListener('mouseout', fn);
+      this.isSelecting = false;
+    } else {
+      Object(src["addClass"])(this.el, calendar["selectingDirect"]);
+      this.isSelecting = true;
+      this.selectStartAction(dateValue, cell);
+    }
+  }
+
+  endDateFirstAction(dateValue, cell) {
+    if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
+      if (!this.hasValidRange) {
+        return;
+      }
+
+      this.selectStartAction(dateValue, cell);
+
+      const fn = () => {
+        Object(src["removeClass"])(this.el, calendar["selectingReversed"]);
+        cell.removeEventListener('mouseout', fn);
+      };
+
+      cell.addEventListener('mouseout', fn);
+      this.isSelecting = false;
+    } else {
+      Object(src["addClass"])(this.el, calendar["selectingReversed"]);
+      this.isSelecting = true;
+      this.selectEndAction(dateValue, cell);
+    }
+  }
+
+  selectStartAction(dateValue, cell) {
+    this.selectStart(dateValue, cell);
+    this.switchInputFocus('end');
+    this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
+
+    if (Object(src["isFunction"])(this.opts.onSelectStart)) {
+      this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
+    }
+  }
+
+  selectEndAction(dateValue, cell) {
+    this.selectEnd(dateValue, cell);
+    this.switchInputFocus('start');
+    this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
+
+    if (Object(src["isFunction"])(this.opts.onSelectEnd)) {
+      this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
+    }
+  }
+
+  removeHighlight() {
+    if (this.highlightedBounds.length > 0) {
+      const _this$selectRange = this.selectRange(...this.highlightedBounds),
+            range = _this$selectRange.range;
+
+      range.map(a => Object(src["removeClass"])(a, calendar["highlighted"], calendar["invalid"]));
+      this.hasValidRange = true;
+      this.highlightedBounds = [];
+    }
+  }
+
+  highLightRange(start, end) {
+    const _this$selectRange2 = this.selectRange(start, end),
+          range = _this$selectRange2.range,
+          isValid = _this$selectRange2.isValid;
+
+    let hasValidRange = this.opts.rentalId ? isValid : true;
+    const minStay = this.opts.rentalId ? this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay') : this.opts.minStay;
+
+    if (Object(src["isArray"])(range)) {
+      // check that range is valid and longer than minStay
+      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay;
+      range.map(a => {
+        Object(src["removeClass"])(a, calendar["highlighted"], calendar["invalid"]);
+        Object(src["addClass"])(a, hasValidRange ? calendar["highlighted"] : calendar["invalid"]);
+        return a;
+      });
+      this.highlightedBounds = [start, end];
+    }
+
+    return hasValidRange;
+  }
+  /** Resets selection, removes highlights
+   * @public
+   * @returns {Calendar}
+   */
+
+
+  resetSelection() {
+    this.removeHighlight();
+    this.isSelecting = false;
+    this.emit('selection-reset', this.selectionStart, this.selectionEnd);
+
+    if (Object(src["isFunction"])(this.opts.onClearSelection)) {
+      this.opts.onClearSelection(this.selectionStart, this.selectionEnd);
+    }
+
+    this.selectionStart = null;
+    this.selectionEnd = null;
+
+    if (this.cellA) {
+      Object(src["removeClass"])(this.cellA, calendar["selected"], calendar["selectedStart"]);
+      this.cellA = null;
+    }
+
+    if (this.cellB) {
+      Object(src["removeClass"])(this.cellB, calendar["selected"], calendar["selectedEnd"]);
+      this.cellB = null;
+    }
+
+    if (this.opts.isDropDown && this.opts.elStartAt && this.opts.elEndAt) {
+      this.opts.elStartAt.value = null;
+      this.opts.elEndAt.value = null;
+    }
+
+    return this;
+  }
+
+  selectRange(start, end) {
+    if (isLater(start, end)) {
+      return this.cTree.selectRange(start, end);
+    }
+
+    return {
+      range: null,
+      isValid: false
+    };
+  }
+
+  selectStart(dateValue, cell) {
+    this.selectionStart = dateValue;
+
+    if (this.cellA) {
+      Object(src["removeClass"])(this.cellA, calendar["selected"], calendar["selectedStart"]);
+    }
+
+    if (cell) {
+      Object(src["addClass"])(cell, calendar["selected"], calendar["selectedStart"]);
+      this.cellA = cell;
+    }
+
+    this.valueToInput('start', dateValue);
+  }
+
+  selectEnd(dateValue, cell) {
+    this.selectionEnd = dateValue;
+
+    if (this.cellB) {
+      Object(src["removeClass"])(this.cellB, calendar["selected"], calendar["selectedEnd"]);
+    }
+
+    if (cell) {
+      Object(src["addClass"])(cell, calendar["selected"], calendar["selectedEnd"]);
+      this.cellB = cell;
+    }
+
+    this.valueToInput('end', dateValue);
+  }
+
+  createTree(yearStart, monthStart, times) {
+    const months = [];
+    const tree = {};
+    let monthEnd = monthStart;
+    let yearEnd = yearStart;
+
+    for (let i = 0; i < times; i += 1) {
+      const mDom = this.domMonth(yearEnd, monthEnd);
+      months.push(mDom);
+
+      if (!tree[yearEnd]) {
+        tree[yearEnd] = {};
+      }
+
+      if (!tree[yearEnd][monthEnd]) {
+        tree[yearEnd][monthEnd] = mDom.dayElements || [];
+      }
+
+      if (monthEnd > 10) {
+        monthEnd = 0;
+        yearEnd += 1;
+      } else {
+        monthEnd += 1;
+      }
+    }
+
+    return {
+      tree,
+      yearEnd,
+      monthEnd,
+      months
+    };
+  }
+
+  domMonth(year, month) {
+    const monthDom = Object(src["elementFromString"])(templates_month);
+    monthDom.querySelector(`.${calendar["tableHeader"]} tr`).innerHTML = this.headerTplString();
+    monthDom.querySelector(`.${calendar["caption"]}`).innerHTML = `${this.locale.longMonthNames[month]} ${year}`;
+    monthDom.body = monthDom.querySelector(`.${calendar["body"]}`);
+    monthDom.body.innerHTML = this.daysTplString(year, month);
+    monthDom.month = month;
+    monthDom.year = year;
+    monthDom.dayElements = [].slice.call(monthDom.querySelectorAll('[data-value]'));
+    return monthDom;
+  }
+
+  headerTplString() {
+    // just to make life easier with start of the week calculation
+    const header = [];
+    const weekdaysLabelsExtended = this.locale.shortWeekdayNames.concat(this.locale.shortWeekdayNames);
+
+    for (let i = 0; i < this.opts.daysPerWeek; i += 1) {
+      header.push(weekDayLabel(weekdaysLabelsExtended[i + this.opts.startOfWeek]));
+    }
+
+    return header.join('');
+  }
+
+  daysTplString(year, month) {
+    const startOfMonth = new Date(year, month, 1).getDay();
+    const daysInMonth = Object(src["monthLength"])(year, month);
+    const rowTemplate = weekRow;
+    const monthTpl = [];
+    const weekShift = this.opts.daysPerWeek - this.opts.startOfWeek;
+    let rows = 5;
+    let weekShiftCorrected = startOfMonth + weekShift;
+    let dayCounter = 0;
+    let dayOfMonth = 1; // don't render full empty week
+
+    if (weekShiftCorrected >= this.opts.daysPerWeek) {
+      weekShiftCorrected -= this.opts.daysPerWeek;
+    } // try to figure out if 5 rows is enough for the month
+
+
+    if (rows * this.opts.daysPerWeek < weekShiftCorrected + daysInMonth) {
+      rows = 6;
+    } // for each week (5 or 6)
+
+
+    for (let i = 0; i < rows; i += 1) {
+      const week = []; // open tag <tr>
+
+      week.push(rowTemplate(i).open); // push days in week
+
+      for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
+        // pushing actual days 1...daysInMonth
+        if (dayCounter >= weekShiftCorrected && dayOfMonth <= daysInMonth) {
+          week.push(this.dayTplString(year, month, dayOfMonth));
+          dayOfMonth += 1; // pushing placeholders instead of days
+        } else {
+          week.push(weekDayPlaceholder);
+        }
+
+        dayCounter += 1;
+      } // close tag </tr> of week
+
+
+      week.push(rowTemplate().close); // push completed week to month template
+
+      monthTpl.push(week.join(''));
+    }
+
+    return monthTpl.join('');
+  }
+
+  dayTplString(year, month, dayOfMonth) {
+    const cTree = this.cTree;
+    const rate = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
+    let isDisabled = cTree.isDayDisabled(year, month, dayOfMonth);
+    let isOutAvailable = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+    let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    const cDate = this.opts.currDate; // in the past any availability does not make sense
+
+    if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
+      isDisabled = true;
+      isDisabledStart = undefined;
+      isOutAvailable = undefined;
+    } // if there is not rentalId and no maps, just render plain calendar
+
+
+    if (!this.opts.rentalId) {
+      isDisabled = false;
+      isOutAvailable = true;
+      isDisabledStart = false;
+    }
+
+    return weekDay(dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, this.opts.allowShorterMinStaySelection ? 1 : minStay, Object(src["currencyFormatter"])(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency), tFormatter(minStay, this.locale.minStay));
+  }
+
+  destroyMonths() {
+    if (this.dom && Object(src["isArray"])(this.dom.months)) {
+      this.dom.months.map(m => Object(src["destroyElement"])(m));
+    }
+  }
+
+  destroy() {
+    return Object(src["destroyElement"])(this.el);
+  }
+
+  loadMaps(id) {
+    this.toggleLoading();
+
+    const onSuccess = maps => {
+      this.toggleLoading();
+
+      if (Object(src["isArray"])(maps.data) && maps.data[0].attributes) {
+        if (this.opts.disableAvailabityMap) {
+          maps.data[0].attributes.availability = maps.data[0].attributes.availability.replace(/[0-9]/g, '0');
+        }
+
+        this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;
+        this.emit('maps-loaded', maps);
+        this.addMaps(maps.data[0].attributes);
+        this.mapsLoaded = true;
+      } else {
+        this.logger('expects json-api data format', 'error');
+      }
+    };
+
+    const onError = () => {
+      this.toggleLoading();
+      this.emit('maps-error');
+      this.logger('Server error happened', 'error');
+    };
+
+    Object(src["ajax"])(this.opts.rentalUrl(id), onSuccess, onError);
+  }
+
+  completeSelection() {
+    if (this.opts.isSingleInput) {
+      const singleInputDateFormat = this.singleInputDateFormat || this.locale.formatDate;
+      const dateStart = Object(strtime["strftime"])(dateToIso(...this.selectionStart), singleInputDateFormat, this.locale);
+      const dateEnd = Object(strtime["strftime"])(dateToIso(...this.selectionEnd), singleInputDateFormat, this.locale);
+      this.opts.elSingleInput.value = `${dateStart} ${this.opts.singleInputSeparator} ${dateEnd}`;
+    }
+
+    this.emit('selection-completed', this.selectionStart, this.selectionEnd);
+
+    if (Object(src["isFunction"])(this.opts.onSelectionCompleted)) {
+      this.opts.onSelectionCompleted(dateToIso(...this.selectionStart, true), dateToIso(...this.selectionEnd, true));
+    }
+  }
+
+  initCalendarDrop() {
+    const element = Object(src["elementFromString"])('<div></div>');
+    this.elTarget = this.opts.el;
+    this.el = element;
+    document.body.appendChild(element);
+    this.opts.elStartAt = this.opts.elStartAt || document.querySelector(`.${"BookingSyncCalendar"}__start-at`);
+    this.opts.elEndAt = this.opts.elEndAt || document.querySelector(`.${"BookingSyncCalendar"}__end-at`);
+    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(`.${"BookingSyncCalendar"}__single-input`);
+
+    if (this.opts.hiddenElFormat) {
+      [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
+        const hiddenInput = input.cloneNode(true);
+        input.parentElement.appendChild(hiddenInput).removeAttribute('name');
+        hiddenInput.className = '';
+        hiddenInput.hidden = true;
+        i ? this.hiddenElEndAt = hiddenInput : this.hiddenElStartAt = hiddenInput;
+      });
+    }
+
+    if (this.opts.isSingleInput) {
+      this.opts.elSingleInput.readOnly = true;
+      [this.opts.elStartAt, this.opts.elEndAt].forEach(input => {
+        input.hidden = true;
+      });
+    }
+
+    Object(src["addClass"])(this.el, calendar["dropBasic"]);
+    const calDrop = new popper["a" /* default */](this.elTarget, this.el, {
+      placement: this.opts.dropPlacement || 'bottom-start',
+      hide: true
+    });
+
+    const onFocus = (input, isReversed) => {
+      this.switchInputFocus(input);
+      this.changeSelectionOrder(isReversed);
+
+      if (!Object(src["hasClass"])(this.el, calendar["visible"])) {
+        calDrop.update();
+        this.emit('drop-open');
+        Object(src["addClass"])(this.el, calendar["visible"]);
+
+        if (!this.mapsLoaded && this.opts.rentalId) {
+          this.loadMaps(this.opts.rentalId);
+        }
+      }
+    };
+
+    if (this.opts.isSingleInput) {
+      this.opts.elSingleInput.addEventListener('focus', () => {
+        onFocus('start', false);
+      });
+    } else {
+      this.opts.elStartAt.addEventListener('focus', () => {
+        onFocus('start', false);
+      });
+      this.opts.elEndAt.addEventListener('focus', () => {
+        onFocus('end', true);
+      });
+    }
+
+    document.addEventListener('click', this.closeDrop.bind(this));
+    this.calDrop = calDrop;
+
+    if (this.opts.elReset) {
+      this.opts.elReset.addEventListener('click', () => {
+        this.resetSelection();
+      });
+    }
+  }
+
+  valueToInput(input, dateValue) {
+    const elStartAt = this.opts.elStartAt;
+    const elEndAt = this.opts.elEndAt;
+    const date = dateToIso(...dateValue);
+    const value = Object(strtime["strftime"])(date, this.format, this.locale);
+    const evt = document.createEvent('Event');
+    evt.initEvent('change', false, true);
+
+    if (this.opts.hiddenElFormat) {
+      const hiddenValue = Object(strtime["strftime"])(date, this.opts.hiddenElFormat, this.locale);
+
+      if (input === 'start' && this.hiddenElStartAt) {
+        this.hiddenElStartAt.value = hiddenValue;
+      } else if (input === 'end' && this.hiddenElEndAt) {
+        this.hiddenElEndAt.value = hiddenValue;
+      }
+    }
+
+    if (input === 'start' && elStartAt) {
+      elStartAt.value = value;
+      elStartAt.dispatchEvent(evt);
+    } else if (input === 'end' && elEndAt) {
+      elEndAt.value = value;
+      elEndAt.dispatchEvent(evt);
+    }
+  }
+
+  switchInputFocus(type) {
+    if (this.opts.elStartAt && this.opts.elEndAt) {
+      if (type === 'start') {
+        Object(src["addClass"])(this.opts.elStartAt, calendar["focus"]);
+        Object(src["removeClass"])(this.opts.elEndAt, calendar["focus"]);
+      }
+
+      if (type === 'end') {
+        Object(src["addClass"])(this.opts.elEndAt, calendar["focus"]);
+        Object(src["removeClass"])(this.opts.elStartAt, calendar["focus"]);
+      }
+
+      if (type === 'any') {
+        Object(src["removeClass"])(this.opts.elStartAt, calendar["focus"]);
+        Object(src["removeClass"])(this.opts.elEndAt, calendar["focus"]);
+      }
+    }
+  }
+
+  closeDrop(e, force) {
+    if (!force && (Object(src["isInside"])(e.target, this.el) || Object(src["isInside"])(e.target, this.elTarget))) {
+      e.stopPropagation();
+    } else {
+      Object(src["removeClass"])(this.el, calendar["visible"]);
+      this.emit('drop-close');
+      this.switchInputFocus('any');
+    }
+  }
+
+  toString() {
+    return `[${this.name} ${this.VERSION}] `;
+  }
+
+  logger(msg) {
+    let type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'log';
+
+    if (console && console[type]) {
+      console[type](this.toString() + msg);
+    }
+  }
+
+}
 
 /***/ })
-
-/******/ });
+/******/ ]);
 });
-//# sourceMappingURL=bookingsync-calendar-widget.js.map
