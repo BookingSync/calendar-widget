@@ -3,7 +3,7 @@
 
 const webpack      = require('webpack');
 const path         = require('path');
-const argv         = require('yargs');
+const { argv }     = require('yargs');
 const env          = argv.env.NODE_ENV;
 const libraryName  = 'BookingSyncCalendarWidget';
 const fileName     = 'bookingsync-calendar-widget';
