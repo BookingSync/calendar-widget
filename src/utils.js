@@ -30,6 +30,8 @@ export const dateToArray = (val, format, locale) => {
 
 export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);
 
+export const isCurrent = (start, end) => dateToIso(...start, true) == dateToIso(...end, true);
+
 export const validationOfRange = (cell, index, range) => {
   if (index === range.length - 1) {
     return cell.getAttribute('data-available-out') !== '';

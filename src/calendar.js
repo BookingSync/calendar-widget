@@ -15,7 +15,7 @@ import locales from './locales';
 import { strftime } from 'strtime';
 
 import {
-  dateToIso, isLater, validationOfRange, tFormatter, dateToArray
+  dateToIso, isLater, isCurrent, validationOfRange, tFormatter, dateToArray
 } from './utils';
 
 import {
@@ -579,15 +579,23 @@ export default class Calendar extends Emitter {
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
     let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
     const cDate         = this.opts.currDate;
+    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const dateArray     = [year, month, dayOfMonth];
 
     // in the past any availability does not make sense
-    if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
+    if (isLater(dateArray, cDateArray)) {
       isDisabled      = true;
       isDisabledStart = undefined;
       isOutAvailable  = undefined;
     }
+
+    if (isCurrent(dateArray, cDateArray)) {
+      isDisabled      = false;
+      isDisabledStart = true;
+    }
+
     // if there is not rentalId and no maps, just render plain calendar
-    if (!this.opts.rentalId) {
+    if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enbableAllDays) {
       isDisabled = false;
       isOutAvailable = true;
       isDisabledStart = false;

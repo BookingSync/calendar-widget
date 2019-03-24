@@ -41,5 +41,6 @@ export default {
   currency: null,
   disableAvailabityMap: false,
   allowShorterMinStaySelection: false,
+  enbableAllDays: false,
   currDate
 };
