@@ -5392,7 +5392,7 @@ CalendarConst.init = opts => {
   return initialized;
 };
 
-CalendarConst.VERSION = "1.2.4";
+CalendarConst.VERSION = "1.3.0";
 
 if (CalendarConst.autoInit !== false) {
   if (document.readyState !== 'loading') {
@@ -6170,6 +6170,7 @@ const currDate = new Date();
   currency: null,
   disableAvailabityMap: false,
   allowShorterMinStaySelection: false,
+  enableAllDays: false,
   currDate
 });
 // CONCATENATED MODULE: ./src/locales.js
@@ -6290,6 +6291,7 @@ const dateToArray = (val, format, locale) => {
   }
 };
 const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...end, true);
+const isCurrent = (start, end) => dateToIso(...start, true) == dateToIso(...end, true);
 const validationOfRange = (cell, index, range) => {
   if (index === range.length - 1) {
     return cell.getAttribute('data-available-out') !== '';
@@ -6318,7 +6320,7 @@ class calendar_Calendar extends src["Emitter"] {
   constructor(opts, maps) {
     super();
     this.name = config.name;
-    this.VERSION = "1.2.4";
+    this.VERSION = "1.3.0";
 
     if (Object(src["isObject"])(opts)) {
       if (!opts.el) {
@@ -6434,7 +6436,10 @@ class calendar_Calendar extends src["Emitter"] {
         Object(src["addClass"])(this.el, calendar["actionsEnabled"]);
       }
     });
-    this.disableBackBtn();
+
+    if (!this.opts.enableAllDays) {
+      this.disableBackBtn();
+    }
   }
 
   recoverSelections() {
@@ -6505,11 +6510,26 @@ class calendar_Calendar extends src["Emitter"] {
     el.addEventListener('click', e => {
       const isEndFirst = this.isReverseSelectable;
       const weekDayEl = Object(src["traverseToParentWithAttr"])(e.target, 'data-value').parent;
-      let value, cell; // cancel selection if day is invalid
+      let value, cell;
+
+      const resetSelectionOnEscape = event => {
+        const key = event.key || event.keyCode;
+
+        if (key === 'Escape' || key === 'Esc' || key === 27) {
+          if (this.isSelecting) {
+            document.removeEventListener('keyup', resetSelectionOnEscape, true);
+            this.resetSelection();
+          }
+        }
+      }; // cancel selection if day is invalid
+
 
       if (weekDayEl && Object(src["hasClass"])(weekDayEl, calendar["invalid"])) {
+        document.removeEventListener('keyup', resetSelectionOnEscape, true);
         this.resetSelection();
       }
+
+      document.addEventListener('keyup', resetSelectionOnEscape, true);
 
       if (this.isSelecting) {
         var _traverseToParentWith = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out');
@@ -6527,6 +6547,7 @@ class calendar_Calendar extends src["Emitter"] {
         const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)]; // for simplicity just reset selection when user interacts again
 
         if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
@@ -6537,6 +6558,7 @@ class calendar_Calendar extends src["Emitter"] {
         }
 
         if (this.selectionEnd && this.selectionStart) {
+          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.completeSelection(isEndFirst, dateValue, cell);
 
           if (this.opts.isDropDown && this.calDrop) {
@@ -6860,16 +6882,23 @@ class calendar_Calendar extends src["Emitter"] {
     let isDisabled = cTree.isDayDisabled(year, month, dayOfMonth);
     let isOutAvailable = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
     let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
-    const cDate = this.opts.currDate; // in the past any availability does not make sense
+    const cDate = this.opts.currDate;
+    const cDateArray = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const dateArray = [year, month, dayOfMonth]; // in the past any availability does not make sense
 
-    if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
+    if (isLater(dateArray, cDateArray)) {
       isDisabled = true;
       isDisabledStart = undefined;
       isOutAvailable = undefined;
+    }
+
+    if (isCurrent(dateArray, cDateArray)) {
+      isDisabled = false;
+      isDisabledStart = true;
     } // if there is not rentalId and no maps, just render plain calendar
 
 
-    if (!this.opts.rentalId) {
+    if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
       isDisabled = false;
       isOutAvailable = true;
       isDisabledStart = false;
