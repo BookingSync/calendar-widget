@@ -227,10 +227,24 @@ export default class Calendar extends Emitter {
       const weekDayEl  = traverseToParentWithAttr(e.target, 'data-value').parent;
       let value, cell;
 
+      const resetSelectionOnEscape = (event) => {
+        const key = event.key || event.keyCode;
+
+        if (key === 'Escape' || key === 'Esc' || key === 27) {
+          if (this.isSelecting) {
+            document.removeEventListener('keyup', resetSelectionOnEscape, true);
+            this.resetSelection();
+          }
+        }
+      };
+
       // cancel selection if day is invalid
       if (weekDayEl && hasClass(weekDayEl, invalid)) {
+        document.removeEventListener('keyup', resetSelectionOnEscape, true);
         this.resetSelection();
       }
+
+      document.addEventListener('keyup', resetSelectionOnEscape, true);
 
       if (this.isSelecting) {
         ({
@@ -247,6 +261,7 @@ export default class Calendar extends Emitter {
 
         // for simplicity just reset selection when user interacts again
         if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
@@ -257,6 +272,7 @@ export default class Calendar extends Emitter {
         }
 
         if (this.selectionEnd && this.selectionStart) {
+          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.completeSelection(isEndFirst, dateValue, cell);
           if (this.opts.isDropDown && this.calDrop) {
             this.closeDrop(null, true);
