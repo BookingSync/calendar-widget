@@ -15,7 +15,7 @@ import locales from './locales';
 import { strftime } from 'strtime';
 
 import {
-  dateToIso, isLater, validationOfRange, tFormatter, dateToArray
+  dateToIso, isLater, isCurrent, validationOfRange, tFormatter, dateToArray
 } from './utils';
 
 import {
@@ -148,7 +148,9 @@ export default class Calendar extends Emitter {
       }
     });
 
-    this.disableBackBtn();
+    if (!this.opts.enableAllDays) {
+      this.disableBackBtn();
+    }
   }
 
   recoverSelections() {
@@ -225,10 +227,24 @@ export default class Calendar extends Emitter {
       const weekDayEl  = traverseToParentWithAttr(e.target, 'data-value').parent;
       let value, cell;
 
+      const resetSelectionOnEscape = (event) => {
+        const key = event.key || event.keyCode;
+
+        if (key === 'Escape' || key === 'Esc' || key === 27) {
+          if (this.isSelecting) {
+            document.removeEventListener('keyup', resetSelectionOnEscape, true);
+            this.resetSelection();
+          }
+        }
+      };
+
       // cancel selection if day is invalid
       if (weekDayEl && hasClass(weekDayEl, invalid)) {
+        document.removeEventListener('keyup', resetSelectionOnEscape, true);
         this.resetSelection();
       }
+
+      document.addEventListener('keyup', resetSelectionOnEscape, true);
 
       if (this.isSelecting) {
         ({
@@ -245,6 +261,7 @@ export default class Calendar extends Emitter {
 
         // for simplicity just reset selection when user interacts again
         if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
@@ -255,6 +272,7 @@ export default class Calendar extends Emitter {
         }
 
         if (this.selectionEnd && this.selectionStart) {
+          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.completeSelection(isEndFirst, dateValue, cell);
           if (this.opts.isDropDown && this.calDrop) {
             this.closeDrop(null, true);
@@ -579,15 +597,23 @@ export default class Calendar extends Emitter {
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
     let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
     const cDate         = this.opts.currDate;
+    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const dateArray     = [year, month, dayOfMonth];
 
     // in the past any availability does not make sense
-    if (isLater([year, month, dayOfMonth], [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()])) {
+    if (isLater(dateArray, cDateArray)) {
       isDisabled      = true;
       isDisabledStart = undefined;
       isOutAvailable  = undefined;
     }
+
+    if (isCurrent(dateArray, cDateArray)) {
+      isDisabled      = false;
+      isDisabledStart = true;
+    }
+
     // if there is not rentalId and no maps, just render plain calendar
-    if (!this.opts.rentalId) {
+    if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
       isDisabled = false;
       isOutAvailable = true;
       isDisabledStart = false;

@@ -31,10 +31,10 @@
   <div>
     <div class="calendar-wrapper">
       <label>Check In
-        <input class="start-at aaa" type="text" placeholder="dd/mm/yyyy">
+        <input class="start-at aaa" type="text" placeholder="%m/%d/%y">
       </label>
       <label>Check Out
-        <input class="end-at aaa" type="text" placeholder="dd/mm/yyyy">
+        <input class="end-at aaa" type="text" placeholder="%m/%d/%y">
       </label>
 
       <button class="reset-selection">Reset</button>
@@ -54,10 +54,9 @@
     <div data-bookingsync-calendar-widget
          data-is-drop-down="true"
          data-selectable="true"
-         data-is-single-input="true"
-         data-format-date="%D">
+         data-is-single-input="true">
       <label>Check In/Out
-        <input class="BookingSyncCalendar__single-input aaa" type="text" placeholder="dd/mm/yyyy">
+        <input class="BookingSyncCalendar__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
         <input class="BookingSyncCalendar__start-at" type="text">
         <input class="BookingSyncCalendar__end-at" type="text">
       </label>
@@ -78,7 +77,8 @@
        data-selectable="true"
        data-lang="fr-FR"
        data-month-start="0"
-       data-display-months="3">
+       data-display-months="3"
+       data-enable-all-days="true">
   </div>
 
   <p>A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay calm.
@@ -133,6 +133,7 @@
     elStartAt:  document.querySelector('.start-at'),
     elEndAt:    document.querySelector('.end-at'),
     elReset:    document.querySelector('.reset-selection'),
+    formatDate: '%D'
   });
 
   cal.on('selection-start', function(a, b) {
