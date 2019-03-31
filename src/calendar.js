@@ -148,7 +148,9 @@ export default class Calendar extends Emitter {
       }
     });
 
-    this.disableBackBtn();
+    if (!this.opts.enableAllDays) {
+      this.disableBackBtn();
+    }
   }
 
   recoverSelections() {
@@ -595,7 +597,7 @@ export default class Calendar extends Emitter {
     }
 
     // if there is not rentalId and no maps, just render plain calendar
-    if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enbableAllDays) {
+    if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
       isDisabled = false;
       isOutAvailable = true;
       isDisabledStart = false;
