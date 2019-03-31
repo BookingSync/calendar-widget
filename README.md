@@ -74,6 +74,7 @@ Additionally you can run json-mock server
 | `hiddenElFormat` | Duplicate start/end inputs with a different date format | String | null
 | `disableAvailabityMap` | Overwrite each days to be available | Boolean | false
 | `allowShorterMinStaySelection` | Force minimum selection to 1 | Boolean | false
+| `enableAllDays` | Force past days/months to be selectable | Boolean | false
 | `currDate` | Current date Date object | Date | `new Date()`
 
 ## Callbacks

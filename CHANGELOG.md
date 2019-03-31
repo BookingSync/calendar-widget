@@ -1,6 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2019-03-31
+### Added
+- `resetSelectionOnEscape` Resets selection with Escape key
+- Option `enableAllDays` Force past days/months to be selectable
+### Fixed
+- Past days were not disabled within the current month
+### Updated
+- Webpack Config, dev version under `bookingsync-calendar-widget.dev.js`, production version unminified under `bookingsync-calendar-widget.js`
+- Demo `index.html`
+- README
+
 ## [1.2.4] - 2019-01-18
 ### Updated
 - `disableAvailabityMap` & `allowShorterMinStaySelection` default values
