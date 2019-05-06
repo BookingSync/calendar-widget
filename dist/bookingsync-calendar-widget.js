@@ -2763,7 +2763,7 @@ function updateLink (link, options, obj) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.14.7
+ * @version 1.15.0
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -4358,8 +4358,12 @@ function flip(data, options) {
     var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
     var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom; // flip the variation if required
 
-    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
-    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1; // flips variation if reference element overflows boundaries
+
+    var flippedVariationByRef = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom); // flips variation if popper content overflows boundaries
+
+    var flippedVariationByContent = !!options.flipVariationsByContent && (isVertical && variation === 'start' && overflowsRight || isVertical && variation === 'end' && overflowsLeft || !isVertical && variation === 'start' && overflowsBottom || !isVertical && variation === 'end' && overflowsTop);
+    var flippedVariation = flippedVariationByRef || flippedVariationByContent;
 
     if (overlapsRef || overflowsBoundaries || flippedVariation) {
       // this boolean to detect any flip loop
@@ -4974,7 +4978,25 @@ var modifiers = {
      * The popper will never be placed outside of the defined boundaries
      * (except if `keepTogether` is enabled)
      */
-    boundariesElement: 'viewport'
+    boundariesElement: 'viewport',
+
+    /**
+     * @prop {Boolean} flipVariations=false
+     * The popper will switch placement variation between `-start` and `-end` when
+     * the reference element overlaps its boundaries.
+     *
+     * The original placement should have a set variation.
+     */
+    flipVariations: false,
+
+    /**
+     * @prop {Boolean} flipVariationsByContent=false
+     * The popper will switch placement variation between `-start` and `-end` when
+     * the popper element overlaps its reference boundaries.
+     *
+     * The original placement should have a set variation.
+     */
+    flipVariationsByContent: false
   },
 
   /**
@@ -5203,8 +5225,8 @@ var Popper = function () {
   /**
    * Creates a new Popper.js instance.
    * @class Popper
-   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
-   * @param {HTMLElement} popper - The HTML element used as the popper
+   * @param {Element|referenceObject} reference - The reference element used to position the popper
+   * @param {Element} popper - The HTML / XML element used as the popper
    * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
    * @return {Object} instance - The generated Popper.js instance
    */
@@ -5392,7 +5414,7 @@ CalendarConst.init = opts => {
   return initialized;
 };
 
-CalendarConst.VERSION = "1.3.0";
+CalendarConst.VERSION = "1.3.1";
 
 if (CalendarConst.autoInit !== false) {
   if (document.readyState !== 'loading') {
@@ -5790,59 +5812,24 @@ const disabled = calendar_default.a.disabled,
       morningDisabled = calendar_default.a.morningDisabled,
       nightDisabled = calendar_default.a.nightDisabled,
       cnt = calendar_default.a.cnt;
-const main = `<div class="${calendar_default.a.monthsWrapper}"></div>`;
-const templates_month = `
-  <div class="${calendar_default.a.mCell} js-month">
-    <table class="${calendar_default.a.month}" role="month">
-      <caption class="${calendar_default.a.caption}"></caption>
-      <thead class="${calendar_default.a.tableHeader}"><tr></tr></thead>
-      <tbody class="${calendar_default.a.body}"></tbody>
-    </table>
-  </div>
-`;
-const weekDayLabel = label => `<th class="${calendar_default.a.th}">${label}</th>`;
+const main = "<div class=\"".concat(calendar_default.a.monthsWrapper, "\"></div>");
+const templates_month = "\n  <div class=\"".concat(calendar_default.a.mCell, " js-month\">\n    <table class=\"").concat(calendar_default.a.month, "\" role=\"month\">\n      <caption class=\"").concat(calendar_default.a.caption, "\"></caption>\n      <thead class=\"").concat(calendar_default.a.tableHeader, "\"><tr></tr></thead>\n      <tbody class=\"").concat(calendar_default.a.body, "\"></tbody>\n    </table>\n  </div>\n");
+const weekDayLabel = label => "<th class=\"".concat(calendar_default.a.th, "\">").concat(label, "</th>");
 /* eslint prefer-template: 0 */
 
-const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) => `
-  <td ${dis ? 'data-disabled' : 'data-enabled'}
-       ${isOutAvailable ? 'data-available-out' : ''}
-       data-value="${label}"
-       class="${calendar_default.a.cell} ${dis ? disabled : ''}${disStart ? morningDisabled : ''} ${dis && isOutAvailable ? nightDisabled : ''}">
-       <div class="${cnt}" role="day-value">
-        ${label}
-      </div>
-      ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
-      ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
-  </td>
-`;
-const forward = `
-  <button class="${calendar_default.a.forward}" role="button">
-    <svg viewBox="0 0 1000 1000" width="20" height="20">
-      <path d="M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z"></path>
-    </svg>
-  </button>
-`;
-const back = `
-  <button class="${calendar_default.a.back}" role="button">
-    <svg viewBox="0 0 1000 1000" width="20" height="20">
-      <path d="M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z"></path>
-    </svg>
-  </button>
-`;
+const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) => "\n  <td ".concat(dis ? 'data-disabled' : 'data-enabled', "\n       ").concat(isOutAvailable ? 'data-available-out' : '', "\n       data-value=\"").concat(label, "\"\n       class=\"").concat(calendar_default.a.cell, " ").concat(dis ? disabled : '').concat(disStart ? morningDisabled : '', " ").concat(dis && isOutAvailable ? nightDisabled : '', "\">\n       <div class=\"").concat(cnt, "\" role=\"day-value\">\n        ").concat(label, "\n      </div>\n      ").concat(rate ? '<span class="' + info + '">' + rateT + '</span>' : '', "\n      ").concat(minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : '', "\n  </td>\n");
+const forward = "\n  <button class=\"".concat(calendar_default.a.forward, "\" role=\"button\">\n    <svg viewBox=\"0 0 1000 1000\" width=\"20\" height=\"20\">\n      <path d=\"M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z\"></path>\n    </svg>\n  </button>\n");
+const back = "\n  <button class=\"".concat(calendar_default.a.back, "\" role=\"button\">\n    <svg viewBox=\"0 0 1000 1000\" width=\"20\" height=\"20\">\n      <path d=\"M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z\"></path>\n    </svg>\n  </button>\n");
 const weekDayPlaceholder = '<td></td>';
 /* eslint arrow-body-style: 0 */
 
 const weekRow = num => {
   return {
-    open: `<tr class="js-body-row-${num}">`,
+    open: "<tr class=\"js-body-row-".concat(num, "\">"),
     close: '</tr>'
   };
 };
-const loading = `
-  <div class="${calendar_default.a.loadingLayer}">
-    <div class="${calendar_default.a.loading}"></div>
-  </div>
-`;
+const loading = "\n  <div class=\"".concat(calendar_default.a.loadingLayer, "\">\n    <div class=\"").concat(calendar_default.a.loading, "\"></div>\n  </div>\n");
 // CONCATENATED MODULE: ./src/calendar-tree.js
 
 /**
@@ -6133,9 +6120,9 @@ const currDate = new Date();
   apiCurrency: '&exchange_to_currency=',
 
   rentalUrl(ids) {
-    let route = this.apiMapsRoute.replace('{apiRentalId}', `${this.apiRentalId}${ids}`);
-    route = route.replace('{apiCurrency}', this.currency ? `${this.apiCurrency}${this.currency}` : '');
-    return `${this.apiHost}${this.apiNamespace}${route}`;
+    let route = this.apiMapsRoute.replace('{apiRentalId}', "".concat(this.apiRentalId).concat(ids));
+    route = route.replace('{apiCurrency}', this.currency ? "".concat(this.apiCurrency).concat(this.currency) : '');
+    return "".concat(this.apiHost).concat(this.apiNamespace).concat(route);
   },
 
   startOfWeek: 0,
@@ -6266,14 +6253,14 @@ const dateToIso = function dateToIso(year, month, day) {
 
   function pad(number) {
     if (number < 10) {
-      return `0${number}`;
+      return "0".concat(number);
     }
 
     return number;
   }
 
   if (isString) {
-    return `${year}-${pad(month + 1)}-${pad(day)}`;
+    return "".concat(year, "-").concat(pad(month + 1), "-").concat(pad(day));
   }
 
   return new Date(year, month, day + 1);
@@ -6320,7 +6307,7 @@ class calendar_Calendar extends src["Emitter"] {
   constructor(opts, maps) {
     super();
     this.name = config.name;
-    this.VERSION = "1.3.0";
+    this.VERSION = "1.3.1";
 
     if (Object(src["isObject"])(opts)) {
       if (!opts.el) {
@@ -6806,9 +6793,9 @@ class calendar_Calendar extends src["Emitter"] {
 
   domMonth(year, month) {
     const monthDom = Object(src["elementFromString"])(templates_month);
-    monthDom.querySelector(`.${calendar["tableHeader"]} tr`).innerHTML = this.headerTplString();
-    monthDom.querySelector(`.${calendar["caption"]}`).innerHTML = `${this.locale.longMonthNames[month]} ${year}`;
-    monthDom.body = monthDom.querySelector(`.${calendar["body"]}`);
+    monthDom.querySelector(".".concat(calendar["tableHeader"], " tr")).innerHTML = this.headerTplString();
+    monthDom.querySelector(".".concat(calendar["caption"])).innerHTML = "".concat(this.locale.longMonthNames[month], " ").concat(year);
+    monthDom.body = monthDom.querySelector(".".concat(calendar["body"]));
     monthDom.body.innerHTML = this.daysTplString(year, month);
     monthDom.month = month;
     monthDom.year = year;
@@ -6951,7 +6938,7 @@ class calendar_Calendar extends src["Emitter"] {
       const singleInputDateFormat = this.singleInputDateFormat || this.locale.formatDate;
       const dateStart = Object(strtime["strftime"])(dateToIso(...this.selectionStart), singleInputDateFormat, this.locale);
       const dateEnd = Object(strtime["strftime"])(dateToIso(...this.selectionEnd), singleInputDateFormat, this.locale);
-      this.opts.elSingleInput.value = `${dateStart} ${this.opts.singleInputSeparator} ${dateEnd}`;
+      this.opts.elSingleInput.value = "".concat(dateStart, " ").concat(this.opts.singleInputSeparator, " ").concat(dateEnd);
     }
 
     this.emit('selection-completed', this.selectionStart, this.selectionEnd);
@@ -6966,9 +6953,9 @@ class calendar_Calendar extends src["Emitter"] {
     this.elTarget = this.opts.el;
     this.el = element;
     document.body.appendChild(element);
-    this.opts.elStartAt = this.opts.elStartAt || document.querySelector(`.${"BookingSyncCalendar"}__start-at`);
-    this.opts.elEndAt = this.opts.elEndAt || document.querySelector(`.${"BookingSyncCalendar"}__end-at`);
-    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(`.${"BookingSyncCalendar"}__single-input`);
+    this.opts.elStartAt = this.opts.elStartAt || document.querySelector(".".concat("BookingSyncCalendar", "__start-at"));
+    this.opts.elEndAt = this.opts.elEndAt || document.querySelector(".".concat("BookingSyncCalendar", "__end-at"));
+    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(".".concat("BookingSyncCalendar", "__single-input"));
 
     if (this.opts.hiddenElFormat) {
       [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
@@ -7088,7 +7075,7 @@ class calendar_Calendar extends src["Emitter"] {
   }
 
   toString() {
-    return `[${this.name} ${this.VERSION}] `;
+    return "[".concat(this.name, " ").concat(this.VERSION, "] ");
   }
 
   logger(msg) {
