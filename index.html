@@ -31,10 +31,10 @@
   <div>
     <div class="calendar-wrapper">
       <label>Check In
-        <input class="start-at aaa" type="text" placeholder="%m/%d/%y">
+        <input class="start-at aaa" type="text" name="start-at" placeholder="%m/%d/%y">
       </label>
       <label>Check Out
-        <input class="end-at aaa" type="text" placeholder="%m/%d/%y">
+        <input class="end-at aaa" type="text" name="end-at" placeholder="%m/%d/%y">
       </label>
 
       <button class="reset-selection">Reset</button>
@@ -133,7 +133,8 @@
     elStartAt:  document.querySelector('.start-at'),
     elEndAt:    document.querySelector('.end-at'),
     elReset:    document.querySelector('.reset-selection'),
-    formatDate: '%D'
+    formatDate: '%D',
+    hiddenElFormat: '%Y-%m-%d'
   });
 
   cal.on('selection-start', function(a, b) {

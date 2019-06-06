@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.3.2] - 2019-06-06
+### Fixed
+- `hiddenElFormat` now removes the attribute `name` of the visible input
+
 ## [1.3.0] - 2019-03-31
 ### Added
 - `resetSelectionOnEscape` Resets selection with Escape key
@@ -103,7 +107,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Scripts for mocks.
-- Styles for rates: 
+- Styles for rates:
   - smaller font,
   - month min-width was increased to 27rem to accommodate prices.
 
@@ -132,4 +136,3 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Timezone offset in calculating start of the month.
-
