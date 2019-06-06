@@ -5414,7 +5414,7 @@ CalendarConst.init = opts => {
   return initialized;
 };
 
-CalendarConst.VERSION = "1.3.1";
+CalendarConst.VERSION = "1.3.2";
 
 if (CalendarConst.autoInit !== false) {
   if (document.readyState !== 'loading') {
@@ -5806,12 +5806,14 @@ var calendar_default = /*#__PURE__*/__webpack_require__.n(calendar);
 // CONCATENATED MODULE: ./src/templates.js
 /* eslint "max-len": ["error", 300] */
 
-const disabled = calendar_default.a.disabled,
-      info = calendar_default.a.info,
-      infoExtra = calendar_default.a.infoExtra,
-      morningDisabled = calendar_default.a.morningDisabled,
-      nightDisabled = calendar_default.a.nightDisabled,
-      cnt = calendar_default.a.cnt;
+const {
+  disabled,
+  info,
+  infoExtra,
+  morningDisabled,
+  nightDisabled,
+  cnt
+} = calendar_default.a;
 const main = "<div class=\"".concat(calendar_default.a.monthsWrapper, "\"></div>");
 const templates_month = "\n  <div class=\"".concat(calendar_default.a.mCell, " js-month\">\n    <table class=\"").concat(calendar_default.a.month, "\" role=\"month\">\n      <caption class=\"").concat(calendar_default.a.caption, "\"></caption>\n      <thead class=\"").concat(calendar_default.a.tableHeader, "\"><tr></tr></thead>\n      <tbody class=\"").concat(calendar_default.a.body, "\"></tbody>\n    </table>\n  </div>\n");
 const weekDayLabel = label => "<th class=\"".concat(calendar_default.a.th, "\">").concat(label, "</th>");
@@ -5907,9 +5909,7 @@ class calendar_tree_CalendarTree {
         range = range.concat(this.selectMonthsInYear(a[0], a[1], 11)); // and set start year to end year
         // month to 0 (January)
 
-        var _ref = [end[0], 0];
-        a[0] = _ref[0];
-        a[1] = _ref[1];
+        [a[0], a[1]] = [end[0], 0];
       } // now we are at the same year and have the case if end month > start month
       // then select everything between those months
 
@@ -6017,12 +6017,11 @@ class calendar_tree_CalendarTree {
     const avail = maps.availability.split('').map(parseFloat);
     const rates = maps.nightly_rates.split(',').map(parseFloat);
     const minMap = maps.minimum_stays.split(',').map(parseFloat);
-
-    let _parseISOString = parseISOString(mapStartAt),
-        year = _parseISOString.year,
-        month = _parseISOString.month,
-        dayShift = _parseISOString.date;
-
+    let {
+      year,
+      month,
+      date: dayShift
+    } = parseISOString(mapStartAt);
     let day = 1; // trick to add extra unavailable date for proper calculations of check-out dates
 
     if (avail[avail.length - 1] === 0) {
@@ -6307,7 +6306,7 @@ class calendar_Calendar extends src["Emitter"] {
   constructor(opts, maps) {
     super();
     this.name = config.name;
-    this.VERSION = "1.3.1";
+    this.VERSION = "1.3.2";
 
     if (Object(src["isObject"])(opts)) {
       if (!opts.el) {
@@ -6396,12 +6395,12 @@ class calendar_Calendar extends src["Emitter"] {
 
   renderMonths(yearStart, monthStart) {
     // construct dom tree
-    const _this$createTree = this.createTree(yearStart, monthStart, this.opts.displayMonths),
-          tree = _this$createTree.tree,
-          yearEnd = _this$createTree.yearEnd,
-          monthEnd = _this$createTree.monthEnd,
-          months = _this$createTree.months;
-
+    const {
+      tree,
+      yearEnd,
+      monthEnd,
+      months
+    } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
     this.cTree.addTree(tree);
     this.monthStart = monthStart;
     this.yearStart = yearStart;
@@ -6519,15 +6518,15 @@ class calendar_Calendar extends src["Emitter"] {
       document.addEventListener('keyup', resetSelectionOnEscape, true);
 
       if (this.isSelecting) {
-        var _traverseToParentWith = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out');
-
-        value = _traverseToParentWith.value;
-        cell = _traverseToParentWith.parent;
+        ({
+          value,
+          parent: cell
+        } = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
-        var _traverseToParentWith2 = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-available-out' : 'data-enabled');
-
-        value = _traverseToParentWith2.value;
-        cell = _traverseToParentWith2.parent;
+        ({
+          value,
+          parent: cell
+        } = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
       if (Object(src["is"])(value) && cell) {
@@ -6555,9 +6554,10 @@ class calendar_Calendar extends src["Emitter"] {
       }
     });
     el.addEventListener('mouseover', e => {
-      const _traverseToParentWith3 = Object(src["traverseToParentWithAttr"])(e.target, 'data-value'),
-            value = _traverseToParentWith3.value,
-            cell = _traverseToParentWith3.parent;
+      const {
+        value,
+        parent: cell
+      } = Object(src["traverseToParentWithAttr"])(e.target, 'data-value');
 
       if (Object(src["is"])(value) && cell) {
         const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
@@ -6650,9 +6650,9 @@ class calendar_Calendar extends src["Emitter"] {
 
   removeHighlight() {
     if (this.highlightedBounds.length > 0) {
-      const _this$selectRange = this.selectRange(...this.highlightedBounds),
-            range = _this$selectRange.range;
-
+      const {
+        range
+      } = this.selectRange(...this.highlightedBounds);
       range.map(a => Object(src["removeClass"])(a, calendar["highlighted"], calendar["invalid"]));
       this.hasValidRange = true;
       this.highlightedBounds = [];
@@ -6660,10 +6660,10 @@ class calendar_Calendar extends src["Emitter"] {
   }
 
   highLightRange(start, end) {
-    const _this$selectRange2 = this.selectRange(start, end),
-          range = _this$selectRange2.range,
-          isValid = _this$selectRange2.isValid;
-
+    const {
+      range,
+      isValid
+    } = this.selectRange(start, end);
     let hasValidRange = this.opts.rentalId ? isValid : true;
     const minStay = this.opts.rentalId ? this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay') : this.opts.minStay;
 
@@ -6863,7 +6863,9 @@ class calendar_Calendar extends src["Emitter"] {
   }
 
   dayTplString(year, month, dayOfMonth) {
-    const cTree = this.cTree;
+    const {
+      cTree
+    } = this;
     const rate = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
     const minStay = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
     let isDisabled = cTree.isDayDisabled(year, month, dayOfMonth);
@@ -6960,7 +6962,8 @@ class calendar_Calendar extends src["Emitter"] {
     if (this.opts.hiddenElFormat) {
       [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
         const hiddenInput = input.cloneNode(true);
-        input.parentElement.appendChild(hiddenInput).removeAttribute('name');
+        input.parentElement.appendChild(hiddenInput);
+        input.removeAttribute('name');
         hiddenInput.className = '';
         hiddenInput.hidden = true;
         i ? this.hiddenElEndAt = hiddenInput : this.hiddenElStartAt = hiddenInput;
@@ -7019,8 +7022,12 @@ class calendar_Calendar extends src["Emitter"] {
   }
 
   valueToInput(input, dateValue) {
-    const elStartAt = this.opts.elStartAt;
-    const elEndAt = this.opts.elEndAt;
+    const {
+      elStartAt
+    } = this.opts;
+    const {
+      elEndAt
+    } = this.opts;
     const date = dateToIso(...dateValue);
     const value = Object(strtime["strftime"])(date, this.format, this.locale);
     const evt = document.createEvent('Event');
