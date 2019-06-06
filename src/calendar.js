@@ -696,7 +696,8 @@ export default class Calendar extends Emitter {
     if (this.opts.hiddenElFormat) {
       [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
         const hiddenInput = input.cloneNode(true);
-        input.parentElement.appendChild(hiddenInput).removeAttribute('name');
+        input.parentElement.appendChild(hiddenInput);
+        input.removeAttribute('name');
         hiddenInput.className = '';
         hiddenInput.hidden    = true;
 
