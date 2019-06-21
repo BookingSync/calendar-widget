@@ -4,6 +4,9 @@ const Calendar = require('./calendar');
 // Export WidgetUtils
 window.BookingSyncWidgetUtils = require('widget-utils');
 
+// Export Popper
+window.Popper = require('popper.js');
+
 // in order to export clean constructor to global namespace "BookingSyncCalendarWidget"
 // need to mix require with imports
 const CalendarConst = Calendar.default;

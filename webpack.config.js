@@ -70,8 +70,9 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: `${CSS_PREFIX}__[Local]`
+              modules: {
+                localIdentName: `${CSS_PREFIX}__[local]`
+              }
             }
           },
           {
