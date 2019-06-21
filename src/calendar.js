@@ -720,7 +720,7 @@ export default class Calendar extends Emitter {
       hide: true
     });
 
-    const onFocus = (input, isReversed) => {
+    const openDrop = (input, isReversed) => {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
 
@@ -736,16 +736,15 @@ export default class Calendar extends Emitter {
     };
 
     if (this.opts.isSingleInput) {
-      this.opts.elSingleInput.addEventListener('focus', () => {
-        onFocus('start', false);
+      this.focusTouchEvents(this.opts.elSingleInput, () => {
+        openDrop('start', false);
       });
     } else {
-      this.opts.elStartAt.addEventListener('focus', () => {
-        onFocus('start', false);
+      this.focusTouchEvents(this.opts.elStartAt, () => {
+        openDrop('start', false);
       });
-
-      this.opts.elEndAt.addEventListener('focus', () => {
-        onFocus('end', true);
+      this.focusTouchEvents(this.opts.elEndAt, () => {
+        openDrop('end', true);
       });
     }
 
@@ -812,6 +811,20 @@ export default class Calendar extends Emitter {
       removeClass(this.el, visible);
       this.emit('drop-close');
       this.switchInputFocus('any');
+    }
+  }
+
+  focusTouchEvents(element, _callback) {
+    if (isFunction(_callback)) {
+      element.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        _callback();
+      });
+
+      element.addEventListener('focus', (event) => {
+        event.preventDefault();
+        _callback();
+      });
     }
   }
 
