@@ -5422,7 +5422,7 @@ CalendarConst.init = opts => {
   return initialized;
 };
 
-CalendarConst.VERSION = "1.3.3";
+CalendarConst.VERSION = "1.3.4";
 
 if (CalendarConst.autoInit !== false) {
   if (document.readyState !== 'loading') {
@@ -6113,7 +6113,7 @@ class calendar_tree_CalendarTree {
 
 }
 // CONCATENATED MODULE: ./src/config.js
-/* global NODE_ENV, Date */
+/* global NODE_ENV */
 const currDate = new Date();
 /* harmony default export */ var config = ({
   name: 'BookingSync Calendar Widget',
@@ -6267,7 +6267,13 @@ const dateToIso = function dateToIso(year, month, day) {
     return "".concat(year, "-").concat(pad(month + 1), "-").concat(pad(day));
   }
 
-  return new Date(year, month, day + 1);
+  let date = new Date(year, month, day + 1);
+
+  if (date.getTimezoneOffset() > 0) {
+    date = new Date(date - 3600 * 24 * 1000);
+  }
+
+  return date;
 };
 const dateToArray = (val, format, locale) => {
   try {
@@ -6311,7 +6317,7 @@ class calendar_Calendar extends src["Emitter"] {
   constructor(opts, maps) {
     super();
     this.name = config.name;
-    this.VERSION = "1.3.3";
+    this.VERSION = "1.3.4";
 
     if (Object(src["isObject"])(opts)) {
       if (!opts.el) {
