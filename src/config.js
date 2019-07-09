@@ -1,4 +1,4 @@
-/* global NODE_ENV, Date */
+/* global NODE_ENV */
 const currDate = new Date();
 
 export default {
