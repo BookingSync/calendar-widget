@@ -11,7 +11,13 @@ export const dateToIso = (year, month, day, isString = false) => {
   if (isString) {
     return `${year}-${pad(month + 1)}-${pad(day)}`;
   }
-  return new Date(year, month, day + 1);
+
+  let date = new Date(year, month, day + 1);
+  if (date.getTimezoneOffset() > 0) {
+    date = new Date(date - 3600 * 24 * 1000);
+  }
+
+  return date;
 };
 
 export const dateToArray = (val, format, locale) => {
