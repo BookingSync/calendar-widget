@@ -186,7 +186,7 @@ class Emitter {
   }
 
 }
-// CONCATENATED MODULE: ./node_modules/widget-utils/src/index.js
+// CONCATENATED MODULE: ./node_modules/widget-utils/src/widget-utils.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toUnderscore", function() { return toUnderscore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dashToCapital", function() { return dashToCapital; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "underscoreToCapital", function() { return underscoreToCapital; });
@@ -2265,7 +2265,7 @@ module.exports.currencySymbolMap = currencySymbolMap;
 /* 4 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.0\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.3.2\"},\"devDependencies\":{\"sinon\":\"^7.3.2\",\"@babel/cli\":\"^7.5.0\",\"@babel/core\":\"^7.5.0\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.3\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.0.0\",\"eslint\":\"^6.0.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.0\",\"json-server\":\"0.15.0\",\"karma\":\"^4.1.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^2.2.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.1.4\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.0\",\"sass-loader\":\"^7.1.0\",\"style-loader\":\"^0.23.1\",\"tether\":\"1.4.6\",\"webpack\":\"^4.35.3\",\"webpack-cli\":\"^3.3.5\",\"webpack-dev-server\":\"3.7.2\",\"yargs\":\"13.2.4\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
+module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.1\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^7.3.2\",\"@babel/cli\":\"^7.5.0\",\"@babel/core\":\"^7.5.4\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.4\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.0.0\",\"eslint\":\"^6.0.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.0\",\"json-server\":\"0.15.0\",\"karma\":\"^4.2.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.0.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.1.4\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.0\",\"sass-loader\":\"^7.1.0\",\"style-loader\":\"^0.23.1\",\"tether\":\"1.4.6\",\"webpack\":\"^4.35.3\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"3.7.2\",\"yargs\":\"13.3.0\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
 
 /***/ }),
 /* 5 */
@@ -5790,13 +5790,13 @@ module.exports = function (css) {
 
 exports = module.exports = __webpack_require__(6)(false);
 // Module
-exports.push([module.i, ".bookingsyncCalendarWidget__reset div, .bookingsyncCalendarWidget__reset span, .bookingsyncCalendarWidget__reset applet, .bookingsyncCalendarWidget__reset object, .bookingsyncCalendarWidget__reset iframe, .bookingsyncCalendarWidget__reset h1, .bookingsyncCalendarWidget__reset h2, .bookingsyncCalendarWidget__reset h3, .bookingsyncCalendarWidget__reset h4, .bookingsyncCalendarWidget__reset h5, .bookingsyncCalendarWidget__reset h6, .bookingsyncCalendarWidget__reset p, .bookingsyncCalendarWidget__reset blockquote, .bookingsyncCalendarWidget__reset pre, .bookingsyncCalendarWidget__reset a, .bookingsyncCalendarWidget__reset abbr, .bookingsyncCalendarWidget__reset acronym, .bookingsyncCalendarWidget__reset address, .bookingsyncCalendarWidget__reset big, .bookingsyncCalendarWidget__reset cite, .bookingsyncCalendarWidget__reset code, .bookingsyncCalendarWidget__reset del, .bookingsyncCalendarWidget__reset dfn, .bookingsyncCalendarWidget__reset em, .bookingsyncCalendarWidget__reset img, .bookingsyncCalendarWidget__reset ins, .bookingsyncCalendarWidget__reset kbd, .bookingsyncCalendarWidget__reset q, .bookingsyncCalendarWidget__reset s, .bookingsyncCalendarWidget__reset samp, .bookingsyncCalendarWidget__reset small, .bookingsyncCalendarWidget__reset strike, .bookingsyncCalendarWidget__reset strong, .bookingsyncCalendarWidget__reset sub, .bookingsyncCalendarWidget__reset sup, .bookingsyncCalendarWidget__reset tt, .bookingsyncCalendarWidget__reset var, .bookingsyncCalendarWidget__reset b, .bookingsyncCalendarWidget__reset u, .bookingsyncCalendarWidget__reset i, .bookingsyncCalendarWidget__reset center, .bookingsyncCalendarWidget__reset dl, .bookingsyncCalendarWidget__reset dt, .bookingsyncCalendarWidget__reset dd, .bookingsyncCalendarWidget__reset ol, .bookingsyncCalendarWidget__reset ul, .bookingsyncCalendarWidget__reset li, .bookingsyncCalendarWidget__reset fieldset, .bookingsyncCalendarWidget__reset form, .bookingsyncCalendarWidget__reset div.bookingsyncCalendarWidget__form, .bookingsyncCalendarWidget__reset label, .bookingsyncCalendarWidget__reset legend, .bookingsyncCalendarWidget__reset table, .bookingsyncCalendarWidget__reset caption, .bookingsyncCalendarWidget__reset tbody, .bookingsyncCalendarWidget__reset tfoot, .bookingsyncCalendarWidget__reset thead, .bookingsyncCalendarWidget__reset tr, .bookingsyncCalendarWidget__reset th, .bookingsyncCalendarWidget__reset td, .bookingsyncCalendarWidget__reset article, .bookingsyncCalendarWidget__reset aside, .bookingsyncCalendarWidget__reset canvas, .bookingsyncCalendarWidget__reset details, .bookingsyncCalendarWidget__reset figcaption, .bookingsyncCalendarWidget__reset figure, .bookingsyncCalendarWidget__reset footer, .bookingsyncCalendarWidget__reset header, .bookingsyncCalendarWidget__reset hgroup, .bookingsyncCalendarWidget__reset menu, .bookingsyncCalendarWidget__reset nav, .bookingsyncCalendarWidget__reset section, .bookingsyncCalendarWidget__reset summary, .bookingsyncCalendarWidget__reset time, .bookingsyncCalendarWidget__reset mark, .bookingsyncCalendarWidget__reset audio, .bookingsyncCalendarWidget__reset video, .bookingsyncCalendarWidget__reset button, .bookingsyncCalendarWidget__reset textarea, .bookingsyncCalendarWidget__reset input,\n.bookingsyncCalendarWidget__reset .bookingsyncCalendarWidget__button, .bookingsyncCalendarWidget__reset .bookingsyncCalendarWidget__legend {\n  font-family: \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size-adjust: none;\n  font-size: 100%;\n  font-style: normal;\n  letter-spacing: normal;\n  font-stretch: normal;\n  font-variant: normal;\n  font-weight: normal;\n  font: normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  text-align: left;\n  -moz-text-align-last: initial;\n  text-align-last: initial;\n  text-decoration: none;\n  -webkit-text-emphasis: none;\n  text-emphasis: none;\n  text-height: auto;\n  text-indent: 0;\n  text-justify: auto;\n  text-outline: none;\n  text-shadow: none;\n  text-transform: none;\n  text-wrap: normal;\n  alignment-adjust: auto;\n  alignment-baseline: baseline;\n  -webkit-animation: none 0 ease 0 1 normal;\n  animation: none 0 ease 0 1 normal;\n  -webkit-animation-play-state: running;\n  animation-play-state: running;\n  appearance: normal;\n  azimuth: center;\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  background: none 0 0 auto repeat scroll padding-box transparent;\n  background-color: transparent;\n  background-image: none;\n  baseline-shift: baseline;\n  binding: none;\n  bleed: 6pt;\n  bookmark-label: content();\n  bookmark-level: none;\n  bookmark-state: open;\n  bookmark-target: none;\n  border: 0 none transparent;\n  border-radius: 0;\n  bottom: auto;\n  box-align: stretch;\n  -webkit-box-decoration-break: slice;\n  box-decoration-break: slice;\n  box-direction: normal;\n  flex: 0.0;\n  flex-group: 1;\n  box-lines: single;\n  box-ordinal-group: 1;\n  box-orient: inline-axis;\n  box-pack: start;\n  box-shadow: none;\n  box-sizing: content-box;\n  -webkit-break-after: auto;\n  -moz-break-after: auto;\n  break-after: auto;\n  -webkit-break-before: auto;\n  -moz-break-before: auto;\n  break-before: auto;\n  -webkit-column-break-inside: auto;\n  page-break-inside: auto;\n  break-inside: auto;\n  caption-side: top;\n  clear: none;\n  clip: auto;\n  color: inherit;\n  color-profile: auto;\n  -webkit-column-count: auto;\n  -moz-column-count: auto;\n  column-count: auto;\n  -webkit-column-fill: balance;\n  -moz-column-fill: balance;\n  column-fill: balance;\n  -webkit-column-gap: normal;\n  -moz-column-gap: normal;\n  column-gap: normal;\n  -webkit-column-rule: medium medium #1f1f1f;\n  -moz-column-rule: medium medium #1f1f1f;\n  column-rule: medium medium #1f1f1f;\n  -webkit-column-span: 1;\n  -moz-column-span: 1;\n  column-span: 1;\n  -webkit-column-width: auto;\n  -moz-column-width: auto;\n  column-width: auto;\n  -webkit-columns: auto auto;\n  -moz-columns: auto auto;\n  columns: auto auto;\n  content: normal;\n  counter-increment: none;\n  counter-reset: none;\n  crop: auto;\n  cursor: auto;\n  direction: ltr;\n  display: inline;\n  dominant-baseline: auto;\n  drop-initial-after-adjust: text-after-edge;\n  drop-initial-after-align: baseline;\n  drop-initial-before-adjust: text-before-edge;\n  drop-initial-before-align: caps-height;\n  drop-initial-size: auto;\n  drop-initial-value: initial;\n  elevation: level;\n  empty-cells: show;\n  fit: fill;\n  fit-position: 0% 0%;\n  float: none;\n  float-offset: 0 0;\n  grid-columns: none;\n  grid-rows: none;\n  hanging-punctuation: none;\n  height: auto;\n  hyphenate-after: auto;\n  hyphenate-before: auto;\n  hyphenate-character: auto;\n  hyphenate-lines: no-limit;\n  hyphenate-resource: none;\n  -webkit-hyphens: manual;\n  -moz-hyphens: manual;\n  -ms-hyphens: manual;\n  hyphens: manual;\n  icon: auto;\n  image-orientation: auto;\n  image-rendering: auto;\n  image-resolution: normal;\n  inline-box-align: last;\n  left: auto;\n  line-height: inherit;\n  line-stacking: inline-line-height exclude-ruby consider-shifts;\n  list-style: disc outside none;\n  margin: 0;\n  marks: none;\n  marquee-direction: forward;\n  marquee-loop: 1;\n  marquee-play-count: 1;\n  marquee-speed: normal;\n  marquee-style: scroll;\n  max-height: none;\n  max-width: none;\n  min-height: 0;\n  min-width: 0;\n  move-to: normal;\n  nav-down: auto;\n  nav-index: auto;\n  nav-left: auto;\n  nav-right: auto;\n  nav-up: auto;\n  opacity: 1;\n  orphans: 2;\n  outline: invert none medium;\n  outline-offset: 0;\n  overflow: visible;\n  overflow-style: auto;\n  padding: 0;\n  page: auto;\n  page-break-after: auto;\n  page-break-before: auto;\n  page-break-inside: auto;\n  page-policy: start;\n  -webkit-perspective: none;\n  perspective: none;\n  -webkit-perspective-origin: 50% 50%;\n  perspective-origin: 50% 50%;\n  position: static;\n  presentation-level: 0;\n  punctuation-trim: none;\n  quotes: none;\n  rendering-intent: auto;\n  resize: none;\n  right: auto;\n  rotation: 0;\n  rotation-point: 50% 50%;\n  ruby-align: auto;\n  ruby-overhang: none;\n  ruby-position: before;\n  ruby-span: none;\n  size: auto;\n  string-set: none;\n  table-layout: auto;\n  top: auto;\n  -webkit-transform: none;\n  -ms-transform: none;\n  transform: none;\n  -webkit-transform-origin: 50% 50% 0;\n  -ms-transform-origin: 50% 50% 0;\n  transform-origin: 50% 50% 0;\n  -webkit-transform-style: flat;\n  transform-style: flat;\n  transition: all 0 ease 0;\n  unicode-bidi: normal;\n  vertical-align: baseline;\n  white-space: normal;\n  white-space-collapse: collapse;\n  widows: 2;\n  width: auto;\n  word-break: normal;\n  word-spacing: normal;\n  word-wrap: normal;\n  z-index: auto;\n  text-align: start;\n  /* And disable MS gradients */\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.bookingsyncCalendarWidget__reset address, .bookingsyncCalendarWidget__reset blockquote, .bookingsyncCalendarWidget__reset dd, .bookingsyncCalendarWidget__reset div, .bookingsyncCalendarWidget__reset dl, .bookingsyncCalendarWidget__reset dt, .bookingsyncCalendarWidget__reset fieldset, .bookingsyncCalendarWidget__reset form, .bookingsyncCalendarWidget__reset div.bookingsyncCalendarWidget__form, .bookingsyncCalendarWidget__reset frame, .bookingsyncCalendarWidget__reset frameset, .bookingsyncCalendarWidget__reset h1, .bookingsyncCalendarWidget__reset h2, .bookingsyncCalendarWidget__reset h3, .bookingsyncCalendarWidget__reset h4, .bookingsyncCalendarWidget__reset h5, .bookingsyncCalendarWidget__reset h6, .bookingsyncCalendarWidget__reset noframes, .bookingsyncCalendarWidget__reset ol, .bookingsyncCalendarWidget__reset p, .bookingsyncCalendarWidget__reset ul, .bookingsyncCalendarWidget__reset center, .bookingsyncCalendarWidget__reset dir, .bookingsyncCalendarWidget__reset hr, .bookingsyncCalendarWidget__reset menu, .bookingsyncCalendarWidget__reset pre, .bookingsyncCalendarWidget__reset article, .bookingsyncCalendarWidget__reset aside, .bookingsyncCalendarWidget__reset canvas, .bookingsyncCalendarWidget__reset details, .bookingsyncCalendarWidget__reset figcaption, .bookingsyncCalendarWidget__reset figure, .bookingsyncCalendarWidget__reset footer, .bookingsyncCalendarWidget__reset header, .bookingsyncCalendarWidget__reset hgroup, .bookingsyncCalendarWidget__reset menu, .bookingsyncCalendarWidget__reset nav, .bookingsyncCalendarWidget__reset section, .bookingsyncCalendarWidget__reset summary {\n  display: block; }\n\n.bookingsyncCalendarWidget__reset li {\n  display: list-item; }\n\n.bookingsyncCalendarWidget__reset table {\n  display: table; }\n\n.bookingsyncCalendarWidget__reset tr {\n  display: table-row; }\n\n.bookingsyncCalendarWidget__reset thead {\n  display: table-header-group; }\n\n.bookingsyncCalendarWidget__reset tbody {\n  display: table-row-group; }\n\n.bookingsyncCalendarWidget__reset tfoot {\n  display: table-footer-group; }\n\n.bookingsyncCalendarWidget__reset col {\n  display: table-column; }\n\n.bookingsyncCalendarWidget__reset colgroup {\n  display: table-column-group; }\n\n.bookingsyncCalendarWidget__reset td, .bookingsyncCalendarWidget__reset th {\n  display: table-cell; }\n\n.bookingsyncCalendarWidget__reset caption {\n  display: table-caption; }\n\n.bookingsyncCalendarWidget__reset input, .bookingsyncCalendarWidget__reset select {\n  display: inline-block; }\n\n.bookingsyncCalendarWidget__reset b, .bookingsyncCalendarWidget__reset strong {\n  font-weight: bold; }\n\n.bookingsyncCalendarWidget__reset b > i, .bookingsyncCalendarWidget__reset strong > i, .bookingsyncCalendarWidget__reset b > em, .bookingsyncCalendarWidget__reset strong > em, .bookingsyncCalendarWidget__reset i > b, .bookingsyncCalendarWidget__reset i > strong, .bookingsyncCalendarWidget__reset em > b, .bookingsyncCalendarWidget__reset em > strong {\n  font-weight: bold;\n  font-style: italic; }\n\n.bookingsyncCalendarWidget__reset textarea, .bookingsyncCalendarWidget__reset input {\n  cursor: text; }\n", ""]);
+exports.push([module.i, ".bookingsyncWidgetUtils__reset div, .bookingsyncWidgetUtils__reset span, .bookingsyncWidgetUtils__reset applet, .bookingsyncWidgetUtils__reset object, .bookingsyncWidgetUtils__reset iframe, .bookingsyncWidgetUtils__reset h1, .bookingsyncWidgetUtils__reset h2, .bookingsyncWidgetUtils__reset h3, .bookingsyncWidgetUtils__reset h4, .bookingsyncWidgetUtils__reset h5, .bookingsyncWidgetUtils__reset h6, .bookingsyncWidgetUtils__reset p, .bookingsyncWidgetUtils__reset blockquote, .bookingsyncWidgetUtils__reset pre, .bookingsyncWidgetUtils__reset a,\n.bookingsyncWidgetUtils__reset abbr, .bookingsyncWidgetUtils__reset acronym, .bookingsyncWidgetUtils__reset address, .bookingsyncWidgetUtils__reset big, .bookingsyncWidgetUtils__reset cite, .bookingsyncWidgetUtils__reset code, .bookingsyncWidgetUtils__reset del, .bookingsyncWidgetUtils__reset dfn, .bookingsyncWidgetUtils__reset em, .bookingsyncWidgetUtils__reset img, .bookingsyncWidgetUtils__reset ins, .bookingsyncWidgetUtils__reset kbd, .bookingsyncWidgetUtils__reset q, .bookingsyncWidgetUtils__reset s, .bookingsyncWidgetUtils__reset samp,\n.bookingsyncWidgetUtils__reset small, .bookingsyncWidgetUtils__reset strike, .bookingsyncWidgetUtils__reset strong, .bookingsyncWidgetUtils__reset sub, .bookingsyncWidgetUtils__reset sup, .bookingsyncWidgetUtils__reset tt, .bookingsyncWidgetUtils__reset var, .bookingsyncWidgetUtils__reset b, .bookingsyncWidgetUtils__reset u, .bookingsyncWidgetUtils__reset i, .bookingsyncWidgetUtils__reset center, .bookingsyncWidgetUtils__reset dl, .bookingsyncWidgetUtils__reset dt, .bookingsyncWidgetUtils__reset dd, .bookingsyncWidgetUtils__reset ol, .bookingsyncWidgetUtils__reset ul, .bookingsyncWidgetUtils__reset li,\n.bookingsyncWidgetUtils__reset fieldset, .bookingsyncWidgetUtils__reset form, .bookingsyncWidgetUtils__reset div.bookingsyncWidgetUtils__form, .bookingsyncWidgetUtils__reset label, .bookingsyncWidgetUtils__reset legend, .bookingsyncWidgetUtils__reset table, .bookingsyncWidgetUtils__reset caption, .bookingsyncWidgetUtils__reset tbody, .bookingsyncWidgetUtils__reset tfoot, .bookingsyncWidgetUtils__reset thead, .bookingsyncWidgetUtils__reset tr,\n.bookingsyncWidgetUtils__reset th, .bookingsyncWidgetUtils__reset td, .bookingsyncWidgetUtils__reset article, .bookingsyncWidgetUtils__reset aside, .bookingsyncWidgetUtils__reset canvas, .bookingsyncWidgetUtils__reset details, .bookingsyncWidgetUtils__reset figcaption, .bookingsyncWidgetUtils__reset figure, .bookingsyncWidgetUtils__reset footer, .bookingsyncWidgetUtils__reset header, .bookingsyncWidgetUtils__reset hgroup,\n.bookingsyncWidgetUtils__reset menu, .bookingsyncWidgetUtils__reset nav, .bookingsyncWidgetUtils__reset section, .bookingsyncWidgetUtils__reset summary, .bookingsyncWidgetUtils__reset time, .bookingsyncWidgetUtils__reset mark, .bookingsyncWidgetUtils__reset audio, .bookingsyncWidgetUtils__reset video, .bookingsyncWidgetUtils__reset button, .bookingsyncWidgetUtils__reset textarea, .bookingsyncWidgetUtils__reset input, .bookingsyncWidgetUtils__reset .bookingsyncWidgetUtils__button, .bookingsyncWidgetUtils__reset .bookingsyncWidgetUtils__legend {\n  font-family: \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size-adjust: none;\n  font-size: 100%;\n  font-style: normal;\n  letter-spacing: normal;\n  font-stretch: normal;\n  font-variant: normal;\n  font-weight: normal;\n  font: normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  text-align: left;\n  -moz-text-align-last: initial;\n  text-align-last: initial;\n  text-decoration: none;\n  -webkit-text-emphasis: none;\n  text-emphasis: none;\n  text-height: auto;\n  text-indent: 0;\n  text-justify: auto;\n  text-outline: none;\n  text-shadow: none;\n  text-transform: none;\n  text-wrap: normal;\n  alignment-adjust: auto;\n  alignment-baseline: baseline;\n  -webkit-animation: none 0 ease 0 1 normal;\n  animation: none 0 ease 0 1 normal;\n  -webkit-animation-play-state: running;\n  animation-play-state: running;\n  appearance: normal;\n  azimuth: center;\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  background: none 0 0 auto repeat scroll padding-box transparent;\n  background-color: transparent;\n  background-image: none;\n  baseline-shift: baseline;\n  binding: none;\n  bleed: 6pt;\n  bookmark-label: content();\n  bookmark-level: none;\n  bookmark-state: open;\n  bookmark-target: none;\n  border: 0 none transparent;\n  border-radius: 0;\n  bottom: auto;\n  box-align: stretch;\n  -webkit-box-decoration-break: slice;\n  box-decoration-break: slice;\n  box-direction: normal;\n  flex: 0.0;\n  flex-group: 1;\n  box-lines: single;\n  box-ordinal-group: 1;\n  box-orient: inline-axis;\n  box-pack: start;\n  box-shadow: none;\n  box-sizing: content-box;\n  -webkit-break-after: auto;\n  -moz-break-after: auto;\n  break-after: auto;\n  -webkit-break-before: auto;\n  -moz-break-before: auto;\n  break-before: auto;\n  -webkit-column-break-inside: auto;\n  page-break-inside: auto;\n  break-inside: auto;\n  caption-side: top;\n  clear: none;\n  clip: auto;\n  color: inherit;\n  color-profile: auto;\n  -webkit-column-count: auto;\n  -moz-column-count: auto;\n  column-count: auto;\n  -webkit-column-fill: balance;\n  -moz-column-fill: balance;\n  column-fill: balance;\n  -webkit-column-gap: normal;\n  -moz-column-gap: normal;\n  column-gap: normal;\n  -webkit-column-rule: medium medium #1f1f1f;\n  -moz-column-rule: medium medium #1f1f1f;\n  column-rule: medium medium #1f1f1f;\n  -webkit-column-span: 1;\n  -moz-column-span: 1;\n  column-span: 1;\n  -webkit-column-width: auto;\n  -moz-column-width: auto;\n  column-width: auto;\n  -webkit-columns: auto auto;\n  -moz-columns: auto auto;\n  columns: auto auto;\n  content: normal;\n  counter-increment: none;\n  counter-reset: none;\n  crop: auto;\n  cursor: auto;\n  direction: ltr;\n  display: inline;\n  dominant-baseline: auto;\n  drop-initial-after-adjust: text-after-edge;\n  drop-initial-after-align: baseline;\n  drop-initial-before-adjust: text-before-edge;\n  drop-initial-before-align: caps-height;\n  drop-initial-size: auto;\n  drop-initial-value: initial;\n  elevation: level;\n  empty-cells: show;\n  fit: fill;\n  fit-position: 0% 0%;\n  float: none;\n  float-offset: 0 0;\n  grid-columns: none;\n  grid-rows: none;\n  hanging-punctuation: none;\n  height: auto;\n  hyphenate-after: auto;\n  hyphenate-before: auto;\n  hyphenate-character: auto;\n  hyphenate-lines: no-limit;\n  hyphenate-resource: none;\n  -webkit-hyphens: manual;\n  -moz-hyphens: manual;\n  -ms-hyphens: manual;\n  hyphens: manual;\n  icon: auto;\n  image-orientation: auto;\n  image-rendering: auto;\n  image-resolution: normal;\n  inline-box-align: last;\n  left: auto;\n  line-height: inherit;\n  line-stacking: inline-line-height exclude-ruby consider-shifts;\n  list-style: disc outside none;\n  margin: 0;\n  marks: none;\n  marquee-direction: forward;\n  marquee-loop: 1;\n  marquee-play-count: 1;\n  marquee-speed: normal;\n  marquee-style: scroll;\n  max-height: none;\n  max-width: none;\n  min-height: 0;\n  min-width: 0;\n  move-to: normal;\n  nav-down: auto;\n  nav-index: auto;\n  nav-left: auto;\n  nav-right: auto;\n  nav-up: auto;\n  opacity: 1;\n  orphans: 2;\n  outline: invert none medium;\n  outline-offset: 0;\n  overflow: visible;\n  overflow-style: auto;\n  padding: 0;\n  page: auto;\n  page-break-after: auto;\n  page-break-before: auto;\n  page-break-inside: auto;\n  page-policy: start;\n  -webkit-perspective: none;\n  perspective: none;\n  -webkit-perspective-origin: 50% 50%;\n  perspective-origin: 50% 50%;\n  position: static;\n  presentation-level: 0;\n  punctuation-trim: none;\n  quotes: none;\n  rendering-intent: auto;\n  resize: none;\n  right: auto;\n  rotation: 0;\n  rotation-point: 50% 50%;\n  ruby-align: auto;\n  ruby-overhang: none;\n  ruby-position: before;\n  ruby-span: none;\n  size: auto;\n  string-set: none;\n  table-layout: auto;\n  top: auto;\n  -webkit-transform: none;\n  -ms-transform: none;\n  transform: none;\n  -webkit-transform-origin: 50% 50% 0;\n  -ms-transform-origin: 50% 50% 0;\n  transform-origin: 50% 50% 0;\n  -webkit-transform-style: flat;\n  transform-style: flat;\n  transition: all 0 ease 0;\n  unicode-bidi: normal;\n  vertical-align: baseline;\n  white-space: normal;\n  white-space-collapse: collapse;\n  widows: 2;\n  width: auto;\n  word-break: normal;\n  word-spacing: normal;\n  word-wrap: normal;\n  z-index: auto;\n  text-align: start;\n  /* And disable MS gradients */\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.bookingsyncWidgetUtils__reset address, .bookingsyncWidgetUtils__reset blockquote, .bookingsyncWidgetUtils__reset dd, .bookingsyncWidgetUtils__reset div, .bookingsyncWidgetUtils__reset dl, .bookingsyncWidgetUtils__reset dt, .bookingsyncWidgetUtils__reset fieldset, .bookingsyncWidgetUtils__reset form, .bookingsyncWidgetUtils__reset div.bookingsyncWidgetUtils__form, .bookingsyncWidgetUtils__reset frame, .bookingsyncWidgetUtils__reset frameset, .bookingsyncWidgetUtils__reset h1, .bookingsyncWidgetUtils__reset h2, .bookingsyncWidgetUtils__reset h3, .bookingsyncWidgetUtils__reset h4, .bookingsyncWidgetUtils__reset h5, .bookingsyncWidgetUtils__reset h6, .bookingsyncWidgetUtils__reset noframes, .bookingsyncWidgetUtils__reset ol, .bookingsyncWidgetUtils__reset p, .bookingsyncWidgetUtils__reset ul, .bookingsyncWidgetUtils__reset center, .bookingsyncWidgetUtils__reset dir, .bookingsyncWidgetUtils__reset hr, .bookingsyncWidgetUtils__reset menu, .bookingsyncWidgetUtils__reset pre, .bookingsyncWidgetUtils__reset article, .bookingsyncWidgetUtils__reset aside, .bookingsyncWidgetUtils__reset canvas, .bookingsyncWidgetUtils__reset details, .bookingsyncWidgetUtils__reset figcaption, .bookingsyncWidgetUtils__reset figure, .bookingsyncWidgetUtils__reset footer, .bookingsyncWidgetUtils__reset header, .bookingsyncWidgetUtils__reset hgroup, .bookingsyncWidgetUtils__reset menu, .bookingsyncWidgetUtils__reset nav, .bookingsyncWidgetUtils__reset section, .bookingsyncWidgetUtils__reset summary {\n  display: block; }\n\n.bookingsyncWidgetUtils__reset li {\n  display: list-item; }\n\n.bookingsyncWidgetUtils__reset table {\n  display: table; }\n\n.bookingsyncWidgetUtils__reset tr {\n  display: table-row; }\n\n.bookingsyncWidgetUtils__reset thead {\n  display: table-header-group; }\n\n.bookingsyncWidgetUtils__reset tbody {\n  display: table-row-group; }\n\n.bookingsyncWidgetUtils__reset tfoot {\n  display: table-footer-group; }\n\n.bookingsyncWidgetUtils__reset col {\n  display: table-column; }\n\n.bookingsyncWidgetUtils__reset colgroup {\n  display: table-column-group; }\n\n.bookingsyncWidgetUtils__reset td, .bookingsyncWidgetUtils__reset th {\n  display: table-cell; }\n\n.bookingsyncWidgetUtils__reset caption {\n  display: table-caption; }\n\n.bookingsyncWidgetUtils__reset input, .bookingsyncWidgetUtils__reset select {\n  display: inline-block; }\n\n.bookingsyncWidgetUtils__reset b, .bookingsyncWidgetUtils__reset strong {\n  font-weight: bold; }\n\n.bookingsyncWidgetUtils__reset b > i, .bookingsyncWidgetUtils__reset strong > i, .bookingsyncWidgetUtils__reset b > em, .bookingsyncWidgetUtils__reset strong > em {\n  font-weight: bold;\n  font-style: italic; }\n\n.bookingsyncWidgetUtils__reset i > b, .bookingsyncWidgetUtils__reset i > strong {\n  font-weight: bold;\n  font-style: italic; }\n\n.bookingsyncWidgetUtils__reset em > b, .bookingsyncWidgetUtils__reset em > strong {\n  font-weight: bold;\n  font-style: italic; }\n\n.bookingsyncWidgetUtils__reset textarea, .bookingsyncWidgetUtils__reset input {\n  cursor: text; }\n", ""]);
 // Exports
 exports.locals = {
-	"reset": "bookingsyncCalendarWidget__reset",
-	"form": "bookingsyncCalendarWidget__form",
-	"button": "bookingsyncCalendarWidget__button",
-	"legend": "bookingsyncCalendarWidget__legend"
+	"reset": "bookingsyncWidgetUtils__reset",
+	"form": "bookingsyncWidgetUtils__form",
+	"button": "bookingsyncWidgetUtils__button",
+	"legend": "bookingsyncWidgetUtils__legend"
 };
 
 /***/ }),
@@ -5806,8 +5806,8 @@ exports.locals = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/widget-utils/src/index.js + 2 modules
-var src = __webpack_require__(0);
+// EXTERNAL MODULE: ./node_modules/widget-utils/src/widget-utils.js + 2 modules
+var widget_utils = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./node_modules/popper.js/dist/esm/popper.js
 var popper = __webpack_require__(5);
@@ -5888,7 +5888,7 @@ class calendar_tree_CalendarTree {
     if (!this.tree) {
       this.tree = obj;
     } else {
-      this.tree = Object(src["merge"])(this.tree || {}, obj, true);
+      this.tree = Object(widget_utils["merge"])(this.tree || {}, obj, true);
     }
 
     return this;
@@ -5948,7 +5948,7 @@ class calendar_tree_CalendarTree {
     const monthRange = genArrayRange(start, end);
     monthRange.forEach(month => {
       const y = this.tree[year];
-      const m = Object(src["is"])(y) ? this.tree[year][month] : null;
+      const m = Object(widget_utils["is"])(y) ? this.tree[year][month] : null;
 
       if (y && m) {
         selection = selection.concat(this.selectDaysInMonth(year, month, 1, m.length));
@@ -5959,7 +5959,7 @@ class calendar_tree_CalendarTree {
 
   selectDaysInMonth(year, month, startDay, endDay) {
     const y = this.tree[year];
-    const m = Object(src["is"])(y) ? this.tree[year][month] : null;
+    const m = Object(widget_utils["is"])(y) ? this.tree[year][month] : null;
 
     if (y && m) {
       return m.slice(startDay - 1, endDay);
@@ -5970,7 +5970,7 @@ class calendar_tree_CalendarTree {
 
   selectDay(year, month, day) {
     const y = this.tree[year];
-    const m = Object(src["is"])(y) ? this.tree[year][month] : null;
+    const m = Object(widget_utils["is"])(y) ? this.tree[year][month] : null;
 
     if (y && m) {
       return m[day - 1];
@@ -6023,7 +6023,7 @@ class calendar_tree_CalendarTree {
 
 
   static mapsToTree(maps, mapStartAt) {
-    if (!(Object(src["isString"])(maps.availability) || Object(src["isString"])(maps.nightly_rates) || Object(src["isString"])(maps.minimum_stays))) {
+    if (!(Object(widget_utils["isString"])(maps.availability) || Object(widget_utils["isString"])(maps.nightly_rates) || Object(widget_utils["isString"])(maps.minimum_stays))) {
       return null;
     }
 
@@ -6042,7 +6042,7 @@ class calendar_tree_CalendarTree {
     }
 
     return avail.reduce((curr, state, index, arr) => {
-      const length = Object(src["monthLength"])(year, month);
+      const length = Object(widget_utils["monthLength"])(year, month);
       const tree = curr;
       const minStay = minMap[index];
       const rate = rates[index];
@@ -6131,7 +6131,7 @@ const {
 
 /* harmony default export */ var config = ({
   name: config_name,
-  cssPrefix: Object(src["dashToCapital"])(config_name),
+  cssPrefix: Object(widget_utils["dashToCapital"])(config_name),
   apiHost:  false ? undefined : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
@@ -6312,7 +6312,7 @@ const validationOfRange = (cell, index, range) => {
   return cell.getAttribute('data-disabled') === '';
 };
 const tFormatter = (value, str) => str.replace('%number', value);
-// EXTERNAL MODULE: ./src/styles/reset.scss
+// EXTERNAL MODULE: ./node_modules/widget-utils/src/styles/reset.scss
 var styles_reset = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/calendar.js
@@ -6328,27 +6328,27 @@ var styles_reset = __webpack_require__(8);
 
 
 
-class calendar_Calendar extends src["Emitter"] {
+class calendar_Calendar extends widget_utils["Emitter"] {
   constructor(opts, maps) {
     super();
     this.name = config.name;
     this.VERSION = __webpack_require__(4).version;
     this.CSS_PREFIX = config.cssPrefix;
 
-    if (Object(src["isObject"])(opts)) {
+    if (Object(widget_utils["isObject"])(opts)) {
       if (!opts.el) {
         this.logger('el must be HTML element', 'error');
         return;
       }
 
-      const configDataset = Object(src["merge"])(config, opts.el.dataset);
-      this.opts = Object(src["merge"])(configDataset, opts);
-      this.opts = Object(src["traverseObj"])(this.opts, a => a, b => {
+      const configDataset = Object(widget_utils["merge"])(config, opts.el.dataset);
+      this.opts = Object(widget_utils["merge"])(configDataset, opts);
+      this.opts = Object(widget_utils["traverseObj"])(this.opts, a => a, b => {
         if (b === 'true' || b === 'false') {
           return b === 'true';
         }
 
-        if (Object(src["isNumeric"])(b)) {
+        if (Object(widget_utils["isNumeric"])(b)) {
           return parseInt(b, 10);
         }
 
@@ -6370,7 +6370,7 @@ class calendar_Calendar extends src["Emitter"] {
     this.dom = {};
     this.cTree = new calendar_tree_CalendarTree(validationOfRange, {});
 
-    if (Object(src["isObject"])(maps)) {
+    if (Object(widget_utils["isObject"])(maps)) {
       this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);
     } // selection and highlights
 
@@ -6384,7 +6384,7 @@ class calendar_Calendar extends src["Emitter"] {
   }
 
   init() {
-    Object(src["addClass"])(this.el, calendar["calendar"], styles_reset["reset"]);
+    Object(widget_utils["addClass"])(this.el, calendar["calendar"], styles_reset["reset"]);
 
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
       if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
@@ -6394,15 +6394,15 @@ class calendar_Calendar extends src["Emitter"] {
       }
     }
 
-    this.dom.monthsWrapper = this.el.appendChild(Object(src["elementFromString"])(main));
-    this.dom.forward = this.el.appendChild(Object(src["elementFromString"])(forward));
-    this.dom.back = this.el.appendChild(Object(src["elementFromString"])(back));
+    this.dom.monthsWrapper = this.el.appendChild(Object(widget_utils["elementFromString"])(main));
+    this.dom.forward = this.el.appendChild(Object(widget_utils["elementFromString"])(forward));
+    this.dom.back = this.el.appendChild(Object(widget_utils["elementFromString"])(back));
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
     this.addBtnsEvents();
 
     if (this.opts.rentalId) {
       if (this.opts.showRates || this.opts.showMinStay) {
-        Object(src["addClass"])(this.el, calendar["chunky"]);
+        Object(widget_utils["addClass"])(this.el, calendar["chunky"]);
       }
 
       this.loadMaps(this.opts.rentalId);
@@ -6436,8 +6436,8 @@ class calendar_Calendar extends src["Emitter"] {
     this.recoverSelections();
 
     if (this.opts.selectable) {
-      Object(src["addClass"])(this.el, this.isReverseSelectable ? calendar["reversed"] : calendar["direct"]);
-      Object(src["removeClass"])(this.el, this.isReverseSelectable ? calendar["direct"] : calendar["reversed"]);
+      Object(widget_utils["addClass"])(this.el, this.isReverseSelectable ? calendar["reversed"] : calendar["direct"]);
+      Object(widget_utils["removeClass"])(this.el, this.isReverseSelectable ? calendar["direct"] : calendar["reversed"]);
     }
 
     this.dom.months = months;
@@ -6446,7 +6446,7 @@ class calendar_Calendar extends src["Emitter"] {
 
       if (this.opts.selectable) {
         this.addMonthEvents(m);
-        Object(src["addClass"])(this.el, calendar["actionsEnabled"]);
+        Object(widget_utils["addClass"])(this.el, calendar["actionsEnabled"]);
       }
     });
 
@@ -6483,10 +6483,10 @@ class calendar_Calendar extends src["Emitter"] {
 
   toggleLoading() {
     if (!this.loaderEl) {
-      this.loaderEl = this.el.appendChild(Object(src["elementFromString"])(loading));
+      this.loaderEl = this.el.appendChild(Object(widget_utils["elementFromString"])(loading));
       this.emit('loading-show');
     } else {
-      Object(src["destroyElement"])(this.loaderEl);
+      Object(widget_utils["destroyElement"])(this.loaderEl);
       this.loaderEl = null;
       this.emit('loading-hide');
     }
@@ -6522,7 +6522,7 @@ class calendar_Calendar extends src["Emitter"] {
   addMonthEvents(el) {
     el.addEventListener('click', e => {
       const isEndFirst = this.isReverseSelectable;
-      const weekDayEl = Object(src["traverseToParentWithAttr"])(e.target, 'data-value').parent;
+      const weekDayEl = Object(widget_utils["traverseToParentWithAttr"])(e.target, 'data-value').parent;
       let value, cell;
 
       const resetSelectionOnEscape = event => {
@@ -6537,7 +6537,7 @@ class calendar_Calendar extends src["Emitter"] {
       }; // cancel selection if day is invalid
 
 
-      if (weekDayEl && Object(src["hasClass"])(weekDayEl, calendar["invalid"])) {
+      if (weekDayEl && Object(widget_utils["hasClass"])(weekDayEl, calendar["invalid"])) {
         document.removeEventListener('keyup', resetSelectionOnEscape, true);
         this.resetSelection();
       }
@@ -6548,15 +6548,15 @@ class calendar_Calendar extends src["Emitter"] {
         ({
           value,
           parent: cell
-        } = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
+        } = Object(widget_utils["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
       } else {
         ({
           value,
           parent: cell
-        } = Object(src["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
+        } = Object(widget_utils["traverseToParentWithAttr"])(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
       }
 
-      if (Object(src["is"])(value) && cell) {
+      if (Object(widget_utils["is"])(value) && cell) {
         const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)]; // for simplicity just reset selection when user interacts again
 
         if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
@@ -6584,9 +6584,9 @@ class calendar_Calendar extends src["Emitter"] {
       const {
         value,
         parent: cell
-      } = Object(src["traverseToParentWithAttr"])(e.target, 'data-value');
+      } = Object(widget_utils["traverseToParentWithAttr"])(e.target, 'data-value');
 
-      if (Object(src["is"])(value) && cell) {
+      if (Object(widget_utils["is"])(value) && cell) {
         const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
 
         if (this.isSelecting) {
@@ -6620,14 +6620,14 @@ class calendar_Calendar extends src["Emitter"] {
       this.selectEndAction(dateValue, cell);
 
       const fn = () => {
-        Object(src["removeClass"])(this.el, calendar["selectingDirect"]);
+        Object(widget_utils["removeClass"])(this.el, calendar["selectingDirect"]);
         cell.removeEventListener('mouseout', fn);
       };
 
       cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
-      Object(src["addClass"])(this.el, calendar["selectingDirect"]);
+      Object(widget_utils["addClass"])(this.el, calendar["selectingDirect"]);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
     }
@@ -6642,14 +6642,14 @@ class calendar_Calendar extends src["Emitter"] {
       this.selectStartAction(dateValue, cell);
 
       const fn = () => {
-        Object(src["removeClass"])(this.el, calendar["selectingReversed"]);
+        Object(widget_utils["removeClass"])(this.el, calendar["selectingReversed"]);
         cell.removeEventListener('mouseout', fn);
       };
 
       cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
-      Object(src["addClass"])(this.el, calendar["selectingReversed"]);
+      Object(widget_utils["addClass"])(this.el, calendar["selectingReversed"]);
       this.isSelecting = true;
       this.selectEndAction(dateValue, cell);
     }
@@ -6660,7 +6660,7 @@ class calendar_Calendar extends src["Emitter"] {
     this.switchInputFocus('end');
     this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
 
-    if (Object(src["isFunction"])(this.opts.onSelectStart)) {
+    if (Object(widget_utils["isFunction"])(this.opts.onSelectStart)) {
       this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
     }
   }
@@ -6670,7 +6670,7 @@ class calendar_Calendar extends src["Emitter"] {
     this.switchInputFocus('start');
     this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
 
-    if (Object(src["isFunction"])(this.opts.onSelectEnd)) {
+    if (Object(widget_utils["isFunction"])(this.opts.onSelectEnd)) {
       this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
     }
   }
@@ -6680,7 +6680,7 @@ class calendar_Calendar extends src["Emitter"] {
       const {
         range
       } = this.selectRange(...this.highlightedBounds);
-      range.map(a => Object(src["removeClass"])(a, calendar["highlighted"], calendar["invalid"]));
+      range.map(a => Object(widget_utils["removeClass"])(a, calendar["highlighted"], calendar["invalid"]));
       this.hasValidRange = true;
       this.highlightedBounds = [];
     }
@@ -6694,12 +6694,12 @@ class calendar_Calendar extends src["Emitter"] {
     let hasValidRange = this.opts.rentalId ? isValid : true;
     const minStay = this.opts.rentalId ? this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay') : this.opts.minStay;
 
-    if (Object(src["isArray"])(range)) {
+    if (Object(widget_utils["isArray"])(range)) {
       // check that range is valid and longer than minStay
       this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay;
       range.map(a => {
-        Object(src["removeClass"])(a, calendar["highlighted"], calendar["invalid"]);
-        Object(src["addClass"])(a, hasValidRange ? calendar["highlighted"] : calendar["invalid"]);
+        Object(widget_utils["removeClass"])(a, calendar["highlighted"], calendar["invalid"]);
+        Object(widget_utils["addClass"])(a, hasValidRange ? calendar["highlighted"] : calendar["invalid"]);
         return a;
       });
       this.highlightedBounds = [start, end];
@@ -6718,7 +6718,7 @@ class calendar_Calendar extends src["Emitter"] {
     this.isSelecting = false;
     this.emit('selection-reset', this.selectionStart, this.selectionEnd);
 
-    if (Object(src["isFunction"])(this.opts.onClearSelection)) {
+    if (Object(widget_utils["isFunction"])(this.opts.onClearSelection)) {
       this.opts.onClearSelection(this.selectionStart, this.selectionEnd);
     }
 
@@ -6726,12 +6726,12 @@ class calendar_Calendar extends src["Emitter"] {
     this.selectionEnd = null;
 
     if (this.cellA) {
-      Object(src["removeClass"])(this.cellA, calendar["selected"], calendar["selectedStart"]);
+      Object(widget_utils["removeClass"])(this.cellA, calendar["selected"], calendar["selectedStart"]);
       this.cellA = null;
     }
 
     if (this.cellB) {
-      Object(src["removeClass"])(this.cellB, calendar["selected"], calendar["selectedEnd"]);
+      Object(widget_utils["removeClass"])(this.cellB, calendar["selected"], calendar["selectedEnd"]);
       this.cellB = null;
     }
 
@@ -6758,11 +6758,11 @@ class calendar_Calendar extends src["Emitter"] {
     this.selectionStart = dateValue;
 
     if (this.cellA) {
-      Object(src["removeClass"])(this.cellA, calendar["selected"], calendar["selectedStart"]);
+      Object(widget_utils["removeClass"])(this.cellA, calendar["selected"], calendar["selectedStart"]);
     }
 
     if (cell) {
-      Object(src["addClass"])(cell, calendar["selected"], calendar["selectedStart"]);
+      Object(widget_utils["addClass"])(cell, calendar["selected"], calendar["selectedStart"]);
       this.cellA = cell;
     }
 
@@ -6773,11 +6773,11 @@ class calendar_Calendar extends src["Emitter"] {
     this.selectionEnd = dateValue;
 
     if (this.cellB) {
-      Object(src["removeClass"])(this.cellB, calendar["selected"], calendar["selectedEnd"]);
+      Object(widget_utils["removeClass"])(this.cellB, calendar["selected"], calendar["selectedEnd"]);
     }
 
     if (cell) {
-      Object(src["addClass"])(cell, calendar["selected"], calendar["selectedEnd"]);
+      Object(widget_utils["addClass"])(cell, calendar["selected"], calendar["selectedEnd"]);
       this.cellB = cell;
     }
 
@@ -6819,7 +6819,7 @@ class calendar_Calendar extends src["Emitter"] {
   }
 
   domMonth(year, month) {
-    const monthDom = Object(src["elementFromString"])(templates_month);
+    const monthDom = Object(widget_utils["elementFromString"])(templates_month);
     monthDom.querySelector(".".concat(calendar["tableHeader"], " tr")).innerHTML = this.headerTplString();
     monthDom.querySelector(".".concat(calendar["caption"])).innerHTML = "".concat(this.locale.longMonthNames[month], " ").concat(year);
     monthDom.body = monthDom.querySelector(".".concat(calendar["body"]));
@@ -6844,7 +6844,7 @@ class calendar_Calendar extends src["Emitter"] {
 
   daysTplString(year, month) {
     const startOfMonth = new Date(year, month, 1).getDay();
-    const daysInMonth = Object(src["monthLength"])(year, month);
+    const daysInMonth = Object(widget_utils["monthLength"])(year, month);
     const rowTemplate = weekRow;
     const monthTpl = [];
     const weekShift = this.opts.daysPerWeek - this.opts.startOfWeek;
@@ -6920,17 +6920,17 @@ class calendar_Calendar extends src["Emitter"] {
       isDisabledStart = false;
     }
 
-    return weekDay(dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, this.opts.allowShorterMinStaySelection ? 1 : minStay, Object(src["currencyFormatter"])(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency), tFormatter(minStay, this.locale.minStay));
+    return weekDay(dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, this.opts.allowShorterMinStaySelection ? 1 : minStay, Object(widget_utils["currencyFormatter"])(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency), tFormatter(minStay, this.locale.minStay));
   }
 
   destroyMonths() {
-    if (this.dom && Object(src["isArray"])(this.dom.months)) {
-      this.dom.months.map(m => Object(src["destroyElement"])(m));
+    if (this.dom && Object(widget_utils["isArray"])(this.dom.months)) {
+      this.dom.months.map(m => Object(widget_utils["destroyElement"])(m));
     }
   }
 
   destroy() {
-    return Object(src["destroyElement"])(this.el);
+    return Object(widget_utils["destroyElement"])(this.el);
   }
 
   loadMaps(id) {
@@ -6939,7 +6939,7 @@ class calendar_Calendar extends src["Emitter"] {
     const onSuccess = maps => {
       this.toggleLoading();
 
-      if (Object(src["isArray"])(maps.data) && maps.data[0].attributes) {
+      if (Object(widget_utils["isArray"])(maps.data) && maps.data[0].attributes) {
         if (this.opts.disableAvailabityMap) {
           maps.data[0].attributes.availability = maps.data[0].attributes.availability.replace(/[0-9]/g, '0');
         }
@@ -6959,7 +6959,7 @@ class calendar_Calendar extends src["Emitter"] {
       this.logger('Server error happened', 'error');
     };
 
-    Object(src["ajax"])(this.opts.rentalUrl(id), onSuccess, onError);
+    Object(widget_utils["ajax"])(this.opts.rentalUrl(id), onSuccess, onError);
   }
 
   completeSelection() {
@@ -6972,13 +6972,13 @@ class calendar_Calendar extends src["Emitter"] {
 
     this.emit('selection-completed', this.selectionStart, this.selectionEnd);
 
-    if (Object(src["isFunction"])(this.opts.onSelectionCompleted)) {
+    if (Object(widget_utils["isFunction"])(this.opts.onSelectionCompleted)) {
       this.opts.onSelectionCompleted(dateToIso(...this.selectionStart, true), dateToIso(...this.selectionEnd, true));
     }
   }
 
   initCalendarDrop() {
-    const element = Object(src["elementFromString"])('<div></div>');
+    const element = Object(widget_utils["elementFromString"])('<div></div>');
     this.elTarget = this.opts.el;
     this.el = element;
     document.body.appendChild(element);
@@ -7004,7 +7004,7 @@ class calendar_Calendar extends src["Emitter"] {
       });
     }
 
-    Object(src["addClass"])(this.el, calendar["dropBasic"]);
+    Object(widget_utils["addClass"])(this.el, calendar["dropBasic"]);
     const calDrop = new popper["default"](this.elTarget, this.el, {
       placement: this.opts.dropPlacement || 'bottom-start',
       hide: true
@@ -7014,10 +7014,10 @@ class calendar_Calendar extends src["Emitter"] {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
 
-      if (!Object(src["hasClass"])(this.el, calendar["visible"])) {
+      if (!Object(widget_utils["hasClass"])(this.el, calendar["visible"])) {
         calDrop.update();
         this.emit('drop-open');
-        Object(src["addClass"])(this.el, calendar["visible"]);
+        Object(widget_utils["addClass"])(this.el, calendar["visible"]);
 
         if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
@@ -7082,34 +7082,34 @@ class calendar_Calendar extends src["Emitter"] {
   switchInputFocus(type) {
     if (this.opts.elStartAt && this.opts.elEndAt) {
       if (type === 'start') {
-        Object(src["addClass"])(this.opts.elStartAt, calendar["focus"]);
-        Object(src["removeClass"])(this.opts.elEndAt, calendar["focus"]);
+        Object(widget_utils["addClass"])(this.opts.elStartAt, calendar["focus"]);
+        Object(widget_utils["removeClass"])(this.opts.elEndAt, calendar["focus"]);
       }
 
       if (type === 'end') {
-        Object(src["addClass"])(this.opts.elEndAt, calendar["focus"]);
-        Object(src["removeClass"])(this.opts.elStartAt, calendar["focus"]);
+        Object(widget_utils["addClass"])(this.opts.elEndAt, calendar["focus"]);
+        Object(widget_utils["removeClass"])(this.opts.elStartAt, calendar["focus"]);
       }
 
       if (type === 'any') {
-        Object(src["removeClass"])(this.opts.elStartAt, calendar["focus"]);
-        Object(src["removeClass"])(this.opts.elEndAt, calendar["focus"]);
+        Object(widget_utils["removeClass"])(this.opts.elStartAt, calendar["focus"]);
+        Object(widget_utils["removeClass"])(this.opts.elEndAt, calendar["focus"]);
       }
     }
   }
 
   closeDrop(e, force) {
-    if (!force && (Object(src["isInside"])(e.target, this.el) || Object(src["isInside"])(e.target, this.elTarget))) {
+    if (!force && (Object(widget_utils["isInside"])(e.target, this.el) || Object(widget_utils["isInside"])(e.target, this.elTarget))) {
       e.stopPropagation();
     } else {
-      Object(src["removeClass"])(this.el, calendar["visible"]);
+      Object(widget_utils["removeClass"])(this.el, calendar["visible"]);
       this.emit('drop-close');
       this.switchInputFocus('any');
     }
   }
 
   focusTouchEvents(element, _callback) {
-    if (Object(src["isFunction"])(_callback)) {
+    if (Object(widget_utils["isFunction"])(_callback)) {
       element.addEventListener('touchstart', event => {
         event.preventDefault();
 
