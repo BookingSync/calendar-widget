@@ -1,4 +1,4 @@
-/* global VERSION, Node, CSS_PREFIX, document, console */
+/* global Node, document, console, require */
 import {
   addClass, removeClass, hasClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
@@ -30,7 +30,8 @@ export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
     this.name    = config.name;
-    this.VERSION = VERSION;
+    this.VERSION = require('../package.json').version;
+    this.CSS_PREFIX = config.cssPrefix;
 
     if (isObject(opts)) {
       if (!opts.el) {
@@ -689,9 +690,9 @@ export default class Calendar extends Emitter {
 
     document.body.appendChild(element);
 
-    this.opts.elStartAt     = this.opts.elStartAt || document.querySelector(`.${CSS_PREFIX}__start-at`);
-    this.opts.elEndAt       = this.opts.elEndAt || document.querySelector(`.${CSS_PREFIX}__end-at`);
-    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(`.${CSS_PREFIX}__single-input`);
+    this.opts.elStartAt     = this.opts.elStartAt || document.querySelector(`.${this.CSS_PREFIX}__start-at`);
+    this.opts.elEndAt       = this.opts.elEndAt || document.querySelector(`.${this.CSS_PREFIX}__end-at`);
+    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(`.${this.CSS_PREFIX}__single-input`);
 
     if (this.opts.hiddenElFormat) {
       [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {

@@ -56,9 +56,9 @@
          data-selectable="true"
          data-is-single-input="true">
       <label>Check In/Out
-        <input class="BookingSyncCalendar__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
-        <input class="BookingSyncCalendar__start-at" type="text">
-        <input class="BookingSyncCalendar__end-at" type="text">
+        <input class="bookingsyncCalendarWidget__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
+        <input class="bookingsyncCalendarWidget__start-at" type="text">
+        <input class="bookingsyncCalendarWidget__end-at" type="text">
       </label>
     </div>
   </div>
@@ -126,7 +126,7 @@
 </div>
 
 <script>
-  var cal = new BookingSyncCalendarWidget({
+  var cal = new bookingsyncCalendarWidget({
     el:         document.querySelector('.calendar-wrapper'),
     isDropDown: true,
     selectable: true,

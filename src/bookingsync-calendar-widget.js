@@ -1,4 +1,4 @@
-/* global document, module, VERSION, require, window */
+/* global document, module, require, window */
 const Calendar = require('./calendar');
 
 // Export WidgetUtils
@@ -7,7 +7,7 @@ window.BookingSyncWidgetUtils = require('widget-utils');
 // Export Popper
 window.Popper = require('popper.js');
 
-// in order to export clean constructor to global namespace "BookingSyncCalendarWidget"
+// in order to export clean constructor to global namespace "bookingsyncCalendarWidget"
 // need to mix require with imports
 const CalendarConst = Calendar.default;
 
@@ -27,7 +27,7 @@ CalendarConst.init = (opts) => {
   return initialized;
 };
 
-CalendarConst.VERSION = VERSION;
+CalendarConst.VERSION = require('../package.json').version;
 
 if (CalendarConst.autoInit !== false) {
   if (document.readyState !== 'loading') {
@@ -38,5 +38,8 @@ if (CalendarConst.autoInit !== false) {
     });
   }
 }
+
+// Retro compatibility
+window.BookingSyncCalendarWidget = CalendarConst;
 
 module.exports = CalendarConst;
