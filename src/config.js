@@ -1,8 +1,12 @@
-/* global NODE_ENV */
+/* global NODE_ENV, require */
+import { dashToCapital } from 'widget-utils';
+
 const currDate = new Date();
+const { name } = require('../package.json');
 
 export default {
-  name: 'BookingSync Calendar Widget',
+  name,
+  cssPrefix: dashToCapital(name),
   apiHost: NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
