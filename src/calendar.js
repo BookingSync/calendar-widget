@@ -24,7 +24,7 @@ import {
   reversed, direct, selectingReversed, selectingDirect, dropBasic, focus, visible
 } from './styles/calendar.scss';
 
-import { reset } from './styles/reset.scss';
+import { reset } from 'widget-utils/src/styles/reset.scss';
 
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
