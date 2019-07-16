@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2019-07-16
+### Fixed
+- Global variables
+### Updated
+- Namespace `BookingSyncCalendarWidget` to `bookingsyncCalendarWidget`
+
 ## [1.3.4] - 2019-07-09
 ### Fixed
 - Day-1 Timezone issue

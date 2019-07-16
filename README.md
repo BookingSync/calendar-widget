@@ -13,7 +13,7 @@
 
 * Or as global.
 ```javascript
-const calendar = new BookingSyncCalendar({ el: document.querySelector('.my-widget') });
+const calendar = new bookingsyncCalendar({ el: document.querySelector('.my-widget') });
 ````
 
 * Or as module 
@@ -65,9 +65,9 @@ Additionally you can run json-mock server
 | `isReverseSelectable` | User selects end date first | Boolean | false
 | `isBackDisabled` | Disable back button for past months | Boolean | true
 | `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false
-| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null (will try to find `.BookingSyncCalendar__start-at` if null)
-| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null (will try to find `.BookingSyncCalendar__end-at` if null)
-| `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.BookingSyncCalendar__single-input` if null)
+| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null (will try to find `.bookingsyncCalendar__start-at` if null)
+| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null (will try to find `.bookingsyncCalendar__end-at` if null)
+| `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.bookingsyncCalendar__single-input` if null)
 | `isSingleInput` | Allow to use the single input, hides start/end inputs | Boolean | null
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
 | `formatDate` | Overwrite locale defined date format | String | `%m/%d/%y` (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
@@ -99,7 +99,7 @@ e.g.
 Calendar implements event Emitter, receiver can subscribe/unsubscribe to events and subscribe one-time.
 
 ```javascript
-var cal = new BookingSyncCalendarWidget({
+var cal = new bookingsyncCalendarWidget({
   el: document.querySelector('.calendar-wrapper'),
 });
 
@@ -132,5 +132,3 @@ cal.off('selection-end', function(a, b) {
 | `selection-completed` | User selects end date when start date was already selected | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
 | `drop-open` | Calendar-drop open |  | 
 | `drop-close` | Calendar-drop close |  | 
-
-
