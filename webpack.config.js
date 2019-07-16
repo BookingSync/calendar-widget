@@ -82,6 +82,42 @@ const config = {
               ]
             }
           }
+        ],
+        exclude: [
+          path.resolve('node_modules', 'widget-utils')
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              insertAt: 'top',
+              singleton: true
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: 'bookingsyncWidgetUtils__[local]'
+              }
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: [
+                'expanded',
+                'sourceMap',
+                'sourceMapContents'
+              ]
+            }
+          }
+        ],
+        include: [
+          path.resolve('node_modules', 'widget-utils')
         ]
       }
     ]
