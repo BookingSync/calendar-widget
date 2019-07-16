@@ -7,7 +7,6 @@ const { argv }     = require('yargs');
 const { name }     = require('./package.json');
 const env          = argv.env.NODE_ENV;
 const libraryName  = name.replace(/-([a-z])/ig, (s, i) => i.toUpperCase());
-const fileName     = name;
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -20,13 +19,13 @@ console.log(`Environment: ${env}`);
 let outputFile, optimization;
 
 if (env === 'development') {
-  outputFile =  `${fileName}.dev.js`;
+  outputFile =  `${name}.dev.js`;
   plugins.push(new webpack.SourceMapDevToolPlugin({ filename: `${outputFile}.map` }));
 } else if (env === 'production') {
-  outputFile = `${fileName}.min.js`;
+  outputFile = `${name}.min.js`;
   if (argv.minimize === 'false') {
     optimization = { minimize: false };
-    outputFile = `${fileName}.js`;
+    outputFile = `${name}.js`;
   }
 } else {
   outputFile = '[name].js';
@@ -35,7 +34,7 @@ if (env === 'development') {
 const config = {
   mode: env,
   optimization,
-  entry: `${__dirname}/src/${fileName}.js`,
+  entry: `${__dirname}/src/${name}.js`,
   output: {
     path: `${__dirname}/dist`,
     publicPath: '/assets/',
