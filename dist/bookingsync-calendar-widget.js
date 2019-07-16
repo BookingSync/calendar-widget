@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("BookingSyncCalendarWidget", [], factory);
+		define("bookingsyncCalendarWidget", [], factory);
 	else if(typeof exports === 'object')
-		exports["BookingSyncCalendarWidget"] = factory();
+		exports["bookingsyncCalendarWidget"] = factory();
 	else
-		root["BookingSyncCalendarWidget"] = factory();
+		root["bookingsyncCalendarWidget"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -546,7 +546,7 @@ const validate = {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -560,7 +560,7 @@ var options = {"insertAt":"top","singleton":true,"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(7)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -2250,7 +2250,7 @@ if (true) {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var currencySymbolMap = __webpack_require__(9);
+var currencySymbolMap = __webpack_require__(10);
 
 module.exports = function getSymbolFromCurrency(currencyCode) {
   if (typeof currencyCode !== 'string') return undefined;
@@ -2263,6 +2263,12 @@ module.exports.currencySymbolMap = currencySymbolMap;
 
 /***/ }),
 /* 4 */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.0\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.3.2\"},\"devDependencies\":{\"sinon\":\"^7.3.2\",\"@babel/cli\":\"^7.5.0\",\"@babel/core\":\"^7.5.0\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.3\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.0.0\",\"eslint\":\"^6.0.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.0\",\"json-server\":\"0.15.0\",\"karma\":\"^4.1.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^2.2.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.1.4\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.0\",\"sass-loader\":\"^7.1.0\",\"style-loader\":\"^0.23.1\",\"tether\":\"1.4.6\",\"webpack\":\"^4.35.3\",\"webpack-cli\":\"^3.3.5\",\"webpack-dev-server\":\"3.7.2\",\"yargs\":\"13.2.4\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4867,10 +4873,10 @@ Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
 Popper.placements = placements;
 Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4966,7 +4972,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -5035,7 +5041,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(12);
+var	fixUrls = __webpack_require__(13);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -5370,11 +5376,11 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(13);
+var content = __webpack_require__(14);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -5388,23 +5394,23 @@ var options = {"insertAt":"top","singleton":true,"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(7)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* global document, module, VERSION, require, window */
-const Calendar = __webpack_require__(14); // Export WidgetUtils
+/* global document, module, require, window */
+const Calendar = __webpack_require__(15); // Export WidgetUtils
 
 
 window.BookingSyncWidgetUtils = __webpack_require__(0); // Export Popper
 
-window.Popper = __webpack_require__(4); // in order to export clean constructor to global namespace "BookingSyncCalendarWidget"
+window.Popper = __webpack_require__(5); // in order to export clean constructor to global namespace "bookingsyncCalendarWidget"
 // need to mix require with imports
 
 const CalendarConst = Calendar.default;
@@ -5422,7 +5428,7 @@ CalendarConst.init = opts => {
   return initialized;
 };
 
-CalendarConst.VERSION = "1.3.4";
+CalendarConst.VERSION = __webpack_require__(4).version;
 
 if (CalendarConst.autoInit !== false) {
   if (document.readyState !== 'loading') {
@@ -5432,12 +5438,14 @@ if (CalendarConst.autoInit !== false) {
       CalendarConst.init();
     });
   }
-}
+} // Retro compatibility
 
+
+window.BookingSyncCalendarWidget = CalendarConst;
 module.exports = CalendarConst;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -5617,7 +5625,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 var g; // This works in non-strict mode
@@ -5640,55 +5648,55 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(false);
+exports = module.exports = __webpack_require__(6)(false);
 // Imports
 exports.push([module.i, "@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);", ""]);
 // Module
-exports.push([module.i, "/********************************************************\n\n\t\t\t\t     loader\n\n********************************************************/\n@-webkit-keyframes BookingSyncCalendar__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes BookingSyncCalendar__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-webkit-keyframes BookingSyncCalendar__pulse {\n  50% {\n    background: white; } }\n\n@keyframes BookingSyncCalendar__pulse {\n  50% {\n    background: white; } }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__loading {\n  border-radius: 50%;\n  width: 24px;\n  height: 24px;\n  border: 0.25rem solid #cacaca;\n  border-top-color: #000;\n  -webkit-animation: BookingSyncCalendar__spin 1s infinite linear;\n  animation: BookingSyncCalendar__spin 1s infinite linear;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -12px;\n  margin-top: -12px; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__loadingLayer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.55);\n  right: 0;\n  z-index: 10; }\n\n.BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic {\n  position: absolute;\n  display: none;\n  max-width: 100%;\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\n  border: 1px solid #e0e0e0;\n  background: #fff;\n  margin: 0;\n  padding-top: .5rem;\n  font-family: inherit;\n  line-height: 1.5em;\n  z-index: 10; }\n  .BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic.BookingSyncCalendar__visible {\n    display: block; }\n  .BookingSyncCalendar__calendar.BookingSyncCalendar__dropBasic .BookingSyncCalendar__mCell {\n    margin-bottom: 1rem; }\n\n/********************************************************\n\n\t\t\t\t      colors\n\n********************************************************/\n.BookingSyncCalendar__calendar {\n  font: 1rem/1.4 \"Open Sans\", Helvetica, Arial, sans-serif;\n  position: relative;\n  margin: 0 -1rem 3rem;\n  padding-top: 0.5rem;\n  background: #ffffff; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__caption {\n    font-weight: 700;\n    margin-bottom: 1.3rem;\n    padding-top: 0.3rem;\n    text-align: center; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__monthsWrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__mCell {\n    font-size: 0.875rem;\n    margin: 0 1rem 2rem;\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 25%;\n    flex: 1 1 25%; }\n    @media (max-width: 767px) {\n      .BookingSyncCalendar__calendar .BookingSyncCalendar__mCell {\n        -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n        flex: 1 1 100%; } }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__month {\n    border-collapse: collapse;\n    padding: 0;\n    margin: 0;\n    width: 100%; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__tableHeader,\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__body {\n    margin: 0; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__th {\n    border-bottom: 1px solid #cbcbcb;\n    font-size: 0.85rem;\n    color: #aaaaaa;\n    height: 25px;\n    width: 30px;\n    text-align: center; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cell {\n    text-align: center;\n    padding: 0;\n    position: relative;\n    border: 1px solid #dedfe2;\n    vertical-align: middle;\n    color: #444444;\n    background-clip: padding-box;\n    overflow: hidden;\n    width: 30px; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cell:after {\n    content: '';\n    display: block;\n    margin-top: 100%; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__cnt {\n    position: absolute;\n    top: 50%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n    line-height: 0; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__infoExtra,\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__info {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    font-size: 0.6875rem;\n    padding: 1px 3px;\n    text-align: right;\n    color: rgba(60, 60, 60, 0.5);\n    right: 0; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__infoExtra {\n    left: 0;\n    text-align: left;\n    right: auto; }\n\n.BookingSyncCalendar__focus {\n  border-color: #8acdf6; }\n\n/********************************************************\n\n\t\t\t\t  selections, start and ends\n\n\t\t\t\t  N.B. Edit at your own risk\n\t\t\t\t  one cell can have 10 states and lots of these combinations\n\n\t\t\t\t  enabled\n\n\t\t\t\t  disabled\n\t\t\t\t  morningDisabled\n\t\t\t\t  nightDisabled\n\n\t\t\t\t  highlighted\n\t\t\t\t  morningSelected\n\t\t\t\t  nightSelected\n\n\t\t\t\t  invalid\n\t\t\t\t  morningInvalid\n\t\t\t\t  nightInvalid\n\n\n********************************************************/\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selected {\n  color: inherit;\n  /* selected cell generic styles */ }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__reversed {\n  color: inherit;\n  /* selecting reversed (e.g. check-out first) */ }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__direct {\n  color: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectingReversed {\n  color: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectingDirect {\n  color: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__disabled,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__disabled:hover {\n  color: #bfbfbf;\n  cursor: default;\n  background-color: #f0f0f0; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__highlighted {\n  border-color: #bde3ff; }\n\n.BookingSyncCalendar__direct [data-enabled]:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedStart {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__highlighted:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedEnd {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2; }\n\n.BookingSyncCalendar__reversed [data-available-out]:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__highlighted:hover {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__selectedEnd,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__selectedEnd:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__nightDisabled,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__nightDisabled:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);\n  color: #444444; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__morningDisabled,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__morningDisabled:hover {\n  background: linear-gradient(to left top, transparent 50%, #f0f0f0 50%); }\n\n.BookingSyncCalendar__direct [data-enabled]:hover,\n.BookingSyncCalendar__reversed [data-available-out]:hover,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedStart,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__selectedEnd,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__highlighted {\n  background-color: #8acdf6;\n  cursor: pointer; }\n\n.BookingSyncCalendar__direct [data-enabled]:hover,\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__direct [data-enabled]:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__reversed [data-available-out]:hover,\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__reversed [data-available-out]:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__nightDisabled:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__morningDisabled:hover .BookingSyncCalendar__infoExtra {\n  cursor: pointer; }\n\n.BookingSyncCalendar__actionsEnabled .BookingSyncCalendar__invalid:not(.BookingSyncCalendar__selectedStart) {\n  background: #c0c0c0;\n  color: #ffffff;\n  border-color: #cacaca; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__invalid:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #c0c0c0 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2;\n  color: #444444; }\n\n.BookingSyncCalendar__selectingReversed .BookingSyncCalendar__invalid.BookingSyncCalendar__selectedEnd,\n.BookingSyncCalendar__selectingDirect .BookingSyncCalendar__invalid:hover {\n  background: linear-gradient(to left top, transparent 50%, #c0c0c0 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2;\n  color: #444444; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid {\n  background-color: #c0c0c0;\n  border-bottom-color: #cacaca;\n  border-right-color: #cacaca; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__cnt,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__info,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid:hover .BookingSyncCalendar__infoExtra {\n  cursor: default; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__invalid.BookingSyncCalendar__disabled:hover {\n  background-color: #f0f0f0; }\n\n/********************************************************\n\n\t\t\t\t     buttons\n\n********************************************************/\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back {\n  cursor: pointer;\n  height: 23px;\n  width: 23px;\n  fill: #444444;\n  padding: 6px 10px;\n  border-radius: 1px;\n  top: .25rem;\n  left: 1rem;\n  z-index: 2;\n  position: absolute; }\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__forward svg,\n  .BookingSyncCalendar__calendar .BookingSyncCalendar__back svg {\n    height: inherit;\n    width: inherit; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward {\n  right: 1rem;\n  left: auto; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:active,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:focus,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:active,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:focus {\n  outline: none; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back:hover {\n  fill: #3895d9; }\n\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward[disabled],\n.BookingSyncCalendar__calendar .BookingSyncCalendar__forward[disabled]:hover,\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back[disabled],\n.BookingSyncCalendar__calendar .BookingSyncCalendar__back[disabled]:hover {\n  opacity: 0.5;\n  cursor: default;\n  fill: #444444; }\n\n/********************************************************\n\n\t\t\t\t     mods\n\n********************************************************/\n/* chunky layout */\n.BookingSyncCalendar__chunky .BookingSyncCalendar__cnt {\n  left: 0;\n  top: .8rem;\n  text-align: right;\n  margin-right: .5rem;\n  font-size: 0.6875rem;\n  color: rgba(60, 60, 60, 0.5); }\n\n.BookingSyncCalendar__chunky .BookingSyncCalendar__info {\n  top: 39%;\n  text-align: center;\n  font-size: 0.75rem;\n  color: #444444; }\n\n.BookingSyncCalendar__chunky .BookingSyncCalendar__infoExtra {\n  text-align: center;\n  right: 0;\n  bottom: 3px; }\n\n.BookingSyncCalendar__chunky .BookingSyncCalendar__mCell {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 46%;\n  flex: 1 1 46%; }\n", ""]);
+exports.push([module.i, "/********************************************************\n\n\t\t\t\t     loader\n\n********************************************************/\n@-webkit-keyframes bookingsyncCalendarWidget__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes bookingsyncCalendarWidget__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-webkit-keyframes bookingsyncCalendarWidget__pulse {\n  50% {\n    background: white; } }\n\n@keyframes bookingsyncCalendarWidget__pulse {\n  50% {\n    background: white; } }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loading {\n  border-radius: 50%;\n  width: 24px;\n  height: 24px;\n  border: 0.25rem solid #cacaca;\n  border-top-color: #000;\n  -webkit-animation: bookingsyncCalendarWidget__spin 1s infinite linear;\n  animation: bookingsyncCalendarWidget__spin 1s infinite linear;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -12px;\n  margin-top: -12px; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loadingLayer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.55);\n  right: 0;\n  z-index: 10; }\n\n.bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic {\n  position: absolute;\n  display: none;\n  max-width: 100%;\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\n  border: 1px solid #e0e0e0;\n  background: #fff;\n  margin: 0;\n  padding-top: .5rem;\n  font-family: inherit;\n  line-height: 1.5em;\n  z-index: 10; }\n  .bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic.bookingsyncCalendarWidget__visible {\n    display: block; }\n  .bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic .bookingsyncCalendarWidget__mCell {\n    margin-bottom: 1rem; }\n\n/********************************************************\n\n\t\t\t\t      colors\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar {\n  font: 1rem/1.4 \"Open Sans\", Helvetica, Arial, sans-serif;\n  position: relative;\n  margin: 0 -1rem 3rem;\n  padding-top: 0.5rem;\n  background: #ffffff; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__caption {\n    font-weight: 700;\n    margin-bottom: 1.3rem;\n    padding-top: 0.3rem;\n    text-align: center; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__monthsWrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell {\n    font-size: 0.875rem;\n    margin: 0 1rem 2rem;\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 25%;\n    flex: 1 1 25%; }\n    @media (max-width: 767px) {\n      .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell {\n        -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n        flex: 1 1 100%; } }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__month {\n    border-collapse: collapse;\n    padding: 0;\n    margin: 0;\n    width: 100%; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__tableHeader,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__body {\n    margin: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__th {\n    border-bottom: 1px solid #cbcbcb;\n    font-size: 0.85rem;\n    color: #aaaaaa;\n    height: 25px;\n    width: 30px;\n    text-align: center; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell {\n    text-align: center;\n    padding: 0;\n    position: relative;\n    border: 1px solid #dedfe2;\n    vertical-align: middle;\n    color: #444444;\n    background-clip: padding-box;\n    overflow: hidden;\n    width: 30px; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell:after {\n    content: '';\n    display: block;\n    margin-top: 100%; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cnt {\n    position: absolute;\n    top: 50%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n    line-height: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__info {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    font-size: 0.6875rem;\n    padding: 1px 3px;\n    text-align: right;\n    color: rgba(60, 60, 60, 0.5);\n    right: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra {\n    left: 0;\n    text-align: left;\n    right: auto; }\n\n.bookingsyncCalendarWidget__focus {\n  border-color: #8acdf6; }\n\n/********************************************************\n\n\t\t\t\t  selections, start and ends\n\n\t\t\t\t  N.B. Edit at your own risk\n\t\t\t\t  one cell can have 10 states and lots of these combinations\n\n\t\t\t\t  enabled\n\n\t\t\t\t  disabled\n\t\t\t\t  morningDisabled\n\t\t\t\t  nightDisabled\n\n\t\t\t\t  highlighted\n\t\t\t\t  morningSelected\n\t\t\t\t  nightSelected\n\n\t\t\t\t  invalid\n\t\t\t\t  morningInvalid\n\t\t\t\t  nightInvalid\n\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selected {\n  color: inherit;\n  /* selected cell generic styles */ }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__reversed {\n  color: inherit;\n  /* selecting reversed (e.g. check-out first) */ }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__direct {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingReversed {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingDirect {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled:hover {\n  color: #bfbfbf;\n  cursor: default;\n  background-color: #f0f0f0; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted {\n  border-color: #bde3ff; }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__highlighted:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__highlighted:hover {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);\n  color: #444444; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled:hover {\n  background: linear-gradient(to left top, transparent 50%, #f0f0f0 50%); }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted {\n  background-color: #8acdf6;\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__actionsEnabled .bookingsyncCalendarWidget__invalid:not(.bookingsyncCalendarWidget__selectedStart) {\n  background: #c0c0c0;\n  color: #ffffff;\n  border-color: #cacaca; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #c0c0c0 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__invalid:hover {\n  background: linear-gradient(to left top, transparent 50%, #c0c0c0 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid {\n  background-color: #c0c0c0;\n  border-bottom-color: #cacaca;\n  border-right-color: #cacaca; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: default; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__disabled:hover {\n  background-color: #f0f0f0; }\n\n/********************************************************\n\n\t\t\t\t     buttons\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back {\n  cursor: pointer;\n  height: 23px;\n  width: 23px;\n  fill: #444444;\n  padding: 6px 10px;\n  border-radius: 1px;\n  top: .25rem;\n  left: 1rem;\n  z-index: 2;\n  position: absolute; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward svg,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back svg {\n    height: inherit;\n    width: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward {\n  right: 1rem;\n  left: auto; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:active,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:focus,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:active,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:focus {\n  outline: none; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:hover {\n  fill: #3895d9; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled],\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled]:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled],\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled]:hover {\n  opacity: 0.5;\n  cursor: default;\n  fill: #444444; }\n\n/********************************************************\n\n\t\t\t\t     mods\n\n********************************************************/\n/* chunky layout */\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__cnt {\n  left: 0;\n  top: .8rem;\n  text-align: right;\n  margin-right: .5rem;\n  font-size: 0.6875rem;\n  color: rgba(60, 60, 60, 0.5); }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__info {\n  top: 39%;\n  text-align: center;\n  font-size: 0.75rem;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__infoExtra {\n  text-align: center;\n  right: 0;\n  bottom: 3px; }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__mCell {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 46%;\n  flex: 1 1 46%; }\n", ""]);
 // Exports
 exports.locals = {
-	"calendar": "BookingSyncCalendar__calendar",
-	"loading": "BookingSyncCalendar__loading",
-	"spin": "BookingSyncCalendar__spin",
-	"loadingLayer": "BookingSyncCalendar__loadingLayer",
-	"dropBasic": "BookingSyncCalendar__dropBasic",
-	"visible": "BookingSyncCalendar__visible",
-	"mCell": "BookingSyncCalendar__mCell",
-	"caption": "BookingSyncCalendar__caption",
-	"monthsWrapper": "BookingSyncCalendar__monthsWrapper",
-	"month": "BookingSyncCalendar__month",
-	"tableHeader": "BookingSyncCalendar__tableHeader",
-	"body": "BookingSyncCalendar__body",
-	"th": "BookingSyncCalendar__th",
-	"cell": "BookingSyncCalendar__cell",
-	"cnt": "BookingSyncCalendar__cnt",
-	"infoExtra": "BookingSyncCalendar__infoExtra",
-	"info": "BookingSyncCalendar__info",
-	"focus": "BookingSyncCalendar__focus",
-	"selected": "BookingSyncCalendar__selected",
-	"reversed": "BookingSyncCalendar__reversed",
-	"direct": "BookingSyncCalendar__direct",
-	"selectingReversed": "BookingSyncCalendar__selectingReversed",
-	"selectingDirect": "BookingSyncCalendar__selectingDirect",
-	"disabled": "BookingSyncCalendar__disabled",
-	"highlighted": "BookingSyncCalendar__highlighted",
-	"selectedStart": "BookingSyncCalendar__selectedStart",
-	"selectedEnd": "BookingSyncCalendar__selectedEnd",
-	"nightDisabled": "BookingSyncCalendar__nightDisabled",
-	"morningDisabled": "BookingSyncCalendar__morningDisabled",
-	"actionsEnabled": "BookingSyncCalendar__actionsEnabled",
-	"invalid": "BookingSyncCalendar__invalid",
-	"forward": "BookingSyncCalendar__forward",
-	"back": "BookingSyncCalendar__back",
-	"chunky": "BookingSyncCalendar__chunky",
-	"pulse": "BookingSyncCalendar__pulse"
+	"calendar": "bookingsyncCalendarWidget__calendar",
+	"loading": "bookingsyncCalendarWidget__loading",
+	"spin": "bookingsyncCalendarWidget__spin",
+	"loadingLayer": "bookingsyncCalendarWidget__loadingLayer",
+	"dropBasic": "bookingsyncCalendarWidget__dropBasic",
+	"visible": "bookingsyncCalendarWidget__visible",
+	"mCell": "bookingsyncCalendarWidget__mCell",
+	"caption": "bookingsyncCalendarWidget__caption",
+	"monthsWrapper": "bookingsyncCalendarWidget__monthsWrapper",
+	"month": "bookingsyncCalendarWidget__month",
+	"tableHeader": "bookingsyncCalendarWidget__tableHeader",
+	"body": "bookingsyncCalendarWidget__body",
+	"th": "bookingsyncCalendarWidget__th",
+	"cell": "bookingsyncCalendarWidget__cell",
+	"cnt": "bookingsyncCalendarWidget__cnt",
+	"infoExtra": "bookingsyncCalendarWidget__infoExtra",
+	"info": "bookingsyncCalendarWidget__info",
+	"focus": "bookingsyncCalendarWidget__focus",
+	"selected": "bookingsyncCalendarWidget__selected",
+	"reversed": "bookingsyncCalendarWidget__reversed",
+	"direct": "bookingsyncCalendarWidget__direct",
+	"selectingReversed": "bookingsyncCalendarWidget__selectingReversed",
+	"selectingDirect": "bookingsyncCalendarWidget__selectingDirect",
+	"disabled": "bookingsyncCalendarWidget__disabled",
+	"highlighted": "bookingsyncCalendarWidget__highlighted",
+	"selectedStart": "bookingsyncCalendarWidget__selectedStart",
+	"selectedEnd": "bookingsyncCalendarWidget__selectedEnd",
+	"nightDisabled": "bookingsyncCalendarWidget__nightDisabled",
+	"morningDisabled": "bookingsyncCalendarWidget__morningDisabled",
+	"actionsEnabled": "bookingsyncCalendarWidget__actionsEnabled",
+	"invalid": "bookingsyncCalendarWidget__invalid",
+	"forward": "bookingsyncCalendarWidget__forward",
+	"back": "bookingsyncCalendarWidget__back",
+	"chunky": "bookingsyncCalendarWidget__chunky",
+	"pulse": "bookingsyncCalendarWidget__pulse"
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /**
@@ -5777,22 +5785,22 @@ module.exports = function (css) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(false);
+exports = module.exports = __webpack_require__(6)(false);
 // Module
-exports.push([module.i, ".BookingSyncCalendar__reset div, .BookingSyncCalendar__reset span, .BookingSyncCalendar__reset applet, .BookingSyncCalendar__reset object, .BookingSyncCalendar__reset iframe, .BookingSyncCalendar__reset h1, .BookingSyncCalendar__reset h2, .BookingSyncCalendar__reset h3, .BookingSyncCalendar__reset h4, .BookingSyncCalendar__reset h5, .BookingSyncCalendar__reset h6, .BookingSyncCalendar__reset p, .BookingSyncCalendar__reset blockquote, .BookingSyncCalendar__reset pre, .BookingSyncCalendar__reset a, .BookingSyncCalendar__reset abbr, .BookingSyncCalendar__reset acronym, .BookingSyncCalendar__reset address, .BookingSyncCalendar__reset big, .BookingSyncCalendar__reset cite, .BookingSyncCalendar__reset code, .BookingSyncCalendar__reset del, .BookingSyncCalendar__reset dfn, .BookingSyncCalendar__reset em, .BookingSyncCalendar__reset img, .BookingSyncCalendar__reset ins, .BookingSyncCalendar__reset kbd, .BookingSyncCalendar__reset q, .BookingSyncCalendar__reset s, .BookingSyncCalendar__reset samp, .BookingSyncCalendar__reset small, .BookingSyncCalendar__reset strike, .BookingSyncCalendar__reset strong, .BookingSyncCalendar__reset sub, .BookingSyncCalendar__reset sup, .BookingSyncCalendar__reset tt, .BookingSyncCalendar__reset var, .BookingSyncCalendar__reset b, .BookingSyncCalendar__reset u, .BookingSyncCalendar__reset i, .BookingSyncCalendar__reset center, .BookingSyncCalendar__reset dl, .BookingSyncCalendar__reset dt, .BookingSyncCalendar__reset dd, .BookingSyncCalendar__reset ol, .BookingSyncCalendar__reset ul, .BookingSyncCalendar__reset li, .BookingSyncCalendar__reset fieldset, .BookingSyncCalendar__reset form, .BookingSyncCalendar__reset div.BookingSyncCalendar__form, .BookingSyncCalendar__reset label, .BookingSyncCalendar__reset legend, .BookingSyncCalendar__reset table, .BookingSyncCalendar__reset caption, .BookingSyncCalendar__reset tbody, .BookingSyncCalendar__reset tfoot, .BookingSyncCalendar__reset thead, .BookingSyncCalendar__reset tr, .BookingSyncCalendar__reset th, .BookingSyncCalendar__reset td, .BookingSyncCalendar__reset article, .BookingSyncCalendar__reset aside, .BookingSyncCalendar__reset canvas, .BookingSyncCalendar__reset details, .BookingSyncCalendar__reset figcaption, .BookingSyncCalendar__reset figure, .BookingSyncCalendar__reset footer, .BookingSyncCalendar__reset header, .BookingSyncCalendar__reset hgroup, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset nav, .BookingSyncCalendar__reset section, .BookingSyncCalendar__reset summary, .BookingSyncCalendar__reset time, .BookingSyncCalendar__reset mark, .BookingSyncCalendar__reset audio, .BookingSyncCalendar__reset video, .BookingSyncCalendar__reset button, .BookingSyncCalendar__reset textarea, .BookingSyncCalendar__reset input,\n.BookingSyncCalendar__reset .BookingSyncCalendar__button, .BookingSyncCalendar__reset .BookingSyncCalendar__legend {\n  font-family: \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size-adjust: none;\n  font-size: 100%;\n  font-style: normal;\n  letter-spacing: normal;\n  font-stretch: normal;\n  font-variant: normal;\n  font-weight: normal;\n  font: normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  text-align: left;\n  -moz-text-align-last: initial;\n  text-align-last: initial;\n  text-decoration: none;\n  -webkit-text-emphasis: none;\n  text-emphasis: none;\n  text-height: auto;\n  text-indent: 0;\n  text-justify: auto;\n  text-outline: none;\n  text-shadow: none;\n  text-transform: none;\n  text-wrap: normal;\n  alignment-adjust: auto;\n  alignment-baseline: baseline;\n  -webkit-animation: none 0 ease 0 1 normal;\n  animation: none 0 ease 0 1 normal;\n  -webkit-animation-play-state: running;\n  animation-play-state: running;\n  appearance: normal;\n  azimuth: center;\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  background: none 0 0 auto repeat scroll padding-box transparent;\n  background-color: transparent;\n  background-image: none;\n  baseline-shift: baseline;\n  binding: none;\n  bleed: 6pt;\n  bookmark-label: content();\n  bookmark-level: none;\n  bookmark-state: open;\n  bookmark-target: none;\n  border: 0 none transparent;\n  border-radius: 0;\n  bottom: auto;\n  box-align: stretch;\n  -webkit-box-decoration-break: slice;\n  box-decoration-break: slice;\n  box-direction: normal;\n  flex: 0.0;\n  flex-group: 1;\n  box-lines: single;\n  box-ordinal-group: 1;\n  box-orient: inline-axis;\n  box-pack: start;\n  box-shadow: none;\n  box-sizing: content-box;\n  -webkit-break-after: auto;\n  -moz-break-after: auto;\n  break-after: auto;\n  -webkit-break-before: auto;\n  -moz-break-before: auto;\n  break-before: auto;\n  -webkit-column-break-inside: auto;\n  page-break-inside: auto;\n  break-inside: auto;\n  caption-side: top;\n  clear: none;\n  clip: auto;\n  color: inherit;\n  color-profile: auto;\n  -webkit-column-count: auto;\n  -moz-column-count: auto;\n  column-count: auto;\n  -webkit-column-fill: balance;\n  -moz-column-fill: balance;\n  column-fill: balance;\n  -webkit-column-gap: normal;\n  -moz-column-gap: normal;\n  column-gap: normal;\n  -webkit-column-rule: medium medium #1f1f1f;\n  -moz-column-rule: medium medium #1f1f1f;\n  column-rule: medium medium #1f1f1f;\n  -webkit-column-span: 1;\n  -moz-column-span: 1;\n  column-span: 1;\n  -webkit-column-width: auto;\n  -moz-column-width: auto;\n  column-width: auto;\n  -webkit-columns: auto auto;\n  -moz-columns: auto auto;\n  columns: auto auto;\n  content: normal;\n  counter-increment: none;\n  counter-reset: none;\n  crop: auto;\n  cursor: auto;\n  direction: ltr;\n  display: inline;\n  dominant-baseline: auto;\n  drop-initial-after-adjust: text-after-edge;\n  drop-initial-after-align: baseline;\n  drop-initial-before-adjust: text-before-edge;\n  drop-initial-before-align: caps-height;\n  drop-initial-size: auto;\n  drop-initial-value: initial;\n  elevation: level;\n  empty-cells: show;\n  fit: fill;\n  fit-position: 0% 0%;\n  float: none;\n  float-offset: 0 0;\n  grid-columns: none;\n  grid-rows: none;\n  hanging-punctuation: none;\n  height: auto;\n  hyphenate-after: auto;\n  hyphenate-before: auto;\n  hyphenate-character: auto;\n  hyphenate-lines: no-limit;\n  hyphenate-resource: none;\n  -webkit-hyphens: manual;\n  -moz-hyphens: manual;\n  -ms-hyphens: manual;\n  hyphens: manual;\n  icon: auto;\n  image-orientation: auto;\n  image-rendering: auto;\n  image-resolution: normal;\n  inline-box-align: last;\n  left: auto;\n  line-height: inherit;\n  line-stacking: inline-line-height exclude-ruby consider-shifts;\n  list-style: disc outside none;\n  margin: 0;\n  marks: none;\n  marquee-direction: forward;\n  marquee-loop: 1;\n  marquee-play-count: 1;\n  marquee-speed: normal;\n  marquee-style: scroll;\n  max-height: none;\n  max-width: none;\n  min-height: 0;\n  min-width: 0;\n  move-to: normal;\n  nav-down: auto;\n  nav-index: auto;\n  nav-left: auto;\n  nav-right: auto;\n  nav-up: auto;\n  opacity: 1;\n  orphans: 2;\n  outline: invert none medium;\n  outline-offset: 0;\n  overflow: visible;\n  overflow-style: auto;\n  padding: 0;\n  page: auto;\n  page-break-after: auto;\n  page-break-before: auto;\n  page-break-inside: auto;\n  page-policy: start;\n  -webkit-perspective: none;\n  perspective: none;\n  -webkit-perspective-origin: 50% 50%;\n  perspective-origin: 50% 50%;\n  position: static;\n  presentation-level: 0;\n  punctuation-trim: none;\n  quotes: none;\n  rendering-intent: auto;\n  resize: none;\n  right: auto;\n  rotation: 0;\n  rotation-point: 50% 50%;\n  ruby-align: auto;\n  ruby-overhang: none;\n  ruby-position: before;\n  ruby-span: none;\n  size: auto;\n  string-set: none;\n  table-layout: auto;\n  top: auto;\n  -webkit-transform: none;\n  -ms-transform: none;\n  transform: none;\n  -webkit-transform-origin: 50% 50% 0;\n  -ms-transform-origin: 50% 50% 0;\n  transform-origin: 50% 50% 0;\n  -webkit-transform-style: flat;\n  transform-style: flat;\n  transition: all 0 ease 0;\n  unicode-bidi: normal;\n  vertical-align: baseline;\n  white-space: normal;\n  white-space-collapse: collapse;\n  widows: 2;\n  width: auto;\n  word-break: normal;\n  word-spacing: normal;\n  word-wrap: normal;\n  z-index: auto;\n  text-align: start;\n  /* And disable MS gradients */\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.BookingSyncCalendar__reset address, .BookingSyncCalendar__reset blockquote, .BookingSyncCalendar__reset dd, .BookingSyncCalendar__reset div, .BookingSyncCalendar__reset dl, .BookingSyncCalendar__reset dt, .BookingSyncCalendar__reset fieldset, .BookingSyncCalendar__reset form, .BookingSyncCalendar__reset div.BookingSyncCalendar__form, .BookingSyncCalendar__reset frame, .BookingSyncCalendar__reset frameset, .BookingSyncCalendar__reset h1, .BookingSyncCalendar__reset h2, .BookingSyncCalendar__reset h3, .BookingSyncCalendar__reset h4, .BookingSyncCalendar__reset h5, .BookingSyncCalendar__reset h6, .BookingSyncCalendar__reset noframes, .BookingSyncCalendar__reset ol, .BookingSyncCalendar__reset p, .BookingSyncCalendar__reset ul, .BookingSyncCalendar__reset center, .BookingSyncCalendar__reset dir, .BookingSyncCalendar__reset hr, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset pre, .BookingSyncCalendar__reset article, .BookingSyncCalendar__reset aside, .BookingSyncCalendar__reset canvas, .BookingSyncCalendar__reset details, .BookingSyncCalendar__reset figcaption, .BookingSyncCalendar__reset figure, .BookingSyncCalendar__reset footer, .BookingSyncCalendar__reset header, .BookingSyncCalendar__reset hgroup, .BookingSyncCalendar__reset menu, .BookingSyncCalendar__reset nav, .BookingSyncCalendar__reset section, .BookingSyncCalendar__reset summary {\n  display: block; }\n\n.BookingSyncCalendar__reset li {\n  display: list-item; }\n\n.BookingSyncCalendar__reset table {\n  display: table; }\n\n.BookingSyncCalendar__reset tr {\n  display: table-row; }\n\n.BookingSyncCalendar__reset thead {\n  display: table-header-group; }\n\n.BookingSyncCalendar__reset tbody {\n  display: table-row-group; }\n\n.BookingSyncCalendar__reset tfoot {\n  display: table-footer-group; }\n\n.BookingSyncCalendar__reset col {\n  display: table-column; }\n\n.BookingSyncCalendar__reset colgroup {\n  display: table-column-group; }\n\n.BookingSyncCalendar__reset td, .BookingSyncCalendar__reset th {\n  display: table-cell; }\n\n.BookingSyncCalendar__reset caption {\n  display: table-caption; }\n\n.BookingSyncCalendar__reset input, .BookingSyncCalendar__reset select {\n  display: inline-block; }\n\n.BookingSyncCalendar__reset b, .BookingSyncCalendar__reset strong {\n  font-weight: bold; }\n\n.BookingSyncCalendar__reset b > i, .BookingSyncCalendar__reset strong > i, .BookingSyncCalendar__reset b > em, .BookingSyncCalendar__reset strong > em, .BookingSyncCalendar__reset i > b, .BookingSyncCalendar__reset i > strong, .BookingSyncCalendar__reset em > b, .BookingSyncCalendar__reset em > strong {\n  font-weight: bold;\n  font-style: italic; }\n\n.BookingSyncCalendar__reset textarea, .BookingSyncCalendar__reset input {\n  cursor: text; }\n", ""]);
+exports.push([module.i, ".bookingsyncCalendarWidget__reset div, .bookingsyncCalendarWidget__reset span, .bookingsyncCalendarWidget__reset applet, .bookingsyncCalendarWidget__reset object, .bookingsyncCalendarWidget__reset iframe, .bookingsyncCalendarWidget__reset h1, .bookingsyncCalendarWidget__reset h2, .bookingsyncCalendarWidget__reset h3, .bookingsyncCalendarWidget__reset h4, .bookingsyncCalendarWidget__reset h5, .bookingsyncCalendarWidget__reset h6, .bookingsyncCalendarWidget__reset p, .bookingsyncCalendarWidget__reset blockquote, .bookingsyncCalendarWidget__reset pre, .bookingsyncCalendarWidget__reset a, .bookingsyncCalendarWidget__reset abbr, .bookingsyncCalendarWidget__reset acronym, .bookingsyncCalendarWidget__reset address, .bookingsyncCalendarWidget__reset big, .bookingsyncCalendarWidget__reset cite, .bookingsyncCalendarWidget__reset code, .bookingsyncCalendarWidget__reset del, .bookingsyncCalendarWidget__reset dfn, .bookingsyncCalendarWidget__reset em, .bookingsyncCalendarWidget__reset img, .bookingsyncCalendarWidget__reset ins, .bookingsyncCalendarWidget__reset kbd, .bookingsyncCalendarWidget__reset q, .bookingsyncCalendarWidget__reset s, .bookingsyncCalendarWidget__reset samp, .bookingsyncCalendarWidget__reset small, .bookingsyncCalendarWidget__reset strike, .bookingsyncCalendarWidget__reset strong, .bookingsyncCalendarWidget__reset sub, .bookingsyncCalendarWidget__reset sup, .bookingsyncCalendarWidget__reset tt, .bookingsyncCalendarWidget__reset var, .bookingsyncCalendarWidget__reset b, .bookingsyncCalendarWidget__reset u, .bookingsyncCalendarWidget__reset i, .bookingsyncCalendarWidget__reset center, .bookingsyncCalendarWidget__reset dl, .bookingsyncCalendarWidget__reset dt, .bookingsyncCalendarWidget__reset dd, .bookingsyncCalendarWidget__reset ol, .bookingsyncCalendarWidget__reset ul, .bookingsyncCalendarWidget__reset li, .bookingsyncCalendarWidget__reset fieldset, .bookingsyncCalendarWidget__reset form, .bookingsyncCalendarWidget__reset div.bookingsyncCalendarWidget__form, .bookingsyncCalendarWidget__reset label, .bookingsyncCalendarWidget__reset legend, .bookingsyncCalendarWidget__reset table, .bookingsyncCalendarWidget__reset caption, .bookingsyncCalendarWidget__reset tbody, .bookingsyncCalendarWidget__reset tfoot, .bookingsyncCalendarWidget__reset thead, .bookingsyncCalendarWidget__reset tr, .bookingsyncCalendarWidget__reset th, .bookingsyncCalendarWidget__reset td, .bookingsyncCalendarWidget__reset article, .bookingsyncCalendarWidget__reset aside, .bookingsyncCalendarWidget__reset canvas, .bookingsyncCalendarWidget__reset details, .bookingsyncCalendarWidget__reset figcaption, .bookingsyncCalendarWidget__reset figure, .bookingsyncCalendarWidget__reset footer, .bookingsyncCalendarWidget__reset header, .bookingsyncCalendarWidget__reset hgroup, .bookingsyncCalendarWidget__reset menu, .bookingsyncCalendarWidget__reset nav, .bookingsyncCalendarWidget__reset section, .bookingsyncCalendarWidget__reset summary, .bookingsyncCalendarWidget__reset time, .bookingsyncCalendarWidget__reset mark, .bookingsyncCalendarWidget__reset audio, .bookingsyncCalendarWidget__reset video, .bookingsyncCalendarWidget__reset button, .bookingsyncCalendarWidget__reset textarea, .bookingsyncCalendarWidget__reset input,\n.bookingsyncCalendarWidget__reset .bookingsyncCalendarWidget__button, .bookingsyncCalendarWidget__reset .bookingsyncCalendarWidget__legend {\n  font-family: \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size-adjust: none;\n  font-size: 100%;\n  font-style: normal;\n  letter-spacing: normal;\n  font-stretch: normal;\n  font-variant: normal;\n  font-weight: normal;\n  font: normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  text-align: left;\n  -moz-text-align-last: initial;\n  text-align-last: initial;\n  text-decoration: none;\n  -webkit-text-emphasis: none;\n  text-emphasis: none;\n  text-height: auto;\n  text-indent: 0;\n  text-justify: auto;\n  text-outline: none;\n  text-shadow: none;\n  text-transform: none;\n  text-wrap: normal;\n  alignment-adjust: auto;\n  alignment-baseline: baseline;\n  -webkit-animation: none 0 ease 0 1 normal;\n  animation: none 0 ease 0 1 normal;\n  -webkit-animation-play-state: running;\n  animation-play-state: running;\n  appearance: normal;\n  azimuth: center;\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  background: none 0 0 auto repeat scroll padding-box transparent;\n  background-color: transparent;\n  background-image: none;\n  baseline-shift: baseline;\n  binding: none;\n  bleed: 6pt;\n  bookmark-label: content();\n  bookmark-level: none;\n  bookmark-state: open;\n  bookmark-target: none;\n  border: 0 none transparent;\n  border-radius: 0;\n  bottom: auto;\n  box-align: stretch;\n  -webkit-box-decoration-break: slice;\n  box-decoration-break: slice;\n  box-direction: normal;\n  flex: 0.0;\n  flex-group: 1;\n  box-lines: single;\n  box-ordinal-group: 1;\n  box-orient: inline-axis;\n  box-pack: start;\n  box-shadow: none;\n  box-sizing: content-box;\n  -webkit-break-after: auto;\n  -moz-break-after: auto;\n  break-after: auto;\n  -webkit-break-before: auto;\n  -moz-break-before: auto;\n  break-before: auto;\n  -webkit-column-break-inside: auto;\n  page-break-inside: auto;\n  break-inside: auto;\n  caption-side: top;\n  clear: none;\n  clip: auto;\n  color: inherit;\n  color-profile: auto;\n  -webkit-column-count: auto;\n  -moz-column-count: auto;\n  column-count: auto;\n  -webkit-column-fill: balance;\n  -moz-column-fill: balance;\n  column-fill: balance;\n  -webkit-column-gap: normal;\n  -moz-column-gap: normal;\n  column-gap: normal;\n  -webkit-column-rule: medium medium #1f1f1f;\n  -moz-column-rule: medium medium #1f1f1f;\n  column-rule: medium medium #1f1f1f;\n  -webkit-column-span: 1;\n  -moz-column-span: 1;\n  column-span: 1;\n  -webkit-column-width: auto;\n  -moz-column-width: auto;\n  column-width: auto;\n  -webkit-columns: auto auto;\n  -moz-columns: auto auto;\n  columns: auto auto;\n  content: normal;\n  counter-increment: none;\n  counter-reset: none;\n  crop: auto;\n  cursor: auto;\n  direction: ltr;\n  display: inline;\n  dominant-baseline: auto;\n  drop-initial-after-adjust: text-after-edge;\n  drop-initial-after-align: baseline;\n  drop-initial-before-adjust: text-before-edge;\n  drop-initial-before-align: caps-height;\n  drop-initial-size: auto;\n  drop-initial-value: initial;\n  elevation: level;\n  empty-cells: show;\n  fit: fill;\n  fit-position: 0% 0%;\n  float: none;\n  float-offset: 0 0;\n  grid-columns: none;\n  grid-rows: none;\n  hanging-punctuation: none;\n  height: auto;\n  hyphenate-after: auto;\n  hyphenate-before: auto;\n  hyphenate-character: auto;\n  hyphenate-lines: no-limit;\n  hyphenate-resource: none;\n  -webkit-hyphens: manual;\n  -moz-hyphens: manual;\n  -ms-hyphens: manual;\n  hyphens: manual;\n  icon: auto;\n  image-orientation: auto;\n  image-rendering: auto;\n  image-resolution: normal;\n  inline-box-align: last;\n  left: auto;\n  line-height: inherit;\n  line-stacking: inline-line-height exclude-ruby consider-shifts;\n  list-style: disc outside none;\n  margin: 0;\n  marks: none;\n  marquee-direction: forward;\n  marquee-loop: 1;\n  marquee-play-count: 1;\n  marquee-speed: normal;\n  marquee-style: scroll;\n  max-height: none;\n  max-width: none;\n  min-height: 0;\n  min-width: 0;\n  move-to: normal;\n  nav-down: auto;\n  nav-index: auto;\n  nav-left: auto;\n  nav-right: auto;\n  nav-up: auto;\n  opacity: 1;\n  orphans: 2;\n  outline: invert none medium;\n  outline-offset: 0;\n  overflow: visible;\n  overflow-style: auto;\n  padding: 0;\n  page: auto;\n  page-break-after: auto;\n  page-break-before: auto;\n  page-break-inside: auto;\n  page-policy: start;\n  -webkit-perspective: none;\n  perspective: none;\n  -webkit-perspective-origin: 50% 50%;\n  perspective-origin: 50% 50%;\n  position: static;\n  presentation-level: 0;\n  punctuation-trim: none;\n  quotes: none;\n  rendering-intent: auto;\n  resize: none;\n  right: auto;\n  rotation: 0;\n  rotation-point: 50% 50%;\n  ruby-align: auto;\n  ruby-overhang: none;\n  ruby-position: before;\n  ruby-span: none;\n  size: auto;\n  string-set: none;\n  table-layout: auto;\n  top: auto;\n  -webkit-transform: none;\n  -ms-transform: none;\n  transform: none;\n  -webkit-transform-origin: 50% 50% 0;\n  -ms-transform-origin: 50% 50% 0;\n  transform-origin: 50% 50% 0;\n  -webkit-transform-style: flat;\n  transform-style: flat;\n  transition: all 0 ease 0;\n  unicode-bidi: normal;\n  vertical-align: baseline;\n  white-space: normal;\n  white-space-collapse: collapse;\n  widows: 2;\n  width: auto;\n  word-break: normal;\n  word-spacing: normal;\n  word-wrap: normal;\n  z-index: auto;\n  text-align: start;\n  /* And disable MS gradients */\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.bookingsyncCalendarWidget__reset address, .bookingsyncCalendarWidget__reset blockquote, .bookingsyncCalendarWidget__reset dd, .bookingsyncCalendarWidget__reset div, .bookingsyncCalendarWidget__reset dl, .bookingsyncCalendarWidget__reset dt, .bookingsyncCalendarWidget__reset fieldset, .bookingsyncCalendarWidget__reset form, .bookingsyncCalendarWidget__reset div.bookingsyncCalendarWidget__form, .bookingsyncCalendarWidget__reset frame, .bookingsyncCalendarWidget__reset frameset, .bookingsyncCalendarWidget__reset h1, .bookingsyncCalendarWidget__reset h2, .bookingsyncCalendarWidget__reset h3, .bookingsyncCalendarWidget__reset h4, .bookingsyncCalendarWidget__reset h5, .bookingsyncCalendarWidget__reset h6, .bookingsyncCalendarWidget__reset noframes, .bookingsyncCalendarWidget__reset ol, .bookingsyncCalendarWidget__reset p, .bookingsyncCalendarWidget__reset ul, .bookingsyncCalendarWidget__reset center, .bookingsyncCalendarWidget__reset dir, .bookingsyncCalendarWidget__reset hr, .bookingsyncCalendarWidget__reset menu, .bookingsyncCalendarWidget__reset pre, .bookingsyncCalendarWidget__reset article, .bookingsyncCalendarWidget__reset aside, .bookingsyncCalendarWidget__reset canvas, .bookingsyncCalendarWidget__reset details, .bookingsyncCalendarWidget__reset figcaption, .bookingsyncCalendarWidget__reset figure, .bookingsyncCalendarWidget__reset footer, .bookingsyncCalendarWidget__reset header, .bookingsyncCalendarWidget__reset hgroup, .bookingsyncCalendarWidget__reset menu, .bookingsyncCalendarWidget__reset nav, .bookingsyncCalendarWidget__reset section, .bookingsyncCalendarWidget__reset summary {\n  display: block; }\n\n.bookingsyncCalendarWidget__reset li {\n  display: list-item; }\n\n.bookingsyncCalendarWidget__reset table {\n  display: table; }\n\n.bookingsyncCalendarWidget__reset tr {\n  display: table-row; }\n\n.bookingsyncCalendarWidget__reset thead {\n  display: table-header-group; }\n\n.bookingsyncCalendarWidget__reset tbody {\n  display: table-row-group; }\n\n.bookingsyncCalendarWidget__reset tfoot {\n  display: table-footer-group; }\n\n.bookingsyncCalendarWidget__reset col {\n  display: table-column; }\n\n.bookingsyncCalendarWidget__reset colgroup {\n  display: table-column-group; }\n\n.bookingsyncCalendarWidget__reset td, .bookingsyncCalendarWidget__reset th {\n  display: table-cell; }\n\n.bookingsyncCalendarWidget__reset caption {\n  display: table-caption; }\n\n.bookingsyncCalendarWidget__reset input, .bookingsyncCalendarWidget__reset select {\n  display: inline-block; }\n\n.bookingsyncCalendarWidget__reset b, .bookingsyncCalendarWidget__reset strong {\n  font-weight: bold; }\n\n.bookingsyncCalendarWidget__reset b > i, .bookingsyncCalendarWidget__reset strong > i, .bookingsyncCalendarWidget__reset b > em, .bookingsyncCalendarWidget__reset strong > em, .bookingsyncCalendarWidget__reset i > b, .bookingsyncCalendarWidget__reset i > strong, .bookingsyncCalendarWidget__reset em > b, .bookingsyncCalendarWidget__reset em > strong {\n  font-weight: bold;\n  font-style: italic; }\n\n.bookingsyncCalendarWidget__reset textarea, .bookingsyncCalendarWidget__reset input {\n  cursor: text; }\n", ""]);
 // Exports
 exports.locals = {
-	"reset": "BookingSyncCalendar__reset",
-	"form": "BookingSyncCalendar__form",
-	"button": "BookingSyncCalendar__button",
-	"legend": "BookingSyncCalendar__legend"
+	"reset": "bookingsyncCalendarWidget__reset",
+	"form": "bookingsyncCalendarWidget__form",
+	"button": "bookingsyncCalendarWidget__button",
+	"legend": "bookingsyncCalendarWidget__legend"
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5802,7 +5810,7 @@ __webpack_require__.r(__webpack_exports__);
 var src = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./node_modules/popper.js/dist/esm/popper.js
-var popper = __webpack_require__(4);
+var popper = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/styles/calendar.scss
 var calendar = __webpack_require__(1);
@@ -6113,10 +6121,17 @@ class calendar_tree_CalendarTree {
 
 }
 // CONCATENATED MODULE: ./src/config.js
-/* global NODE_ENV */
+/* global NODE_ENV, require */
+
 const currDate = new Date();
+
+const {
+  name: config_name
+} = __webpack_require__(4);
+
 /* harmony default export */ var config = ({
-  name: 'BookingSync Calendar Widget',
+  name: config_name,
+  cssPrefix: Object(src["dashToCapital"])(config_name),
   apiHost:  false ? undefined : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
@@ -6298,11 +6313,11 @@ const validationOfRange = (cell, index, range) => {
 };
 const tFormatter = (value, str) => str.replace('%number', value);
 // EXTERNAL MODULE: ./src/styles/reset.scss
-var styles_reset = __webpack_require__(7);
+var styles_reset = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/calendar.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return calendar_Calendar; });
-/* global VERSION, Node, CSS_PREFIX, document, console */
+/* global Node, document, console, require */
 
 
 
@@ -6317,7 +6332,8 @@ class calendar_Calendar extends src["Emitter"] {
   constructor(opts, maps) {
     super();
     this.name = config.name;
-    this.VERSION = "1.3.4";
+    this.VERSION = __webpack_require__(4).version;
+    this.CSS_PREFIX = config.cssPrefix;
 
     if (Object(src["isObject"])(opts)) {
       if (!opts.el) {
@@ -6966,9 +6982,9 @@ class calendar_Calendar extends src["Emitter"] {
     this.elTarget = this.opts.el;
     this.el = element;
     document.body.appendChild(element);
-    this.opts.elStartAt = this.opts.elStartAt || document.querySelector(".".concat("BookingSyncCalendar", "__start-at"));
-    this.opts.elEndAt = this.opts.elEndAt || document.querySelector(".".concat("BookingSyncCalendar", "__end-at"));
-    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(".".concat("BookingSyncCalendar", "__single-input"));
+    this.opts.elStartAt = this.opts.elStartAt || document.querySelector(".".concat(this.CSS_PREFIX, "__start-at"));
+    this.opts.elEndAt = this.opts.elEndAt || document.querySelector(".".concat(this.CSS_PREFIX, "__end-at"));
+    this.opts.elSingleInput = this.opts.elSingleInput || document.querySelector(".".concat(this.CSS_PREFIX, "__single-input"));
 
     if (this.opts.hiddenElFormat) {
       [this.opts.elStartAt, this.opts.elEndAt].forEach((input, i) => {
