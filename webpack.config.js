@@ -101,7 +101,7 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: `bookingsyncWidgetUtils__[local]`
+                localIdentName: 'bookingsyncWidgetUtils__[local]'
               }
             }
           },
