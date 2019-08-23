@@ -1,4 +1,4 @@
-/* global require, console, __dirname, module */
+/* global require, console, __dirname, module, window, document */
 'use strict';
 
 const webpack      = require('webpack');
@@ -31,10 +31,9 @@ if (env === 'development') {
   outputFile = '[name].js';
 }
 
-const insertAtTop = function (element) {
-  var parent = document.querySelector('head');
-  var lastInsertedElement =
-    window._lastElementInsertedByStyleLoader;
+const insertAtTop = function(element) {
+  let parent = document.querySelector('head');
+  let lastInsertedElement = window._lastElementInsertedByStyleLoader;
 
   if (!lastInsertedElement) {
     parent.insertBefore(element, parent.firstChild);
@@ -45,7 +44,7 @@ const insertAtTop = function (element) {
   }
 
   window._lastElementInsertedByStyleLoader = element;
-}
+};
 
 const config = {
   mode: env,
