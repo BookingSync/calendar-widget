@@ -31,6 +31,22 @@ if (env === 'development') {
   outputFile = '[name].js';
 }
 
+const insertAtTop = function (element) {
+  var parent = document.querySelector('head');
+  var lastInsertedElement =
+    window._lastElementInsertedByStyleLoader;
+
+  if (!lastInsertedElement) {
+    parent.insertBefore(element, parent.firstChild);
+  } else if (lastInsertedElement.nextSibling) {
+    parent.insertBefore(element, lastInsertedElement.nextSibling);
+  } else {
+    parent.appendChild(element);
+  }
+
+  window._lastElementInsertedByStyleLoader = element;
+}
+
 const config = {
   mode: env,
   optimization,
@@ -60,8 +76,8 @@ const config = {
           {
             loader: 'style-loader',
             options: {
-              insertAt: 'top',
-              singleton: true
+              injectType: 'singletonStyleTag',
+              insert: insertAtTop
             }
           },
           {
@@ -93,8 +109,8 @@ const config = {
           {
             loader: 'style-loader',
             options: {
-              insertAt: 'top',
-              singleton: true
+              injectType: 'singletonStyleTag',
+              insert: insertAtTop
             }
           },
           {
