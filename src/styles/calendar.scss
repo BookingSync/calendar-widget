@@ -1,4 +1,3 @@
-@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import 'variables';
 @import 'loading';
 @import 'drop';
@@ -10,7 +9,7 @@
 ********************************************************/
 
 .calendar {
-  font: 1rem/1.4 "Open Sans", Helvetica, Arial, sans-serif;
+  font: 1rem/1.4 Helvetica, Arial, sans-serif;
   position: relative;
   margin: 0 -1rem 3rem;
   padding-top: 0.5rem;
@@ -192,7 +191,7 @@
   background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
 }
 
-.selectingReversed .highlighted:hover{
+.selectingReversed .highlighted:hover {
   background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);
   border-top-color: $cell-border;
   border-left-color: $cell-border;
@@ -226,6 +225,7 @@
 }
 
 .direct {
+
   [data-enabled]:hover,
   [data-enabled]:hover .cnt,
   [data-enabled]:hover .info,
@@ -235,6 +235,7 @@
 }
 
 .reversed {
+
   [data-available-out]:hover,
   [data-available-out]:hover .cnt,
   [data-available-out]:hover .info,
@@ -244,6 +245,7 @@
 }
 
 .selectingDirect {
+
   .nightDisabled:hover,
   .nightDisabled:hover .cnt,
   .nightDisabled:hover .info,
@@ -253,6 +255,7 @@
 }
 
 .selectingReversed {
+
   .morningDisabled:hover,
   .morningDisabled:hover .cnt,
   .morningDisabled:hover .info,
@@ -289,6 +292,7 @@
 }
 
 .calendar {
+
   .invalid:hover,
   .invalid:hover .cnt,
   .invalid:hover .info,
@@ -307,6 +311,7 @@
 
 ********************************************************/
 .calendar {
+
   .forward,
   .back {
     cursor: pointer;
