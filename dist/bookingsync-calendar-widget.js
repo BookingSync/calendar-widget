@@ -545,26 +545,36 @@ const validate = {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 var content = __webpack_require__(12);
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
 
-var transform;
-var insertInto;
+var options = {"injectType":"singletonStyleTag"}
 
+options.insert = function(element) {
+  let parent = document.querySelector('head');
+  let lastInsertedElement = window._lastElementInsertedByStyleLoader;
 
+  if (!lastInsertedElement) {
+    parent.insertBefore(element, parent.firstChild);
+  } else if (lastInsertedElement.nextSibling) {
+    parent.insertBefore(element, lastInsertedElement.nextSibling);
+  } else {
+    parent.appendChild(element);
+  }
 
-var options = {"insertAt":"top","singleton":true,"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
+  window._lastElementInsertedByStyleLoader = element;
+};
+options.singleton = true;
 
 var update = __webpack_require__(7)(content, options);
 
-if(content.locals) module.exports = content.locals;
+if (content.locals) {
+  module.exports = content.locals;
+}
 
-if(false) {}
 
 /***/ }),
 /* 2 */
@@ -2265,7 +2275,7 @@ module.exports.currencySymbolMap = currencySymbolMap;
 /* 4 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.1\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^7.3.2\",\"@babel/cli\":\"^7.5.0\",\"@babel/core\":\"^7.5.4\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.4\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.0.0\",\"eslint\":\"^6.0.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.0\",\"json-server\":\"0.15.0\",\"karma\":\"^4.2.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.0.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.1.4\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.0\",\"sass-loader\":\"^7.1.0\",\"style-loader\":\"^0.23.1\",\"tether\":\"1.4.6\",\"webpack\":\"^4.35.3\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"3.7.2\",\"yargs\":\"13.3.0\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
+module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.2\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^7.4.1\",\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.5\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.2.0\",\"eslint\":\"^6.2.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.2\",\"json-server\":\"0.15.0\",\"karma\":\"^4.2.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.2.0\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.1\",\"sass-loader\":\"^7.3.1\",\"style-loader\":\"^1.0.0\",\"tether\":\"1.4.7\",\"webpack\":\"^4.39.2\",\"webpack-cli\":\"^3.3.7\",\"webpack-dev-server\":\"3.8.0\",\"yargs\":\"14.0.0\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
 
 /***/ }),
 /* 5 */
@@ -4975,437 +4985,331 @@ function toComment(sourceMap) {
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
+"use strict";
+
 
 var stylesInDom = {};
 
-var	memoize = function (fn) {
-	var memo;
+var isOldIE = function isOldIE() {
+  var memo;
+  return function memorize() {
+    if (typeof memo === 'undefined') {
+      // Test for IE <= 9 as proposed by Browserhacks
+      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+      // Tests for existence of standard globals is to allow style-loader
+      // to operate correctly into non-standard environments
+      // @see https://github.com/webpack-contrib/style-loader/issues/177
+      memo = Boolean(window && document && document.all && !window.atob);
+    }
 
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
+    return memo;
+  };
+}();
 
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
+var getTarget = function getTarget() {
+  var memo = {};
+  return function memorize(target) {
+    if (typeof memo[target] === 'undefined') {
+      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
 
-var getTarget = function (target, parent) {
-  if (parent){
-    return parent.querySelector(target);
+      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+        try {
+          // This will throw an exception if access to iframe is blocked
+          // due to cross-origin restrictions
+          styleTarget = styleTarget.contentDocument.head;
+        } catch (e) {
+          // istanbul ignore next
+          styleTarget = null;
+        }
+      }
+
+      memo[target] = styleTarget;
+    }
+
+    return memo[target];
+  };
+}();
+
+function listToStyles(list, options) {
+  var styles = [];
+  var newStyles = {};
+
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var css = item[1];
+    var media = item[2];
+    var sourceMap = item[3];
+    var part = {
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    };
+
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = {
+        id: id,
+        parts: [part]
+      });
+    } else {
+      newStyles[id].parts.push(part);
+    }
   }
-  return document.querySelector(target);
-};
 
-var getElement = (function (fn) {
-	var memo = {};
+  return styles;
+}
 
-	return function(target, parent) {
-                // If passing function in options, then use it for resolve "head" element.
-                // Useful for Shadow Root style i.e
-                // {
-                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
-                // }
-                if (typeof target === 'function') {
-                        return target();
-                }
-                if (typeof memo[target] === "undefined") {
-			var styleTarget = getTarget.call(this, target, parent);
-			// Special case to return head of iframe instead of iframe itself
-			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-				try {
-					// This will throw an exception if access to iframe is blocked
-					// due to cross-origin restrictions
-					styleTarget = styleTarget.contentDocument.head;
-				} catch(e) {
-					styleTarget = null;
-				}
-			}
-			memo[target] = styleTarget;
-		}
-		return memo[target]
-	};
-})();
+function addStylesToDom(styles, options) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i];
+    var domStyle = stylesInDom[item.id];
+    var j = 0;
+
+    if (domStyle) {
+      domStyle.refs++;
+
+      for (; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j]);
+      }
+
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j], options));
+      }
+    } else {
+      var parts = [];
+
+      for (; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j], options));
+      }
+
+      stylesInDom[item.id] = {
+        id: item.id,
+        refs: 1,
+        parts: parts
+      };
+    }
+  }
+}
+
+function insertStyleElement(options) {
+  var style = document.createElement('style');
+
+  if (typeof options.attributes.nonce === 'undefined') {
+    var nonce =  true ? __webpack_require__.nc : undefined;
+
+    if (nonce) {
+      options.attributes.nonce = nonce;
+    }
+  }
+
+  Object.keys(options.attributes).forEach(function (key) {
+    style.setAttribute(key, options.attributes[key]);
+  });
+
+  if (typeof options.insert === 'function') {
+    options.insert(style);
+  } else {
+    var target = getTarget(options.insert || 'head');
+
+    if (!target) {
+      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+    }
+
+    target.appendChild(style);
+  }
+
+  return style;
+}
+
+function removeStyleElement(style) {
+  // istanbul ignore if
+  if (style.parentNode === null) {
+    return false;
+  }
+
+  style.parentNode.removeChild(style);
+}
+/* istanbul ignore next  */
+
+
+var replaceText = function replaceText() {
+  var textStore = [];
+  return function replace(index, replacement) {
+    textStore[index] = replacement;
+    return textStore.filter(Boolean).join('\n');
+  };
+}();
+
+function applyToSingletonTag(style, index, remove, obj) {
+  var css = remove ? '' : obj.css; // For old IE
+
+  /* istanbul ignore if  */
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = replaceText(index, css);
+  } else {
+    var cssNode = document.createTextNode(css);
+    var childNodes = style.childNodes;
+
+    if (childNodes[index]) {
+      style.removeChild(childNodes[index]);
+    }
+
+    if (childNodes.length) {
+      style.insertBefore(cssNode, childNodes[index]);
+    } else {
+      style.appendChild(cssNode);
+    }
+  }
+}
+
+function applyToTag(style, options, obj) {
+  var css = obj.css;
+  var media = obj.media;
+  var sourceMap = obj.sourceMap;
+
+  if (media) {
+    style.setAttribute('media', media);
+  }
+
+  if (sourceMap && btoa) {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  } // For old IE
+
+  /* istanbul ignore if  */
+
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    while (style.firstChild) {
+      style.removeChild(style.firstChild);
+    }
+
+    style.appendChild(document.createTextNode(css));
+  }
+}
 
 var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
+var singletonCounter = 0;
 
-var	fixUrls = __webpack_require__(13);
+function addStyle(obj, options) {
+  var style;
+  var update;
+  var remove;
 
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
+  if (options.singleton) {
+    var styleIndex = singletonCounter++;
+    style = singleton || (singleton = insertStyleElement(options));
+    update = applyToSingletonTag.bind(null, style, styleIndex, false);
+    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+  } else {
+    style = insertStyleElement(options);
+    update = applyToTag.bind(null, style, options);
 
-	options = options || {};
+    remove = function remove() {
+      removeStyleElement(style);
+    };
+  }
 
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+  update(obj);
+  return function updateStyle(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
+        return;
+      }
 
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+      update(obj = newObj);
+    } else {
+      remove();
+    }
+  };
+}
 
-	// By default, add <style> tags to the <head> element
-        if (!options.insertInto) options.insertInto = "head";
+module.exports = function (list, options) {
+  options = options || {};
+  options.attributes = typeof options.attributes === 'object' ? options.attributes : {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+  // tags it will allow on a page
 
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
+  if (!options.singleton && typeof options.singleton !== 'boolean') {
+    options.singleton = isOldIE();
+  }
 
-	var styles = listToStyles(list, options);
+  var styles = listToStyles(list, options);
+  addStylesToDom(styles, options);
+  return function update(newList) {
+    var mayRemove = [];
 
-	addStylesToDom(styles, options);
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i];
+      var domStyle = stylesInDom[item.id];
 
-	return function update (newList) {
-		var mayRemove = [];
+      if (domStyle) {
+        domStyle.refs--;
+        mayRemove.push(domStyle);
+      }
+    }
 
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
+    if (newList) {
+      var newStyles = listToStyles(newList, options);
+      addStylesToDom(newStyles, options);
+    }
 
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
+    for (var _i = 0; _i < mayRemove.length; _i++) {
+      var _domStyle = mayRemove[_i];
 
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
+      if (_domStyle.refs === 0) {
+        for (var j = 0; j < _domStyle.parts.length; j++) {
+          _domStyle.parts[j]();
+        }
 
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
+        delete stylesInDom[_domStyle.id];
+      }
+    }
+  };
 };
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
-}
-
-function listToStyles (list, options) {
-	var styles = [];
-	var newStyles = {};
-
-	for (var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = options.base ? item[0] + options.base : item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-
-		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
-		else newStyles[id].parts.push(part);
-	}
-
-	return styles;
-}
-
-function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
-
-	if (!target) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-
-	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-	if (options.insertAt === "top") {
-		if (!lastStyleElementInsertedAtTop) {
-			target.insertBefore(style, target.firstChild);
-		} else if (lastStyleElementInsertedAtTop.nextSibling) {
-			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			target.appendChild(style);
-		}
-		stylesInsertedAtTop.push(style);
-	} else if (options.insertAt === "bottom") {
-		target.appendChild(style);
-	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
-		var nextSibling = getElement(options.insertAt.before, target);
-		target.insertBefore(style, nextSibling);
-	} else {
-		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
-	}
-}
-
-function removeStyleElement (style) {
-	if (style.parentNode === null) return false;
-	style.parentNode.removeChild(style);
-
-	var idx = stylesInsertedAtTop.indexOf(style);
-	if(idx >= 0) {
-		stylesInsertedAtTop.splice(idx, 1);
-	}
-}
-
-function createStyleElement (options) {
-	var style = document.createElement("style");
-
-	if(options.attrs.type === undefined) {
-		options.attrs.type = "text/css";
-	}
-
-	if(options.attrs.nonce === undefined) {
-		var nonce = getNonce();
-		if (nonce) {
-			options.attrs.nonce = nonce;
-		}
-	}
-
-	addAttrs(style, options.attrs);
-	insertStyleElement(options, style);
-
-	return style;
-}
-
-function createLinkElement (options) {
-	var link = document.createElement("link");
-
-	if(options.attrs.type === undefined) {
-		options.attrs.type = "text/css";
-	}
-	options.attrs.rel = "stylesheet";
-
-	addAttrs(link, options.attrs);
-	insertStyleElement(options, link);
-
-	return link;
-}
-
-function addAttrs (el, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		el.setAttribute(key, attrs[key]);
-	});
-}
-
-function getNonce() {
-	if (false) {}
-
-	return __webpack_require__.nc;
-}
-
-function addStyle (obj, options) {
-	var style, update, remove, result;
-
-	// If a transform function was defined, run it on the css
-	if (options.transform && obj.css) {
-	    result = typeof options.transform === 'function'
-		 ? options.transform(obj.css) 
-		 : options.transform.default(obj.css);
-
-	    if (result) {
-	    	// If transform returns a value, use that instead of the original css.
-	    	// This allows running runtime transformations on the css.
-	    	obj.css = result;
-	    } else {
-	    	// If the transform function returns a falsy value, don't add this css.
-	    	// This allows conditional loading of css
-	    	return function() {
-	    		// noop
-	    	};
-	    }
-	}
-
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-
-		style = singleton || (singleton = createStyleElement(options));
-
-		update = applyToSingletonTag.bind(null, style, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-
-	} else if (
-		obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function"
-	) {
-		style = createLinkElement(options);
-		update = updateLink.bind(null, style, options);
-		remove = function () {
-			removeStyleElement(style);
-
-			if(style.href) URL.revokeObjectURL(style.href);
-		};
-	} else {
-		style = createStyleElement(options);
-		update = applyToTag.bind(null, style);
-		remove = function () {
-			removeStyleElement(style);
-		};
-	}
-
-	update(obj);
-
-	return function updateStyle (newObj) {
-		if (newObj) {
-			if (
-				newObj.css === obj.css &&
-				newObj.media === obj.media &&
-				newObj.sourceMap === obj.sourceMap
-			) {
-				return;
-			}
-
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
-}
-
-var replaceText = (function () {
-	var textStore = [];
-
-	return function (index, replacement) {
-		textStore[index] = replacement;
-
-		return textStore.filter(Boolean).join('\n');
-	};
-})();
-
-function applyToSingletonTag (style, index, remove, obj) {
-	var css = remove ? "" : obj.css;
-
-	if (style.styleSheet) {
-		style.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = style.childNodes;
-
-		if (childNodes[index]) style.removeChild(childNodes[index]);
-
-		if (childNodes.length) {
-			style.insertBefore(cssNode, childNodes[index]);
-		} else {
-			style.appendChild(cssNode);
-		}
-	}
-}
-
-function applyToTag (style, obj) {
-	var css = obj.css;
-	var media = obj.media;
-
-	if(media) {
-		style.setAttribute("media", media)
-	}
-
-	if(style.styleSheet) {
-		style.styleSheet.cssText = css;
-	} else {
-		while(style.firstChild) {
-			style.removeChild(style.firstChild);
-		}
-
-		style.appendChild(document.createTextNode(css));
-	}
-}
-
-function updateLink (link, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
-
-	/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-	if (options.convertToAbsoluteUrls || autoFixUrls) {
-		css = fixUrls(css);
-	}
-
-	if (sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
-
-	var blob = new Blob([css], { type: "text/css" });
-
-	var oldSrc = link.href;
-
-	link.href = URL.createObjectURL(blob);
-
-	if(oldSrc) URL.revokeObjectURL(oldSrc);
-}
-
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var content = __webpack_require__(13);
 
-var content = __webpack_require__(14);
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+var options = {"injectType":"singletonStyleTag"}
 
-var transform;
-var insertInto;
+options.insert = function(element) {
+  let parent = document.querySelector('head');
+  let lastInsertedElement = window._lastElementInsertedByStyleLoader;
 
+  if (!lastInsertedElement) {
+    parent.insertBefore(element, parent.firstChild);
+  } else if (lastInsertedElement.nextSibling) {
+    parent.insertBefore(element, lastInsertedElement.nextSibling);
+  } else {
+    parent.appendChild(element);
+  }
 
-
-var options = {"insertAt":"top","singleton":true,"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
+  window._lastElementInsertedByStyleLoader = element;
+};
+options.singleton = true;
 
 var update = __webpack_require__(7)(content, options);
 
-if(content.locals) module.exports = content.locals;
+if (content.locals) {
+  module.exports = content.locals;
+}
 
-if(false) {}
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global document, module, require, window */
-const Calendar = __webpack_require__(15); // Export WidgetUtils
+const Calendar = __webpack_require__(14); // Export WidgetUtils
 
 
 window.BookingSyncWidgetUtils = __webpack_require__(0); // Export Popper
@@ -5652,10 +5556,8 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
-// Imports
-exports.push([module.i, "@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);", ""]);
 // Module
-exports.push([module.i, "/********************************************************\n\n\t\t\t\t     loader\n\n********************************************************/\n@-webkit-keyframes bookingsyncCalendarWidget__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes bookingsyncCalendarWidget__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-webkit-keyframes bookingsyncCalendarWidget__pulse {\n  50% {\n    background: white; } }\n\n@keyframes bookingsyncCalendarWidget__pulse {\n  50% {\n    background: white; } }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loading {\n  border-radius: 50%;\n  width: 24px;\n  height: 24px;\n  border: 0.25rem solid #cacaca;\n  border-top-color: #000;\n  -webkit-animation: bookingsyncCalendarWidget__spin 1s infinite linear;\n  animation: bookingsyncCalendarWidget__spin 1s infinite linear;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -12px;\n  margin-top: -12px; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loadingLayer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.55);\n  right: 0;\n  z-index: 10; }\n\n.bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic {\n  position: absolute;\n  display: none;\n  max-width: 100%;\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\n  border: 1px solid #e0e0e0;\n  background: #fff;\n  margin: 0;\n  padding-top: .5rem;\n  font-family: inherit;\n  line-height: 1.5em;\n  z-index: 10; }\n  .bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic.bookingsyncCalendarWidget__visible {\n    display: block; }\n  .bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic .bookingsyncCalendarWidget__mCell {\n    margin-bottom: 1rem; }\n\n/********************************************************\n\n\t\t\t\t      colors\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar {\n  font: 1rem/1.4 \"Open Sans\", Helvetica, Arial, sans-serif;\n  position: relative;\n  margin: 0 -1rem 3rem;\n  padding-top: 0.5rem;\n  background: #ffffff; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__caption {\n    font-weight: 700;\n    margin-bottom: 1.3rem;\n    padding-top: 0.3rem;\n    text-align: center; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__monthsWrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell {\n    font-size: 0.875rem;\n    margin: 0 1rem 2rem;\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 25%;\n    flex: 1 1 25%; }\n    @media (max-width: 767px) {\n      .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell {\n        -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n        flex: 1 1 100%; } }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__month {\n    border-collapse: collapse;\n    padding: 0;\n    margin: 0;\n    width: 100%; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__tableHeader,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__body {\n    margin: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__th {\n    border-bottom: 1px solid #cbcbcb;\n    font-size: 0.85rem;\n    color: #aaaaaa;\n    height: 25px;\n    width: 30px;\n    text-align: center; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell {\n    text-align: center;\n    padding: 0;\n    position: relative;\n    border: 1px solid #dedfe2;\n    vertical-align: middle;\n    color: #444444;\n    background-clip: padding-box;\n    overflow: hidden;\n    width: 30px; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell:after {\n    content: '';\n    display: block;\n    margin-top: 100%; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cnt {\n    position: absolute;\n    top: 50%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n    line-height: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__info {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    font-size: 0.6875rem;\n    padding: 1px 3px;\n    text-align: right;\n    color: rgba(60, 60, 60, 0.5);\n    right: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra {\n    left: 0;\n    text-align: left;\n    right: auto; }\n\n.bookingsyncCalendarWidget__focus {\n  border-color: #8acdf6; }\n\n/********************************************************\n\n\t\t\t\t  selections, start and ends\n\n\t\t\t\t  N.B. Edit at your own risk\n\t\t\t\t  one cell can have 10 states and lots of these combinations\n\n\t\t\t\t  enabled\n\n\t\t\t\t  disabled\n\t\t\t\t  morningDisabled\n\t\t\t\t  nightDisabled\n\n\t\t\t\t  highlighted\n\t\t\t\t  morningSelected\n\t\t\t\t  nightSelected\n\n\t\t\t\t  invalid\n\t\t\t\t  morningInvalid\n\t\t\t\t  nightInvalid\n\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selected {\n  color: inherit;\n  /* selected cell generic styles */ }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__reversed {\n  color: inherit;\n  /* selecting reversed (e.g. check-out first) */ }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__direct {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingReversed {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingDirect {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled:hover {\n  color: #bfbfbf;\n  cursor: default;\n  background-color: #f0f0f0; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted {\n  border-color: #bde3ff; }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__highlighted:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__highlighted:hover {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);\n  color: #444444; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled:hover {\n  background: linear-gradient(to left top, transparent 50%, #f0f0f0 50%); }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted {\n  background-color: #8acdf6;\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__actionsEnabled .bookingsyncCalendarWidget__invalid:not(.bookingsyncCalendarWidget__selectedStart) {\n  background: #c0c0c0;\n  color: #ffffff;\n  border-color: #cacaca; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #c0c0c0 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__invalid:hover {\n  background: linear-gradient(to left top, transparent 50%, #c0c0c0 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid {\n  background-color: #c0c0c0;\n  border-bottom-color: #cacaca;\n  border-right-color: #cacaca; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: default; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__disabled:hover {\n  background-color: #f0f0f0; }\n\n/********************************************************\n\n\t\t\t\t     buttons\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back {\n  cursor: pointer;\n  height: 23px;\n  width: 23px;\n  fill: #444444;\n  padding: 6px 10px;\n  border-radius: 1px;\n  top: .25rem;\n  left: 1rem;\n  z-index: 2;\n  position: absolute; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward svg,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back svg {\n    height: inherit;\n    width: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward {\n  right: 1rem;\n  left: auto; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:active,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:focus,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:active,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:focus {\n  outline: none; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:hover {\n  fill: #3895d9; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled],\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled]:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled],\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled]:hover {\n  opacity: 0.5;\n  cursor: default;\n  fill: #444444; }\n\n/********************************************************\n\n\t\t\t\t     mods\n\n********************************************************/\n/* chunky layout */\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__cnt {\n  left: 0;\n  top: .8rem;\n  text-align: right;\n  margin-right: .5rem;\n  font-size: 0.6875rem;\n  color: rgba(60, 60, 60, 0.5); }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__info {\n  top: 39%;\n  text-align: center;\n  font-size: 0.75rem;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__infoExtra {\n  text-align: center;\n  right: 0;\n  bottom: 3px; }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__mCell {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 46%;\n  flex: 1 1 46%; }\n", ""]);
+exports.push([module.i, "/********************************************************\n\n\t\t\t\t     loader\n\n********************************************************/\n@-webkit-keyframes bookingsyncCalendarWidget__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes bookingsyncCalendarWidget__spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-webkit-keyframes bookingsyncCalendarWidget__pulse {\n  50% {\n    background: white; } }\n\n@keyframes bookingsyncCalendarWidget__pulse {\n  50% {\n    background: white; } }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loading {\n  border-radius: 50%;\n  width: 24px;\n  height: 24px;\n  border: 0.25rem solid #cacaca;\n  border-top-color: #000;\n  -webkit-animation: bookingsyncCalendarWidget__spin 1s infinite linear;\n  animation: bookingsyncCalendarWidget__spin 1s infinite linear;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -12px;\n  margin-top: -12px; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loadingLayer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.55);\n  right: 0;\n  z-index: 10; }\n\n.bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic {\n  position: absolute;\n  display: none;\n  max-width: 100%;\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\n  border: 1px solid #e0e0e0;\n  background: #fff;\n  margin: 0;\n  padding-top: .5rem;\n  font-family: inherit;\n  line-height: 1.5em;\n  z-index: 10; }\n  .bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic.bookingsyncCalendarWidget__visible {\n    display: block; }\n  .bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic .bookingsyncCalendarWidget__mCell {\n    margin-bottom: 1rem; }\n\n/********************************************************\n\n\t\t\t\t      colors\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar {\n  font: 1rem/1.4 Helvetica, Arial, sans-serif;\n  position: relative;\n  margin: 0 -1rem 3rem;\n  padding-top: 0.5rem;\n  background: #ffffff; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__caption {\n    font-weight: 700;\n    margin-bottom: 1.3rem;\n    padding-top: 0.3rem;\n    text-align: center; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__monthsWrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell {\n    font-size: 0.875rem;\n    margin: 0 1rem 2rem;\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 25%;\n    flex: 1 1 25%; }\n    @media (max-width: 767px) {\n      .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell {\n        -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n        flex: 1 1 100%; } }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__month {\n    border-collapse: collapse;\n    padding: 0;\n    margin: 0;\n    width: 100%; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__tableHeader,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__body {\n    margin: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__th {\n    border-bottom: 1px solid #cbcbcb;\n    font-size: 0.85rem;\n    color: #aaaaaa;\n    height: 25px;\n    width: 30px;\n    text-align: center; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell {\n    text-align: center;\n    padding: 0;\n    position: relative;\n    border: 1px solid #dedfe2;\n    vertical-align: middle;\n    color: #444444;\n    background-clip: padding-box;\n    overflow: hidden;\n    width: 30px; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell:after {\n    content: '';\n    display: block;\n    margin-top: 100%; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cnt {\n    position: absolute;\n    top: 50%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n    line-height: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__info {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    font-size: 0.6875rem;\n    padding: 1px 3px;\n    text-align: right;\n    color: rgba(60, 60, 60, 0.5);\n    right: 0; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra {\n    left: 0;\n    text-align: left;\n    right: auto; }\n\n.bookingsyncCalendarWidget__focus {\n  border-color: #8acdf6; }\n\n/********************************************************\n\n\t\t\t\t  selections, start and ends\n\n\t\t\t\t  N.B. Edit at your own risk\n\t\t\t\t  one cell can have 10 states and lots of these combinations\n\n\t\t\t\t  enabled\n\n\t\t\t\t  disabled\n\t\t\t\t  morningDisabled\n\t\t\t\t  nightDisabled\n\n\t\t\t\t  highlighted\n\t\t\t\t  morningSelected\n\t\t\t\t  nightSelected\n\n\t\t\t\t  invalid\n\t\t\t\t  morningInvalid\n\t\t\t\t  nightInvalid\n\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selected {\n  color: inherit;\n  /* selected cell generic styles */ }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__reversed {\n  color: inherit;\n  /* selecting reversed (e.g. check-out first) */ }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__direct {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingReversed {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingDirect {\n  color: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled:hover {\n  color: #bfbfbf;\n  cursor: default;\n  background-color: #f0f0f0; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted {\n  border-color: #bde3ff; }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__highlighted:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__highlighted:hover {\n  background: linear-gradient(to left top, transparent 50%, #ffffff 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #ffffff 50%); }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);\n  color: #444444; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled:hover {\n  background: linear-gradient(to left top, transparent 50%, #f0f0f0 50%); }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted {\n  background-color: #8acdf6;\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__direct [data-enabled]:hover,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: pointer; }\n\n.bookingsyncCalendarWidget__actionsEnabled .bookingsyncCalendarWidget__invalid:not(.bookingsyncCalendarWidget__selectedStart) {\n  background: #c0c0c0;\n  color: #ffffff;\n  border-color: #cacaca; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid:hover {\n  background: linear-gradient(to right bottom, transparent 50%, #c0c0c0 50%);\n  border-top-color: #dedfe2;\n  border-left-color: #dedfe2;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__selectedEnd,\n.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__invalid:hover {\n  background: linear-gradient(to left top, transparent 50%, #c0c0c0 50%);\n  border-bottom-color: #dedfe2;\n  border-right-color: #dedfe2;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid {\n  background-color: #c0c0c0;\n  border-bottom-color: #cacaca;\n  border-right-color: #cacaca; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__cnt,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__info,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__infoExtra {\n  cursor: default; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__disabled:hover {\n  background-color: #f0f0f0; }\n\n/********************************************************\n\n\t\t\t\t     buttons\n\n********************************************************/\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back {\n  cursor: pointer;\n  height: 23px;\n  width: 23px;\n  fill: #444444;\n  padding: 6px 10px;\n  border-radius: 1px;\n  top: .25rem;\n  left: 1rem;\n  z-index: 2;\n  position: absolute; }\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward svg,\n  .bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back svg {\n    height: inherit;\n    width: inherit; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward {\n  right: 1rem;\n  left: auto; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:active,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:focus,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:active,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:focus {\n  outline: none; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:hover {\n  fill: #3895d9; }\n\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled],\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled]:hover,\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled],\n.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled]:hover {\n  opacity: 0.5;\n  cursor: default;\n  fill: #444444; }\n\n/********************************************************\n\n\t\t\t\t     mods\n\n********************************************************/\n/* chunky layout */\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__cnt {\n  left: 0;\n  top: .8rem;\n  text-align: right;\n  margin-right: .5rem;\n  font-size: 0.6875rem;\n  color: rgba(60, 60, 60, 0.5); }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__info {\n  top: 39%;\n  text-align: center;\n  font-size: 0.75rem;\n  color: #444444; }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__infoExtra {\n  text-align: center;\n  right: 0;\n  bottom: 3px; }\n\n.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__mCell {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 46%;\n  flex: 1 1 46%; }\n", ""]);
 // Exports
 exports.locals = {
 	"calendar": "bookingsyncCalendarWidget__calendar",
@@ -5697,95 +5599,6 @@ exports.locals = {
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports) {
-
-/**
- * When source maps are enabled, `style-loader` uses a link element with a data-uri to
- * embed the css on the page. This breaks all relative urls because now they are relative to a
- * bundle instead of the current page.
- *
- * One solution is to only use full urls, but that may be impossible.
- *
- * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
- *
- * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
- *
- */
-module.exports = function (css) {
-  // get current location
-  var location = typeof window !== "undefined" && window.location;
-
-  if (!location) {
-    throw new Error("fixUrls requires window.location");
-  } // blank or null?
-
-
-  if (!css || typeof css !== "string") {
-    return css;
-  }
-
-  var baseUrl = location.protocol + "//" + location.host;
-  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/"); // convert each url(...)
-
-  /*
-  This regular expression is just a way to recursively match brackets within
-  a string.
-  	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-     (  = Start a capturing group
-       (?:  = Start a non-capturing group
-           [^)(]  = Match anything that isn't a parentheses
-           |  = OR
-           \(  = Match a start parentheses
-               (?:  = Start another non-capturing groups
-                   [^)(]+  = Match anything that isn't a parentheses
-                   |  = OR
-                   \(  = Match a start parentheses
-                       [^)(]*  = Match anything that isn't a parentheses
-                   \)  = Match a end parentheses
-               )  = End Group
-               *\) = Match anything and then a close parens
-           )  = Close non-capturing group
-           *  = Match anything
-        )  = Close capturing group
-   \)  = Match a close parens
-  	 /gi  = Get all matches, not the first.  Be case insensitive.
-   */
-
-  var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function (fullMatch, origUrl) {
-    // strip quotes (if they exist)
-    var unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function (o, $1) {
-      return $1;
-    }).replace(/^'(.*)'$/, function (o, $1) {
-      return $1;
-    }); // already a full url? no change
-
-    if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
-      return fullMatch;
-    } // convert the url to a full url
-
-
-    var newUrl;
-
-    if (unquotedOrigUrl.indexOf("//") === 0) {
-      //TODO: should we add protocol?
-      newUrl = unquotedOrigUrl;
-    } else if (unquotedOrigUrl.indexOf("/") === 0) {
-      // path should be relative to the base url
-      newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-    } else {
-      // path should be relative to current directory
-      newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-    } // send back the fixed url(...)
-
-
-    return "url(" + JSON.stringify(newUrl) + ")";
-  }); // send back the fixed css
-
-  return fixedCss;
-};
-
-/***/ }),
-/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5800,7 +5613,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
