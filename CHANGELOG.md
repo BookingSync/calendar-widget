@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.4.2] - 2019-08-24
+### Updated
+- Removed `Open Sans` font
+### Fixed
+- Now fully working on IE11 / Edge
+
+## [1.4.1] - 2019-07-16
+### Updated
+- Moved Reset styles to `widget-utils` module
+
 ## [1.4.0] - 2019-07-16
 ### Fixed
 - Global variables
