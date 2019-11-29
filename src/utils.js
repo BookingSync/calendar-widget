@@ -1,4 +1,3 @@
-/* global console */
 import { strftime, strptime } from 'strtime';
 
 export const dateToIso = (year, month, day, isString = false) => {
