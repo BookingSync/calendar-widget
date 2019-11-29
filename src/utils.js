@@ -1,3 +1,4 @@
+/* global console */
 import { strftime, strptime } from 'strtime';
 
 export const dateToIso = (year, month, day, isString = false) => {
@@ -12,8 +13,11 @@ export const dateToIso = (year, month, day, isString = false) => {
     return `${year}-${pad(month + 1)}-${pad(day)}`;
   }
 
-  let date = new Date(year, month, day + 1);
-  if (date.getTimezoneOffset() > 0) {
+  let date = new Date(year, month, day);
+
+  if (date.getTimezoneOffset() < 0) {
+    date = new Date(date + 3600 * 24 * 1000);
+  } else if (date.getTimezoneOffset() > 0) {
     date = new Date(date - 3600 * 24 * 1000);
   }
 
