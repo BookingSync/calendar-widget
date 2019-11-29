@@ -1,5 +1,11 @@
 import { strftime, strptime } from 'strtime';
 
+export const isDST = (date) => {
+  let jan = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
+  let jul = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+  return Math.max(jan, jul) != date.getTimezoneOffset();
+};
+
 export const dateToIso = (year, month, day, isString = false) => {
   function pad(number) {
     if (number < 10) {
@@ -14,7 +20,7 @@ export const dateToIso = (year, month, day, isString = false) => {
 
   let date = new Date(year, month, day);
 
-  if (date.getTimezoneOffset() < 0) {
+  if (!isDST(date)) {
     date = new Date(date + 3600 * 24 * 1000);
   } else if (date.getTimezoneOffset() > 0) {
     date = new Date(date - 3600 * 24 * 1000);
