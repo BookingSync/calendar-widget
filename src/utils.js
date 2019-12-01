@@ -19,11 +19,8 @@ export const dateToIso = (year, month, day, isString = false) => {
   }
 
   let date = new Date(year, month, day);
-
-  if (!isDST(date)) {
+  if ((date.getTimezoneOffset() < 0 && !isDST(date)) || (date.getTimezoneOffset() == 0 && isDST(date))) {
     date = new Date(date + 3600 * 24 * 1000);
-  } else if (date.getTimezoneOffset() > 0) {
-    date = new Date(date - 3600 * 24 * 1000);
   }
 
   return date;
