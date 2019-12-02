@@ -2275,7 +2275,7 @@ module.exports.currencySymbolMap = currencySymbolMap;
 /* 4 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.2\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^7.4.1\",\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.5\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.2.0\",\"eslint\":\"^6.2.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.2\",\"json-server\":\"0.15.0\",\"karma\":\"^4.2.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.2.0\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.1\",\"sass-loader\":\"^7.3.1\",\"style-loader\":\"^1.0.0\",\"tether\":\"1.4.7\",\"webpack\":\"^4.39.2\",\"webpack-cli\":\"^3.3.7\",\"webpack-dev-server\":\"3.8.0\",\"yargs\":\"14.0.0\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
+module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.2\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.15.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^7.4.1\",\"@babel/cli\":\"^7.5.5\",\"@babel/core\":\"^7.5.5\",\"@babel/polyfill\":\"^7.4.4\",\"@babel/preset-env\":\"^7.5.5\",\"babel-eslint\":\"^10.0.2\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.2.0\",\"eslint\":\"^6.2.1\",\"eslint-loader\":\"2.2.1\",\"eslint-plugin-import\":\"^2.18.2\",\"json-server\":\"0.15.0\",\"karma\":\"^4.2.0\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.2.0\",\"node-sass\":\"^4.12.0\",\"publish-please\":\"^5.5.1\",\"sass-loader\":\"^7.3.1\",\"style-loader\":\"^1.0.0\",\"tether\":\"1.4.7\",\"timezone-mock\":\"1.0.8\",\"webpack\":\"^4.39.2\",\"webpack-cli\":\"^3.3.7\",\"webpack-dev-server\":\"3.8.0\",\"yargs\":\"14.0.0\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
 
 /***/ }),
 /* 5 */
@@ -6080,6 +6080,11 @@ var strtime = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./src/utils.js
 
+const isDST = date => {
+  let jan = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
+  let jul = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+  return Math.max(jan, jul) != date.getTimezoneOffset();
+};
 const dateToIso = function dateToIso(year, month, day) {
   let isString = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
@@ -6095,10 +6100,10 @@ const dateToIso = function dateToIso(year, month, day) {
     return "".concat(year, "-").concat(pad(month + 1), "-").concat(pad(day));
   }
 
-  let date = new Date(year, month, day + 1);
+  let date = new Date(year, month, day);
 
-  if (date.getTimezoneOffset() > 0) {
-    date = new Date(date - 3600 * 24 * 1000);
+  if (date.getTimezoneOffset() < 0 && !isDST(date) || date.getTimezoneOffset() == 0 && isDST(date)) {
+    date = new Date(date + 3600 * 24 * 1000);
   }
 
   return date;
