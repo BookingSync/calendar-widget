@@ -6100,12 +6100,7 @@ const dateToIso = function dateToIso(year, month, day) {
     return "".concat(year, "-").concat(pad(month + 1), "-").concat(pad(day));
   }
 
-  let date = new Date(year, month, day);
-
-  if (date.getTimezoneOffset() < 0 && !isDST(date) || date.getTimezoneOffset() == 0 && isDST(date)) {
-    date = new Date(date + 3600 * 24 * 1000);
-  }
-
+  let date = new Date(year, month, day, 12, 0, 0);
   return date;
 };
 const dateToArray = (val, format, locale) => {

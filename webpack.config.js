@@ -82,6 +82,7 @@ const config = {
           {
             loader: 'css-loader',
             options: {
+              sourceMap: true,
               modules: {
                 localIdentName: `${libraryName}__[local]`
               }
@@ -90,11 +91,7 @@ const config = {
           {
             loader: 'sass-loader',
             options: {
-              outputStyle: [
-                'expanded',
-                'sourceMap',
-                'sourceMapContents'
-              ]
+              sourceMap: true
             }
           }
         ],
@@ -115,6 +112,7 @@ const config = {
           {
             loader: 'css-loader',
             options: {
+              sourceMap: true,
               modules: {
                 localIdentName: 'bookingsyncWidgetUtils__[local]'
               }
@@ -123,11 +121,7 @@ const config = {
           {
             loader: 'sass-loader',
             options: {
-              outputStyle: [
-                'expanded',
-                'sourceMap',
-                'sourceMapContents'
-              ]
+              sourceMap: true
             }
           }
         ],
