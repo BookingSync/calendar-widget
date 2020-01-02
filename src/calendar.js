@@ -437,6 +437,10 @@ export default class Calendar extends Emitter {
     if (this.opts.isDropDown && this.opts.elStartAt && this.opts.elEndAt) {
       this.opts.elStartAt.value = null;
       this.opts.elEndAt.value   = null;
+
+      if (this.opts.isSingleInput) {
+        this.opts.elSingleInput.value = null;
+      }
     }
 
     return this;
@@ -806,6 +810,7 @@ export default class Calendar extends Emitter {
         this.selectionStart = selectionStart;
         this.selectionEnd = selectionEnd;
         this.recoverSelections();
+        this.completeSelection();
       }
     }
   }
