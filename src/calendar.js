@@ -85,11 +85,15 @@ export default class Calendar extends Emitter {
     addClass(this.el, calendar, reset);
 
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
-      if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
-        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
-        this.selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
-        this.completeSelection();
-      }
+      this.inputsToValues();
+
+      this.opts.elStartAt.addEventListener('input', () => {
+        this.inputsToValues();
+      });
+
+      this.opts.elEndAt.addEventListener('input', () => {
+        this.inputsToValues();
+      });
     }
 
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));
@@ -785,6 +789,24 @@ export default class Calendar extends Emitter {
     } else if (input === 'end' && elEndAt) {
       elEndAt.value = value;
       elEndAt.dispatchEvent(evt);
+    }
+  }
+
+  inputsToValues() {
+    const selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
+    const selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
+
+    this.resetSelection();
+
+    if (isArray(selectionStart) && isArray(selectionEnd)) {
+      if (
+        this.yearStart <= selectionStart[0] && this.monthStart <= selectionStart[1]
+        && this.yearStart <= selectionEnd[0] && this.monthStart <= selectionEnd[1]
+      ) {
+        this.selectionStart = selectionStart;
+        this.selectionEnd = selectionEnd;
+        this.recoverSelections();
+      }
     }
   }
 
