@@ -545,13 +545,16 @@ const validate = {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(11);
+var api = __webpack_require__(6);
+            var content = __webpack_require__(11);
 
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
+            content = content.__esModule ? content.default : content;
 
-var options = {"injectType":"singletonStyleTag"}
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {"injectType":"singletonStyleTag"};
 
 options.insert = function(element) {
   let parent = document.querySelector('head');
@@ -569,12 +572,13 @@ options.insert = function(element) {
 };
 options.singleton = true;
 
-var update = __webpack_require__(7)(content, options);
+var update = api(module.i, content, options);
 
-if (content.locals) {
-  module.exports = content.locals;
-}
+var exported = content.locals ? content.locals : {};
 
+
+
+module.exports = exported;
 
 /***/ }),
 /* 2 */
@@ -609,66 +613,6 @@ function getFormatOptions(timezone, options) {
   };
 }
 
-function getDateTimeFormat(tz) {
-  return new Intl.DateTimeFormat("en-US", {
-    hour12: false,
-    timeZone: tz,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  });
-}
-
-function parseDateTimeFormatString(string) {
-  const month = +string.slice(0, 2);
-  const day = +string.slice(3, 5);
-  const year = +string.slice(6, string.length - 10);
-  const hour = +string.slice(string.length - 8, string.length - 6);
-  const minute = +string.slice(string.length - 5, string.length - 3);
-  const second = +string.slice(string.length - 2, string.length);
-  const utcDate = new Date();
-  utcDate.setUTCFullYear(year);
-  utcDate.setUTCMonth(month - 1);
-  utcDate.setUTCDate(day);
-  utcDate.setUTCHours(hour);
-  utcDate.setUTCMinutes(minute);
-  utcDate.setUTCSeconds(second);
-  return utcDate;
-}
-
-function getTimezoneOffsetAtIANADate(tz, date) {
-  // Get the offset as though the input date was UTC
-  const format = getDateTimeFormat(tz);
-  const timestamp = format.format(date);
-  const parsedDate = parseDateTimeFormatString(timestamp);
-  parsedDate.setUTCMilliseconds(date.getUTCMilliseconds());
-  const probableOffset = (parsedDate.getTime() - date.getTime()) / 60000; // If this offset is correct (and it *probably* is) then this is
-  // the UTC date corresponding to the date input
-
-  const probableDate = new Date(date);
-  probableDate.setUTCMinutes(probableDate.getUTCMinutes() - probableOffset); // See whether reversing the operation gives the input date
-
-  const checkTimestamp = format.format(probableDate);
-  const checkedDate = parseDateTimeFormatString(checkTimestamp);
-  checkedDate.setUTCMilliseconds(date.getUTCMilliseconds()); // This offset will be 0 if probableOffset was correct, otherwise it
-  // will be the number of minutes that the offset was off by.
-
-  const checkOffset = (checkedDate.getTime() - date.getTime()) / 60000;
-  return probableOffset + checkOffset;
-}
-
-function getTimezoneOffsetAtUTCDate(tz, date) {
-  const format = getDateTimeFormat(tz);
-  const timestamp = format.format(date);
-  const parsedDate = parseDateTimeFormatString(timestamp);
-  parsedDate.setUTCMilliseconds(date.getUTCMilliseconds());
-  const offset = parsedDate.getTime() - date.getTime();
-  return offset / 60000; // millseconds => minutes
-}
-
 function getTimezoneOffsetMinutes(date, tz) {
   if (tz === null || tz === undefined) {
     return 0;
@@ -679,22 +623,13 @@ function getTimezoneOffsetMinutes(date, tz) {
   } else if (tz === "local") {
     return -(date || new Date()).getTimezoneOffset();
   } else {
-    const tzString = String(tz);
+    const tzUpper = String(tz).toUpperCase();
 
-    if (tzString.startsWith("Etc/GMT")) {
-      const offset = +tzString.slice(7);
-      if (Number.isInteger(offset)) return 60 * -offset;
-    } else if (typeof Intl !== "undefined" && tzString.indexOf("/") >= 0) {
-      return {
-        formatOffset: date => getTimezoneOffsetAtUTCDate(tz, date),
-        parseOffset: date => getTimezoneOffsetAtIANADate(tz, date)
-      };
-    } else {
-      const tzUpper = String(tz).toUpperCase();
+    if (tzUpper in defaultTimezoneNames) {
+      const offset = Math.floor(60 * defaultTimezoneNames[tzUpper]);
 
-      if (tzUpper in defaultTimezoneNames) {
-        const offset = Math.floor(60 * defaultTimezoneNames[tzUpper]);
-        if (Number.isFinite(offset)) return offset;
+      if (Number.isFinite(offset)) {
+        return offset;
       }
     }
   }
@@ -721,16 +656,12 @@ function strftime(date, format, timezone, options) {
     throw new Error("Failed to get Date instance from date input.");
   }
 
-  if (!Number.isFinite(date.getTime())) {
-    throw new Error("Can't format an invalid date.");
-  }
-
   const tokens = TimestampParser.parseFormatString(format);
   const useOptions = getFormatOptions(timezone, options);
   const timezoneOffsetMinutes = getTimezoneOffsetMinutes(date, useOptions.tz);
   const tzDate = new Date(date);
 
-  if (Number.isFinite(timezoneOffsetMinutes)) {
+  if (timezoneOffsetMinutes !== undefined) {
     tzDate.setUTCMinutes(date.getUTCMinutes() + timezoneOffsetMinutes);
   }
 
@@ -1720,6 +1651,9 @@ class TimestampParser {
     }
 
     if (this.month !== undefined) {
+      // https://github.com/pineapplemachine/strtime-js/issues/5
+      // https://stackoverflow.com/questions/26681313/javascript-setutcmonth-does-not-work-for-november
+      date.setUTCMonth(0, 1);
       date.setUTCMonth(this.month - 1);
     }
 
@@ -2275,7 +2209,7 @@ module.exports.currencySymbolMap = currencySymbolMap;
 /* 4 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.3\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.16.0\",\"strtime\":\"^1.1.1\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^7.5.0\",\"@babel/cli\":\"^7.7.4\",\"@babel/core\":\"^7.7.4\",\"@babel/polyfill\":\"^7.7.0\",\"@babel/preset-env\":\"^7.7.4\",\"babel-eslint\":\"^10.0.3\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.2.0\",\"eslint\":\"^6.7.2\",\"eslint-loader\":\"3.0.2\",\"eslint-plugin-import\":\"^2.18.2\",\"json-server\":\"0.15.1\",\"karma\":\"^4.4.1\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.2.2\",\"node-sass\":\"^4.13.0\",\"publish-please\":\"^5.5.1\",\"sass-loader\":\"^8.0.0\",\"style-loader\":\"^1.0.1\",\"tether\":\"1.4.7\",\"timezone-mock\":\"1.0.8\",\"webpack\":\"^4.41.2\",\"webpack-cli\":\"^3.3.10\",\"webpack-dev-server\":\"3.9.0\",\"yargs\":\"15.0.2\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
+module.exports = JSON.parse("{\"name\":\"bookingsync-calendar-widget\",\"version\":\"1.4.4\",\"description\":\"BookingSync Calendar Widget\",\"main\":\"dist/bookingsync-calendar-widget.js\",\"module\":\"src/bookingsync-calendar-widget.js\",\"scripts\":{\"dev\":\"webpack --env.NODE_ENV=development\",\"build\":\"webpack --env.NODE_ENV=production --display-modules  && webpack --env.NODE_ENV=production --minimize=false --display-modules\",\"test\":\"karma start karma.config.js --colors --env.NODE_ENV=none\",\"test-ci\":\"karma start karma.config.js --single-run true --env.NODE_ENV=none\",\"lint:js\":\"eslint ./*.js src tests\",\"start\":\"webpack-dev-server --inline --hot --env.NODE_ENV=development --host 0.0.0.0\",\"mock-server\":\"node json-server.js\",\"publish-please\":\"publish-please\",\"prepublishOnly\":\"publish-please guard\",\"preversion\":\"npm run lint:js && npm run test-ci\",\"version\":\"npm run build && npm run dev && git add -A dist\",\"postversion\":\"git push && git push --tags && rm -rf build/temp\"},\"dependencies\":{\"popper.js\":\"^1.16.0\",\"strtime\":\"^1.1.2\",\"widget-utils\":\"0.4.0\"},\"devDependencies\":{\"sinon\":\"^8.0.2\",\"@babel/cli\":\"^7.7.7\",\"@babel/core\":\"^7.7.7\",\"@babel/polyfill\":\"^7.7.0\",\"@babel/preset-env\":\"^7.7.7\",\"babel-eslint\":\"^10.0.3\",\"babel-loader\":\"^8.0.6\",\"chai\":\"^4.2.0\",\"css-loader\":\"^3.4.0\",\"eslint\":\"^6.8.0\",\"eslint-loader\":\"3.0.3\",\"eslint-plugin-import\":\"^2.19.1\",\"json-server\":\"0.15.1\",\"karma\":\"^4.4.1\",\"karma-chai\":\"^0.1.0\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"4.0.2\",\"mocha\":\"6.2.2\",\"node-sass\":\"^4.13.0\",\"publish-please\":\"^5.5.1\",\"sass-loader\":\"^8.0.0\",\"style-loader\":\"^1.1.2\",\"tether\":\"1.4.7\",\"timezone-mock\":\"1.0.8\",\"webpack\":\"^4.41.5\",\"webpack-cli\":\"^3.3.10\",\"webpack-dev-server\":\"3.10.1\",\"yargs\":\"15.1.0\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/BookingSync/calendar-widget.git\"},\"author\":\"BookingSync.com\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/BookingSync/calendar-widget/issues\"},\"homepage\":\"https://github.com/BookingSync/calendar-widget#readme\",\"engines\":{\"yarn\":\"YARN NO LONGER USED - use npm instead.\"}}");
 
 /***/ }),
 /* 5 */
@@ -4906,104 +4840,6 @@ Popper.Defaults = Defaults;
 
 "use strict";
 
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-// eslint-disable-next-line func-names
-
-module.exports = function (useSourceMap) {
-  var list = []; // return the list of modules as css string
-
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = cssWithMappingToString(item, useSourceMap);
-
-      if (item[2]) {
-        return "@media ".concat(item[2], "{").concat(content, "}");
-      }
-
-      return content;
-    }).join('');
-  }; // import a list of modules into the list
-  // eslint-disable-next-line func-names
-
-
-  list.i = function (modules, mediaQuery) {
-    if (typeof modules === 'string') {
-      // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, '']];
-    }
-
-    var alreadyImportedModules = {};
-
-    for (var i = 0; i < this.length; i++) {
-      // eslint-disable-next-line prefer-destructuring
-      var id = this[i][0];
-
-      if (id != null) {
-        alreadyImportedModules[id] = true;
-      }
-    }
-
-    for (var _i = 0; _i < modules.length; _i++) {
-      var item = modules[_i]; // skip already imported module
-      // this implementation is not 100% perfect for weird media query combinations
-      // when a module is imported multiple times with different media queries.
-      // I hope this will never occur (Hey this way we have smaller bundles)
-
-      if (item[0] == null || !alreadyImportedModules[item[0]]) {
-        if (mediaQuery && !item[2]) {
-          item[2] = mediaQuery;
-        } else if (mediaQuery) {
-          item[2] = "(".concat(item[2], ") and (").concat(mediaQuery, ")");
-        }
-
-        list.push(item);
-      }
-    }
-  };
-
-  return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
-
-  var cssMapping = item[3];
-
-  if (!cssMapping) {
-    return content;
-  }
-
-  if (useSourceMap && typeof btoa === 'function') {
-    var sourceMapping = toComment(cssMapping);
-    var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot).concat(source, " */");
-    });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-  }
-
-  return [content].join('\n');
-} // Adapted from convert-source-map (MIT)
-
-
-function toComment(sourceMap) {
-  // eslint-disable-next-line no-undef
-  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-  return "/*# ".concat(data, " */");
-}
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var stylesInDom = {};
 
 var isOldIE = function isOldIE() {
   var memo;
@@ -5045,80 +4881,38 @@ var getTarget = function getTarget() {
   };
 }();
 
-function listToStyles(list, options) {
-  var styles = [];
-  var newStyles = {};
+var stylesInDom = {};
 
+function modulesToDom(moduleId, list, options) {
   for (var i = 0; i < list.length; i++) {
-    var item = list[i];
-    var id = options.base ? item[0] + options.base : item[0];
-    var css = item[1];
-    var media = item[2];
-    var sourceMap = item[3];
     var part = {
-      css: css,
-      media: media,
-      sourceMap: sourceMap
+      css: list[i][1],
+      media: list[i][2],
+      sourceMap: list[i][3]
     };
 
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = {
-        id: id,
-        parts: [part]
-      });
+    if (stylesInDom[moduleId][i]) {
+      stylesInDom[moduleId][i](part);
     } else {
-      newStyles[id].parts.push(part);
-    }
-  }
-
-  return styles;
-}
-
-function addStylesToDom(styles, options) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i];
-    var domStyle = stylesInDom[item.id];
-    var j = 0;
-
-    if (domStyle) {
-      domStyle.refs++;
-
-      for (; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j]);
-      }
-
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j], options));
-      }
-    } else {
-      var parts = [];
-
-      for (; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j], options));
-      }
-
-      stylesInDom[item.id] = {
-        id: item.id,
-        refs: 1,
-        parts: parts
-      };
+      stylesInDom[moduleId].push(addStyle(part, options));
     }
   }
 }
 
 function insertStyleElement(options) {
   var style = document.createElement('style');
+  var attributes = options.attributes || {};
 
-  if (typeof options.attributes.nonce === 'undefined') {
+  if (typeof attributes.nonce === 'undefined') {
     var nonce =  true ? __webpack_require__.nc : undefined;
 
     if (nonce) {
-      options.attributes.nonce = nonce;
+      attributes.nonce = nonce;
     }
   }
 
-  Object.keys(options.attributes).forEach(function (key) {
-    style.setAttribute(key, options.attributes[key]);
+  Object.keys(attributes).forEach(function (key) {
+    style.setAttribute(key, attributes[key]);
   });
 
   if (typeof options.insert === 'function') {
@@ -5185,6 +4979,8 @@ function applyToTag(style, options, obj) {
 
   if (media) {
     style.setAttribute('media', media);
+  } else {
+    style.removeAttribute('media');
   }
 
   if (sourceMap && btoa) {
@@ -5241,60 +5037,143 @@ function addStyle(obj, options) {
   };
 }
 
-module.exports = function (list, options) {
-  options = options || {};
-  options.attributes = typeof options.attributes === 'object' ? options.attributes : {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+module.exports = function (moduleId, list, options) {
+  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
   // tags it will allow on a page
 
   if (!options.singleton && typeof options.singleton !== 'boolean') {
     options.singleton = isOldIE();
   }
 
-  var styles = listToStyles(list, options);
-  addStylesToDom(styles, options);
+  moduleId = options.base ? moduleId + options.base : moduleId;
+  list = list || [];
+
+  if (!stylesInDom[moduleId]) {
+    stylesInDom[moduleId] = [];
+  }
+
+  modulesToDom(moduleId, list, options);
   return function update(newList) {
-    var mayRemove = [];
+    newList = newList || [];
 
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i];
-      var domStyle = stylesInDom[item.id];
-
-      if (domStyle) {
-        domStyle.refs--;
-        mayRemove.push(domStyle);
-      }
+    if (Object.prototype.toString.call(newList) !== '[object Array]') {
+      return;
     }
 
-    if (newList) {
-      var newStyles = listToStyles(newList, options);
-      addStylesToDom(newStyles, options);
+    if (!stylesInDom[moduleId]) {
+      stylesInDom[moduleId] = [];
     }
 
-    for (var _i = 0; _i < mayRemove.length; _i++) {
-      var _domStyle = mayRemove[_i];
+    modulesToDom(moduleId, newList, options);
 
-      if (_domStyle.refs === 0) {
-        for (var j = 0; j < _domStyle.parts.length; j++) {
-          _domStyle.parts[j]();
-        }
+    for (var j = newList.length; j < stylesInDom[moduleId].length; j++) {
+      stylesInDom[moduleId][j]();
+    }
 
-        delete stylesInDom[_domStyle.id];
-      }
+    stylesInDom[moduleId].length = newList.length;
+
+    if (stylesInDom[moduleId].length === 0) {
+      delete stylesInDom[moduleId];
     }
   };
 };
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+
+module.exports = function (useSourceMap) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], " {").concat(content, "}");
+      }
+
+      return content;
+    }).join('');
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery) {
+    if (typeof modules === 'string') {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, '']];
+    }
+
+    for (var i = 0; i < modules.length; i++) {
+      var item = [].concat(modules[i]);
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
+
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot).concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
+
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
+
+
+function toComment(sourceMap) {
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+  return "/*# ".concat(data, " */");
+}
+
+/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(12);
+var api = __webpack_require__(6);
+            var content = __webpack_require__(12);
 
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
+            content = content.__esModule ? content.default : content;
 
-var options = {"injectType":"singletonStyleTag"}
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {"injectType":"singletonStyleTag"};
 
 options.insert = function(element) {
   let parent = document.querySelector('head');
@@ -5312,12 +5191,13 @@ options.insert = function(element) {
 };
 options.singleton = true;
 
-var update = __webpack_require__(7)(content, options);
+var update = api(module.i, content, options);
 
-if (content.locals) {
-  module.exports = content.locals;
-}
+var exported = content.locals ? content.locals : {};
 
+
+
+module.exports = exported;
 
 /***/ }),
 /* 9 */
@@ -5547,7 +5427,9 @@ module.exports = {
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(true);
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(7);
+exports = ___CSS_LOADER_API_IMPORT___(true);
 // Module
 exports.push([module.i, "@-webkit-keyframes bookingsyncCalendarWidget__spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes bookingsyncCalendarWidget__spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@-webkit-keyframes bookingsyncCalendarWidget__pulse{50%{background:white}}@keyframes bookingsyncCalendarWidget__pulse{50%{background:white}}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loading{border-radius:50%;width:24px;height:24px;border:0.25rem solid #cacaca;border-top-color:#000;-webkit-animation:bookingsyncCalendarWidget__spin 1s infinite linear;animation:bookingsyncCalendarWidget__spin 1s infinite linear;position:absolute;left:50%;top:50%;margin-left:-12px;margin-top:-12px}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__loadingLayer{position:absolute;top:0;left:0;bottom:0;background-color:rgba(255,255,255,0.55);right:0;z-index:10}.bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic{position:absolute;display:none;max-width:100%;box-shadow:1px 5px 9px 0px rgba(0,0,0,0.2);border:1px solid #e0e0e0;background:#fff;margin:0;padding-top:.5rem;font-family:inherit;line-height:1.5em;z-index:10}.bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic.bookingsyncCalendarWidget__visible{display:block}.bookingsyncCalendarWidget__calendar.bookingsyncCalendarWidget__dropBasic .bookingsyncCalendarWidget__mCell{margin-bottom:1rem}.bookingsyncCalendarWidget__calendar{font:1rem/1.4 Helvetica, Arial, sans-serif;position:relative;margin:0 -1rem 3rem;padding-top:0.5rem;background:#fff}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__caption{font-weight:700;margin-bottom:1.3rem;padding-top:0.3rem;text-align:center}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__monthsWrapper{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell{font-size:0.875rem;margin:0 1rem 2rem;-webkit-box-flex:1;-ms-flex:1 1 25%;flex:1 1 25%}@media (max-width: 767px){.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__mCell{-webkit-box-flex:1;-ms-flex:1 1 100%;flex:1 1 100%}}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__month{border-collapse:collapse;padding:0;margin:0;width:100%}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__tableHeader,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__body{margin:0}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__th{border-bottom:1px solid #cbcbcb;font-size:0.85rem;color:#aaa;height:25px;width:30px;text-align:center}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell{text-align:center;padding:0;position:relative;border:1px solid #dedfe2;vertical-align:middle;color:#444;background-clip:padding-box;overflow:hidden;width:30px}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cell:after{content:'';display:block;margin-top:100%}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__cnt{position:absolute;top:50%;bottom:0;left:0;right:0;text-align:center;line-height:0}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__info{position:absolute;bottom:0;left:0;font-size:0.6875rem;padding:1px 3px;text-align:right;color:rgba(60,60,60,0.5);right:0}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__infoExtra{left:0;text-align:left;right:auto}.bookingsyncCalendarWidget__focus{border-color:#8acdf6}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selected{color:inherit}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__reversed{color:inherit}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__direct{color:inherit}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingReversed{color:inherit}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectingDirect{color:inherit}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__disabled:hover{color:#bfbfbf;cursor:default;background-color:#f0f0f0}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted{border-color:#bde3ff}.bookingsyncCalendarWidget__direct [data-enabled]:hover,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart{background:linear-gradient(to left top, transparent 50%, #fff 50%);border-top-color:#dedfe2;border-left-color:#dedfe2}.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__highlighted:hover,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd{background:linear-gradient(to right bottom, transparent 50%, #fff 50%);border-bottom-color:#dedfe2;border-right-color:#dedfe2}.bookingsyncCalendarWidget__reversed [data-available-out]:hover{background:linear-gradient(to right bottom, transparent 50%, #fff 50%)}.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__highlighted:hover{background:linear-gradient(to left top, transparent 50%, #fff 50%);border-top-color:#dedfe2;border-left-color:#dedfe2}.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd,.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__selectedEnd:hover{background:linear-gradient(to right bottom, transparent 50%, #fff 50%)}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__nightDisabled:hover{background:linear-gradient(to right bottom, transparent 50%, #f0f0f0 50%);color:#444}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__morningDisabled:hover{background:linear-gradient(to left top, transparent 50%, #f0f0f0 50%)}.bookingsyncCalendarWidget__direct [data-enabled]:hover,.bookingsyncCalendarWidget__reversed [data-available-out]:hover,.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedStart,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__selectedEnd,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__highlighted{background-color:#8acdf6;cursor:pointer}.bookingsyncCalendarWidget__direct [data-enabled]:hover,.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__cnt,.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__info,.bookingsyncCalendarWidget__direct [data-enabled]:hover .bookingsyncCalendarWidget__infoExtra{cursor:pointer}.bookingsyncCalendarWidget__reversed [data-available-out]:hover,.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__cnt,.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__info,.bookingsyncCalendarWidget__reversed [data-available-out]:hover .bookingsyncCalendarWidget__infoExtra{cursor:pointer}.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover,.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__cnt,.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__info,.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__nightDisabled:hover .bookingsyncCalendarWidget__infoExtra{cursor:pointer}.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover,.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__cnt,.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__info,.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__morningDisabled:hover .bookingsyncCalendarWidget__infoExtra{cursor:pointer}.bookingsyncCalendarWidget__actionsEnabled .bookingsyncCalendarWidget__invalid:not(.bookingsyncCalendarWidget__selectedStart){background:silver;color:#fff;border-color:#cacaca}.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid:hover{background:linear-gradient(to right bottom, transparent 50%, silver 50%);border-top-color:#dedfe2;border-left-color:#dedfe2;color:#444}.bookingsyncCalendarWidget__selectingReversed .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__selectedEnd,.bookingsyncCalendarWidget__selectingDirect .bookingsyncCalendarWidget__invalid:hover{background:linear-gradient(to left top, transparent 50%, silver 50%);border-bottom-color:#dedfe2;border-right-color:#dedfe2;color:#444}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid{background-color:silver;border-bottom-color:#cacaca;border-right-color:#cacaca}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__cnt,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__info,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid:hover .bookingsyncCalendarWidget__infoExtra{cursor:default}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__invalid.bookingsyncCalendarWidget__disabled:hover{background-color:#f0f0f0}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back{cursor:pointer;height:23px;width:23px;fill:#444;padding:6px 10px;border-radius:1px;top:.25rem;left:1rem;z-index:2;position:absolute}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward svg,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back svg{height:inherit;width:inherit}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward{right:1rem;left:auto}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:active,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:focus,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:active,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:focus{outline:none}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward:hover,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back:hover{fill:#3895d9}.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled],.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__forward[disabled]:hover,.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled],.bookingsyncCalendarWidget__calendar .bookingsyncCalendarWidget__back[disabled]:hover{opacity:0.5;cursor:default;fill:#444}.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__cnt{left:0;top:.8rem;text-align:right;margin-right:.5rem;font-size:0.6875rem;color:rgba(60,60,60,0.5)}.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__info{top:39%;text-align:center;font-size:0.75rem;color:#444}.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__infoExtra{text-align:center;right:0;bottom:3px}.bookingsyncCalendarWidget__chunky .bookingsyncCalendarWidget__mCell{-webkit-box-flex:1;-ms-flex:1 1 46%;flex:1 1 46%}\n", "",{"version":3,"sources":["C:/gh/calendar-widget/src/styles/loading.scss","C:/gh/calendar-widget/src/styles/drop.scss","C:/gh/calendar-widget/src/styles/calendar.scss","C:/gh/calendar-widget/src/styles/_variables.scss"],"names":[],"mappings":"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","file":"calendar.scss","sourcesContent":["/********************************************************\n\n\t\t\t\t     loader\n\n********************************************************/\n@-webkit-keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@-webkit-keyframes pulse {\n  50% {\n    background: white;\n  }\n}\n\n@keyframes pulse {\n  50% {\n    background: white;\n  }\n}\n\n.calendar .loading {\n  border-radius: 50%;\n  width: 24px;\n  height: 24px;\n  border: 0.25rem solid #cacaca;\n  border-top-color: #000;\n  -webkit-animation: spin 1s infinite linear;\n  animation: spin 1s infinite linear;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -12px;\n  margin-top: -12px;\n}\n\n.calendar .loadingLayer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.55);\n  right: 0;\n  z-index: 10;\n}\n",".calendar.dropBasic {\n  position: absolute;\n  display: none;\n  max-width: 100%;\n  box-shadow: 1px 5px 9px 0px rgba(0, 0, 0, 0.2);\n  border: 1px solid #e0e0e0;\n  background: #fff;\n  margin: 0;\n  padding-top: .5rem;\n  font-family: inherit;\n  line-height: 1.5em;\n  z-index: 10;\n\n  &.visible {\n    display: block;\n  }\n\n  .mCell {\n    margin-bottom: 1rem;\n  }\n}\n","@import 'variables';\n@import 'loading';\n@import 'drop';\n\n/********************************************************\n\n\t\t\t\t      colors\n\n********************************************************/\n\n.calendar {\n  font: 1rem/1.4 Helvetica, Arial, sans-serif;\n  position: relative;\n  margin: 0 -1rem 3rem;\n  padding-top: 0.5rem;\n  background: $cell-bg;\n\n  .caption {\n    font-weight: 700;\n    margin-bottom: 1.3rem;\n    padding-top: 0.3rem;\n    text-align: center;\n  }\n\n  .monthsWrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap;\n  }\n\n  .mCell {\n    font-size: 0.875rem;\n    margin: 0 1rem 2rem;\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 25%;\n    flex: 1 1 25%;\n\n    @media (max-width: $breakpoint-xs) {\n      -webkit-box-flex: 1;\n      -ms-flex: 1 1 100%;\n      flex: 1 1 100%;\n    }\n  }\n\n  .month {\n    border-collapse: collapse;\n    padding: 0;\n    margin: 0;\n    width: 100%;\n  }\n\n  .tableHeader,\n  .body {\n    margin: 0;\n  }\n\n  .th {\n    border-bottom: 1px solid $th-border-bottom;\n    font-size: 0.85rem;\n    color: $th-color;\n    height: 25px;\n    width: $cell-width;\n    text-align: center;\n  }\n\n  .cell {\n    text-align: center;\n    padding: 0;\n    position: relative;\n    border: 1px solid $cell-border;\n    vertical-align: middle;\n    color: $cell-color;\n    background-clip: padding-box;\n    overflow: hidden;\n    width: $cell-width;\n  }\n\n  .cell:after {\n    content: '';\n    display: block;\n    margin-top: 100%;\n  }\n\n  .cnt {\n    position: absolute;\n    top: 50%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n    line-height: 0;\n  }\n\n  .infoExtra,\n  .info {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    font-size: 0.6875rem;\n    padding: 1px 3px;\n    text-align: right;\n    color: $info-color;\n    right: 0;\n  }\n\n  .infoExtra {\n    left: 0;\n    text-align: left;\n    right: auto;\n  }\n}\n\n.focus {\n  border-color: $highlighted;\n}\n\n\n/********************************************************\n\n\t\t\t\t  selections, start and ends\n\n\t\t\t\t  N.B. Edit at your own risk\n\t\t\t\t  one cell can have 10 states and lots of these combinations\n\n\t\t\t\t  enabled\n\n\t\t\t\t  disabled\n\t\t\t\t  morningDisabled\n\t\t\t\t  nightDisabled\n\n\t\t\t\t  highlighted\n\t\t\t\t  morningSelected\n\t\t\t\t  nightSelected\n\n\t\t\t\t  invalid\n\t\t\t\t  morningInvalid\n\t\t\t\t  nightInvalid\n\n\n********************************************************/\n.calendar .selected {\n  color: inherit;\n  /* selected cell generic styles */\n}\n\n.calendar .reversed {\n  color: inherit;\n  /* selecting reversed (e.g. check-out first) */\n}\n\n.calendar .direct {\n  color: inherit;\n}\n\n.calendar .selectingReversed {\n  color: inherit;\n}\n\n.calendar .selectingDirect {\n  color: inherit;\n}\n\n.calendar .disabled,\n.calendar .disabled:hover {\n  color: $disabled-color;\n  cursor: default;\n  background-color: $disabled-bg;\n}\n\n.calendar .highlighted {\n  border-color: $highlighted-border;\n}\n\n.direct [data-enabled]:hover,\n.calendar .selectedStart {\n  background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);\n  border-top-color: $cell-border;\n  border-left-color: $cell-border;\n}\n\n.selectingDirect .highlighted:hover,\n.calendar .selectedEnd {\n  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);\n  border-bottom-color: $cell-border;\n  border-right-color: $cell-border;\n}\n\n.reversed [data-available-out]:hover {\n  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);\n}\n\n.selectingReversed .highlighted:hover {\n  background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);\n  border-top-color: $cell-border;\n  border-left-color: $cell-border;\n}\n\n.selectingReversed .selectedEnd,\n.selectingReversed .selectedEnd:hover {\n  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);\n}\n\n.calendar .nightDisabled,\n.calendar .nightDisabled:hover {\n  background: linear-gradient(to right bottom, transparent 50%, $disabled-bg 50%);\n  color: $cell-color;\n}\n\n.calendar .morningDisabled,\n.calendar .morningDisabled:hover {\n  background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);\n}\n\n.direct [data-enabled]:hover,\n.reversed [data-available-out]:hover,\n.selectingDirect .nightDisabled:hover,\n.selectingReversed .morningDisabled:hover,\n.calendar .selectedStart,\n.calendar .selectedEnd,\n.calendar .highlighted {\n  background-color: $highlighted;\n  cursor: pointer;\n}\n\n.direct {\n\n  [data-enabled]:hover,\n  [data-enabled]:hover .cnt,\n  [data-enabled]:hover .info,\n  [data-enabled]:hover .infoExtra {\n    cursor: pointer;\n  }\n}\n\n.reversed {\n\n  [data-available-out]:hover,\n  [data-available-out]:hover .cnt,\n  [data-available-out]:hover .info,\n  [data-available-out]:hover .infoExtra {\n    cursor: pointer;\n  }\n}\n\n.selectingDirect {\n\n  .nightDisabled:hover,\n  .nightDisabled:hover .cnt,\n  .nightDisabled:hover .info,\n  .nightDisabled:hover .infoExtra {\n    cursor: pointer;\n  }\n}\n\n.selectingReversed {\n\n  .morningDisabled:hover,\n  .morningDisabled:hover .cnt,\n  .morningDisabled:hover .info,\n  .morningDisabled:hover .infoExtra {\n    cursor: pointer;\n  }\n}\n\n.actionsEnabled .invalid:not(.selectedStart) {\n  background: $invalid-bg;\n  color: $invalid-color;\n  border-color: $invalid-border;\n}\n\n.selectingReversed .invalid:hover {\n  background: linear-gradient(to right bottom, transparent 50%, $invalid-bg 50%);\n  border-top-color: $cell-border;\n  border-left-color: $cell-border;\n  color: $cell-color;\n}\n\n.selectingReversed .invalid.selectedEnd,\n.selectingDirect .invalid:hover {\n  background: linear-gradient(to left top, transparent 50%, $invalid-bg 50%);\n  border-bottom-color: $cell-border;\n  border-right-color: $cell-border;\n  color: $cell-color;\n}\n\n.calendar .invalid {\n  background-color: $invalid-bg;\n  border-bottom-color: $invalid-border;\n  border-right-color: $invalid-border;\n}\n\n.calendar {\n\n  .invalid:hover,\n  .invalid:hover .cnt,\n  .invalid:hover .info,\n  .invalid:hover .infoExtra {\n    cursor: default;\n  }\n}\n\n.calendar .invalid.disabled:hover {\n  background-color: $disabled-bg;\n}\n\n/********************************************************\n\n\t\t\t\t     buttons\n\n********************************************************/\n.calendar {\n\n  .forward,\n  .back {\n    cursor: pointer;\n    height: 23px;\n    width: 23px;\n    fill: $btn-fill;\n    padding: 6px 10px;\n    border-radius: 1px;\n    top: .25rem;\n    left: 1rem;\n    z-index: 2;\n    position: absolute;\n\n    svg {\n      height: inherit;\n      width: inherit;\n    }\n  }\n\n  .forward {\n    right: 1rem;\n    left: auto;\n  }\n\n  .forward:active,\n  .forward:focus,\n  .back:active,\n  .back:focus {\n    outline: none;\n  }\n\n  .forward:hover,\n  .back:hover {\n    fill: $btn-fill-hover;\n  }\n\n  .forward[disabled],\n  .forward[disabled]:hover,\n  .back[disabled],\n  .back[disabled]:hover {\n    opacity: 0.5;\n    cursor: default;\n    fill: $btn-fill;\n  }\n}\n\n/********************************************************\n\n\t\t\t\t     mods\n\n********************************************************/\n/* chunky layout */\n.chunky {\n  .cnt {\n    left: 0;\n    top: .8rem;\n    text-align: right;\n    margin-right: .5rem;\n    font-size: 0.6875rem;\n    color: $info-color;\n  }\n\n  .info {\n    top: 39%;\n    text-align: center;\n    font-size: 0.75rem;\n    color: $cell-color;\n  }\n\n  .infoExtra {\n    text-align: center;\n    right: 0;\n    bottom: 3px;\n  }\n}\n\n.chunky .mCell {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 46%;\n  flex: 1 1 46%;\n}\n","$breakpoint-xs: 767px;\n\n$highlighted: #8acdf6;\n$highlighted-border: #bde3ff;\n\n$disabled-bg: #f0f0f0;\n$disabled-color: #bfbfbf;\n\n$cell-border: #dedfe2;\n$cell-color: #444444;\n$cell-bg: #ffffff;\n$cell-width: 30px;\n\n$info-color: rgba(60, 60, 60, 0.5);\n\n$th-border-bottom: #cbcbcb;\n$th-color: #aaaaaa;\n\n$invalid-border: #cacaca;\n$invalid-color: #ffffff;\n$invalid-bg: #c0c0c0;\n\n$btn-fill: $cell-color;\n$btn-border: $th-border-bottom;\n$btn-fill-hover: #3895d9;\n"]}]);
 // Exports
@@ -5588,12 +5470,16 @@ exports.locals = {
 	"chunky": "bookingsyncCalendarWidget__chunky",
 	"pulse": "bookingsyncCalendarWidget__pulse"
 };
+module.exports = exports;
+
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(true);
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(7);
+exports = ___CSS_LOADER_API_IMPORT___(true);
 // Module
 exports.push([module.i, ".bookingsyncWidgetUtils__reset div,.bookingsyncWidgetUtils__reset span,.bookingsyncWidgetUtils__reset applet,.bookingsyncWidgetUtils__reset object,.bookingsyncWidgetUtils__reset iframe,.bookingsyncWidgetUtils__reset h1,.bookingsyncWidgetUtils__reset h2,.bookingsyncWidgetUtils__reset h3,.bookingsyncWidgetUtils__reset h4,.bookingsyncWidgetUtils__reset h5,.bookingsyncWidgetUtils__reset h6,.bookingsyncWidgetUtils__reset p,.bookingsyncWidgetUtils__reset blockquote,.bookingsyncWidgetUtils__reset pre,.bookingsyncWidgetUtils__reset a,.bookingsyncWidgetUtils__reset abbr,.bookingsyncWidgetUtils__reset acronym,.bookingsyncWidgetUtils__reset address,.bookingsyncWidgetUtils__reset big,.bookingsyncWidgetUtils__reset cite,.bookingsyncWidgetUtils__reset code,.bookingsyncWidgetUtils__reset del,.bookingsyncWidgetUtils__reset dfn,.bookingsyncWidgetUtils__reset em,.bookingsyncWidgetUtils__reset img,.bookingsyncWidgetUtils__reset ins,.bookingsyncWidgetUtils__reset kbd,.bookingsyncWidgetUtils__reset q,.bookingsyncWidgetUtils__reset s,.bookingsyncWidgetUtils__reset samp,.bookingsyncWidgetUtils__reset small,.bookingsyncWidgetUtils__reset strike,.bookingsyncWidgetUtils__reset strong,.bookingsyncWidgetUtils__reset sub,.bookingsyncWidgetUtils__reset sup,.bookingsyncWidgetUtils__reset tt,.bookingsyncWidgetUtils__reset var,.bookingsyncWidgetUtils__reset b,.bookingsyncWidgetUtils__reset u,.bookingsyncWidgetUtils__reset i,.bookingsyncWidgetUtils__reset center,.bookingsyncWidgetUtils__reset dl,.bookingsyncWidgetUtils__reset dt,.bookingsyncWidgetUtils__reset dd,.bookingsyncWidgetUtils__reset ol,.bookingsyncWidgetUtils__reset ul,.bookingsyncWidgetUtils__reset li,.bookingsyncWidgetUtils__reset fieldset,.bookingsyncWidgetUtils__reset form,.bookingsyncWidgetUtils__reset div.bookingsyncWidgetUtils__form,.bookingsyncWidgetUtils__reset label,.bookingsyncWidgetUtils__reset legend,.bookingsyncWidgetUtils__reset table,.bookingsyncWidgetUtils__reset caption,.bookingsyncWidgetUtils__reset tbody,.bookingsyncWidgetUtils__reset tfoot,.bookingsyncWidgetUtils__reset thead,.bookingsyncWidgetUtils__reset tr,.bookingsyncWidgetUtils__reset th,.bookingsyncWidgetUtils__reset td,.bookingsyncWidgetUtils__reset article,.bookingsyncWidgetUtils__reset aside,.bookingsyncWidgetUtils__reset canvas,.bookingsyncWidgetUtils__reset details,.bookingsyncWidgetUtils__reset figcaption,.bookingsyncWidgetUtils__reset figure,.bookingsyncWidgetUtils__reset footer,.bookingsyncWidgetUtils__reset header,.bookingsyncWidgetUtils__reset hgroup,.bookingsyncWidgetUtils__reset menu,.bookingsyncWidgetUtils__reset nav,.bookingsyncWidgetUtils__reset section,.bookingsyncWidgetUtils__reset summary,.bookingsyncWidgetUtils__reset time,.bookingsyncWidgetUtils__reset mark,.bookingsyncWidgetUtils__reset audio,.bookingsyncWidgetUtils__reset video,.bookingsyncWidgetUtils__reset button,.bookingsyncWidgetUtils__reset textarea,.bookingsyncWidgetUtils__reset input,.bookingsyncWidgetUtils__reset .bookingsyncWidgetUtils__button,.bookingsyncWidgetUtils__reset .bookingsyncWidgetUtils__legend{font-family:\"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size-adjust:none;font-size:100%;font-style:normal;letter-spacing:normal;font-stretch:normal;font-variant:normal;font-weight:normal;font:normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;text-align:left;-moz-text-align-last:initial;text-align-last:initial;text-decoration:none;-webkit-text-emphasis:none;text-emphasis:none;text-height:auto;text-indent:0;text-justify:auto;text-outline:none;text-shadow:none;text-transform:none;text-wrap:normal;alignment-adjust:auto;alignment-baseline:baseline;-webkit-animation:none 0 ease 0 1 normal;animation:none 0 ease 0 1 normal;-webkit-animation-play-state:running;animation-play-state:running;appearance:normal;azimuth:center;-webkit-backface-visibility:visible;backface-visibility:visible;background:none 0 0 auto repeat scroll padding-box transparent;background-color:transparent;background-image:none;baseline-shift:baseline;binding:none;bleed:6pt;bookmark-label:content();bookmark-level:none;bookmark-state:open;bookmark-target:none;border:0 none transparent;border-radius:0;bottom:auto;box-align:stretch;-webkit-box-decoration-break:slice;box-decoration-break:slice;box-direction:normal;flex:0.0;flex-group:1;box-lines:single;box-ordinal-group:1;box-orient:inline-axis;box-pack:start;box-shadow:none;box-sizing:content-box;-webkit-break-after:auto;-moz-break-after:auto;break-after:auto;-webkit-break-before:auto;-moz-break-before:auto;break-before:auto;-webkit-column-break-inside:auto;page-break-inside:auto;break-inside:auto;caption-side:top;clear:none;clip:auto;color:inherit;color-profile:auto;-webkit-column-count:auto;-moz-column-count:auto;column-count:auto;-webkit-column-fill:balance;-moz-column-fill:balance;column-fill:balance;-webkit-column-gap:normal;-moz-column-gap:normal;column-gap:normal;-webkit-column-rule:medium medium #1f1f1f;-moz-column-rule:medium medium #1f1f1f;column-rule:medium medium #1f1f1f;-webkit-column-span:1;-moz-column-span:1;column-span:1;-webkit-column-width:auto;-moz-column-width:auto;column-width:auto;-webkit-columns:auto auto;-moz-columns:auto auto;columns:auto auto;content:normal;counter-increment:none;counter-reset:none;crop:auto;cursor:auto;direction:ltr;display:inline;dominant-baseline:auto;drop-initial-after-adjust:text-after-edge;drop-initial-after-align:baseline;drop-initial-before-adjust:text-before-edge;drop-initial-before-align:caps-height;drop-initial-size:auto;drop-initial-value:initial;elevation:level;empty-cells:show;fit:fill;fit-position:0% 0%;float:none;float-offset:0 0;grid-columns:none;grid-rows:none;hanging-punctuation:none;height:auto;hyphenate-after:auto;hyphenate-before:auto;hyphenate-character:auto;hyphenate-lines:no-limit;hyphenate-resource:none;-webkit-hyphens:manual;-moz-hyphens:manual;-ms-hyphens:manual;hyphens:manual;icon:auto;image-orientation:auto;image-rendering:auto;image-resolution:normal;inline-box-align:last;left:auto;line-height:inherit;line-stacking:inline-line-height exclude-ruby consider-shifts;list-style:disc outside none;margin:0;marks:none;marquee-direction:forward;marquee-loop:1;marquee-play-count:1;marquee-speed:normal;marquee-style:scroll;max-height:none;max-width:none;min-height:0;min-width:0;move-to:normal;nav-down:auto;nav-index:auto;nav-left:auto;nav-right:auto;nav-up:auto;opacity:1;orphans:2;outline:invert none medium;outline-offset:0;overflow:visible;overflow-style:auto;padding:0;page:auto;page-break-after:auto;page-break-before:auto;page-break-inside:auto;page-policy:start;-webkit-perspective:none;perspective:none;-webkit-perspective-origin:50% 50%;perspective-origin:50% 50%;position:static;presentation-level:0;punctuation-trim:none;quotes:none;rendering-intent:auto;resize:none;right:auto;rotation:0;rotation-point:50% 50%;ruby-align:auto;ruby-overhang:none;ruby-position:before;ruby-span:none;size:auto;string-set:none;table-layout:auto;top:auto;-webkit-transform:none;-ms-transform:none;transform:none;-webkit-transform-origin:50% 50% 0;-ms-transform-origin:50% 50% 0;transform-origin:50% 50% 0;-webkit-transform-style:flat;transform-style:flat;transition:all 0 ease 0;unicode-bidi:normal;vertical-align:baseline;white-space:normal;white-space-collapse:collapse;widows:2;width:auto;word-break:normal;word-spacing:normal;word-wrap:normal;z-index:auto;text-align:start;filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.bookingsyncWidgetUtils__reset address,.bookingsyncWidgetUtils__reset blockquote,.bookingsyncWidgetUtils__reset dd,.bookingsyncWidgetUtils__reset div,.bookingsyncWidgetUtils__reset dl,.bookingsyncWidgetUtils__reset dt,.bookingsyncWidgetUtils__reset fieldset,.bookingsyncWidgetUtils__reset form,.bookingsyncWidgetUtils__reset div.bookingsyncWidgetUtils__form,.bookingsyncWidgetUtils__reset frame,.bookingsyncWidgetUtils__reset frameset,.bookingsyncWidgetUtils__reset h1,.bookingsyncWidgetUtils__reset h2,.bookingsyncWidgetUtils__reset h3,.bookingsyncWidgetUtils__reset h4,.bookingsyncWidgetUtils__reset h5,.bookingsyncWidgetUtils__reset h6,.bookingsyncWidgetUtils__reset noframes,.bookingsyncWidgetUtils__reset ol,.bookingsyncWidgetUtils__reset p,.bookingsyncWidgetUtils__reset ul,.bookingsyncWidgetUtils__reset center,.bookingsyncWidgetUtils__reset dir,.bookingsyncWidgetUtils__reset hr,.bookingsyncWidgetUtils__reset menu,.bookingsyncWidgetUtils__reset pre,.bookingsyncWidgetUtils__reset article,.bookingsyncWidgetUtils__reset aside,.bookingsyncWidgetUtils__reset canvas,.bookingsyncWidgetUtils__reset details,.bookingsyncWidgetUtils__reset figcaption,.bookingsyncWidgetUtils__reset figure,.bookingsyncWidgetUtils__reset footer,.bookingsyncWidgetUtils__reset header,.bookingsyncWidgetUtils__reset hgroup,.bookingsyncWidgetUtils__reset menu,.bookingsyncWidgetUtils__reset nav,.bookingsyncWidgetUtils__reset section,.bookingsyncWidgetUtils__reset summary{display:block}.bookingsyncWidgetUtils__reset li{display:list-item}.bookingsyncWidgetUtils__reset table{display:table}.bookingsyncWidgetUtils__reset tr{display:table-row}.bookingsyncWidgetUtils__reset thead{display:table-header-group}.bookingsyncWidgetUtils__reset tbody{display:table-row-group}.bookingsyncWidgetUtils__reset tfoot{display:table-footer-group}.bookingsyncWidgetUtils__reset col{display:table-column}.bookingsyncWidgetUtils__reset colgroup{display:table-column-group}.bookingsyncWidgetUtils__reset td,.bookingsyncWidgetUtils__reset th{display:table-cell}.bookingsyncWidgetUtils__reset caption{display:table-caption}.bookingsyncWidgetUtils__reset input,.bookingsyncWidgetUtils__reset select{display:inline-block}.bookingsyncWidgetUtils__reset b,.bookingsyncWidgetUtils__reset strong{font-weight:bold}.bookingsyncWidgetUtils__reset b>i,.bookingsyncWidgetUtils__reset strong>i,.bookingsyncWidgetUtils__reset b>em,.bookingsyncWidgetUtils__reset strong>em{font-weight:bold;font-style:italic}.bookingsyncWidgetUtils__reset i>b,.bookingsyncWidgetUtils__reset i>strong{font-weight:bold;font-style:italic}.bookingsyncWidgetUtils__reset em>b,.bookingsyncWidgetUtils__reset em>strong{font-weight:bold;font-style:italic}.bookingsyncWidgetUtils__reset textarea,.bookingsyncWidgetUtils__reset input{cursor:text}\n", "",{"version":3,"sources":["C:/gh/calendar-widget/node_modules/widget-utils/src/styles/reset.scss"],"names":[],"mappings":"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","file":"reset.scss","sourcesContent":[".reset {\n\tdiv, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a,\n\tabbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,\n\tsmall, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,\n\tfieldset, form, div.form, label, legend, table, caption, tbody, tfoot, thead, tr,\n\tth, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup,\n\tmenu, nav, section, summary, time, mark, audio, video, button, textarea, input, .button, .legend {\n    font-family: \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-size-adjust: none;\n    font-size: 100%;\n    font-style: normal;\n    letter-spacing: normal;\n    font-stretch: normal;\n    font-variant: normal;\n    font-weight: normal;\n    font: normal normal 100% \"Open sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    text-align: left;\n    -moz-text-align-last: initial;\n    text-align-last: initial;\n    text-decoration: none;\n    -webkit-text-emphasis: none;\n    text-emphasis: none;\n    text-height: auto;\n    text-indent: 0;\n    text-justify: auto;\n    text-outline: none;\n    text-shadow: none;\n    text-transform: none;\n    text-wrap: normal;\n    alignment-adjust: auto;\n    alignment-baseline: baseline;\n    -webkit-animation: none 0 ease 0 1 normal;\n    animation: none 0 ease 0 1 normal;\n    -webkit-animation-play-state: running;\n    animation-play-state: running;\n    appearance: normal;\n    azimuth: center;\n    -webkit-backface-visibility: visible;\n    backface-visibility: visible;\n    background: none 0 0 auto repeat scroll padding-box transparent;\n    background-color: transparent;\n    background-image: none;\n    baseline-shift: baseline;\n    binding: none;\n    bleed: 6pt;\n    bookmark-label: content();\n    bookmark-level: none;\n    bookmark-state: open;\n    bookmark-target: none;\n    border: 0 none transparent;\n    border-radius: 0;\n    bottom: auto;\n    box-align: stretch;\n    -webkit-box-decoration-break: slice;\n    box-decoration-break: slice;\n    box-direction: normal;\n    flex: 0.0;\n    flex-group: 1;\n    box-lines: single;\n    box-ordinal-group: 1;\n    box-orient: inline-axis;\n    box-pack: start;\n    box-shadow: none;\n    box-sizing: content-box;\n    -webkit-break-after: auto;\n    -moz-break-after: auto;\n    break-after: auto;\n    -webkit-break-before: auto;\n    -moz-break-before: auto;\n    break-before: auto;\n    -webkit-column-break-inside: auto;\n    page-break-inside: auto;\n    break-inside: auto;\n    caption-side: top;\n    clear: none;\n    clip: auto;\n    color: inherit;\n    color-profile: auto;\n    -webkit-column-count: auto;\n    -moz-column-count: auto;\n    column-count: auto;\n    -webkit-column-fill: balance;\n    -moz-column-fill: balance;\n    column-fill: balance;\n    -webkit-column-gap: normal;\n    -moz-column-gap: normal;\n    column-gap: normal;\n    -webkit-column-rule: medium medium #1f1f1f;\n    -moz-column-rule: medium medium #1f1f1f;\n    column-rule: medium medium #1f1f1f;\n    -webkit-column-span: 1;\n    -moz-column-span: 1;\n    column-span: 1;\n    -webkit-column-width: auto;\n    -moz-column-width: auto;\n    column-width: auto;\n    -webkit-columns: auto auto;\n    -moz-columns: auto auto;\n    columns: auto auto;\n    content: normal;\n    counter-increment: none;\n    counter-reset: none;\n    crop: auto;\n    cursor: auto;\n    direction: ltr;\n    display: inline;\n    dominant-baseline: auto;\n    drop-initial-after-adjust: text-after-edge;\n    drop-initial-after-align: baseline;\n    drop-initial-before-adjust: text-before-edge;\n    drop-initial-before-align: caps-height;\n    drop-initial-size: auto;\n    drop-initial-value: initial;\n    elevation: level;\n    empty-cells: show;\n    fit: fill;\n    fit-position: 0% 0%;\n    float: none;\n    float-offset: 0 0;\n    grid-columns: none;\n    grid-rows: none;\n    hanging-punctuation: none;\n    height: auto;\n    hyphenate-after: auto;\n    hyphenate-before: auto;\n    hyphenate-character: auto;\n    hyphenate-lines: no-limit;\n    hyphenate-resource: none;\n    -webkit-hyphens: manual;\n    -moz-hyphens: manual;\n    -ms-hyphens: manual;\n    hyphens: manual;\n    icon: auto;\n    image-orientation: auto;\n    image-rendering: auto;\n    image-resolution: normal;\n    inline-box-align: last;\n    left: auto;\n    line-height: inherit;\n    line-stacking: inline-line-height exclude-ruby consider-shifts;\n    list-style: disc outside none;\n    margin: 0;\n    marks: none;\n    marquee-direction: forward;\n    marquee-loop: 1;\n    marquee-play-count: 1;\n    marquee-speed: normal;\n    marquee-style: scroll;\n    max-height: none;\n    max-width: none;\n    min-height: 0;\n    min-width: 0;\n    move-to: normal;\n    nav-down: auto;\n    nav-index: auto;\n    nav-left: auto;\n    nav-right: auto;\n    nav-up: auto;\n    opacity: 1;\n    orphans: 2;\n    outline: invert none medium;\n    outline-offset: 0;\n    overflow: visible;\n    overflow-style: auto;\n    padding: 0;\n    page: auto;\n    page-break-after: auto;\n    page-break-before: auto;\n    page-break-inside: auto;\n    page-policy: start;\n    -webkit-perspective: none;\n    perspective: none;\n    -webkit-perspective-origin: 50% 50%;\n    perspective-origin: 50% 50%;\n    position: static;\n    presentation-level: 0;\n    punctuation-trim: none;\n    quotes: none;\n    rendering-intent: auto;\n    resize: none;\n    right: auto;\n    rotation: 0;\n    rotation-point: 50% 50%;\n    ruby-align: auto;\n    ruby-overhang: none;\n    ruby-position: before;\n    ruby-span: none;\n    size: auto;\n    string-set: none;\n    table-layout: auto;\n    top: auto;\n    -webkit-transform: none;\n    -ms-transform: none;\n    transform: none;\n    -webkit-transform-origin: 50% 50% 0;\n    -ms-transform-origin: 50% 50% 0;\n    transform-origin: 50% 50% 0;\n    -webkit-transform-style: flat;\n    transform-style: flat;\n    transition: all 0 ease 0;\n    unicode-bidi: normal;\n    vertical-align: baseline;\n    white-space: normal;\n    white-space-collapse: collapse;\n    widows: 2;\n    width: auto;\n    word-break: normal;\n    word-spacing: normal;\n    word-wrap: normal;\n    z-index: auto;\n    text-align: start;\n    /* And disable MS gradients */\n    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n  address, blockquote, dd, div, dl, dt, fieldset, form, div.form, frame, frameset, h1, h2, h3, h4, h5, h6, noframes, ol, p, ul, center, dir, hr, menu, pre, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {\n    display: block;\n  }\n  li {\n    display: list-item;\n  }\n  table {\n    display: table;\n  }\n  tr {\n    display: table-row;\n  }\n  thead {\n    display: table-header-group;\n  }\n  tbody {\n    display: table-row-group;\n  }\n  tfoot {\n    display: table-footer-group;\n  }\n  col {\n    display: table-column;\n  }\n  colgroup {\n    display: table-column-group;\n  }\n  td, th {\n    display: table-cell;\n  }\n  caption {\n    display: table-caption;\n  }\n  input, select {\n    display: inline-block;\n  }\n  b, strong {\n    font-weight: bold;\n  }\n  b > i, strong > i, b > em, strong > em {\n    font-weight: bold;\n    font-style: italic;\n  }\n  i > {\n    b, strong {\n      font-weight: bold;\n      font-style: italic;\n    }\n  }\n  em > {\n    b, strong {\n      font-weight: bold;\n      font-style: italic;\n    }\n  }\n  textarea, input {\n    cursor: text;\n  }\n}\n"]}]);
 // Exports
@@ -5603,6 +5489,8 @@ exports.locals = {
 	"button": "bookingsyncWidgetUtils__button",
 	"legend": "bookingsyncWidgetUtils__legend"
 };
+module.exports = exports;
+
 
 /***/ }),
 /* 13 */
@@ -6215,11 +6103,13 @@ class calendar_Calendar extends widget_utils["Emitter"] {
     Object(widget_utils["addClass"])(this.el, calendar["calendar"], styles_reset["reset"]);
 
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
-      if (this.opts.elStartAt.value && this.opts.elEndAt.value) {
-        this.selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
-        this.selectionEnd = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
-        this.completeSelection();
-      }
+      this.inputsToValues();
+      this.opts.elStartAt.addEventListener('input', () => {
+        this.inputsToValues();
+      });
+      this.opts.elEndAt.addEventListener('input', () => {
+        this.inputsToValues();
+      });
     }
 
     this.dom.monthsWrapper = this.el.appendChild(Object(widget_utils["elementFromString"])(main));
@@ -6566,6 +6456,10 @@ class calendar_Calendar extends widget_utils["Emitter"] {
     if (this.opts.isDropDown && this.opts.elStartAt && this.opts.elEndAt) {
       this.opts.elStartAt.value = null;
       this.opts.elEndAt.value = null;
+
+      if (this.opts.isSingleInput) {
+        this.opts.elSingleInput.value = null;
+      }
     }
 
     return this;
@@ -6904,6 +6798,21 @@ class calendar_Calendar extends widget_utils["Emitter"] {
     } else if (input === 'end' && elEndAt) {
       elEndAt.value = value;
       elEndAt.dispatchEvent(evt);
+    }
+  }
+
+  inputsToValues() {
+    const selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
+    const selectionEnd = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
+    this.resetSelection();
+
+    if (Object(widget_utils["isArray"])(selectionStart) && Object(widget_utils["isArray"])(selectionEnd)) {
+      if (this.yearStart <= selectionStart[0] && this.monthStart <= selectionStart[1] && this.yearStart <= selectionEnd[0] && this.monthStart <= selectionEnd[1]) {
+        this.selectionStart = selectionStart;
+        this.selectionEnd = selectionEnd;
+        this.recoverSelections();
+        this.completeSelection();
+      }
     }
   }
 
