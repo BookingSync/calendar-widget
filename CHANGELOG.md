@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [1.4.3] - 2019-12-2
+## [1.4.4] - 2020-01-03
+### Added
+- inputsToValues method (reads inputs values to set dates selection)
+
+## [1.4.3] - 2019-12-02
 ### Fixed
 - GMT +00 issue
 
