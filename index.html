@@ -4,127 +4,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="UTF-8">
   <title>Calendar Widget</title>
-  <style>
-    .content {
-      margin: auto;
-      max-width: 69em;
-      padding: 2rem;
-      font: 1rem/1.4 Helvetica, Arial, san-serif;
-    }
-  </style>
-  <script src="assets/bookingsync-calendar-widget.dev.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
-<div class="content">
-  <p>
-    Stay focused. The key is to drink coconut, fresh coconut, trust me. Find peace, life is like a
-    water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
-    shower,
-    dry your back, it’s a cold world out there. Learning is cool, but knowing is better, and I know
-    the key to success. It’s important to use cocoa butter. It’s the key to more success, why not
-    live
-    smooth? Why live rough? Egg whites, turkey sausage, wheat toast, water. Of course they don’t
-    want
-    us to eat our breakfast, so we are going to enjoy our breakfast.
-  </p>
-  <div>
-    <div class="calendar-wrapper">
-      <label>Check In
-        <input class="start-at aaa" type="text" name="start-at" placeholder="%m/%d/%y">
-      </label>
-      <label>Check Out
-        <input class="end-at aaa" type="text" name="end-at" placeholder="%m/%d/%y">
-      </label>
-
-      <button class="reset-selection">Reset</button>
+<body class="bg-secondary">
+<div class="container-fluid">
+  <div class="card shadow my-3">
+    <div class="card-body">
+      <h5 class="card-title">Dropdown - Double input</h5>
+      <div class="card-text">
+        <div class="calendar-wrapper">
+          <label>Check In
+            <input class="start-at aaa" type="text" name="start-at" placeholder="%m/%d/%y">
+          </label>
+          <label>Check Out
+            <input class="end-at aaa" type="text" name="end-at" placeholder="%m/%d/%y">
+          </label>
+    
+          <button class="reset-selection">Reset</button>
+        </div>
+      </div>
     </div>
   </div>
-  <p>
-    You see that bamboo behind me though, you see that bamboo? Ain’t nothin’ like bamboo. Bless up.
-    Hammock talk come soon. They will try to close the door on you, just open it. Find peace, life
-    is
-    like a water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
-    shower, dry your back, it’s a cold world out there. Find peace, life is like a water fall,
-    you’ve
-    gotta flow. They key is to have every key, the key to open every door.
-  </p>
 
-  <div>
-    <div data-bookingsync-calendar-widget
-         data-is-drop-down="true"
-         data-selectable="true"
-         data-is-single-input="true">
-      <label>Check In/Out
-        <input class="bookingsyncCalendarWidget__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
-        <input class="bookingsyncCalendarWidget__start-at" type="text">
-        <input class="bookingsyncCalendarWidget__end-at" type="text">
-      </label>
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Dropdown - Single input</h5>
+      <div class="card-text">
+        <div data-bookingsync-calendar-widget
+             data-is-drop-down="true"
+             data-selectable="true"
+             data-is-single-input="true">
+          <label>Check In/Out
+            <input class="bookingsyncCalendarWidget__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
+            <input class="bookingsyncCalendarWidget__start-at" type="text">
+            <input class="bookingsyncCalendarWidget__end-at" type="text">
+          </label>
+        </div>
+      </div>
     </div>
   </div>
-  <p>
-    You see that bamboo behind me though, you see that bamboo? Ain’t nothin’ like bamboo. Bless up.
-    Hammock talk come soon. They will try to close the door on you, just open it. Find peace, life
-    is
-    like a water fall, you’ve gotta flow. Watch your back, but more importantly when you get out the
-    shower, dry your back, it’s a cold world out there. Find peace, life is like a water fall,
-    you’ve
-    gotta flow. They key is to have every key, the key to open every door.
-  </p>
 
-  <h1>No Rental</h1>
-  <div data-bookingsync-calendar-widget
-       data-selectable="true"
-       data-lang="fr-FR"
-       data-month-start="0"
-       data-display-months="3"
-       data-enable-all-days="true">
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <h5 class="card-title">No Rental</h5>
+      <div class="card-text">
+        <div data-bookingsync-calendar-widget
+             data-selectable="true"
+             data-lang="fr-FR"
+             data-month-start="0"
+             data-display-months="3"
+             data-enable-all-days="true">
+        </div>
+      </div>
+    </div>
   </div>
 
-  <p>A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay calm.
-    I’m
-    up to something. Life is what you make it, so let’s make it. How’s business? Boomin. They will
-    try
-    to close the door on you, just open it. They key is to have every key, the key to open every
-    door.
-    I’m giving you cloth talk, cloth. Special cloth alert, cut from a special cloth. How’s business?
-    Boomin. A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay
-    calm. You should never complain, complaining is a weak emotion, you got life, we breathing, we
-    blessed.
-  </p>
-
-  <h1>833 Rental</h1>
-  <div data-bookingsync-calendar-widget
-       data-display-months="2"
-       data-show-rates="true"
-       data-show-min-stay="true"
-       data-rental-id="833"
-       data-currency='USD'>
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <h5 class="card-title">833 Rental</h5>
+      <div class="card-text">
+        <div data-bookingsync-calendar-widget
+             data-display-months="2"
+             data-show-rates="true"
+             data-show-min-stay="true"
+             data-rental-id="833"
+             data-currency='USD'>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <p>
-    They will try to close the door on you, just open it. Wraith talk. The key to more success is to
-    have a lot of pillows. Learning is cool, but knowing is better, and I know the key to success.
-    The
-    other day the grass was brown, now it’s green because I ain’t give up. Never surrender. In life
-    there will be road blocks but we will over come it. Cloth talk. Surround yourself with angels,
-    positive energy, beautiful people, beautiful souls, clean heart, angel. They don’t want us to
-    eat.
-    The key is to enjoy life, because they don’t want you to enjoy life. I promise you, they don’t
-    want you to jetski, they don’t want you to smile.
-  </p>
-
-  <h1>835 Rental</h1>
-  <div data-bookingsync-calendar-widget
-       data-selectable="true"
-       data-display-months="12"
-       data-show-rates="true"
-       data-show-min-stay="true"
-       data-lang="en"
-       data-rental-id="835">
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <h5 class="card-title">835 Rental</h5>
+      <div class="card-text">
+        <div data-bookingsync-calendar-widget
+             data-selectable="true"
+             data-display-months="12"
+             data-show-rates="true"
+             data-show-min-stay="true"
+             data-lang="en"
+             data-rental-id="835">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+<script>
+  var date = new Date();
+  date.setMonth(date.getMonth() + 1);
+
+  var year = date.toLocaleDateString('en-US', { year: '2-digit' });
+  var month = date.toLocaleDateString('en-US', { month: '2-digit' });
+
+  document.querySelector("[name='start-at']").value = month + '/05/' + year;
+  document.querySelector("[name='end-at']").value = month + '/07/' + year;
+</script>
+<script src="assets/bookingsync-calendar-widget.dev.js"></script>
 <script>
   var cal = new bookingsyncCalendarWidget({
     el:         document.querySelector('.calendar-wrapper'),

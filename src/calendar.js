@@ -84,6 +84,13 @@ export default class Calendar extends Emitter {
   init() {
     addClass(this.el, calendar, reset);
 
+    this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));
+    this.dom.forward       = this.el.appendChild(elementFromString(tpls.forward));
+    this.dom.back          = this.el.appendChild(elementFromString(tpls.back));
+    this.renderMonths(this.opts.yearStart, this.opts.monthStart);
+
+    this.addBtnsEvents();
+
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
       this.inputsToValues();
 
@@ -95,13 +102,6 @@ export default class Calendar extends Emitter {
         this.inputsToValues();
       });
     }
-
-    this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));
-    this.dom.forward       = this.el.appendChild(elementFromString(tpls.forward));
-    this.dom.back          = this.el.appendChild(elementFromString(tpls.back));
-    this.renderMonths(this.opts.yearStart, this.opts.monthStart);
-
-    this.addBtnsEvents();
 
     if (this.opts.rentalId) {
       if (this.opts.showRates || this.opts.showMinStay) {
@@ -799,19 +799,24 @@ export default class Calendar extends Emitter {
   inputsToValues() {
     const selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
     const selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
+    const cDate         = this.opts.currDate;
+    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
 
     this.resetSelection();
 
     if (isArray(selectionStart) && isArray(selectionEnd)) {
-      if (
-        this.yearStart <= selectionStart[0] && this.monthStart <= selectionStart[1]
-        && this.yearStart <= selectionEnd[0] && this.monthStart <= selectionEnd[1]
-      ) {
+      if (isLater(cDateArray, selectionStart) && isLater(selectionStart, selectionEnd)) {
         this.selectionStart = selectionStart;
         this.selectionEnd = selectionEnd;
         this.recoverSelections();
         this.completeSelection();
+      } else {
+        this.logger(`invalid range: "[${selectionStart}]" "[${selectionEnd}]"`, 'warn');
+        return false;
       }
+    } else if (selectionStart && selectionEnd) {
+      this.logger(`invalid dates: "${selectionStart}" "${selectionEnd}"`, 'warn');
+      return false;
     }
   }
 
