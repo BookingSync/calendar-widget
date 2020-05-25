@@ -1,4 +1,4 @@
-/* global document, module, require, window */
+/* global document, require, window */
 const Calendar = require('./calendar');
 
 // Export WidgetUtils
