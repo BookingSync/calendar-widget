@@ -42,4 +42,4 @@ if (CalendarConst.autoInit !== false) {
 // Retro compatibility
 window.BookingSyncCalendarWidget = CalendarConst;
 
-module.exports = CalendarConst;
+export default CalendarConst;
