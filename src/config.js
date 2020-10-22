@@ -21,6 +21,7 @@ export default {
 
   startOfWeek: 0, // 0 Sun 1 Mon....6 Sat
   minStay: 1, // can select one night
+  maxStay: 0, // can select infinite nights
   monthStart: currDate.getUTCMonth(), // start with current month by default M '0...12'
   yearStart: currDate.getUTCFullYear(), // start with current year YYYY
   daysPerWeek: 7, // FIXME support calendar rendering
@@ -28,6 +29,7 @@ export default {
   selectable: false,
   showRates: false,
   showMinStay: false,
+  showMaxStay: false,
   isReverseSelectable: false, // select end date first
   isBackDisabled: true,
   isDropDown: false,
@@ -45,6 +47,7 @@ export default {
   currency: null,
   disableAvailabityMap: false,
   allowShorterMinStaySelection: false,
+  allowLongerMaxStaySelection: false,
   enableAllDays: false,
   currDate
 };

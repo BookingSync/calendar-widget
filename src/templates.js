@@ -20,7 +20,7 @@ export const month = `
 export const weekDayLabel = (label) => `<th class="${s.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rateT, minStayT) => `
+export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, maxStay, rateT, minStayT, maxStayT) => `
   <td ${dis ? 'data-disabled' : 'data-enabled'}
        ${isOutAvailable ? 'data-available-out' : ''}
        data-value="${label}"
@@ -30,6 +30,7 @@ export const weekDay = (label, dis, disStart, isOutAvailable, rate, minStay, rat
       </div>
       ${rate ? '<span class="' + info + '">' + rateT + '</span>' : ''}
       ${minStay ? '<span class="' + infoExtra + '">' + minStayT + '</span>' : ''}
+      ${maxStay ? '<span class="' + infoExtra + '">' + maxStayT + '</span>' : ''}
   </td>
 `;
 

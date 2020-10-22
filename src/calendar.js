@@ -104,7 +104,7 @@ export default class Calendar extends Emitter {
     }
 
     if (this.opts.rentalId) {
-      if (this.opts.showRates || this.opts.showMinStay) {
+      if (this.opts.showRates || this.opts.showMinStay || this.opts.showMaxStay) {
         addClass(this.el, chunky);
       }
 
@@ -391,10 +391,13 @@ export default class Calendar extends Emitter {
     const { range, isValid } = this.selectRange(start, end);
     let hasValidRange        = this.opts.rentalId ? isValid : true;
     const minStay            = this.opts.rentalId ? (this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
+    let maxStay              = this.opts.rentalId ? (this.opts.allowLongerMaxStaySelection ? 1 : this.cTree.getDayProperty(...start, 'maxStay')) : this.opts.maxStay;
+
+    maxStay = (maxStay == 0) ? Infinity : maxStay;
 
     if (isArray(range)) {
-      // check that range is valid and longer than minStay
-      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay;
+      // check that range is valid and longer than minStay and shorter than maxStay
+      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay && range.length < maxStay;
 
       range.map((a) => {
         removeClass(a, highlighted, invalid);
@@ -601,6 +604,7 @@ export default class Calendar extends Emitter {
     const { cTree }   = this;
     const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
     const minStay     = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
+    const maxStay     = this.opts.showMaxStay ? cTree.getDayProperty(year, month, dayOfMonth, 'maxStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
@@ -629,9 +633,16 @@ export default class Calendar extends Emitter {
     }
 
     return tpls.weekDay(
-      dayOfMonth, isDisabled, isDisabledStart, isOutAvailable, rate, (this.opts.allowShorterMinStaySelection ? 1 : minStay),
+      dayOfMonth,
+      isDisabled,
+      isDisabledStart,
+      isOutAvailable,
+      rate,
+      (this.opts.allowShorterMinStaySelection ? 1 : minStay),
+      (this.opts.allowLongerMaxStaySelection ? 0 : maxStay),
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay)
+      tFormatter(minStay, this.locale.minStay),
+      tFormatter(maxStay, this.locale.maxStay)
     );
   }
 
