@@ -7,6 +7,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'GBP',
     minStay: '%number+ nights',
+    maxStay: '%number- nights',
     startOfWeek: 0
   },
   'en-US': {
@@ -17,6 +18,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'USD',
     minStay: '%number+ nights',
+    maxStay: '%number- nights',
     startOfWeek: 1
   },
   'de-DE': {
@@ -27,6 +29,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ nächte',
+    maxStay: '%number- nächte',
     startOfWeek: 1
   },
   'es-ES': {
@@ -37,6 +40,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ noches',
+    maxStay: '%number- noches',
     startOfWeek: 1
   },
   'fr-FR': {
@@ -47,6 +51,7 @@ let locales = {
     formatDate: '%d %b, %Y',
     currency: 'EUR',
     minStay: '%number+ nuits',
+    maxStay: '%number- nuits',
     startOfWeek: 1
   },
   'it-IT': {
@@ -57,6 +62,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ notti.',
+    maxStay: '%number- notti',
     startOfWeek: 1
   },
   'sv-SE': {
@@ -67,6 +73,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ nätter',
+    maxStay: '%number- nätter',
     startOfWeek: 1
   }
 };
