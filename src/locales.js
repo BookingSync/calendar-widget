@@ -75,6 +75,28 @@ let locales = {
     minStay: '%number+ nätter',
     maxStay: '%number- nätter',
     startOfWeek: 1
+  },
+  'ru-RU': {
+    shortWeekdayNames: 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
+    longWeekdayNames: 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
+    longMonthNames: 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'),
+    shortMonthNames: 'Янв_Фев_Мар_Апр_Май_Июн_Июл_Авг_Сен_Окт_Ноя_Дек'.split('_'),
+    formatDate: '%d.%b.%Y',
+    currency: 'Руб.',
+    minStay: '%number+ ноч.',
+    maxStay: '%number- ноч.',
+    startOfWeek: 1
+  },
+  'pl-PL': {
+    shortWeekdayNames: 'Nd_Pn_Wt_Śr_Cz_Pt_So'.split('_'),
+    longWeekdayNames: 'niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota'.split('_'),
+    longMonthNames: 'styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień'.split('_'),
+    shortMonthNames: 'sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru'.split('_'),
+    formatDate: '%d.%b.%Y',
+    currency: 'PLN',
+    minStay: '%number+ noce',
+    maxStay: '%number- noce',
+    startOfWeek: 1
   }
 };
 
@@ -85,7 +107,9 @@ locales = Object.assign({
   es: locales['es-ES'],
   fr: locales['fr-FR'],
   it: locales['it-IT'],
-  sv: locales['sv-SV']
+  sv: locales['sv-SV'],
+  ru: locales['ru-RU'],
+  pl: locales['pl-PL']
 }, locales);
 
 export default locales;
