@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.4.6] - 2020-10-30
+### Added
+- `maxStay` option to limit the number of selectable nights
+- Russian and Polish languages
+
 ## [1.4.5] - 2020-01-23
 ### Fixed
 - inputsToValues method was called too early
