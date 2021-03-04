@@ -97,6 +97,17 @@ let locales = {
     minStay: '%number+ noce',
     maxStay: '%number- noce',
     startOfWeek: 1
+  },
+  'nl-NL': {
+    shortWeekdayNames: 'Zo_Ma_Di_Wo_Do_Vr_Za'.split('_'),
+    longWeekdayNames: 'Zondag_Maandag_Dinsdag_Woensdag_Donderdag_Vrijdag_Zaterdag'.split('_'),
+    longMonthNames: 'Januari_Februari_Maart_April_Mei_Juni_Juli_Augustus_September_Oktober_November_December'.split('_'),
+    shortMonthNames: 'Jan_Feb_Maa_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Dec'.split('_'),
+    formatDate: '%b %d, %Y',
+    currency: 'EUR',
+    minStay: '%number+ nights',
+    maxStay: '%number- nights',
+    startOfWeek: 1
   }
 };
 
@@ -109,7 +120,8 @@ locales = Object.assign({
   it: locales['it-IT'],
   sv: locales['sv-SV'],
   ru: locales['ru-RU'],
-  pl: locales['pl-PL']
+  pl: locales['pl-PL'],
+  nl: locales['nl-NL']
 }, locales);
 
 export default locales;
