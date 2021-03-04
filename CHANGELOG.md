@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.4.7] - 2021-03-04
+### Added
+- `nl-NL` language
+
 ## [1.4.6] - 2020-10-30
 ### Added
 - `maxStay` option to limit the number of selectable nights
