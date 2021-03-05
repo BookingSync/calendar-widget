@@ -1,4 +1,4 @@
-/* global document, module, require, window */
+/* global document, require, window */
 const Calendar = require('./calendar');
 
 // Export WidgetUtils
@@ -42,4 +42,4 @@ if (CalendarConst.autoInit !== false) {
 // Retro compatibility
 window.BookingSyncCalendarWidget = CalendarConst;
 
-module.exports = CalendarConst;
+export default CalendarConst;

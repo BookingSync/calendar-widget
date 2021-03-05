@@ -7,7 +7,7 @@ const { name } = require('../package.json');
 export default {
   name,
   cssPrefix: dashToCapital(name),
-  apiHost: NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
+  apiHost: NODE_ENV === 'development' ? 'https://bookingsync.test' : 'https://www.bookingsync.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
   apiRentalId: 'rental_id=',
