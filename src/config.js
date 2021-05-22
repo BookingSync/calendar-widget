@@ -33,6 +33,7 @@ export default {
   isReverseSelectable: false, // select end date first
   isBackDisabled: true,
   isDropDown: false,
+  dropPlacement: 'bottom-start',
   el: null,
   elStartAt: null,
   elEndAt: null,
