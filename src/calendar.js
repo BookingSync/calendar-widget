@@ -393,7 +393,7 @@ export default class Calendar extends Emitter {
     const minStay            = this.opts.rentalId ? (this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
     let maxStay              = this.opts.rentalId ? (this.opts.allowLongerMaxStaySelection ? 1 : this.cTree.getDayProperty(...start, 'maxStay')) : this.opts.maxStay;
 
-    maxStay = (maxStay == 0) ? Infinity : maxStay;
+    maxStay = (maxStay === 0 || !maxStay) ? Infinity : maxStay;
 
     if (isArray(range)) {
       // check that range is valid and longer than minStay and shorter than maxStay
@@ -736,7 +736,7 @@ export default class Calendar extends Emitter {
     addClass(this.el, dropBasic);
 
     const calDrop = new Popper(this.elTarget, this.el, {
-      placement: this.opts.dropPlacement || 'bottom-start',
+      placement: this.opts.dropPlacement,
       hide: true
     });
 
