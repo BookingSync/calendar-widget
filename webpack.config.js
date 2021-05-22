@@ -49,6 +49,13 @@ const insertAtTop = function(element) {
 const config = {
   mode: env,
   optimization,
+  devServer: {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    }
+  },
   entry: `${__dirname}/src/${name}.js`,
   output: {
     path: `${__dirname}/dist`,
