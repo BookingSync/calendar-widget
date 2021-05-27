@@ -14,14 +14,17 @@
       <h5 class="card-title">Dropdown - Double input</h5>
       <div class="card-text">
         <div class="calendar-wrapper">
-          <label>Check In
-            <input class="start-at aaa" type="text" name="start-at" placeholder="%m/%d/%y">
-          </label>
-          <label>Check Out
-            <input class="end-at aaa" type="text" name="end-at" placeholder="%m/%d/%y">
-          </label>
-    
-          <button class="reset-selection">Reset</button>
+          <div class="form-group">
+            <label>Check In
+              <input class="form-control start-at aaa" type="text" name="start-at" placeholder="%m/%d/%y">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Check Out
+              <input class="form-control end-at aaa" type="text" name="end-at" placeholder="%m/%d/%y">
+            </label>
+          </div>
+          <button class="btn btn-primary reset-selection">Reset</button>
         </div>
       </div>
     </div>
@@ -35,11 +38,13 @@
              data-is-drop-down="true"
              data-selectable="true"
              data-is-single-input="true">
-          <label>Check In/Out
-            <input class="bookingsyncCalendarWidget__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
-            <input class="bookingsyncCalendarWidget__start-at" type="text">
-            <input class="bookingsyncCalendarWidget__end-at" type="text">
-          </label>
+          <div class="form-group">
+            <label>Check In/Out
+              <input class="form-control bookingsyncCalendarWidget__single-input aaa" type="text" placeholder="%b %d, %Y → %b %d, %Y">
+              <input class="bookingsyncCalendarWidget__start-at" type="text">
+              <input class="bookingsyncCalendarWidget__end-at" type="text">
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -102,9 +107,9 @@
   document.querySelector("[name='start-at']").value = month + '/05/' + year;
   document.querySelector("[name='end-at']").value = month + '/07/' + year;
 </script>
-<script src="assets/bookingsync-calendar-widget.dev.js"></script>
+<script src="bookingsync-calendar-widget.js"></script>
 <script>
-  var cal = new bookingsyncCalendarWidget({
+  var cal = new BookingSyncCalendarWidget({
     el:         document.querySelector('.calendar-wrapper'),
     isDropDown: true,
     selectable: true,
