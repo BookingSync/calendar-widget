@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2021-05-28
+### Added
+- css var() for date ranges bg-color & color
+### Updated
+- date ranges style, linar gradients no longer used
+### Fixed
+- css class naming (bookingsyncCalendarWidget => BookingSyncCalendarWidget__calendar)
+
 ## [1.4.8] - 2021-05-26
 ### Fixed
 - `maxStay` blocking highlight range

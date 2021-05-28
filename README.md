@@ -13,7 +13,7 @@
 
 * Or as global.
 ```javascript
-const calendar = new bookingsyncCalendar({ el: document.querySelector('.my-widget') });
+const calendar = new BookingSyncCalendarWidget({ el: document.querySelector('.my-widget') });
 ````
 
 * Or as module 
