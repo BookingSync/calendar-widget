@@ -1,10 +1,10 @@
-/* global require, module */
+/* global require, module, __dirname */
 
 const { merge }    = require('webpack-merge');
 const common       = require('./webpack.common.js');
 const path         = require('path');
 
-delete common['entry'];
+delete common.entry;
 
 module.exports = merge(common, {
   mode: 'none',
@@ -15,8 +15,8 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   resolve: {
     fallback: {
-      util: require.resolve("util/"),
-      assert: require.resolve("assert/")
+      util: require.resolve('util/'),
+      assert: require.resolve('assert/')
     }
   }
 });
