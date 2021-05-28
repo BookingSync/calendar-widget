@@ -10,7 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    clean: true
+    clean: false
   },
   module: {
     rules: [
