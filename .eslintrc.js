@@ -1,10 +1,12 @@
+/* global module */
+
 module.exports = {
   parserOptions: {
     ecmaVersion: 2017,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   extends: [
-   'eslint:recommended',
+    'eslint:recommended'
   ],
   rules: {
     'no-console': 0,
@@ -55,6 +57,6 @@ module.exports = {
     'object-shorthand': ['error', 'always'],
 
     'new-cap': ['error', { 'capIsNewExceptions': ['A'] }],
-    'generator-star-spacing': ['error', { 'before': false, 'after': true }],
+    'generator-star-spacing': ['error', { 'before': false, 'after': true }]
   }
 };

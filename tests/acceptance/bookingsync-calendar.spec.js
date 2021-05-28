@@ -2,8 +2,8 @@
 import chai from 'chai';
 import { destroyElement } from 'widget-utils';
 
-import { mCell, calendar } from '../../src/styles/calendar.scss';
-import BookingSyncCalendar from '../../src/bookingsync-calendar-widget';
+import styles from '../../src/styles/calendar.scss';
+import BookingSyncCalendar from '../../src/index';
 
 const { expect } = chai;
 const { keys } = Object;
@@ -32,13 +32,13 @@ describe('BookingSync Calendar renders on containers with auto-init', () => {
 
   it('renders 2 widgets on the page', () => {
     document.addEventListener('DOMContentLoaded', () => {
-      expect(document.querySelectorAll(`.${calendar}`).length).to.be.equal(2);
+      expect(document.querySelectorAll(`.${styles.calendar}`).length).to.be.equal(2);
     });
   });
 
   it('renders 4 (2 * 2) months', () => {
     document.addEventListener('DOMContentLoaded', () => {
-      expect(document.querySelectorAll(`.${mCell}`).length).to.be.equal(4);
+      expect(document.querySelectorAll(`.${styles.mCell}`).length).to.be.equal(4);
     });
   });
 

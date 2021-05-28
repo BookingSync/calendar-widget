@@ -24,3 +24,5 @@ node_modules
 /.idea/
 /npm-debug.log
 /calendar-widget-0.0.1.tgz
+
+temp/
