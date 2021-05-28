@@ -1,10 +1,10 @@
 /* global require, module */
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('./webpack.test.js');
 
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'webpack'],
 
     reporters: ['progress'],
     port: 9876,
@@ -16,6 +16,7 @@ module.exports = function(config) {
     autoWatchBatchDelay: 600,
 
     files: [
+      './tests/global-variables.js',
       './tests/**/*.js'
     ],
 

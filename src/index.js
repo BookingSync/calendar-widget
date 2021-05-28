@@ -1,5 +1,7 @@
-/* global document, require, window */
-import Calendar from './calendar';
+/* global document, require, window, module */
+let Calendar = require('./calendar');
+
+Calendar = Calendar.default;
 
 // Export WidgetUtils
 window.BookingSyncWidgetUtils = require('widget-utils');
@@ -37,4 +39,4 @@ if (Calendar.autoInit !== false) {
 
 window.BookingSyncCalendarWidget = Calendar;
 
-export { Calendar as default };
+module.exports = Calendar;
