@@ -100,10 +100,6 @@ export default class Calendar extends Emitter {
     }
 
     if (this.opts.rentalId) {
-      if (this.opts.showRates || this.opts.showMinStay || this.opts.showMaxStay) {
-        addClass(this.el, styles.chunky);
-      }
-
       this.loadMaps(this.opts.rentalId);
     }
 
@@ -181,12 +177,11 @@ export default class Calendar extends Emitter {
   }
 
   toggleLoading() {
-    if (!this.loaderEl) {
-      this.loaderEl = this.el.appendChild(elementFromString(tpls.loading));
+    if (!hasClass(this.el, styles.loading)) {
+      addClass(this.el, styles.loading);
       this.emit('loading-show');
     } else {
-      destroyElement(this.loaderEl);
-      this.loaderEl = null;
+      removeClass(this.el, styles.loading);
       this.emit('loading-hide');
     }
   }
@@ -395,7 +390,12 @@ export default class Calendar extends Emitter {
       // check that range is valid and longer than minStay and shorter than maxStay
       this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay && range.length < maxStay;
 
-      range.map((a) => {
+      range.map((a, index) => {
+        removeClass(a, styles.selected);
+        if (index !== 0 && index + 1 !== range.length) {
+          addClass(a, styles.selected);
+        }
+
         removeClass(a, styles.highlighted, styles.invalid);
         addClass(a, hasValidRange ? styles.highlighted : styles.invalid);
         return a;
@@ -424,12 +424,12 @@ export default class Calendar extends Emitter {
     this.selectionEnd   = null;
 
     if (this.cellA) {
-      removeClass(this.cellA, styles.selected, styles.selectedStart);
+      removeClass(this.cellA, styles.selectedStart);
       this.cellA = null;
     }
 
     if (this.cellB) {
-      removeClass(this.cellB, styles.selected, styles.selectedEnd);
+      removeClass(this.cellB, styles.selectedEnd);
       this.cellB = null;
     }
 
@@ -459,11 +459,11 @@ export default class Calendar extends Emitter {
     this.selectionStart = dateValue;
 
     if (this.cellA) {
-      removeClass(this.cellA, styles.selected, styles.selectedStart);
+      removeClass(this.cellA, styles.selectedStart);
     }
 
     if (cell) {
-      addClass(cell, styles.selected, styles.selectedStart);
+      addClass(cell, styles.selectedStart);
       this.cellA = cell;
     }
 
@@ -474,11 +474,11 @@ export default class Calendar extends Emitter {
     this.selectionEnd = dateValue;
 
     if (this.cellB) {
-      removeClass(this.cellB, styles.selected, styles.selectedEnd);
+      removeClass(this.cellB, styles.selectedEnd);
     }
 
     if (cell) {
-      addClass(cell, styles.selected, styles.selectedEnd);
+      addClass(cell, styles.selectedEnd);
       this.cellB = cell;
     }
 
@@ -603,36 +603,40 @@ export default class Calendar extends Emitter {
     const maxStay     = this.opts.showMaxStay ? cTree.getDayProperty(year, month, dayOfMonth, 'maxStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
-    let isOutAvailable  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
-    let isDisabledStart = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    let isEnabledStart  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
+    let isDisabledEnd   = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+
     const cDate         = this.opts.currDate;
     const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
     const dateArray     = [year, month, dayOfMonth];
+    const isCurrentDay  = isCurrent(dateArray, cDateArray);
 
-    // in the past any availability does not make sense
-    if (isLater(dateArray, cDateArray)) {
+    // disable past dates
+    if (isLater(dateArray, cDateArray) && !isCurrentDay) {
       isDisabled      = true;
-      isDisabledStart = undefined;
-      isOutAvailable  = undefined;
+      isDisabledEnd   = undefined;
+      isEnabledStart  = undefined;
     }
 
-    if (isCurrent(dateArray, cDateArray)) {
+    // disable current day morning
+    if (isCurrentDay && isEnabledStart !== false) {
       isDisabled      = false;
-      isDisabledStart = true;
+      isDisabledEnd   = true;
     }
 
     // if there is not rentalId and no maps, just render plain calendar
     if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
-      isDisabled = false;
-      isOutAvailable = true;
-      isDisabledStart = false;
+      isDisabled      = false;
+      isEnabledStart  = true;
+      isDisabledEnd   = false;
     }
 
     return tpls.weekDay(
       dayOfMonth,
       isDisabled,
-      isDisabledStart,
-      isOutAvailable,
+      isDisabledEnd,
+      isEnabledStart,
+      isCurrentDay,
       rate,
       (this.opts.allowShorterMinStaySelection ? 1 : minStay),
       (this.opts.allowLongerMaxStaySelection ? 0 : maxStay),

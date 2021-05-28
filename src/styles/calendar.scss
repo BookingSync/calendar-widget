@@ -1,24 +1,34 @@
+@import 'svg-uri';
 @import 'variables';
 @import 'loading';
 @import 'drop';
 
 /********************************************************
 
-				      colors
+    colors
 
 ********************************************************/
 
 .calendar {
+  position: relative;
   font: 1rem/1.4 Helvetica, Arial, sans-serif;
   position: relative;
-  margin: 0 -1rem 3rem;
-  padding-top: 0.5rem;
-  background: $cell-bg;
+  background: $calendar-bg-color;
 
   .caption {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    line-height: 2rem;
     font-weight: 700;
-    margin-bottom: 1.3rem;
-    padding-top: 0.3rem;
+    margin-bottom: 2.3em;
+    padding-top: 0;
     text-align: center;
   }
 
@@ -28,16 +38,16 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    gap: 2em;
   }
 
   .mCell {
-    font-size: 0.875rem;
-    margin: 0 1rem 2rem;
+    font-size: 0.875em;
     -webkit-box-flex: 1;
     -ms-flex: 1 1 25%;
     flex: 1 1 25%;
 
-    @media (max-width: $breakpoint-xs) {
+    @media only screen and (max-width: 990px) {
       -webkit-box-flex: 1;
       -ms-flex: 1 1 100%;
       flex: 1 1 100%;
@@ -45,10 +55,12 @@
   }
 
   .month {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 0.2em;
     padding: 0;
     margin: 0;
     width: 100%;
+    
   }
 
   .tableHeader,
@@ -57,8 +69,7 @@
   }
 
   .th {
-    border-bottom: 1px solid $th-border-bottom;
-    font-size: 0.85rem;
+    font-size: 0.85em;
     color: $th-color;
     height: 25px;
     width: $cell-width;
@@ -69,270 +80,359 @@
     text-align: center;
     padding: 0;
     position: relative;
-    border: 1px solid $cell-border;
+    border: 0;
     vertical-align: middle;
     color: $cell-color;
     background-clip: padding-box;
     overflow: hidden;
     width: $cell-width;
-  }
 
-  .cell:after {
-    content: '';
+    &:first-child {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    &::before,
+    &::after {
+    position: absolute;
+    top: 0;
     display: block;
-    margin-top: 100%;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    content: '';
+    -webkit-transform: skew(-30deg);
+    -ms-transform: skew(-30deg);
+    transform: skew(-30deg);
+    border-radius: 4px;
+    z-index: 0;
+    }
+
+    &::before {
+    left: -55%;
+    }
+
+    &::after {
+    left: 55%;
+    }
+
+    &.today {
+      font-weight: bold;
+    }
   }
 
   .cnt {
-    position: absolute;
-    top: 50%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    line-height: 0;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    z-index: 1;
+    font-size: 1em;
+    font-weight: inherit;
+
+    &::after {
+    content: '';
+    display: block;
+    margin-top: 100%;
+    }
   }
 
-  .infoExtra,
   .info {
     position: absolute;
     bottom: 0;
     left: 0;
-    font-size: 0.6875rem;
+    font-size: 0.65em;
     padding: 1px 3px;
-    text-align: right;
     color: $info-color;
     right: 0;
-  }
 
-  .infoExtra {
-    left: 0;
-    text-align: left;
-    right: auto;
+    > span {
+      display: block;
+      text-align: center;
+    }
   }
 }
 
-.focus {
-  border-color: $highlighted;
+.focus,
+.selected,
+.reversed,
+.direct,
+.selectingReversed,
+.selectingDirect,
+.actionsEnabled,
+.highlighted,
+.invalid {
+  color: inherit;
 }
-
 
 /********************************************************
 
-				  selections, start and ends
-
-				  N.B. Edit at your own risk
-				  one cell can have 10 states and lots of these combinations
-
-				  enabled
-
-				  disabled
-				  morningDisabled
-				  nightDisabled
-
-				  highlighted
-				  morningSelected
-				  nightSelected
-
-				  invalid
-				  morningInvalid
-				  nightInvalid
-
+    selections, start and ends
 
 ********************************************************/
-.calendar .selected {
-  color: inherit;
-  /* selected cell generic styles */
-}
 
-.calendar .reversed {
-  color: inherit;
-  /* selecting reversed (e.g. check-out first) */
-}
-
-.calendar .direct {
-  color: inherit;
-}
-
-.calendar .selectingReversed {
-  color: inherit;
-}
-
-.calendar .selectingDirect {
-  color: inherit;
-}
-
-.calendar .disabled,
-.calendar .disabled:hover {
-  color: $disabled-color;
-  cursor: default;
-  background-color: $disabled-bg;
-}
-
-.calendar .highlighted {
-  border-color: $highlighted-border;
-}
-
-.direct [data-enabled]:hover,
-.calendar .selectedStart {
-  background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);
-  border-top-color: $cell-border;
-  border-left-color: $cell-border;
-}
-
-.selectingDirect .highlighted:hover,
-.calendar .selectedEnd {
-  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
-  border-bottom-color: $cell-border;
-  border-right-color: $cell-border;
-}
-
-.reversed [data-available-out]:hover {
-  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
-}
-
-.selectingReversed .highlighted:hover {
-  background: linear-gradient(to left top, transparent 50%, $cell-bg 50%);
-  border-top-color: $cell-border;
-  border-left-color: $cell-border;
-}
-
-.selectingReversed .selectedEnd,
-.selectingReversed .selectedEnd:hover {
-  background: linear-gradient(to right bottom, transparent 50%, $cell-bg 50%);
-}
-
-.calendar .nightDisabled,
-.calendar .nightDisabled:hover {
-  background: linear-gradient(to right bottom, transparent 50%, $disabled-bg 50%);
-  color: $cell-color;
-}
-
-.calendar .morningDisabled,
-.calendar .morningDisabled:hover {
-  background: linear-gradient(to left top, transparent 50%, $disabled-bg 50%);
-}
-
-.direct [data-enabled]:hover,
-.reversed [data-available-out]:hover,
-.selectingDirect .nightDisabled:hover,
-.selectingReversed .morningDisabled:hover,
-.calendar .selectedStart,
-.calendar .selectedEnd,
-.calendar .highlighted {
-  background-color: $highlighted;
-  cursor: pointer;
-}
-
-.direct {
-
-  [data-enabled]:hover,
-  [data-enabled]:hover .cnt,
-  [data-enabled]:hover .info,
-  [data-enabled]:hover .infoExtra {
-    cursor: pointer;
-  }
-}
-
-.reversed {
-
-  [data-available-out]:hover,
-  [data-available-out]:hover .cnt,
-  [data-available-out]:hover .info,
-  [data-available-out]:hover .infoExtra {
-    cursor: pointer;
-  }
-}
-
-.selectingDirect {
-
-  .nightDisabled:hover,
-  .nightDisabled:hover .cnt,
-  .nightDisabled:hover .info,
-  .nightDisabled:hover .infoExtra {
-    cursor: pointer;
-  }
-}
-
-.selectingReversed {
-
-  .morningDisabled:hover,
-  .morningDisabled:hover .cnt,
-  .morningDisabled:hover .info,
-  .morningDisabled:hover .infoExtra {
-    cursor: pointer;
-  }
-}
-
-.actionsEnabled .invalid:not(.selectedStart) {
-  background: $invalid-bg;
-  color: $invalid-color;
-  border-color: $invalid-border;
-}
-
-.selectingReversed .invalid:hover {
-  background: linear-gradient(to right bottom, transparent 50%, $invalid-bg 50%);
-  border-top-color: $cell-border;
-  border-left-color: $cell-border;
-  color: $cell-color;
-}
-
-.selectingReversed .invalid.selectedEnd,
-.selectingDirect .invalid:hover {
-  background: linear-gradient(to left top, transparent 50%, $invalid-bg 50%);
-  border-bottom-color: $cell-border;
-  border-right-color: $cell-border;
-  color: $cell-color;
-}
-
-.calendar .invalid {
-  background-color: $invalid-bg;
-  border-bottom-color: $invalid-border;
-  border-right-color: $invalid-border;
-}
+// cells disabled
 
 .calendar {
+  .disabledStart {
+    &::after {
+      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+    }
+  }
 
-  .invalid:hover,
-  .invalid:hover .cnt,
-  .invalid:hover .info,
-  .invalid:hover .infoExtra {
-    cursor: default;
+  .disabled {
+    background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  .disabledEnd {
+    &::before {
+      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+    }
+  }
+
+  &.disabledStart,
+  &.disabled,
+  &.disabledEnd {
+    color: var(--bookingsync-calendar-disabled-color, $disabled-color);
   }
 }
 
-.calendar .invalid.disabled:hover {
-  background-color: $disabled-bg;
+// cells highlighted
+
+.calendar {
+  .highlighted {
+    &.selectedStart {
+      &::after {
+        background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+      }
+    }
+  
+    &.selected {
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+  
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  
+    &.selectedEnd {
+      &::before {
+        background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+      }
+    }
+
+    &.selectedStart,
+    &.selected,
+    &.selectedEnd {
+      color: var(--bookingsync-calendar-highlighted-color, $highlighted-color);
+    }
+  }
+}
+
+// cells invalid
+
+.calendar {
+  .invalid {
+    &.selectedStart {
+      &::after {
+        background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+      }
+    }
+  
+    &.selected {
+      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+  
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  
+    &.selectedEnd {
+      &::before {
+        background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+      }
+    }
+
+    &.selectedStart,
+    &.selected,
+    &.selectedEnd {
+      color: var(--bookingsync-calendar-invalid-color, $invalid-color);
+    }
+  }
+}
+
+// cell hover direct
+
+.direct {
+  .cell:not(.highlighted):not(.invalid):hover {
+    &::after {
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+    }
+  }
+
+  .highlighted.selected:hover {
+    background: none;
+
+    &::before,
+    &::after {
+      display: block;
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+    }
+  }
+
+  .highlighted:not(.selectedStart):not(.selectedEnd):hover {
+    &::before {
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+    }
+  }
+  
+  .invalid:hover {
+    &::before {
+      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+    }
+  }
+
+  .invalid.disabled:hover {
+    background: none;
+
+    &::before {
+      display: block;
+      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+    }
+
+    &::after {
+      display: block;
+      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+    }
+  }
+}
+
+// cell hover reversed
+
+.reversed {
+  .cell:not(.highlighted):not(.invalid):hover {
+    &::before {
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+    }
+  }
+
+  .highlighted.selected:hover {
+    background: none;
+
+    &::before,
+    &::after {
+      display: block;
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+    }
+  }
+
+  .highlighted:not(.selectedStart):not(.selectedEnd):hover {
+    &::after {
+      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
+    }
+  }
+  
+  .invalid:hover {
+    &::after {
+      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+    }
+  }
+
+  .invalid.disabled:hover {
+    background: none;
+
+    &::after {
+      display: block;
+      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
+    }
+
+    &::before {
+      display: block;
+      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+    }
+  }
+}
+
+// cell hover cursor
+
+.calendar {
+  .cell:not(.highlighted):not(.invalid):hover {
+    * {
+      cursor: pointer;
+    }
+  }
+
+  .highlighted.selected:hover {
+    * {
+      cursor: pointer;
+    }
+  }
+
+  .highlighted:not(.selectedStart):not(.selectedEnd):hover {
+    * {
+      cursor: pointer;
+    }
+  }
+  
+  .invalid:hover {
+    * {
+      cursor: not-allowed;
+    }
+  }
+
+  .disabled:hover {
+    * {
+      cursor: not-allowed !important;
+    }
+  }
 }
 
 /********************************************************
 
-				     buttons
+    buttons
 
 ********************************************************/
 .calendar {
 
   .forward,
   .back {
-    cursor: pointer;
-    height: 23px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2rem;
     width: 23px;
     fill: $btn-fill;
-    padding: 6px 10px;
+    padding: 0;
     border-radius: 1px;
-    top: .25rem;
-    left: 1rem;
+    cursor: pointer;
     z-index: 2;
-    position: absolute;
 
     svg {
-      height: inherit;
-      width: inherit;
+    height: inherit;
+    width: inherit;
     }
   }
 
   .forward {
-    right: 1rem;
+    right: 0;
     left: auto;
   }
 
@@ -356,40 +456,4 @@
     cursor: default;
     fill: $btn-fill;
   }
-}
-
-/********************************************************
-
-				     mods
-
-********************************************************/
-/* chunky layout */
-.chunky {
-  .cnt {
-    left: 0;
-    top: .8rem;
-    text-align: right;
-    margin-right: .5rem;
-    font-size: 0.6875rem;
-    color: $info-color;
-  }
-
-  .info {
-    top: 39%;
-    text-align: center;
-    font-size: 0.75rem;
-    color: $cell-color;
-  }
-
-  .infoExtra {
-    text-align: center;
-    right: 0;
-    bottom: 3px;
-  }
-}
-
-.chunky .mCell {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 46%;
-  flex: 1 1 46%;
 }

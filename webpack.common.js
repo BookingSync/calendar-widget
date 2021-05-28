@@ -34,7 +34,7 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: '[name]__[local]'
+                localIdentName: 'BookingSyncCalendarWidget__[local]'
               }
             }
           },
@@ -60,7 +60,7 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: 'bookingsyncWidgetUtils__[local]'
+                localIdentName: 'BookingSyncWidgetUtils__[local]'
               }
             }
           },

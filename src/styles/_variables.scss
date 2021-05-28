@@ -1,25 +1,37 @@
-$breakpoint-xs: 767px;
+$icon-spinner-svg:      svg-uri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 30.97'><path d='M32,15.48a16.52,16.52,0,0,1-1.37,6.28,16.35,16.35,0,0,1-9,8.63,15.87,15.87,0,0,1-17.3-3.78A15.43,15.43,0,0,1,4.72,4.72,15,15,0,0,1,15.49.52a14.76,14.76,0,0,1,10.4,4.56A14.77,14.77,0,0,1,29,9.9a14.45,14.45,0,0,1,.85,3.35h.13A2.06,2.06,0,0,1,32,15.31a.91.91,0,0,1,0,.17ZM28.72,10a14.27,14.27,0,0,0-3.2-4.55,14,14,0,0,0-10-3.9A13.72,13.72,0,0,0,3,10.3a13.43,13.43,0,0,0,.24,10.27,13.05,13.05,0,0,0,12.28,7.82,12.92,12.92,0,0,0,4.88-1.1,12.65,12.65,0,0,0,4.06-2.87,12.48,12.48,0,0,0,2.62-4.15,12.24,12.24,0,0,0,.82-4.79h0a.91.91,0,0,1,0-.17,2.07,2.07,0,0,1,1.84-2.05,14.27,14.27,0,0,0-1-3.26Z' transform='translate(0 -0.51)'/></svg>");
 
-$highlighted: #8acdf6;
-$highlighted-border: #bde3ff;
+$breakpoint-xs:         900px;
 
-$disabled-bg: #f0f0f0;
-$disabled-color: #bfbfbf;
+$transition:            all 0.25s ease-in-out;
 
-$cell-border: #dedfe2;
-$cell-color: #444444;
-$cell-bg: #ffffff;
-$cell-width: 30px;
+// calendar
 
-$info-color: rgba(60, 60, 60, 0.5);
+$calendar-bg-color:     #fff;
 
-$th-border-bottom: #cbcbcb;
-$th-color: #aaaaaa;
+// calendar cells
 
-$invalid-border: #cacaca;
-$invalid-color: #ffffff;
-$invalid-bg: #c0c0c0;
+$cell-width:            30px;
 
-$btn-fill: $cell-color;
-$btn-border: $th-border-bottom;
-$btn-fill-hover: #3895d9;
+$cell-color:            #444444;
+
+$disabled-bg-color:     #f0f0f0;
+$disabled-color:        #bfbfbf;
+
+$highlighted-bg-color:  lighten(#5784F5, 20%);
+$highlighted-color:     darken($cell-color, 5%);
+
+$invalid-bg-color:      darken($disabled-bg-color,  5%);
+$invalid-color:         darken($disabled-color, 5%);
+
+// calendar table
+
+$info-color:            rgba(60, 60, 60, 0.5);
+
+$th-border-bottom:      #cbcbcb;
+$th-color:              #aaaaaa;
+
+// form
+
+$btn-fill:              $cell-color;
+$btn-border:            $th-border-bottom;
+$btn-fill-hover:        #3895d9;

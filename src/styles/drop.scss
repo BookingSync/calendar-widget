@@ -1,3 +1,9 @@
+/********************************************************
+
+    dropdown
+
+********************************************************/
+
 .calendar.dropBasic {
   position: absolute;
   display: none;
@@ -6,7 +12,7 @@
   border: 1px solid #e0e0e0;
   background: #fff;
   margin: 0;
-  padding-top: .5rem;
+  padding: 1em;
   font-family: inherit;
   line-height: 1.5em;
   z-index: 10;
@@ -15,7 +21,18 @@
     display: block;
   }
 
-  .mCell {
-    margin-bottom: 1rem;
+  .caption {
+    margin-bottom: .7em;
+  }
+
+  .forward,
+  .back {
+    top: 1em;
+    left: 1em;
+  }
+
+  .forward {
+    left: auto;
+    right: 1em;
   }
 }
