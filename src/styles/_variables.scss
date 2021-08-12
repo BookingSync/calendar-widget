@@ -2,7 +2,12 @@ $icon-spinner-svg:      svg-uri("<svg xmlns='http://www.w3.org/2000/svg' viewBox
 
 $breakpoint-xs:         900px;
 
-$transition:            all 0.25s ease-in-out;
+$transition:            opacity 0.25s ease-in-out;
+
+// tooltip
+
+$tooltip-bg-color:      var(--bookingsync-calendar-tooltip-bg-color, #333);
+$tooltip-color:         var(--bookingsync-calendar-tooltip-color, #fff);
 
 // calendar
 
@@ -14,14 +19,14 @@ $cell-width:            30px;
 
 $cell-color:            #444444;
 
-$disabled-bg-color:     #f0f0f0;
-$disabled-color:        #bfbfbf;
+$disabled-bg-color:     var(--bookingsync-calendar-disabled-bg-color, #f0f0f0);
+$disabled-color:        var(--bookingsync-calendar-disabled-color, #bfbfbf);
 
-$highlighted-bg-color:  lighten(#5784F5, 20%);
-$highlighted-color:     darken($cell-color, 5%);
+$highlighted-bg-color:  var(--bookingsync-calendar-highlighted-bg-color, lighten(#5784F5, 20%));
+$highlighted-color:     var(--bookingsync-calendar-highlighted-color, darken($cell-color, 5%));
 
-$invalid-bg-color:      darken($disabled-bg-color,  5%);
-$invalid-color:         darken($disabled-color, 5%);
+$invalid-bg-color:      var(--bookingsync-calendar-invalid-bg-color, darken(#f0f0f0,  5%));
+$invalid-color:         var(--bookingsync-calendar-invalid-color, darken(#bfbfbf, 5%));
 
 // calendar table
 

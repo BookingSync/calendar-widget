@@ -103,6 +103,9 @@ export default class Calendar extends Emitter {
       this.loadMaps(this.opts.rentalId);
     }
 
+    this.el.dataset.selectable = this.opts.selectable;
+    this.el.dataset.invalidRangeSelectable = this.opts.invalidRangeSelectable;
+
     this.logger('inited');
     this.emit('init');
   }
@@ -235,14 +238,18 @@ export default class Calendar extends Emitter {
       };
 
       // cancel selection if day is invalid
-      if (weekDayEl && hasClass(weekDayEl, styles.invalid)) {
+      if (!this.opts.invalidRangeSelectable && weekDayEl && weekDayEl.dataset.invalid) {
         document.removeEventListener('keyup', resetSelectionOnEscape, true);
         this.resetSelection();
       }
 
       document.addEventListener('keyup', resetSelectionOnEscape, true);
 
-      if (this.isSelecting) {
+      if (this.opts.invalidRangeSelectable) {
+        ({
+          value, parent: cell
+        } = traverseToParentWithAttr(e.target, 'data-value'));
+      } else if (this.isSelecting) {
         ({
           value, parent: cell
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
@@ -263,8 +270,16 @@ export default class Calendar extends Emitter {
 
         if (isEndFirst) {
           this.endDateFirstAction(dateValue, cell);
+
+          if (this.isSelecting) {
+            cell.dataset.highlighted = 'right';
+          }
         } else {
           this.startDateFirstAction(dateValue, cell);
+
+          if (this.isSelecting) {
+            cell.dataset.highlighted = 'left';
+          }
         }
 
         if (this.selectionEnd && this.selectionStart) {
@@ -310,7 +325,7 @@ export default class Calendar extends Emitter {
 
   startDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(this.selectionStart, dateValue)) {
-      if (!this.hasValidRange) {
+      if (!this.hasValidRange && !this.opts.invalidRangeSelectable) {
         return;
       }
       this.selectEndAction(dateValue, cell);
@@ -331,7 +346,7 @@ export default class Calendar extends Emitter {
 
   endDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
-      if (!this.hasValidRange) {
+      if (!this.hasValidRange && !this.opts.invalidRangeSelectable) {
         return;
       }
       this.selectStartAction(dateValue, cell);
@@ -371,7 +386,18 @@ export default class Calendar extends Emitter {
   removeHighlight() {
     if (this.highlightedBounds.length > 0) {
       const { range } = this.selectRange(...this.highlightedBounds);
-      range.map((a) => removeClass(a, styles.highlighted, styles.invalid));
+      range.map((cell) => {
+        delete cell.dataset.highlighted;
+        delete cell.dataset.invalid;
+      });
+
+      if (is(this.tooltipPopper)) {
+        this.tooltipPopper.destroy();
+      }
+
+      if (is(this.dom.tooltip)) {
+        destroyElement(this.dom.tooltip);
+      }
 
       this.hasValidRange     = true;
       this.highlightedBounds = [];
@@ -379,8 +405,8 @@ export default class Calendar extends Emitter {
   }
 
   highLightRange(start, end) {
+    let invalidRangeMessage;
     const { range, isValid } = this.selectRange(start, end);
-    let hasValidRange        = this.opts.rentalId ? isValid : true;
     const minStay            = this.opts.rentalId ? (this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
     let maxStay              = this.opts.rentalId ? (this.opts.allowLongerMaxStaySelection ? 1 : this.cTree.getDayProperty(...start, 'maxStay')) : this.opts.maxStay;
 
@@ -388,23 +414,72 @@ export default class Calendar extends Emitter {
 
     if (isArray(range)) {
       // check that range is valid and longer than minStay and shorter than maxStay
-      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay && range.length < maxStay;
+      const hasValidDays    = this.opts.rentalId ? isValid : true;
+      const hasValidMinStay = range.length > minStay;
+      const hasValidMaxStay = range.length < maxStay;
 
-      range.map((a, index) => {
-        removeClass(a, styles.selected);
-        if (index !== 0 && index + 1 !== range.length) {
-          addClass(a, styles.selected);
+      this.hasValidRange = hasValidDays && hasValidMinStay && hasValidMaxStay;
+
+      if (!hasValidMinStay) {
+        invalidRangeMessage = tFormatter(minStay, this.locale.hasInvalidMinStay);
+      }
+
+      if (!hasValidMaxStay) {
+        invalidRangeMessage = tFormatter(maxStay, this.locale.hasInvalidMaxStay);
+      }
+
+      if (!hasValidDays) {
+        invalidRangeMessage = this.locale.hasInvalidDays;
+      }
+
+      range.map((cell, index) => {
+        const left = index === 0;
+        const right = index + 1 === range.length;
+
+        if (this.hasValidRange) {
+          if (left) {
+            cell.dataset.highlighted = 'left';
+          } else if (right) {
+            cell.dataset.highlighted = 'right';
+          } else {
+            cell.dataset.highlighted = 'center';
+          }
+        } else {
+          if (left) {
+            cell.dataset.invalid = 'left';
+          } else if (right) {
+            cell.dataset.invalid = 'right';
+          } else {
+            cell.dataset.invalid = 'center';
+          }
         }
 
-        removeClass(a, styles.highlighted, styles.invalid);
-        addClass(a, hasValidRange ? styles.highlighted : styles.invalid);
-        return a;
+        const tooltipPosition = (this.isReverseSelectable) ? left : right;
+
+        if (tooltipPosition && !this.hasValidRange) {
+          this.dom.tooltip = this.el.appendChild(elementFromString(tpls.tooltip));
+          this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
+
+          this.tooltipPopper = new Popper(cell, this.dom.tooltip, {
+            placement: 'top',
+            modifiers: {
+              flip: {
+                enabled: false
+              },
+              offset: {
+                offset: '0, 0'
+              }
+            }
+          });
+        }
+
+        return cell;
       });
 
       this.highlightedBounds = [start, end];
     }
 
-    return hasValidRange;
+    return this.hasValidRange;
   }
 
   /** Resets selection, removes highlights
@@ -424,12 +499,10 @@ export default class Calendar extends Emitter {
     this.selectionEnd   = null;
 
     if (this.cellA) {
-      removeClass(this.cellA, styles.selectedStart);
       this.cellA = null;
     }
 
     if (this.cellB) {
-      removeClass(this.cellB, styles.selectedEnd);
       this.cellB = null;
     }
 
@@ -458,12 +531,7 @@ export default class Calendar extends Emitter {
   selectStart(dateValue, cell) {
     this.selectionStart = dateValue;
 
-    if (this.cellA) {
-      removeClass(this.cellA, styles.selectedStart);
-    }
-
     if (cell) {
-      addClass(cell, styles.selectedStart);
       this.cellA = cell;
     }
 
@@ -473,12 +541,7 @@ export default class Calendar extends Emitter {
   selectEnd(dateValue, cell) {
     this.selectionEnd = dateValue;
 
-    if (this.cellB) {
-      removeClass(this.cellB, styles.selectedEnd);
-    }
-
     if (cell) {
-      addClass(cell, styles.selectedEnd);
       this.cellB = cell;
     }
 
@@ -599,8 +662,6 @@ export default class Calendar extends Emitter {
   dayTplString(year, month, dayOfMonth) {
     const { cTree }   = this;
     const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
-    const minStay     = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
-    const maxStay     = this.opts.showMaxStay ? cTree.getDayProperty(year, month, dayOfMonth, 'maxStay') : 0;
 
     let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
     let isEnabledStart  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
@@ -631,18 +692,21 @@ export default class Calendar extends Emitter {
       isDisabledEnd   = false;
     }
 
+    if (isDisabled && isEnabledStart) {
+      isDisabled = 'left';
+    } else if (isDisabledEnd) {
+      isDisabled = 'right';
+    } else if (isDisabled) {
+      isDisabled = 'center';
+    }
+
     return tpls.weekDay(
       dayOfMonth,
       isDisabled,
-      isDisabledEnd,
       isEnabledStart,
       isCurrentDay,
       rate,
-      (this.opts.allowShorterMinStaySelection ? 1 : minStay),
-      (this.opts.allowLongerMaxStaySelection ? 0 : maxStay),
-      currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay),
-      tFormatter(maxStay, this.locale.maxStay)
+      currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency)
     );
   }
 

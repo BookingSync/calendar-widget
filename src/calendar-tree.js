@@ -137,7 +137,8 @@ export default class CalendarTree {
     let isValid        = true;
 
     if (typeof validateCell === 'function') {
-      isValid = range.filter((a, i) => this.validateCell(a, i, range)).length === 0;
+      const filterValids = range.filter((cell) => this.validateCell(cell));
+      isValid = filterValids.length == range.length;
     }
 
     return isValid;

@@ -7,7 +7,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'GBP',
     minStay: '%number+ nights',
+    hasInvalidMinStay: 'minimum stay: %number nights',
     maxStay: '%number- nights',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'booked already',
     startOfWeek: 0
   },
   'en-US': {
@@ -18,7 +21,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'USD',
     minStay: '%number+ nights',
+    hasInvalidMinStay: 'minimum stay: %number nights',
     maxStay: '%number- nights',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'booked already',
     startOfWeek: 1
   },
   'de-DE': {
@@ -29,7 +35,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ nächte',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- nächte',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'es-ES': {
@@ -40,7 +49,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ noches',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- noches',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'fr-FR': {
@@ -51,7 +63,10 @@ let locales = {
     formatDate: '%d %b, %Y',
     currency: 'EUR',
     minStay: '%number+ nuits',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- nuits',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'it-IT': {
@@ -62,7 +77,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ notti.',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- notti',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'sv-SE': {
@@ -73,7 +91,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ nätter',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- nätter',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'ru-RU': {
@@ -84,7 +105,10 @@ let locales = {
     formatDate: '%d.%b.%Y',
     currency: 'Руб.',
     minStay: '%number+ ноч.',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- ноч.',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'pl-PL': {
@@ -95,7 +119,10 @@ let locales = {
     formatDate: '%d.%b.%Y',
     currency: 'PLN',
     minStay: '%number+ noce',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- noce',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   },
   'nl-NL': {
@@ -106,7 +133,10 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'EUR',
     minStay: '%number+ nights',
+    hasInvalidMinStay: '%number hasInvalidMinStay',
     maxStay: '%number- nights',
+    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
   }
 };

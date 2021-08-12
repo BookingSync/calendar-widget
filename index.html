@@ -10,6 +10,13 @@
       --bookingsync-calendar-highlighted-bg-color: var(--orange);
       --bookingsync-calendar-invalid-bg-color:     var(--gray-dark);
       --bookingsync-calendar-disabled-bg-color:    var(--gray);
+
+      --bookingsync-calendar-tooltip-bg-color:     #fff;
+      --bookingsync-calendar-tooltip-color:        #000;
+    }
+
+    #calendarWithVar .BookingSyncCalendarWidget__tooltip {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
@@ -91,7 +98,24 @@
       <div id="calendarWithVar" class="card-text">
         <div data-bookingsync-calendar-widget
              data-selectable="true"
-             data-display-months="12"
+             data-display-months="3"
+             data-show-rates="true"
+             data-show-min-stay="true"
+             data-lang="en"
+             data-rental-id="835">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <h5 class="card-title">835 Rental - Invalid range unselectable</h5>
+      <div class="card-text">
+        <div data-bookingsync-calendar-widget
+            data-invalid-range-selectable
+             data-selectable="true"
+             data-display-months="3"
              data-show-rates="true"
              data-show-min-stay="true"
              data-lang="en"
@@ -107,7 +131,7 @@
       <div class="card-text">
         <div data-bookingsync-calendar-widget
              data-selectable="true"
-             data-display-months="2"
+             data-display-months="3"
              data-show-rates="true"
              data-show-min-stay="true"
              data-lang="en"
