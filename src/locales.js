@@ -6,9 +6,7 @@ let locales = {
     shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'GBP',
-    minStay: '%number+ nights',
     hasInvalidMinStay: 'minimum stay: %number nights',
-    maxStay: '%number- nights',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'booked already',
     startOfWeek: 0
@@ -20,9 +18,7 @@ let locales = {
     shortMonthNames: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'USD',
-    minStay: '%number+ nights',
     hasInvalidMinStay: 'minimum stay: %number nights',
-    maxStay: '%number- nights',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'booked already',
     startOfWeek: 1
@@ -34,9 +30,7 @@ let locales = {
     shortMonthNames: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ nächte',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- nächte',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -48,9 +42,7 @@ let locales = {
     shortMonthNames: 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ noches',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- noches',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -62,9 +54,7 @@ let locales = {
     shortMonthNames: 'jan_fév_mar_avr_mai_juin_juil_aoû_sep_oct_nov_déc'.split('_'),
     formatDate: '%d %b, %Y',
     currency: 'EUR',
-    minStay: '%number+ nuits',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- nuits',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -76,9 +66,7 @@ let locales = {
     shortMonthNames: 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ notti.',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- notti',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -90,9 +78,7 @@ let locales = {
     shortMonthNames: 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ nätter',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- nätter',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -104,9 +90,7 @@ let locales = {
     shortMonthNames: 'Янв_Фев_Мар_Апр_Май_Июн_Июл_Авг_Сен_Окт_Ноя_Дек'.split('_'),
     formatDate: '%d.%b.%Y',
     currency: 'Руб.',
-    minStay: '%number+ ноч.',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- ноч.',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -118,9 +102,7 @@ let locales = {
     shortMonthNames: 'sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru'.split('_'),
     formatDate: '%d.%b.%Y',
     currency: 'PLN',
-    minStay: '%number+ noce',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- noce',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1
@@ -132,9 +114,7 @@ let locales = {
     shortMonthNames: 'Jan_Feb_Maa_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    minStay: '%number+ nights',
     hasInvalidMinStay: '%number hasInvalidMinStay',
-    maxStay: '%number- nights',
     hasInvalidMaxStay: '%number hasInvalidMaxStay',
     hasInvalidDays: 'hasInvalidDays',
     startOfWeek: 1

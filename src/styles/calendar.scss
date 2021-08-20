@@ -346,9 +346,9 @@
   cell hover direct
 /*******************************************************/
 
-.direct:not(.selectingDirect) {
+.direct {
   // cell hovered when selecting left to right
-  .cell:hover {
+  [data-hovered] {
     background: none;
 
     &::before {
@@ -359,44 +359,18 @@
       display: block;
       background: $highlighted-bg-color;
     }
-
-    & + .cell {
-      background: none;
-
-      &::before {
-        display: block;
-        background: $highlighted-bg-color;
-      }
-
-      &::after {
-        display: block;
-      }
-    }
   }
-}
 
-.direct {
-  // cell clicked when selecting left to right
-  .cell[data-highlighted="left"] {
-    &:hover {
-      background: none;
-  
-      &::before {
-        display: block;
-      }
+  [data-hovered-offset] {
+    background: none;
 
-      & + .cell {
-        background: none;
-    
-        &::before {
-          display: block;
-          background: $highlighted-bg-color;
-        }
-    
-        &::after {
-          display: block;
-        }
-      }
+    &::before {
+      display: block;
+      background: $highlighted-bg-color;
+    }
+
+    &::after {
+      display: block;
     }
   }
 }
@@ -407,7 +381,7 @@
 
 .reversed {
   // when selecting right to left
-  .cell:not([data-highlighted="left"]):not([data-invalid="left"]):hover {
+  [data-hovered] {
     background: none;
 
     &::before {
@@ -417,6 +391,19 @@
 
     &::after {
       display: block;
+    }
+  }
+
+  [data-hovered-offset] {
+    background: none;
+
+    &::before {
+      display: block;
+    }
+
+    &::after {
+      display: block;
+      background: $highlighted-bg-color;
     }
   }
 }

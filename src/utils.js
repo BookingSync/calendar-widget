@@ -41,7 +41,7 @@ export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...
 
 export const isCurrent = (start, end) => dateToIso(...start, true) == dateToIso(...end, true);
 
-export const validationOfRange = (cell) => {
+export const validationOfCell = (cell) => {
   const isAvailableOut = is(cell.dataset.availableOut);
 
   if (isAvailableOut) {

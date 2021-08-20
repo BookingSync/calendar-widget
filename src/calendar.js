@@ -15,7 +15,7 @@ import locales from './locales';
 import { strftime } from 'strtime';
 
 import {
-  dateToIso, isLater, isCurrent, validationOfRange, tFormatter, dateToArray
+  dateToIso, isLater, isCurrent, validationOfCell, tFormatter, dateToArray
 } from './utils';
 
 import styles from './styles/calendar.scss';
@@ -61,7 +61,7 @@ export default class Calendar extends Emitter {
     }
 
     this.dom   = {};
-    this.cTree = new CalendarTree(validationOfRange, {});
+    this.cTree = new CalendarTree(validationOfCell, {});
 
     if (isObject(maps)) {
       this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);
@@ -223,7 +223,6 @@ export default class Calendar extends Emitter {
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
       const isEndFirst = this.isReverseSelectable;
-      const weekDayEl  = traverseToParentWithAttr(e.target, 'data-value').parent;
       let value, cell;
 
       const resetSelectionOnEscape = (event) => {
@@ -237,19 +236,9 @@ export default class Calendar extends Emitter {
         }
       };
 
-      // cancel selection if day is invalid
-      if (!this.opts.invalidRangeSelectable && weekDayEl && weekDayEl.dataset.invalid) {
-        document.removeEventListener('keyup', resetSelectionOnEscape, true);
-        this.resetSelection();
-      }
-
       document.addEventListener('keyup', resetSelectionOnEscape, true);
 
-      if (this.opts.invalidRangeSelectable) {
-        ({
-          value, parent: cell
-        } = traverseToParentWithAttr(e.target, 'data-value'));
-      } else if (this.isSelecting) {
+      if (this.isSelecting) {
         ({
           value, parent: cell
         } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
@@ -261,25 +250,23 @@ export default class Calendar extends Emitter {
 
       if (is(value) && cell) {
         const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const dayAlreadySelected = this.isSelecting && isCurrent((isEndFirst) ? this.selectionEnd : this.selectionStart, dateValue);
+        const rangeSelected = !this.isSelecting && this.selectionEnd && this.selectionStart;
 
-        // for simplicity just reset selection when user interacts again
-        if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+        if (dayAlreadySelected || rangeSelected) {
           document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
-        if (isEndFirst) {
-          this.endDateFirstAction(dateValue, cell);
-
-          if (this.isSelecting) {
-            cell.dataset.highlighted = 'right';
+        if (!dayAlreadySelected) {
+          if (isEndFirst) {
+            this.endDateFirstAction(dateValue, cell);
+          } else {
+            this.startDateFirstAction(dateValue, cell);
           }
         } else {
-          this.startDateFirstAction(dateValue, cell);
-
-          if (this.isSelecting) {
-            cell.dataset.highlighted = 'left';
-          }
+          removeClass(this.el, styles.selectingDirect, styles.selectingReversed);
+          delete cell.dataset.highlighted;
         }
 
         if (this.selectionEnd && this.selectionStart) {
@@ -296,21 +283,90 @@ export default class Calendar extends Emitter {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
       if (is(value) && cell) {
-        const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const current    = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const isEndFirst = this.isReverseSelectable;
 
         if (this.isSelecting) {
           this.removeHighlight();
 
-          if (this.isReverseSelectable && this.selectionEnd) {
+          const cells = this.el.querySelectorAll('[data-value]');
+          cells.forEach((el) => {
+            delete el.dataset.hovered;
+            delete el.dataset.hoveredOffset;
+          });
+
+          // reverse selection direction
+          if (isEndFirst && this.selectionEnd && !isCurrent(current, this.selectionEnd)) {
+            if (isLater(this.selectionEnd, current)) {
+              const cellA = this.cellB;
+              const { selectionEnd } = this;
+
+              this.changeHighlightDirection(false, selectionEnd);
+              this.startDateFirstAction(this.selectionEnd, cellA);
+            }
+          } else if (!isEndFirst && this.selectionStart && !isCurrent(current, this.selectionStart)) {
+            if (isLater(current, this.selectionStart)) {
+              const cellB = this.cellA;
+              const { selectionStart } = this;
+
+              this.changeHighlightDirection(true, selectionStart);
+              this.endDateFirstAction(this.selectionStart, cellB);
+            }
+          }
+
+          if (this.isReverseSelectable) {
             this.highLightRange(current, this.selectionEnd);
           } else {
             this.highLightRange(this.selectionStart, current);
           }
+        } else {
+          this.changeHighlightDirection(this.opts.isReverseSelectable);
+
+          const isDisabledLeft   = cell.dataset.disabled === 'left';
+          const isDisabledCenter = cell.dataset.disabled === 'center';
+          const isDisabledRight  = cell.dataset.disabled === 'right';
+          const today            = this.opts.currDate;
+          const todayDateArray   = [today.getUTCFullYear(), today.getUTCMonth(), today.getDate()];
+          const isPastDate       = isLater(current, todayDateArray);
+
+          let isInvalid = '';
+
+          if (isEndFirst && isDisabledRight || isDisabledCenter || !isEndFirst && isDisabledLeft) {
+            if (!this.opts.invalidRangeSelectable || isPastDate) {
+              return;
+            } else {
+              isInvalid = 'invalid';
+            }
+          }
+
+          const cells = this.el.querySelectorAll('[data-value]');
+          let offsetCell;
+
+          cells.forEach((el, index) => {
+            delete el.dataset.hovered;
+            delete el.dataset.hoveredOffset;
+
+            if (el === cell) {
+              offsetCell = (isEndFirst) ? cells[index - 1] : cells[index + 1];
+            }
+          });
+
+          if (is(offsetCell)) {
+            offsetCell.dataset.hoveredOffset = '';
+          }
+
+          cell.dataset.hovered = isInvalid;
         }
       }
     });
 
     el.body.addEventListener('mouseout', (e) => {
+      const cells = this.el.querySelectorAll('[data-value]');
+      cells.forEach((el) => {
+        delete el.dataset.hovered;
+        delete el.dataset.hoveredOffset;
+      });
+
       /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
       // simulate 'mouseleave'
       if (!e.relatedTarget
@@ -323,11 +379,29 @@ export default class Calendar extends Emitter {
     });
   }
 
+  changeHighlightDirection(isReverse, dateArray = null) {
+    if (dateArray) {
+      this.resetSelection();
+    }
+
+    this.isReverseSelectable = isReverse;
+
+    if (isReverse) {
+      this.selectionStart = dateArray;
+      this.selectionEnd = null;
+    } else {
+      this.selectionStart = null;
+      this.selectionEnd = dateArray;
+    }
+
+    if (this.opts.selectable) {
+      addClass(this.el, isReverse ? styles.reversed : styles.direct);
+      removeClass(this.el, isReverse ? styles.direct : styles.reversed);
+    }
+  }
+
   startDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(this.selectionStart, dateValue)) {
-      if (!this.hasValidRange && !this.opts.invalidRangeSelectable) {
-        return;
-      }
       this.selectEndAction(dateValue, cell);
 
       const fn = () => {
@@ -338,17 +412,16 @@ export default class Calendar extends Emitter {
       cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
+      this.removeHighlight();
       addClass(this.el, styles.selectingDirect);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
+      cell.dataset.highlighted = 'left';
     }
   }
 
   endDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
-      if (!this.hasValidRange && !this.opts.invalidRangeSelectable) {
-        return;
-      }
       this.selectStartAction(dateValue, cell);
 
       const fn = () => {
@@ -359,27 +432,33 @@ export default class Calendar extends Emitter {
       cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
+      this.removeHighlight();
       addClass(this.el, styles.selectingReversed);
       this.isSelecting = true;
       this.selectEndAction(dateValue, cell);
+      cell.dataset.highlighted = 'right';
     }
   }
 
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
-    this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
-    if (isFunction(this.opts.onSelectStart)) {
-      this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
+    if (this.hasValidRange && this.opts.invalidRangeSelectable) {
+      this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
+      if (isFunction(this.opts.onSelectStart)) {
+        this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
+      }
     }
   }
 
   selectEndAction(dateValue, cell) {
     this.selectEnd(dateValue, cell);
     this.switchInputFocus('start');
-    this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
-    if (isFunction(this.opts.onSelectEnd)) {
-      this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
+    if (this.hasValidRange && this.opts.invalidRangeSelectable) {
+      this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
+      if (isFunction(this.opts.onSelectEnd)) {
+        this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
+      }
     }
   }
 
@@ -713,6 +792,10 @@ export default class Calendar extends Emitter {
   destroyMonths() {
     if (this.dom && isArray(this.dom.months)) {
       this.dom.months.map((m) => destroyElement(m));
+
+      if (this.dom.tooltip) {
+        destroyElement(this.dom.tooltip);
+      }
     }
   }
 
