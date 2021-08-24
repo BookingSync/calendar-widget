@@ -7,7 +7,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'GBP',
     hasInvalidMinStay: 'minimum stay: %number nights',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidMaxStay: 'maximum stay: %number nights',
     hasInvalidDays: 'booked already',
     startOfWeek: 0
   },
@@ -19,7 +19,7 @@ let locales = {
     formatDate: '%b %d, %Y',
     currency: 'USD',
     hasInvalidMinStay: 'minimum stay: %number nights',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
+    hasInvalidMaxStay: 'maximum stay: %number nights',
     hasInvalidDays: 'booked already',
     startOfWeek: 1
   },
@@ -30,9 +30,9 @@ let locales = {
     shortMonthNames: 'Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'mindestaufenthalt: %number Nächte',
+    hasInvalidMaxStay: 'maximaler Aufenthalt: %number Nächte',
+    hasInvalidDays: 'schon gebucht',
     startOfWeek: 1
   },
   'es-ES': {
@@ -42,9 +42,9 @@ let locales = {
     shortMonthNames: 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'estancia mínima: %number noches',
+    hasInvalidMaxStay: 'estancia máxima: %number noches',
+    hasInvalidDays: 'ya reservado',
     startOfWeek: 1
   },
   'fr-FR': {
@@ -54,9 +54,9 @@ let locales = {
     shortMonthNames: 'jan_fév_mar_avr_mai_juin_juil_aoû_sep_oct_nov_déc'.split('_'),
     formatDate: '%d %b, %Y',
     currency: 'EUR',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'séjour minimum : %number nuits',
+    hasInvalidMaxStay: 'séjour maximum : %number nuits',
+    hasInvalidDays: 'déjà réservé',
     startOfWeek: 1
   },
   'it-IT': {
@@ -66,9 +66,9 @@ let locales = {
     shortMonthNames: 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'soggiorno minim: %number notti',
+    hasInvalidMaxStay: 'soggiorno massimo: %number notti',
+    hasInvalidDays: 'già prenotato',
     startOfWeek: 1
   },
   'sv-SE': {
@@ -78,9 +78,9 @@ let locales = {
     shortMonthNames: 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'kortaste vistelse: %number nätter',
+    hasInvalidMaxStay: 'maximálny pobyt: %number nätter',
+    hasInvalidDays: 'redan bokat',
     startOfWeek: 1
   },
   'ru-RU': {
@@ -90,9 +90,9 @@ let locales = {
     shortMonthNames: 'Янв_Фев_Мар_Апр_Май_Июн_Июл_Авг_Сен_Окт_Ноя_Дек'.split('_'),
     formatDate: '%d.%b.%Y',
     currency: 'Руб.',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'минимальное пребывани: %number ночи',
+    hasInvalidMaxStay: 'максимальное пребывание: %number ночи',
+    hasInvalidDays: 'забронировано уже',
     startOfWeek: 1
   },
   'pl-PL': {
@@ -102,9 +102,9 @@ let locales = {
     shortMonthNames: 'sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru'.split('_'),
     formatDate: '%d.%b.%Y',
     currency: 'PLN',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'minimalny poby: %number noce',
+    hasInvalidMaxStay: 'maksymalny pobyt: %number noce',
+    hasInvalidDays: 'już zarezerwowane',
     startOfWeek: 1
   },
   'nl-NL': {
@@ -114,9 +114,9 @@ let locales = {
     shortMonthNames: 'Jan_Feb_Maa_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Dec'.split('_'),
     formatDate: '%b %d, %Y',
     currency: 'EUR',
-    hasInvalidMinStay: '%number hasInvalidMinStay',
-    hasInvalidMaxStay: '%number hasInvalidMaxStay',
-    hasInvalidDays: 'hasInvalidDays',
+    hasInvalidMinStay: 'minimaal verblijf: %number nachten',
+    hasInvalidMaxStay: 'maximaal verblijf: %number nachten',
+    hasInvalidDays: 'al geboekt',
     startOfWeek: 1
   }
 };
