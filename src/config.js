@@ -27,7 +27,6 @@ export default {
   daysPerWeek: 7, // FIXME support calendar rendering
   displayMonths: 2,
   selectable: false,
-  invalidRangeSelectable: true,
   showRates: false,
   showMinStay: false,
   showMaxStay: false,

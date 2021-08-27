@@ -417,16 +417,6 @@
   &[data-selectable="true"] .cell * {
     cursor: pointer;
   }
-
-  // cusrsoir not-allowed if invalid range unselectable
-  &:not([data-invalid-range-selectable="true"]) {
-    [data-disabled]:not([data-available-out=""]):hover,
-    [data-invalid]:hover {
-      * {
-        cursor: not-allowed !important;
-      }
-    }
-  }
 }
 
 /********************************************************

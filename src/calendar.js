@@ -104,7 +104,6 @@ export default class Calendar extends Emitter {
     }
 
     this.el.dataset.selectable = this.opts.selectable;
-    this.el.dataset.invalidRangeSelectable = this.opts.invalidRangeSelectable;
 
     this.logger('inited');
     this.emit('init');
@@ -132,8 +131,6 @@ export default class Calendar extends Emitter {
     this.monthEnd = monthEnd;
     this.yearEnd  = yearEnd;
 
-    this.recoverSelections();
-
     if (this.opts.selectable) {
       addClass(this.el, this.isReverseSelectable ? styles.reversed : styles.direct);
       removeClass(this.el, this.isReverseSelectable ? styles.direct : styles.reversed);
@@ -151,6 +148,8 @@ export default class Calendar extends Emitter {
     if (!this.opts.enableAllDays) {
       this.disableBackBtn();
     }
+
+    this.recoverSelections();
   }
 
   recoverSelections() {
@@ -223,7 +222,10 @@ export default class Calendar extends Emitter {
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
       const isEndFirst = this.isReverseSelectable;
-      let value, cell;
+      const {
+        value,
+        parent: cell
+      } = traverseToParentWithAttr(e.target, 'data-value');
 
       const resetSelectionOnEscape = (event) => {
         const key = event.key || event.keyCode;
@@ -238,27 +240,20 @@ export default class Calendar extends Emitter {
 
       document.addEventListener('keyup', resetSelectionOnEscape, true);
 
-      if (this.isSelecting) {
-        ({
-          value, parent: cell
-        } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
-      } else {
-        ({
-          value, parent: cell
-        } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
-      }
-
       if (is(value) && cell) {
-        const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const dateValue          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
         const dayAlreadySelected = this.isSelecting && isCurrent((isEndFirst) ? this.selectionEnd : this.selectionStart, dateValue);
-        const rangeSelected = !this.isSelecting && this.selectionEnd && this.selectionStart;
+        const rangeSelected      = !this.isSelecting && this.selectionEnd && this.selectionStart;
+        const today              = this.opts.currDate;
+        const todayDateArray     = [today.getUTCFullYear(), today.getUTCMonth(), today.getDate()];
+        const isPastToday        = isLater(dateValue, todayDateArray);
 
-        if (dayAlreadySelected || rangeSelected) {
+        if (dayAlreadySelected || rangeSelected || isPastToday) {
           document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
-        if (!dayAlreadySelected) {
+        if (!dayAlreadySelected && !isPastToday && !this.opts.enableAllDays) {
           if (isEndFirst) {
             this.endDateFirstAction(dateValue, cell);
           } else {
@@ -269,7 +264,7 @@ export default class Calendar extends Emitter {
           delete cell.dataset.highlighted;
         }
 
-        if (this.selectionEnd && this.selectionStart) {
+        if (this.selectionEnd && this.selectionStart && this.hasValidRange) {
           document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.completeSelection(isEndFirst, dateValue, cell);
           if (this.opts.isDropDown && this.calDrop) {
@@ -283,8 +278,15 @@ export default class Calendar extends Emitter {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
       if (is(value) && cell) {
-        const current    = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
-        const isEndFirst = this.isReverseSelectable;
+        const current          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const today            = this.opts.currDate;
+        const todayDateArray   = [today.getUTCFullYear(), today.getUTCMonth(), today.getDate()];
+        const isPastToday      = isLater(current, todayDateArray);
+        const isEndFirst       = this.isReverseSelectable;
+
+        if (isPastToday && !this.opts.enableAllDays) {
+          return;
+        }
 
         if (this.isSelecting) {
           this.removeHighlight();
@@ -325,18 +327,11 @@ export default class Calendar extends Emitter {
           const isDisabledLeft   = cell.dataset.disabled === 'left';
           const isDisabledCenter = cell.dataset.disabled === 'center';
           const isDisabledRight  = cell.dataset.disabled === 'right';
-          const today            = this.opts.currDate;
-          const todayDateArray   = [today.getUTCFullYear(), today.getUTCMonth(), today.getDate()];
-          const isPastDate       = isLater(current, todayDateArray);
 
           let isInvalid = '';
 
           if (isEndFirst && isDisabledRight || isDisabledCenter || !isEndFirst && isDisabledLeft) {
-            if (!this.opts.invalidRangeSelectable || isPastDate) {
-              return;
-            } else {
-              isInvalid = 'invalid';
-            }
+            isInvalid = 'invalid';
           }
 
           const cells = this.el.querySelectorAll('[data-value]');
@@ -347,7 +342,7 @@ export default class Calendar extends Emitter {
             delete el.dataset.hoveredOffset;
 
             if (el === cell) {
-              offsetCell = (isEndFirst) ? cells[index - 1] : cells[index + 1];
+              offsetCell = (this.opts.isReverseSelectable) ? cells[index - 1] : cells[index + 1];
             }
           });
 
@@ -443,7 +438,7 @@ export default class Calendar extends Emitter {
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
-    if (this.hasValidRange && this.opts.invalidRangeSelectable) {
+    if (this.hasValidRange) {
       this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
       if (isFunction(this.opts.onSelectStart)) {
         this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
@@ -454,7 +449,7 @@ export default class Calendar extends Emitter {
   selectEndAction(dateValue, cell) {
     this.selectEnd(dateValue, cell);
     this.switchInputFocus('start');
-    if (this.hasValidRange && this.opts.invalidRangeSelectable) {
+    if (this.hasValidRange) {
       this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
       if (isFunction(this.opts.onSelectEnd)) {
         this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
@@ -470,16 +465,20 @@ export default class Calendar extends Emitter {
         delete cell.dataset.invalid;
       });
 
-      if (is(this.tooltipPopper)) {
-        this.tooltipPopper.destroy();
-      }
-
-      if (is(this.dom.tooltip)) {
-        destroyElement(this.dom.tooltip);
-      }
+      this.destroyTooltip();
 
       this.hasValidRange     = true;
       this.highlightedBounds = [];
+    }
+  }
+
+  destroyTooltip() {
+    if (is(this.tooltipPopper)) {
+      this.tooltipPopper.destroy();
+    }
+
+    if (is(this.dom.tooltip)) {
+      destroyElement(this.dom.tooltip);
     }
   }
 
@@ -663,7 +662,8 @@ export default class Calendar extends Emitter {
   }
 
   domMonth(year, month) {
-    const monthDom                                         = elementFromString(tpls.month);
+    const monthDom = elementFromString(tpls.month);
+
     monthDom.querySelector(`.${styles.tableHeader} tr`).innerHTML = this.headerTplString();
     monthDom.querySelector(`.${styles.caption}`).innerHTML        = `${this.locale.longMonthNames[month]} ${year}`;
 
@@ -792,10 +792,7 @@ export default class Calendar extends Emitter {
   destroyMonths() {
     if (this.dom && isArray(this.dom.months)) {
       this.dom.months.map((m) => destroyElement(m));
-
-      if (this.dom.tooltip) {
-        destroyElement(this.dom.tooltip);
-      }
+      this.destroyTooltip();
     }
   }
 
@@ -1000,6 +997,7 @@ export default class Calendar extends Emitter {
       e.stopPropagation();
     } else {
       removeClass(this.el, styles.visible);
+      this.destroyTooltip();
       this.emit('drop-close');
       this.switchInputFocus('any');
     }
