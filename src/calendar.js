@@ -375,18 +375,15 @@ export default class Calendar extends Emitter {
   }
 
   changeHighlightDirection(isReverse, dateArray = null) {
-    if (dateArray) {
-      this.resetSelection();
-    }
-
     this.isReverseSelectable = isReverse;
 
-    if (isReverse) {
-      this.selectionStart = dateArray;
-      this.selectionEnd = null;
+    if (dateArray) {
+      this.resetSelection();
+      this.selectionStart = (isReverse) ? dateArray : null;
+      this.selectionEnd   = (isReverse) ? null : dateArray;
     } else {
-      this.selectionStart = null;
-      this.selectionEnd = dateArray;
+      this.selectionStart = this.selectionEnd;
+      this.selectionEnd = this.selectionStart;
     }
 
     if (this.opts.selectable) {
