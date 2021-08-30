@@ -12,7 +12,7 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: './',
+      directory: './'
     },
     headers: {
       'Access-Control-Allow-Origin': '*',
