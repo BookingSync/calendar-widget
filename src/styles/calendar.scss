@@ -249,6 +249,7 @@
 
   [data-disabled="center"] {
     background: $disabled-bg-color;
+    color: $disabled-color;
 
     &::before,
     &::after {
@@ -259,10 +260,6 @@
 
   [data-disabled="right"]::before {
     background: $disabled-bg-color;
-  }
-
-  [data-disabled] {
-    color: $disabled-color;
   }
 }
 
@@ -278,6 +275,7 @@
 
   [data-highlighted="center"] {
     background: $highlighted-bg-color;
+    color: $highlighted-color;
 
     &::before,
     &::after {
@@ -289,10 +287,6 @@
   [data-highlighted="right"]::before {
     display: block;
     background: $highlighted-bg-color;
-  }
-
-  [data-highlighted] {
-    color: $highlighted-color;
   }
 }
 
@@ -316,6 +310,7 @@
 
   [data-invalid="center"] {
     background: $invalid-bg-color;
+    color: $invalid-color;
   
     &::before,
     &::after {
@@ -335,10 +330,6 @@
     &::after {
       display: block;
     }
-  }
-
-  [data-invalid] {
-    color: $invalid-color;
   }
 }
 
