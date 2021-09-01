@@ -4,14 +4,12 @@ module.exports = () => {
   // generate data starting from today
   const date = new Date();
   const options = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
   };
   const startDate = date.toLocaleString('en', options).split('/');
-  const year      = startDate[2];
-  const month     = startDate[0];
-  const day       = startDate[1];
+  const [month, day, year] = startDate;
   const data = {
     'maps.json': {
       'data': [
