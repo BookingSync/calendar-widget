@@ -10,12 +10,19 @@
       --bookingsync-calendar-highlighted-bg-color: var(--orange);
       --bookingsync-calendar-invalid-bg-color:     var(--gray-dark);
       --bookingsync-calendar-disabled-bg-color:    var(--gray);
+
+      --bookingsync-calendar-tooltip-bg-color:     #fff;
+      --bookingsync-calendar-tooltip-color:        #000;
+    }
+
+    #calendarWithVar .BookingSyncCalendarWidget__tooltip {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
 
-<body class="bg-secondary">
-<div class="container-fluid">
+<body class="bg-dark">
+<div class="container">
   <div class="card shadow my-3">
     <div class="card-body">
       <h5 class="card-title">Dropdown - Double input</h5>
@@ -35,20 +42,20 @@
     </div>
   </div>
 
-  <div class="card shadow mb-3 d-none">
+  <div class="card shadow mb-3">
     <div class="card-body">
-      <h5 class="card-title">Dropdown - Single input</h5>
+      <h5 class="card-title">Dropdown - Single input with rental</h5>
       <div class="card-text">
         <div data-bookingsync-calendar-widget
              data-is-drop-down="true"
              data-selectable="true"
-             data-is-single-input="true">
-          <div class="form-group">
-            <label>Check In/Out
-              <input class="form-control bookingsyncCalendarWidget__single-input" type="text" placeholder="%b %d, %Y → %b %d, %Y">
-              <input class="bookingsyncCalendarWidget__start-at" type="text">
-              <input class="bookingsyncCalendarWidget__end-at" type="text">
-            </label>
+             data-is-single-input="true"
+             data-rental-id="833"
+             data-hidden-el-format="%Y-%m-%d">
+          <div class="form-group w-50">
+              <input class="form-control bg-white bookingsyncCalendarWidget__single-input" type="text" placeholder="Dates">
+              <input class="bookingsyncCalendarWidget__start-at" name="start-at-single" type="text">
+              <input class="bookingsyncCalendarWidget__end-at" name="end-at-single" type="text">
           </div>
         </div>
       </div>
@@ -79,7 +86,7 @@
              data-show-rates="true"
              data-show-min-stay="true"
              data-rental-id="833"
-             data-currency='USD'>
+             data-currency="USD">
         </div>
       </div>
     </div>
@@ -91,7 +98,7 @@
       <div id="calendarWithVar" class="card-text">
         <div data-bookingsync-calendar-widget
              data-selectable="true"
-             data-display-months="12"
+             data-display-months="3"
              data-show-rates="true"
              data-show-min-stay="true"
              data-lang="en"
@@ -107,7 +114,7 @@
       <div class="card-text">
         <div data-bookingsync-calendar-widget
              data-selectable="true"
-             data-display-months="2"
+             data-display-months="3"
              data-show-rates="true"
              data-show-min-stay="true"
              data-lang="en"
@@ -126,8 +133,14 @@
   var year = date.toLocaleDateString('en-US', { year: '2-digit' });
   var month = date.toLocaleDateString('en-US', { month: '2-digit' });
 
+  /* set selection */
   document.querySelector("[name='start-at']").value = month + '/05/' + year;
   document.querySelector("[name='end-at']").value = month + '/07/' + year;
+
+  document.querySelector("[name='start-at-single']").value = month + '/05/' + year;
+  document.querySelector("[name='end-at-single']").value = month + '/07/' + year;
+
+  console.log(document.querySelector("[name='start-at-single']").value);
 </script>
 <script src="bookingsync-calendar-widget.js"></script>
 <script>

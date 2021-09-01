@@ -15,7 +15,7 @@ import locales from './locales';
 import { strftime } from 'strtime';
 
 import {
-  dateToIso, isLater, isCurrent, validationOfRange, tFormatter, dateToArray
+  dateToIso, isLater, isCurrent, validationOfCell, tFormatter, dateToArray
 } from './utils';
 
 import styles from './styles/calendar.scss';
@@ -61,7 +61,7 @@ export default class Calendar extends Emitter {
     }
 
     this.dom   = {};
-    this.cTree = new CalendarTree(validationOfRange, {});
+    this.cTree = new CalendarTree(validationOfCell, {});
 
     if (isObject(maps)) {
       this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);
@@ -103,6 +103,8 @@ export default class Calendar extends Emitter {
       this.loadMaps(this.opts.rentalId);
     }
 
+    this.el.dataset.selectable = this.opts.selectable;
+
     this.logger('inited');
     this.emit('init');
   }
@@ -129,8 +131,6 @@ export default class Calendar extends Emitter {
     this.monthEnd = monthEnd;
     this.yearEnd  = yearEnd;
 
-    this.recoverSelections();
-
     if (this.opts.selectable) {
       addClass(this.el, this.isReverseSelectable ? styles.reversed : styles.direct);
       removeClass(this.el, this.isReverseSelectable ? styles.direct : styles.reversed);
@@ -148,6 +148,8 @@ export default class Calendar extends Emitter {
     if (!this.opts.enableAllDays) {
       this.disableBackBtn();
     }
+
+    this.recoverSelections();
   }
 
   recoverSelections() {
@@ -220,8 +222,10 @@ export default class Calendar extends Emitter {
   addMonthEvents(el) {
     el.addEventListener('click', (e) => {
       const isEndFirst = this.isReverseSelectable;
-      const weekDayEl  = traverseToParentWithAttr(e.target, 'data-value').parent;
-      let value, cell;
+      const {
+        value,
+        parent: cell
+      } = traverseToParentWithAttr(e.target, 'data-value');
 
       const resetSelectionOnEscape = (event) => {
         const key = event.key || event.keyCode;
@@ -234,40 +238,33 @@ export default class Calendar extends Emitter {
         }
       };
 
-      // cancel selection if day is invalid
-      if (weekDayEl && hasClass(weekDayEl, styles.invalid)) {
-        document.removeEventListener('keyup', resetSelectionOnEscape, true);
-        this.resetSelection();
-      }
-
       document.addEventListener('keyup', resetSelectionOnEscape, true);
 
-      if (this.isSelecting) {
-        ({
-          value, parent: cell
-        } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-enabled' : 'data-available-out'));
-      } else {
-        ({
-          value, parent: cell
-        } = traverseToParentWithAttr(e.target, isEndFirst ? 'data-available-out' : 'data-enabled'));
-      }
-
       if (is(value) && cell) {
-        const dateValue = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const dateValue          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const dayAlreadySelected = this.isSelecting && isCurrent((isEndFirst) ? this.selectionEnd : this.selectionStart, dateValue);
+        const rangeSelected      = !this.isSelecting && this.selectionEnd && this.selectionStart;
+        const today              = this.opts.currDate;
+        const todayDateArray     = [today.getFullYear(), today.getMonth(), today.getDate()];
+        const isPastToday        = isLater(dateValue, todayDateArray);
 
-        // for simplicity just reset selection when user interacts again
-        if (!this.isSelecting && this.selectionEnd && this.selectionStart) {
+        if (dayAlreadySelected || rangeSelected || isPastToday) {
           document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
-        if (isEndFirst) {
-          this.endDateFirstAction(dateValue, cell);
+        if (!dayAlreadySelected && !isPastToday && !this.opts.enableAllDays) {
+          if (isEndFirst) {
+            this.endDateFirstAction(dateValue, cell);
+          } else {
+            this.startDateFirstAction(dateValue, cell);
+          }
         } else {
-          this.startDateFirstAction(dateValue, cell);
+          removeClass(this.el, styles.selectingDirect, styles.selectingReversed);
+          delete cell.dataset.highlighted;
         }
 
-        if (this.selectionEnd && this.selectionStart) {
+        if (this.selectionEnd && this.selectionStart && this.hasValidRange) {
           document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.completeSelection(isEndFirst, dateValue, cell);
           if (this.opts.isDropDown && this.calDrop) {
@@ -281,21 +278,90 @@ export default class Calendar extends Emitter {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
       if (is(value) && cell) {
-        const current = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const current          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const today            = this.opts.currDate;
+        const todayDateArray   = [today.getFullYear(), today.getMonth(), today.getDate()];
+        const isPastToday      = isLater(current, todayDateArray);
+        const isEndFirst       = this.isReverseSelectable;
+
+        if (isPastToday && !this.opts.enableAllDays) {
+          return;
+        }
 
         if (this.isSelecting) {
           this.removeHighlight();
 
-          if (this.isReverseSelectable && this.selectionEnd) {
+          const cells = this.el.querySelectorAll('[data-value]');
+          cells.forEach((el) => {
+            delete el.dataset.hovered;
+            delete el.dataset.hoveredOffset;
+          });
+
+          // reverse selection direction
+          if (isEndFirst && this.selectionEnd && !isCurrent(current, this.selectionEnd)) {
+            if (isLater(this.selectionEnd, current)) {
+              const cellA = this.cellB;
+              const { selectionEnd } = this;
+
+              this.changeHighlightDirection(false, selectionEnd);
+              this.startDateFirstAction(this.selectionEnd, cellA);
+            }
+          } else if (!isEndFirst && this.selectionStart && !isCurrent(current, this.selectionStart)) {
+            if (isLater(current, this.selectionStart)) {
+              const cellB = this.cellA;
+              const { selectionStart } = this;
+
+              this.changeHighlightDirection(true, selectionStart);
+              this.endDateFirstAction(this.selectionStart, cellB);
+            }
+          }
+
+          if (this.isReverseSelectable) {
             this.highLightRange(current, this.selectionEnd);
           } else {
             this.highLightRange(this.selectionStart, current);
           }
+        } else {
+          this.changeHighlightDirection(this.opts.isReverseSelectable);
+
+          const isDisabledLeft   = cell.dataset.disabled === 'left';
+          const isDisabledCenter = cell.dataset.disabled === 'center';
+          const isDisabledRight  = cell.dataset.disabled === 'right';
+
+          let isInvalid = '';
+
+          if (isEndFirst && isDisabledRight || isDisabledCenter || !isEndFirst && isDisabledLeft) {
+            isInvalid = 'invalid';
+          }
+
+          const cells = this.el.querySelectorAll('[data-value]');
+          let offsetCell;
+
+          cells.forEach((el, index) => {
+            delete el.dataset.hovered;
+            delete el.dataset.hoveredOffset;
+
+            if (el === cell) {
+              offsetCell = (this.opts.isReverseSelectable) ? cells[index - 1] : cells[index + 1];
+            }
+          });
+
+          if (is(offsetCell)) {
+            offsetCell.dataset.hoveredOffset = '';
+          }
+
+          cell.dataset.hovered = isInvalid;
         }
       }
     });
 
     el.body.addEventListener('mouseout', (e) => {
+      const cells = this.el.querySelectorAll('[data-value]');
+      cells.forEach((el) => {
+        delete el.dataset.hovered;
+        delete el.dataset.hoveredOffset;
+      });
+
       /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
       // simulate 'mouseleave'
       if (!e.relatedTarget
@@ -308,11 +374,26 @@ export default class Calendar extends Emitter {
     });
   }
 
+  changeHighlightDirection(isReverse, dateArray = null) {
+    this.isReverseSelectable = isReverse;
+
+    if (dateArray) {
+      this.resetSelection();
+      this.selectionStart = (isReverse) ? dateArray : null;
+      this.selectionEnd   = (isReverse) ? null : dateArray;
+    } else {
+      this.selectionStart = this.selectionEnd;
+      this.selectionEnd = this.selectionStart;
+    }
+
+    if (this.opts.selectable) {
+      addClass(this.el, isReverse ? styles.reversed : styles.direct);
+      removeClass(this.el, isReverse ? styles.direct : styles.reversed);
+    }
+  }
+
   startDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(this.selectionStart, dateValue)) {
-      if (!this.hasValidRange) {
-        return;
-      }
       this.selectEndAction(dateValue, cell);
 
       const fn = () => {
@@ -323,17 +404,16 @@ export default class Calendar extends Emitter {
       cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
+      this.removeHighlight();
       addClass(this.el, styles.selectingDirect);
       this.isSelecting = true;
       this.selectStartAction(dateValue, cell);
+      cell.dataset.highlighted = 'left';
     }
   }
 
   endDateFirstAction(dateValue, cell) {
     if (this.isSelecting && isLater(dateValue, this.selectionEnd)) {
-      if (!this.hasValidRange) {
-        return;
-      }
       this.selectStartAction(dateValue, cell);
 
       const fn = () => {
@@ -344,43 +424,64 @@ export default class Calendar extends Emitter {
       cell.addEventListener('mouseout', fn);
       this.isSelecting = false;
     } else {
+      this.removeHighlight();
       addClass(this.el, styles.selectingReversed);
       this.isSelecting = true;
       this.selectEndAction(dateValue, cell);
+      cell.dataset.highlighted = 'right';
     }
   }
 
   selectStartAction(dateValue, cell) {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
-    this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
-    if (isFunction(this.opts.onSelectStart)) {
-      this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
+    if (this.hasValidRange) {
+      this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
+      if (isFunction(this.opts.onSelectStart)) {
+        this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
+      }
     }
   }
 
   selectEndAction(dateValue, cell) {
     this.selectEnd(dateValue, cell);
     this.switchInputFocus('start');
-    this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
-    if (isFunction(this.opts.onSelectEnd)) {
-      this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
+    if (this.hasValidRange) {
+      this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
+      if (isFunction(this.opts.onSelectEnd)) {
+        this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
+      }
     }
   }
 
   removeHighlight() {
     if (this.highlightedBounds.length > 0) {
       const { range } = this.selectRange(...this.highlightedBounds);
-      range.map((a) => removeClass(a, styles.highlighted, styles.invalid));
+      range.map((cell) => {
+        delete cell.dataset.highlighted;
+        delete cell.dataset.invalid;
+      });
+
+      this.destroyTooltip();
 
       this.hasValidRange     = true;
       this.highlightedBounds = [];
     }
   }
 
+  destroyTooltip() {
+    if (is(this.tooltipPopper)) {
+      this.tooltipPopper.destroy();
+    }
+
+    if (is(this.dom.tooltip)) {
+      destroyElement(this.dom.tooltip);
+    }
+  }
+
   highLightRange(start, end) {
+    let invalidRangeMessage;
     const { range, isValid } = this.selectRange(start, end);
-    let hasValidRange        = this.opts.rentalId ? isValid : true;
     const minStay            = this.opts.rentalId ? (this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
     let maxStay              = this.opts.rentalId ? (this.opts.allowLongerMaxStaySelection ? 1 : this.cTree.getDayProperty(...start, 'maxStay')) : this.opts.maxStay;
 
@@ -388,23 +489,72 @@ export default class Calendar extends Emitter {
 
     if (isArray(range)) {
       // check that range is valid and longer than minStay and shorter than maxStay
-      this.hasValidRange = hasValidRange = hasValidRange && range.length > minStay && range.length < maxStay;
+      const hasValidDays    = this.opts.rentalId ? isValid : true;
+      const hasValidMinStay = range.length > minStay;
+      const hasValidMaxStay = range.length < maxStay;
 
-      range.map((a, index) => {
-        removeClass(a, styles.selected);
-        if (index !== 0 && index + 1 !== range.length) {
-          addClass(a, styles.selected);
+      this.hasValidRange = hasValidDays && hasValidMinStay && hasValidMaxStay;
+
+      if (!hasValidMinStay) {
+        invalidRangeMessage = tFormatter(minStay, this.locale.hasInvalidMinStay);
+      }
+
+      if (!hasValidMaxStay) {
+        invalidRangeMessage = tFormatter(maxStay, this.locale.hasInvalidMaxStay);
+      }
+
+      if (!hasValidDays) {
+        invalidRangeMessage = this.locale.hasInvalidDays;
+      }
+
+      range.map((cell, index) => {
+        const left = index === 0;
+        const right = index + 1 === range.length;
+
+        if (this.hasValidRange) {
+          if (left) {
+            cell.dataset.highlighted = 'left';
+          } else if (right) {
+            cell.dataset.highlighted = 'right';
+          } else {
+            cell.dataset.highlighted = 'center';
+          }
+        } else {
+          if (left) {
+            cell.dataset.invalid = 'left';
+          } else if (right) {
+            cell.dataset.invalid = 'right';
+          } else {
+            cell.dataset.invalid = 'center';
+          }
         }
 
-        removeClass(a, styles.highlighted, styles.invalid);
-        addClass(a, hasValidRange ? styles.highlighted : styles.invalid);
-        return a;
+        const tooltipPosition = (this.isReverseSelectable) ? left : right;
+
+        if (tooltipPosition && !this.hasValidRange) {
+          this.dom.tooltip = this.el.appendChild(elementFromString(tpls.tooltip));
+          this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
+
+          this.tooltipPopper = new Popper(cell, this.dom.tooltip, {
+            placement: 'top',
+            modifiers: {
+              flip: {
+                enabled: false
+              },
+              offset: {
+                offset: '0, 0'
+              }
+            }
+          });
+        }
+
+        return cell;
       });
 
       this.highlightedBounds = [start, end];
     }
 
-    return hasValidRange;
+    return this.hasValidRange;
   }
 
   /** Resets selection, removes highlights
@@ -424,12 +574,10 @@ export default class Calendar extends Emitter {
     this.selectionEnd   = null;
 
     if (this.cellA) {
-      removeClass(this.cellA, styles.selectedStart);
       this.cellA = null;
     }
 
     if (this.cellB) {
-      removeClass(this.cellB, styles.selectedEnd);
       this.cellB = null;
     }
 
@@ -458,12 +606,7 @@ export default class Calendar extends Emitter {
   selectStart(dateValue, cell) {
     this.selectionStart = dateValue;
 
-    if (this.cellA) {
-      removeClass(this.cellA, styles.selectedStart);
-    }
-
     if (cell) {
-      addClass(cell, styles.selectedStart);
       this.cellA = cell;
     }
 
@@ -473,12 +616,7 @@ export default class Calendar extends Emitter {
   selectEnd(dateValue, cell) {
     this.selectionEnd = dateValue;
 
-    if (this.cellB) {
-      removeClass(this.cellB, styles.selectedEnd);
-    }
-
     if (cell) {
-      addClass(cell, styles.selectedEnd);
       this.cellB = cell;
     }
 
@@ -521,7 +659,8 @@ export default class Calendar extends Emitter {
   }
 
   domMonth(year, month) {
-    const monthDom                                         = elementFromString(tpls.month);
+    const monthDom = elementFromString(tpls.month);
+
     monthDom.querySelector(`.${styles.tableHeader} tr`).innerHTML = this.headerTplString();
     monthDom.querySelector(`.${styles.caption}`).innerHTML        = `${this.locale.longMonthNames[month]} ${year}`;
 
@@ -599,56 +738,61 @@ export default class Calendar extends Emitter {
   dayTplString(year, month, dayOfMonth) {
     const { cTree }   = this;
     const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
-    const minStay     = this.opts.showMinStay ? cTree.getDayProperty(year, month, dayOfMonth, 'minStay') : 0;
-    const maxStay     = this.opts.showMaxStay ? cTree.getDayProperty(year, month, dayOfMonth, 'maxStay') : 0;
 
-    let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
-    let isEnabledStart  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
-    let isDisabledEnd   = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    let isDisabled       = cTree.isDayDisabled(year, month, dayOfMonth);
+    let isAvailableOut   = cTree.getDayProperty(year, month, dayOfMonth, 'isAvailableOut');
+    let isMorningBlocked = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
 
     const cDate         = this.opts.currDate;
-    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const cDateArray    = [cDate.getFullYear(), cDate.getMonth(), cDate.getDate()];
     const dateArray     = [year, month, dayOfMonth];
     const isCurrentDay  = isCurrent(dateArray, cDateArray);
 
     // disable past dates
     if (isLater(dateArray, cDateArray) && !isCurrentDay) {
-      isDisabled      = true;
-      isDisabledEnd   = undefined;
-      isEnabledStart  = undefined;
+      isDisabled        = true;
+      isMorningBlocked  = undefined;
+      isAvailableOut    = undefined;
     }
 
     // disable current day morning
-    if (isCurrentDay && isEnabledStart !== false) {
-      isDisabled      = false;
-      isDisabledEnd   = true;
+    if (isCurrentDay && isAvailableOut) {
+      isDisabled        = false;
+      isMorningBlocked  = true;
     }
 
     // if there is not rentalId and no maps, just render plain calendar
     if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
-      isDisabled      = false;
-      isEnabledStart  = true;
-      isDisabledEnd   = false;
+      isDisabled        = false;
+      isAvailableOut    = true;
+      isMorningBlocked  = false;
+    }
+
+    const isAvailableIn = isMorningBlocked == false;
+
+    if (isDisabled && isAvailableIn) {
+      isDisabled = 'left';
+    } else if (isMorningBlocked) {
+      isDisabled = 'right';
+    } else if (isDisabled) {
+      isDisabled = 'center';
     }
 
     return tpls.weekDay(
       dayOfMonth,
       isDisabled,
-      isDisabledEnd,
-      isEnabledStart,
+      isAvailableIn,
+      isAvailableOut,
       isCurrentDay,
       rate,
-      (this.opts.allowShorterMinStaySelection ? 1 : minStay),
-      (this.opts.allowLongerMaxStaySelection ? 0 : maxStay),
-      currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
-      tFormatter(minStay, this.locale.minStay),
-      tFormatter(maxStay, this.locale.maxStay)
+      currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency)
     );
   }
 
   destroyMonths() {
     if (this.dom && isArray(this.dom.months)) {
       this.dom.months.map((m) => destroyElement(m));
+      this.destroyTooltip();
     }
   }
 
@@ -811,7 +955,7 @@ export default class Calendar extends Emitter {
     const selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
     const selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
     const cDate         = this.opts.currDate;
-    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const cDateArray    = [cDate.getFullYear(), cDate.getMonth(), cDate.getDate()];
 
     this.resetSelection();
 
@@ -853,6 +997,7 @@ export default class Calendar extends Emitter {
       e.stopPropagation();
     } else {
       removeClass(this.el, styles.visible);
+      this.destroyTooltip();
       this.emit('drop-close');
       this.switchInputFocus('any');
     }

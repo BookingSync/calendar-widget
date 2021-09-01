@@ -2,6 +2,8 @@ import styles from './styles/calendar.scss';
 
 export const main  = `<div class="${styles.monthsWrapper}"></div>`;
 
+export const tooltip = `<div class="${styles.tooltip}" role="tooltip"><span></span><div class="${styles.tooltipArrow}" x-arrow></div></div>`;
+
 export const month = `
   <div class="${styles.mCell} js-month">
     <table class="${styles.month}" role="month">
@@ -15,17 +17,16 @@ export const month = `
 export const weekDayLabel = (label) => `<th class="${styles.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, disabled, disabledEnd, enabledStart, isCurrentDay, rate, minStay, maxStay, rateT, minStayT, maxStayT) => `
-  <td ${disabled ? 'data-disabled' : 'data-enabled'}
-       ${enabledStart ? 'data-available-out' : ''}
+export const weekDay = (label, disabled, isAvailableIn, isAvailableOut, isCurrentDay, rate, rateT) => `
+  <td ${disabled ? `data-disabled=${disabled}` : 'data-enabled'}
+       ${isAvailableOut ? 'data-available-out' : ''}
+       ${isAvailableIn ? 'data-available-in' : ''}
        data-value="${label}"
-       class="${styles.cell} ${isCurrentDay ? styles.today : ''} ${disabled && !enabledStart ? styles.disabled : ''} ${disabled && enabledStart ? styles.disabledStart : ''} ${disabledEnd ? styles.disabledEnd : ''}">
+       class="${styles.cell} ${isCurrentDay ? styles.today : ''}">
        <div class="${styles.cnt}" role="day-value">
         ${label}
         <div class="${styles.info}">
           ${rate ? '<span data-rate>' + rateT + '</span>' : ''}
-          ${minStay ? '<span data-min-stay>' + minStayT + '</span>' : ''}
-          ${maxStay ? '<span data-max-stay>' + maxStayT + '</span>' : ''}
         </div>
       </div>
   </td>

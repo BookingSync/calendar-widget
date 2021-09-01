@@ -1,4 +1,5 @@
 import { strftime, strptime } from 'strtime';
+import { is } from 'widget-utils';
 
 export const isDST = (date) => {
   let jan = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
@@ -40,11 +41,12 @@ export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...
 
 export const isCurrent = (start, end) => dateToIso(...start, true) == dateToIso(...end, true);
 
-export const validationOfRange = (cell, index, range) => {
-  if (index === range.length - 1) {
-    return cell.getAttribute('data-available-out') !== '';
+export const validationOfCell = (cell) => {
+  if (is(cell.dataset.enabled) || is(cell.dataset.availableIn) || is(cell.dataset.availableOut)) {
+    return true;
   }
-  return cell.getAttribute('data-disabled') === '';
+
+  return false;
 };
 
 export const tFormatter = (value, str) => str.replace('%number', value);

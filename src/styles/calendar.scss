@@ -32,6 +32,59 @@
     text-align: center;
   }
 
+  .tooltip {
+    background: $tooltip-bg-color;
+    color: $tooltip-color;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    z-index: 500;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+
+    &[x-placement] {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .tooltipArrow {
+      visibility: hidden;
+
+      &, &::before {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: inherit;
+      }
+
+      &::before {
+        visibility: visible;
+        content: '';
+        transform: rotate(45deg);
+      }
+    }
+
+    &[data-popper-placement^='top'] > .tooltipArrow {
+      bottom: -4px;
+    }
+    
+    &[data-popper-placement^='bottom'] > .tooltipArrow {
+      top: -4px;
+    }
+    
+    &[data-popper-placement^='left'] > .tooltipArrow {
+      right: -4px;
+    }
+    
+    &[data-popper-placement^='right'] > .tooltipArrow {
+      left: -4px;
+    }
+  }
+
   .monthsWrapper {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -99,26 +152,28 @@
 
     &::before,
     &::after {
-    position: absolute;
-    top: 0;
-    display: block;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    content: '';
-    -webkit-transform: skew(-30deg);
-    -ms-transform: skew(-30deg);
-    transform: skew(-30deg);
-    border-radius: 4px;
-    z-index: 0;
+      position: absolute;
+      display: block;
+      width: 100%;
+      margin: 0;
+      content: '';
+      -webkit-transform: skew(-30deg);
+      -ms-transform: skew(-30deg);
+      transform: skew(-30deg);
+      border-radius: 6px;
+      z-index: 0;
+
+      // fix blurry skew
+      height: calc(100% + 2px);
+      top: -1px;
     }
 
     &::before {
-    left: -55%;
+      left: -55%;
     }
 
     &::after {
-    left: 55%;
+      left: 55%;
     }
 
     &.today {
@@ -165,6 +220,7 @@
 }
 
 .focus,
+.disabled,
 .selected,
 .reversed,
 .direct,
@@ -178,230 +234,188 @@
 
 /********************************************************
 
-    selections, start and ends
+    selections, left - center - right
 
 ********************************************************/
 
-// cells disabled
+/********************************************************
+  cells disabled
+/*******************************************************/
 
 .calendar {
-  .disabledStart {
-    &::after {
-      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
-    }
+  [data-disabled="left"]::after {
+    background: $disabled-bg-color;
   }
 
-  .disabled {
-    background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+  [data-disabled="center"] {
+    background: $disabled-bg-color;
 
     &::before,
     &::after {
       display: none;
+      background: $disabled-bg-color;
     }
   }
 
-  .disabledEnd {
+  [data-disabled="right"]::before {
+    background: $disabled-bg-color;
+  }
+
+  [data-disabled] {
+    color: $disabled-color;
+  }
+}
+
+/********************************************************
+  cells highlighted
+/*******************************************************/
+
+.calendar {
+  [data-highlighted="left"]::after {
+    display: block;
+    background: $highlighted-bg-color;
+  }
+
+  [data-highlighted="center"] {
+    background: $highlighted-bg-color;
+
+    &::before,
+    &::after {
+      display: none;
+      background: $highlighted-bg-color;
+    }
+  }
+
+  [data-highlighted="right"]::before {
+    display: block;
+    background: $highlighted-bg-color;
+  }
+
+  [data-highlighted] {
+    color: $highlighted-color;
+  }
+}
+
+/********************************************************
+  cells invalid
+/*******************************************************/
+
+.calendar {
+  [data-invalid="left"] {
+    background: none;
+
     &::before {
-      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+      display: block;
+    }
+
+    &::after {
+      display: block;
+      background: $invalid-bg-color;
     }
   }
 
-  &.disabledStart,
-  &.disabled,
-  &.disabledEnd {
-    color: var(--bookingsync-calendar-disabled-color, $disabled-color);
+  [data-invalid="center"] {
+    background: $invalid-bg-color;
+  
+    &::before,
+    &::after {
+      display: none;
+      background: $invalid-bg-color;
+    }
   }
-}
 
-// cells highlighted
+  [data-invalid="right"] {
+    background: none;
 
-.calendar {
-  .highlighted {
-    &.selectedStart {
-      &::after {
-        background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-      }
-    }
-  
-    &.selected {
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-  
-      &::before,
-      &::after {
-        display: none;
-      }
-    }
-  
-    &.selectedEnd {
-      &::before {
-        background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-      }
+    &::before {
+      display: block;
+      background: $invalid-bg-color;
     }
 
-    &.selectedStart,
-    &.selected,
-    &.selectedEnd {
-      color: var(--bookingsync-calendar-highlighted-color, $highlighted-color);
+    &::after {
+      display: block;
     }
+  }
+
+  [data-invalid] {
+    color: $invalid-color;
   }
 }
 
-// cells invalid
-
-.calendar {
-  .invalid {
-    &.selectedStart {
-      &::after {
-        background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
-      }
-    }
-  
-    &.selected {
-      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
-  
-      &::before,
-      &::after {
-        display: none;
-      }
-    }
-  
-    &.selectedEnd {
-      &::before {
-        background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
-      }
-    }
-
-    &.selectedStart,
-    &.selected,
-    &.selectedEnd {
-      color: var(--bookingsync-calendar-invalid-color, $invalid-color);
-    }
-  }
-}
-
-// cell hover direct
+/********************************************************
+  cell hover direct
+/*******************************************************/
 
 .direct {
-  .cell:not(.highlighted):not(.invalid):hover {
-    &::after {
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-    }
-  }
-
-  .highlighted.selected:hover {
-    background: none;
-
-    &::before,
-    &::after {
-      display: block;
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-    }
-  }
-
-  .highlighted:not(.selectedStart):not(.selectedEnd):hover {
-    &::before {
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-    }
-  }
-  
-  .invalid:hover {
-    &::before {
-      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
-    }
-  }
-
-  .invalid.disabled:hover {
+  // cell hovered when selecting left to right
+  [data-hovered] {
     background: none;
 
     &::before {
       display: block;
-      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
     }
 
     &::after {
       display: block;
-      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+      background: $highlighted-bg-color;
+    }
+  }
+
+  [data-hovered-offset] {
+    background: none;
+
+    &::before {
+      display: block;
+      background: $highlighted-bg-color;
+    }
+
+    &::after {
+      display: block;
     }
   }
 }
 
-// cell hover reversed
+/********************************************************
+  cell hover reversed
+/*******************************************************/
 
 .reversed {
-  .cell:not(.highlighted):not(.invalid):hover {
-    &::before {
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-    }
-  }
-
-  .highlighted.selected:hover {
+  // when selecting right to left
+  [data-hovered] {
     background: none;
-
-    &::before,
-    &::after {
-      display: block;
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-    }
-  }
-
-  .highlighted:not(.selectedStart):not(.selectedEnd):hover {
-    &::after {
-      background: var(--bookingsync-calendar-highlighted-bg-color, $highlighted-bg-color);
-    }
-  }
-  
-  .invalid:hover {
-    &::after {
-      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
-    }
-  }
-
-  .invalid.disabled:hover {
-    background: none;
-
-    &::after {
-      display: block;
-      background: var(--bookingsync-calendar-invalid-bg-color, $invalid-bg-color);
-    }
 
     &::before {
       display: block;
-      background: var(--bookingsync-calendar-disabled-bg-color, $disabled-bg-color);
+      background: $highlighted-bg-color;
+    }
+
+    &::after {
+      display: block;
+    }
+  }
+
+  [data-hovered-offset] {
+    background: none;
+
+    &::before {
+      display: block;
+    }
+
+    &::after {
+      display: block;
+      background: $highlighted-bg-color;
     }
   }
 }
 
-// cell hover cursor
+/********************************************************
+  cell hover cursors
+/*******************************************************/
 
 .calendar {
-  .cell:not(.highlighted):not(.invalid):hover {
-    * {
-      cursor: pointer;
-    }
-  }
-
-  .highlighted.selected:hover {
-    * {
-      cursor: pointer;
-    }
-  }
-
-  .highlighted:not(.selectedStart):not(.selectedEnd):hover {
-    * {
-      cursor: pointer;
-    }
-  }
-  
-  .invalid:hover {
-    * {
-      cursor: not-allowed;
-    }
-  }
-
-  .disabled:hover {
-    * {
-      cursor: not-allowed !important;
-    }
+  // cursor pointer if calendar is selectable
+  &[data-selectable="true"] .cell * {
+    cursor: pointer;
   }
 }
 
