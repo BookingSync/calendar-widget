@@ -42,13 +42,11 @@ export const isLater = (start, end) => dateToIso(...start, true) < dateToIso(...
 export const isCurrent = (start, end) => dateToIso(...start, true) == dateToIso(...end, true);
 
 export const validationOfCell = (cell) => {
-  const isAvailableOut = is(cell.dataset.availableOut);
-
-  if (isAvailableOut) {
-    return isAvailableOut;
+  if (is(cell.dataset.enabled) || is(cell.dataset.availableIn) || is(cell.dataset.availableOut)) {
+    return true;
   }
 
-  return cell.dataset.disabled === '';
+  return false;
 };
 
 export const tFormatter = (value, str) => str.replace('%number', value);

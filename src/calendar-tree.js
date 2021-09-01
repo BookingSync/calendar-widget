@@ -185,15 +185,20 @@ export default class CalendarTree {
     const avail  = maps.availability.split('').map(parseFloat);
     const rates  = maps.nightly_rates.split(',').map(parseFloat);
     const minMap = maps.minimum_stays.split(',').map(parseFloat);
-    let { year, month, date: dayShift } = parseISOString(mapStartAt);
-
     let day      = 1;
 
-    // trick to add extra unavailable date for proper calculations of check-out dates
+    let {
+      year,
+      month,
+      date: dayShift
+    } = parseISOString(mapStartAt);
 
+    // trick to add extra unavailable date for proper calculations of check-out dates
     if (avail[avail.length - 1] === 0) {
       avail.push(1);
     }
+
+    let previousDate = {};
 
     return avail.reduce((curr, state, index, arr) => {
       const length           = monthLength(year, month);
@@ -202,7 +207,8 @@ export default class CalendarTree {
       const rate             = rates[index];
       const isAvailable      = state === 0;
       const prevAvailable    = arr[index - 1] === 0;
-      const isMorningBlocked = (isAvailable && !prevAvailable);
+      const isMorningBlocked = (isAvailable && !prevAvailable) ? true : null;
+      const isAvailableOut   = (isMorningBlocked) ? true : null;
 
       if (!tree[year]) {
         tree[year] = {};
@@ -237,7 +243,22 @@ export default class CalendarTree {
         minStay,
         isAvailable,
         isMorningBlocked,
-        isOutAvailable: (!isMorningBlocked && isAvailable) || (!isAvailable && prevAvailable === true)
+        isAvailableOut
+      };
+
+      try {
+        if (prevAvailable && !isAvailable) {
+          tree[previousDate.year][previousDate.month][previousDate.day].isAvailableOut = true;
+          tree[year][month][day].isMorningBlocked = false;
+        }
+      } catch(e) {
+        // continue
+      }
+
+      previousDate = {
+        year,
+        month,
+        day
       };
 
       if (day < length) {

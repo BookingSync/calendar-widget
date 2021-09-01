@@ -110,35 +110,35 @@ describe('calendarTree', () => {
               rate: 0,
               minStay: 1,
               isMorningBlocked: true,
-              isOutAvailable: false
+              isAvailableOut: false
             },
             2: {
               isAvailable: false,
               rate: 0,
               minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable: true
+              isAvailableOut: true
             },
             3: {
               isAvailable: false,
               rate: 0,
               minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable: false
+              isAvailableOut: false
             },
             4: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
               isMorningBlocked: true,
-              isOutAvailable: false
+              isAvailableOut: false
             },
             5: {
               isAvailable: false,
               rate: undefined,
               minStay: undefined,
               isMorningBlocked: false,
-              isOutAvailable: true
+              isAvailableOut: true
             }
           }
         }
@@ -162,35 +162,35 @@ describe('calendarTree', () => {
               rate: 0,
               minStay: 1,
               isMorningBlocked: true,
-              isOutAvailable: false
+              isAvailableOut: false
             },
             2: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable: true
+              isAvailableOut: true
             },
             3: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable: true
+              isAvailableOut: true
             },
             4: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
               isMorningBlocked: false,
-              isOutAvailable: true
+              isAvailableOut: true
             },
             5: {
               isAvailable: false,
               rate: undefined,
               minStay: undefined,
               isMorningBlocked: false,
-              isOutAvailable: true
+              isAvailableOut: true
             }
           }
         }

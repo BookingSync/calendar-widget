@@ -17,9 +17,10 @@ export const month = `
 export const weekDayLabel = (label) => `<th class="${styles.th}">${label}</th>`;
 
 /* eslint prefer-template: 0 */
-export const weekDay = (label, disabled, enabledStart, isCurrentDay, rate, rateT) => `
+export const weekDay = (label, disabled, isAvailableIn, isAvailableOut, isCurrentDay, rate, rateT) => `
   <td ${disabled ? `data-disabled=${disabled}` : 'data-enabled'}
-       ${enabledStart ? 'data-available-out' : ''}
+       ${isAvailableOut ? 'data-available-out' : ''}
+       ${isAvailableIn ? 'data-available-in' : ''}
        data-value="${label}"
        class="${styles.cell} ${isCurrentDay ? styles.today : ''}">
        <div class="${styles.cnt}" role="day-value">

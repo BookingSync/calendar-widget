@@ -245,7 +245,7 @@ export default class Calendar extends Emitter {
         const dayAlreadySelected = this.isSelecting && isCurrent((isEndFirst) ? this.selectionEnd : this.selectionStart, dateValue);
         const rangeSelected      = !this.isSelecting && this.selectionEnd && this.selectionStart;
         const today              = this.opts.currDate;
-        const todayDateArray     = [today.getUTCFullYear(), today.getUTCMonth(), today.getDate()];
+        const todayDateArray     = [today.getFullYear(), today.getMonth(), today.getDate()];
         const isPastToday        = isLater(dateValue, todayDateArray);
 
         if (dayAlreadySelected || rangeSelected || isPastToday) {
@@ -280,7 +280,7 @@ export default class Calendar extends Emitter {
       if (is(value) && cell) {
         const current          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
         const today            = this.opts.currDate;
-        const todayDateArray   = [today.getUTCFullYear(), today.getUTCMonth(), today.getDate()];
+        const todayDateArray   = [today.getFullYear(), today.getMonth(), today.getDate()];
         const isPastToday      = isLater(current, todayDateArray);
         const isEndFirst       = this.isReverseSelectable;
 
@@ -739,38 +739,40 @@ export default class Calendar extends Emitter {
     const { cTree }   = this;
     const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
 
-    let isDisabled      = cTree.isDayDisabled(year, month, dayOfMonth);
-    let isEnabledStart  = cTree.getDayProperty(year, month, dayOfMonth, 'isOutAvailable');
-    let isDisabledEnd   = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    let isDisabled       = cTree.isDayDisabled(year, month, dayOfMonth);
+    let isAvailableOut   = cTree.getDayProperty(year, month, dayOfMonth, 'isAvailableOut');
+    let isMorningBlocked = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
 
     const cDate         = this.opts.currDate;
-    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const cDateArray    = [cDate.getFullYear(), cDate.getMonth(), cDate.getDate()];
     const dateArray     = [year, month, dayOfMonth];
     const isCurrentDay  = isCurrent(dateArray, cDateArray);
 
     // disable past dates
     if (isLater(dateArray, cDateArray) && !isCurrentDay) {
-      isDisabled      = true;
-      isDisabledEnd   = undefined;
-      isEnabledStart  = undefined;
+      isDisabled        = true;
+      isMorningBlocked  = undefined;
+      isAvailableOut    = undefined;
     }
 
     // disable current day morning
-    if (isCurrentDay && isEnabledStart !== false) {
-      isDisabled      = false;
-      isDisabledEnd   = true;
+    if (isCurrentDay && isAvailableOut) {
+      isDisabled        = false;
+      isMorningBlocked  = true;
     }
 
     // if there is not rentalId and no maps, just render plain calendar
     if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
-      isDisabled      = false;
-      isEnabledStart  = true;
-      isDisabledEnd   = false;
+      isDisabled        = false;
+      isAvailableOut    = true;
+      isMorningBlocked  = false;
     }
 
-    if (isDisabled && isEnabledStart) {
+    const isAvailableIn = isMorningBlocked == false;
+
+    if (isDisabled && isAvailableIn) {
       isDisabled = 'left';
-    } else if (isDisabledEnd) {
+    } else if (isMorningBlocked) {
       isDisabled = 'right';
     } else if (isDisabled) {
       isDisabled = 'center';
@@ -779,7 +781,8 @@ export default class Calendar extends Emitter {
     return tpls.weekDay(
       dayOfMonth,
       isDisabled,
-      isEnabledStart,
+      isAvailableIn,
+      isAvailableOut,
       isCurrentDay,
       rate,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency)
@@ -952,7 +955,7 @@ export default class Calendar extends Emitter {
     const selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
     const selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
     const cDate         = this.opts.currDate;
-    const cDateArray    = [cDate.getUTCFullYear(), cDate.getUTCMonth(), cDate.getDate()];
+    const cDateArray    = [cDate.getFullYear(), cDate.getMonth(), cDate.getDate()];
 
     this.resetSelection();
 
