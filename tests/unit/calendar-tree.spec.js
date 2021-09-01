@@ -110,35 +110,35 @@ describe('calendarTree', () => {
               rate: 0,
               minStay: 1,
               isMorningBlocked: true,
-              isAvailableOut: false
+              isAvailableOut: true
             },
             2: {
               isAvailable: false,
               rate: 0,
               minStay: 1,
               isMorningBlocked: false,
-              isAvailableOut: true
+              isAvailableOut: null
             },
             3: {
               isAvailable: false,
               rate: 0,
               minStay: 1,
-              isMorningBlocked: false,
-              isAvailableOut: false
+              isMorningBlocked: null,
+              isAvailableOut: null
             },
             4: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
               isMorningBlocked: true,
-              isAvailableOut: false
+              isAvailableOut: true
             },
             5: {
               isAvailable: false,
               rate: undefined,
               minStay: undefined,
               isMorningBlocked: false,
-              isAvailableOut: true
+              isAvailableOut: null
             }
           }
         }
@@ -162,27 +162,27 @@ describe('calendarTree', () => {
               rate: 0,
               minStay: 1,
               isMorningBlocked: true,
-              isAvailableOut: false
+              isAvailableOut: true
             },
             2: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
-              isMorningBlocked: false,
-              isAvailableOut: true
+              isMorningBlocked: null,
+              isAvailableOut: null
             },
             3: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
-              isMorningBlocked: false,
-              isAvailableOut: true
+              isMorningBlocked: null,
+              isAvailableOut: null
             },
             4: {
               isAvailable: true,
               rate: 0,
               minStay: 1,
-              isMorningBlocked: false,
+              isMorningBlocked: null,
               isAvailableOut: true
             },
             5: {
@@ -190,7 +190,7 @@ describe('calendarTree', () => {
               rate: undefined,
               minStay: undefined,
               isMorningBlocked: false,
-              isAvailableOut: true
+              isAvailableOut: null
             }
           }
         }
