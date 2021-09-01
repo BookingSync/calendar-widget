@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2021-09-01
+### Added
+- cancel selection when clicking on the first selected date
+- select in both direction on mouseover
+- show tooltip if selection is not valid (minstay or booked)
+- invalid selection stays highlighted until you select new dates
+### Updated
+- hover handler moved to JS
+
 ## [1.5.0] - 2021-05-28
 ### Added
 - css var() for date ranges bg-color & color
