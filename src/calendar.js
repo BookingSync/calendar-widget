@@ -58,13 +58,32 @@ export default class Calendar extends Emitter {
       this.locale           = locales[this.opts.lang];
       this.format           = this.opts.formatDate || this.locale.formatDate || '%D';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
+
+      let { currentDate } = this.opts;
+      currentDate = currentDate.toLocaleString('en', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).split('/');
+      const year  = parseInt(currentDate[2]);
+      const month = parseInt(currentDate[0]) - 1;
+
+      this.opts.currentDate = [year, month, parseInt(currentDate[1])];
+
+      if (!this.opts.yearStart) {
+        this.opts.yearStart = year;
+      }
+
+      if (!this.opts.monthStart) {
+        this.opts.monthStart = month;
+      }
     }
 
     this.dom   = {};
     this.cTree = new CalendarTree(validationOfCell, {});
 
     if (isObject(maps)) {
-      this.cTree.addMaps(maps, maps.start_date || this.opts.currDate);
+      this.cTree.addMaps(maps, maps.start_date || dateToIso(this.opts.currentDate));
     }
 
     // selection and highlights
@@ -173,8 +192,9 @@ export default class Calendar extends Emitter {
   disableBackBtn() {
     if (this.opts.isBackDisabled) {
       const startDate        = dateToIso(this.yearStart, this.monthStart, 1);
-      const curr             = dateToIso(this.opts.currDate.getFullYear(), this.opts.currDate.getMonth(), 1);
-      this.dom.back.disabled = startDate <= curr;
+      let { currentDate }    = this.opts;
+      currentDate            = dateToIso(currentDate[0], currentDate[1], 1);
+      this.dom.back.disabled = startDate <= currentDate;
     }
   }
 
@@ -244,9 +264,7 @@ export default class Calendar extends Emitter {
         const dateValue          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
         const dayAlreadySelected = this.isSelecting && isCurrent((isEndFirst) ? this.selectionEnd : this.selectionStart, dateValue);
         const rangeSelected      = !this.isSelecting && this.selectionEnd && this.selectionStart;
-        const today              = this.opts.currDate;
-        const todayDateArray     = [today.getFullYear(), today.getMonth(), today.getDate()];
-        const isPastToday        = isLater(dateValue, todayDateArray);
+        const isPastToday        = isLater(dateValue, this.opts.currentDate);
 
         if (dayAlreadySelected || rangeSelected || isPastToday) {
           document.removeEventListener('keyup', resetSelectionOnEscape, true);
@@ -279,9 +297,7 @@ export default class Calendar extends Emitter {
 
       if (is(value) && cell) {
         const current          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
-        const today            = this.opts.currDate;
-        const todayDateArray   = [today.getFullYear(), today.getMonth(), today.getDate()];
-        const isPastToday      = isLater(current, todayDateArray);
+        const isPastToday      = isLater(current, this.opts.currentDate);
         const isEndFirst       = this.isReverseSelectable;
 
         if (isPastToday && !this.opts.enableAllDays) {
@@ -480,16 +496,30 @@ export default class Calendar extends Emitter {
   }
 
   highLightRange(start, end) {
-    let invalidRangeMessage;
     const { range, isValid } = this.selectRange(start, end);
-    const minStay            = this.opts.rentalId ? (this.opts.allowShorterMinStaySelection ? 1 : this.cTree.getDayProperty(...start, 'minStay')) : this.opts.minStay;
-    let maxStay              = this.opts.rentalId ? (this.opts.allowLongerMaxStaySelection ? 1 : this.cTree.getDayProperty(...start, 'maxStay')) : this.opts.maxStay;
-
-    maxStay = (maxStay === 0 || !maxStay) ? Infinity : maxStay;
+    const { opts }           = this;
+    let { minStay, maxStay } = opts;
+    let invalidRangeMessage;
 
     if (isArray(range)) {
+      if (opts.rentalId) {
+        if (!opts.allowShorterMinStaySelection) {
+          // get the biggest minStay value in the range
+          minStay = Math.max(...range.map(function(cell) {
+            return cell.dataset.minStay || minStay;
+          }));
+        }
+
+        if (!opts.allowLongerMaxStaySelection) {
+          // get the biggest maxStay value in the range
+          maxStay = Math.max(...range.map(function(cell) {
+            return cell.dataset.maxStay || maxStay;
+          }));
+        }
+      }
+
       // check that range is valid and longer than minStay and shorter than maxStay
-      const hasValidDays    = this.opts.rentalId ? isValid : true;
+      const hasValidDays    = opts.rentalId ? isValid : true;
       const hasValidMinStay = range.length > minStay;
       const hasValidMaxStay = range.length < maxStay;
 
@@ -736,36 +766,49 @@ export default class Calendar extends Emitter {
   }
 
   dayTplString(year, month, dayOfMonth) {
-    const { cTree }   = this;
-    const rate        = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const { cTree }      = this;
+    const rate           = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
+    const minStay        = cTree.getDayProperty(year, month, dayOfMonth, 'minStay');
+    const maxStay        = cTree.getDayProperty(year, month, dayOfMonth, 'maxStay');
 
     let isDisabled       = cTree.isDayDisabled(year, month, dayOfMonth);
     let isAvailableOut   = cTree.getDayProperty(year, month, dayOfMonth, 'isAvailableOut');
     let isMorningBlocked = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
 
-    const cDate         = this.opts.currDate;
-    const cDateArray    = [cDate.getFullYear(), cDate.getMonth(), cDate.getDate()];
-    const dateArray     = [year, month, dayOfMonth];
-    const isCurrentDay  = isCurrent(dateArray, cDateArray);
+    const { currentDate } = this.opts;
+    const dateArray       = [year, month, dayOfMonth];
+    const isCurrentDay    = isCurrent(dateArray, currentDate);
 
     // disable past dates
-    if (isLater(dateArray, cDateArray) && !isCurrentDay) {
+    if (isLater(dateArray, currentDate)) {
       isDisabled        = true;
       isMorningBlocked  = undefined;
       isAvailableOut    = undefined;
     }
 
     // disable current day morning
-    if (isCurrentDay && isAvailableOut) {
-      isDisabled        = false;
-      isMorningBlocked  = true;
+    if (isCurrentDay) {
+      if (isAvailableOut) {
+        isDisabled        = false;
+        isMorningBlocked  = true;
+      } else {
+        isDisabled        = true;
+        isMorningBlocked  = undefined;
+      }
     }
 
     // if there is not rentalId and no maps, just render plain calendar
-    if (!this.opts.rentalId && isLater(cDateArray, dateArray) || this.opts.enableAllDays) {
-      isDisabled        = false;
-      isAvailableOut    = true;
-      isMorningBlocked  = false;
+    if (!this.opts.rentalId || this.opts.enableAllDays) {
+      if (isLater(currentDate, dateArray)) {
+        isDisabled        = false;
+        isAvailableOut    = true;
+        isMorningBlocked  = false;
+      }
+
+      if (isCurrentDay) {
+        isDisabled        = true;
+        isMorningBlocked  = true;
+      }
     }
 
     const isAvailableIn = isMorningBlocked == false;
@@ -784,6 +827,8 @@ export default class Calendar extends Emitter {
       isAvailableIn,
       isAvailableOut,
       isCurrentDay,
+      minStay,
+      maxStay,
       rate,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency)
     );
@@ -952,15 +997,14 @@ export default class Calendar extends Emitter {
   }
 
   inputsToValues() {
-    const selectionStart = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
-    const selectionEnd   = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
-    const cDate         = this.opts.currDate;
-    const cDateArray    = [cDate.getFullYear(), cDate.getMonth(), cDate.getDate()];
+    const selectionStart  = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
+    const selectionEnd    = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
+    const { currentDate } = this.opts;
 
     this.resetSelection();
 
     if (isArray(selectionStart) && isArray(selectionEnd)) {
-      if (isLater(cDateArray, selectionStart) && isLater(selectionStart, selectionEnd)) {
+      if (isLater(currentDate, selectionStart) && isLater(selectionStart, selectionEnd)) {
         this.selectionStart = selectionStart;
         this.selectionEnd = selectionEnd;
         this.recoverSelections();

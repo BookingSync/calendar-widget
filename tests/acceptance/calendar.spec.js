@@ -85,7 +85,6 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
       monthStart: 1,
       displayMonths: 1,
       showRates: true,
-      showMinStay: true,
       rentalId: 833,
       yearStart: 2017,
       lang: 'es-ES'

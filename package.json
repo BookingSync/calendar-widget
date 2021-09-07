@@ -17,8 +17,6 @@
     "test-ci": "karma start karma.config.js --single-run true",
     "lint:js": "eslint ./*.js src",
     "mock-server": "node json-server.js",
-    "publish-please": "publish-please",
-    "prepublishOnly": "publish-please guard",
     "preversion": "npm run lint:js && npm run test-ci",
     "version": "npm run build && npm run dev && git add -A dist",
     "postversion": "git push && git push --tags && rm -rf build/temp"
