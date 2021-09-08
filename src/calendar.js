@@ -782,18 +782,14 @@ export default class Calendar extends Emitter {
     // disable past dates
     if (isLater(dateArray, currentDate)) {
       isDisabled        = true;
-      isMorningBlocked  = undefined;
-      isAvailableOut    = undefined;
+      isMorningBlocked  = null;
+      isAvailableOut    = null;
     }
 
     // disable current day morning
     if (isCurrentDay) {
-      if (isAvailableOut) {
-        isDisabled        = false;
+      if (!(isDisabled && isAvailableOut === null && isMorningBlocked === null)) {
         isMorningBlocked  = true;
-      } else {
-        isDisabled        = true;
-        isMorningBlocked  = undefined;
       }
     }
 
