@@ -22,16 +22,16 @@
     "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "dependencies": {
-    "npm-check-updates": "^11.8.3",
+    "npm-check-updates": "^11.8.5",
     "popper.js": "^1.16.1",
     "strtime": "^1.1.2",
     "widget-utils": "0.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.15.0",
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
     "assert": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
@@ -55,9 +55,9 @@
     "tether": "2.0.0",
     "timezone-mock": "1.2.1",
     "util": "^0.12.4",
-    "webpack": "^5.51.1",
+    "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "4.0.0",
+    "webpack-dev-server": "4.2.0",
     "webpack-merge": "^5.8.0",
     "yargs": "17.1.1"
   },
