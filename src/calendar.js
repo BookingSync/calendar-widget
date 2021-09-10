@@ -788,6 +788,10 @@ export default class Calendar extends Emitter {
     if (isCurrentDay) {
       if (!(isDisabled && isAvailableOut === null && isMorningBlocked === null)) {
         isMorningBlocked  = true;
+
+        if (isAvailableOut === null) {
+          isAvailableOut = true;
+        }
       }
     }
 
