@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2021-09-10
+### Fixed
+- issue when data start from a past date that would set current date as unavailable
+
 ## [2.0.1] - 2021-09-10
 ### Reverted
 - show minStay & maxStay
