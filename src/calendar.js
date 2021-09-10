@@ -7,7 +7,7 @@ import {
 
 import Popper from 'popper.js';
 
-import * as tpls from './templates';
+import * as templates from './templates';
 import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
@@ -96,9 +96,9 @@ export default class Calendar extends Emitter {
   init() {
     addClass(this.el, styles.calendar, utilsStyles.reset);
 
-    this.dom.monthsWrapper = this.el.appendChild(elementFromString(tpls.main));
-    this.dom.forward       = this.el.appendChild(elementFromString(tpls.forward));
-    this.dom.back          = this.el.appendChild(elementFromString(tpls.back));
+    this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main));
+    this.dom.forward       = this.el.appendChild(elementFromString(templates.forward));
+    this.dom.back          = this.el.appendChild(elementFromString(templates.back));
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
     this.addBtnsEvents();
@@ -559,7 +559,7 @@ export default class Calendar extends Emitter {
         const tooltipPosition = (this.isReverseSelectable) ? left : right;
 
         if (tooltipPosition && !this.hasValidRange) {
-          this.dom.tooltip = this.el.appendChild(elementFromString(tpls.tooltip));
+          this.dom.tooltip = this.el.appendChild(elementFromString(templates.tooltip));
           this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
 
           this.tooltipPopper = new Popper(cell, this.dom.tooltip, {
@@ -686,13 +686,13 @@ export default class Calendar extends Emitter {
   }
 
   domMonth(year, month) {
-    const monthDom = elementFromString(tpls.month);
+    const monthDom = elementFromString(templates.month);
 
-    monthDom.querySelector(`.${styles.tableHeader} tr`).innerHTML = this.headerTplString();
+    monthDom.querySelector(`.${styles.tableHeader} tr`).innerHTML = this.headerTemplateString();
     monthDom.querySelector(`.${styles.caption}`).innerHTML        = `${this.locale.longMonthNames[month]} ${year}`;
 
     monthDom.body           = monthDom.querySelector(`.${styles.body}`);
-    monthDom.body.innerHTML = this.daysTplString(year, month);
+    monthDom.body.innerHTML = this.daysTemplateString(year, month);
 
     monthDom.month       = month;
     monthDom.year        = year;
@@ -701,23 +701,23 @@ export default class Calendar extends Emitter {
     return monthDom;
   }
 
-  headerTplString() {
+  headerTemplateString() {
     // just to make life easier with start of the week calculation
     const header                 = [];
     const weekdaysLabelsExtended = this.locale.shortWeekdayNames.concat(this.locale.shortWeekdayNames);
 
     for (let i = 0; i < this.opts.daysPerWeek; i += 1) {
-      header.push(tpls.weekDayLabel(weekdaysLabelsExtended[i + this.opts.startOfWeek]));
+      header.push(templates.weekDayLabel(weekdaysLabelsExtended[i + this.opts.startOfWeek]));
     }
     return header.join('');
   }
 
-  daysTplString(year, month) {
-    const startOfMonth = new Date(year, month, 1).getDay();
-    const daysInMonth  = monthLength(year, month);
-    const rowTemplate  = tpls.weekRow;
-    const monthTpl     = [];
-    const weekShift    = (this.opts.daysPerWeek - this.opts.startOfWeek);
+  daysTemplateString(year, month) {
+    const startOfMonth  = new Date(year, month, 1).getDay();
+    const daysInMonth   = monthLength(year, month);
+    const rowTemplate   = templates.weekRow;
+    const monthTemplate = [];
+    const weekShift     = (this.opts.daysPerWeek - this.opts.startOfWeek);
 
     let rows               = 5;
     let weekShiftCorrected = startOfMonth + weekShift;
@@ -744,11 +744,11 @@ export default class Calendar extends Emitter {
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
         // pushing actual days 1...daysInMonth
         if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
-          week.push(this.dayTplString(year, month, dayOfMonth));
+          week.push(this.dayTemplateString(year, month, dayOfMonth));
           dayOfMonth += 1;
           // pushing placeholders instead of days
         } else {
-          week.push(tpls.weekDayPlaceholder);
+          week.push(templates.weekDayPlaceholder);
         }
 
         dayCounter += 1;
@@ -756,13 +756,13 @@ export default class Calendar extends Emitter {
       // close tag </tr> of week
       week.push(rowTemplate().close);
       // push completed week to month template
-      monthTpl.push(week.join(''));
+      monthTemplate.push(week.join(''));
     }
 
-    return monthTpl.join('');
+    return monthTemplate.join('');
   }
 
-  dayTplString(year, month, dayOfMonth) {
+  dayTemplateString(year, month, dayOfMonth) {
     const { cTree }      = this;
     const rate           = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
     const minStay        = cTree.getDayProperty(year, month, dayOfMonth, 'minStay');
@@ -814,8 +814,7 @@ export default class Calendar extends Emitter {
       isDisabled = 'center';
     }
 
-    // TODO: rename tpls to templates
-    return tpls.weekDay(
+    return templates.weekDay(
       dayOfMonth,
       isDisabled,
       isAvailableIn,
