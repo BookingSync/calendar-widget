@@ -821,7 +821,9 @@ export default class Calendar extends Emitter {
       isAvailableOut,
       isCurrentDay,
       minStay,
+      this.opts.showMinStay ? tFormatter(minStay, this.locale.minStay) : false,
       maxStay,
+      this.opts.showMaxStay ? tFormatter(maxStay, this.locale.maxStay) : false,
       rate,
       currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency)
     );

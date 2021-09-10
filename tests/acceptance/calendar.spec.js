@@ -85,6 +85,7 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
       monthStart: 1,
       displayMonths: 1,
       showRates: true,
+      showMinStay: true,
       rentalId: 833,
       yearStart: 2017,
       lang: 'es-ES'
@@ -107,7 +108,7 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
   it('10 of February has rates, currency and min stay', () => {
     const cell = document.querySelector('[data-value="10"]');
 
-    expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal('10\n10 HKD');
+    expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal('10\n10 HKD\n5+ noches');
   });
 
   it('on 13 there is no information about rates..', () => {

@@ -64,6 +64,8 @@ Additionally you can run json-mock server
 | `displayMonths` | How many months to render | Number | 2
 | `selectable` | Allow to select range | Boolean | false
 | `showRates` | Show rates from availability map | Boolean | false
+| `showMinStay` | Show minimum stay per single day (be careful to use together with `showRates` or `showMaxStay`, can be too munch information) | Boolean | false
+| `showMaxStay` | Show maximum stay per single day (be careful to use together with `showRates` or `showMinStay`, can be too munch information) | Boolean | false
 | `isReverseSelectable` | User selects end date first | Boolean | false
 | `isBackDisabled` | Disable back button for past months | Boolean | true
 | `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false
