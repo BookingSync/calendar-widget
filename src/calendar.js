@@ -62,7 +62,7 @@ export default class Calendar extends Emitter {
       let { currentDate } = this.opts;
       const year  = currentDate.getFullYear();
       const month = currentDate.getMonth();
-      const day   = currentDate.getDay();
+      const day   = currentDate.getDate();
 
       this.opts.currentDate = [year, month, day];
 
