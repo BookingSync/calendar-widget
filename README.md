@@ -56,26 +56,29 @@ Additionally you can run json-mock server
 | `rentalId` | parameter to pass in API request for availability maps | String or Number | null
 | `currency` | Set currency conversion | String | null
 | `minStay` | Minimum selectable range | Number | 1
+| `maxStay` | Maximum selectable range | Number | Infinity
+| `allowShorterMinStaySelection` | Force minimum selection to `opts.minStay` | Boolean | false
+| `allowShorterMaxStaySelection` | Force maximum selection to `opts.maxStay` | Boolean | false
 | `monthStart` | Calendar starts months, the left up most, 0 - 11 range | Number | Current month 
 | `yearStart` | Calendar start year, YYYY format (2016) | Number | Current year
 | `displayMonths` | How many months to render | Number | 2
 | `selectable` | Allow to select range | Boolean | false
 | `showRates` | Show rates from availability map | Boolean | false
-| `showMinStay` | Show minimum stay per single day (be careful to use together with `showRates`, can be too munch information) | Boolean | false
+| `showMinStay` | Show minimum stay per single day (be careful to use together with `showRates` or `showMaxStay`, can be too munch information) | Boolean | false
+| `showMaxStay` | Show maximum stay per single day (be careful to use together with `showRates` or `showMinStay`, can be too munch information) | Boolean | false
 | `isReverseSelectable` | User selects end date first | Boolean | false
 | `isBackDisabled` | Disable back button for past months | Boolean | true
 | `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false
-| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null (will try to find `.bookingsyncCalendar__start-at` if null)
-| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null (will try to find `.bookingsyncCalendar__end-at` if null)
-| `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.bookingsyncCalendar__single-input` if null)
+| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null (will try to find `.bookingsyncCalendarWidget__start-at` if null)
+| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null (will try to find `.bookingsyncCalendarWidget__end-at` if null)
+| `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.bookingsyncCalendarWidget__single-input` if null)
 | `isSingleInput` | Allow to use the single input, hides start/end inputs | Boolean | null
 | `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
 | `formatDate` | Overwrite locale defined date format | String | `%m/%d/%y` (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
 | `hiddenElFormat` | Duplicate start/end inputs with a different date format | String | null
 | `disableAvailabityMap` | Overwrite each days to be available | Boolean | false
-| `allowShorterMinStaySelection` | Force minimum selection to 1 | Boolean | false
 | `enableAllDays` | Force past days/months to be selectable | Boolean | false
-| `currDate` | Current date Date object | Date | `new Date()`
+| `currentDate` | Current date Date object | Date | `new Date()`
 
 ## Callbacks
 

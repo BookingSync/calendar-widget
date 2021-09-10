@@ -1,8 +1,8 @@
 /* global process, require */
 import { dashToCapital } from 'widget-utils';
 
-const currDate = new Date();
 const { name } = require('../package.json');
+const currentDate = new Date();
 
 export default {
   name,
@@ -21,15 +21,13 @@ export default {
 
   startOfWeek: 0, // 0 Sun 1 Mon....6 Sat
   minStay: 1, // can select one night
-  maxStay: 0, // can select infinite nights
-  monthStart: currDate.getUTCMonth(), // start with current month by default M '0...12'
-  yearStart: currDate.getUTCFullYear(), // start with current year YYYY
+  maxStay: Infinity, // can select infinite nights
+  monthStart: null, // start with current month by default M '0...11'
+  yearStart: null, // start with current year YYYY
   daysPerWeek: 7, // FIXME support calendar rendering
   displayMonths: 2,
   selectable: false,
   showRates: false,
-  showMinStay: false,
-  showMaxStay: false,
   isReverseSelectable: false, // select end date first
   isBackDisabled: true,
   isDropDown: false,
@@ -50,5 +48,5 @@ export default {
   allowShorterMinStaySelection: false,
   allowLongerMaxStaySelection: false,
   enableAllDays: false,
-  currDate
+  currentDate
 };

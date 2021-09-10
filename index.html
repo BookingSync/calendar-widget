@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <style>
     #calendarWithVar {
-      --bookingsync-calendar-highlighted-bg-color: var(--orange);
-      --bookingsync-calendar-invalid-bg-color:     var(--gray-dark);
-      --bookingsync-calendar-disabled-bg-color:    var(--gray);
+      --bookingsync-calendar-highlighted-bg-color: linear-gradient(to top, rgba(144, 78, 149, .5), rgba(233, 100, 67, .5));
+      --bookingsync-calendar-invalid-bg-color:     rgb(0,0,0,.1);
+      --bookingsync-calendar-disabled-bg-color:    linear-gradient(to top, rgba(144, 78, 149, .1), rgba(233, 100, 67, .1));
+      --bookingsync-calendar-disabled-color:       black;
 
       --bookingsync-calendar-tooltip-bg-color:     #fff;
       --bookingsync-calendar-tooltip-color:        #000;
@@ -77,16 +78,49 @@
     </div>
   </div>
 
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <h5 class="card-title">833 Rental</h5>
-      <div class="card-text">
-        <div data-bookingsync-calendar-widget
-             data-display-months="2"
-             data-show-rates="true"
-             data-show-min-stay="true"
-             data-rental-id="833"
-             data-currency="USD">
+  <div class="row">
+    <div class="col-4">
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5 class="card-title">832 Rental</h5>
+          <div class="card-text">
+            <div data-bookingsync-calendar-widget
+                 data-display-months="1"
+                 data-show-rates="true"
+                 data-rental-id="832"
+                 data-currency="USD">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5 class="card-title">833 Rental</h5>
+          <div class="card-text">
+            <div data-bookingsync-calendar-widget
+                 data-display-months="1"
+                 data-show-rates="true"
+                 data-rental-id="833"
+                 data-currency="USD">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5 class="card-title">834 Rental</h5>
+          <div class="card-text">
+            <div data-bookingsync-calendar-widget
+                 data-display-months="1"
+                 data-show-rates="true"
+                 data-rental-id="834"
+                 data-currency="USD">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -99,7 +133,6 @@
         <div data-bookingsync-calendar-widget
              data-selectable="true"
              data-display-months="3"
-             data-show-rates="true"
              data-show-min-stay="true"
              data-lang="en"
              data-rental-id="835">
@@ -116,7 +149,6 @@
              data-selectable="true"
              data-display-months="3"
              data-show-rates="true"
-             data-show-min-stay="true"
              data-lang="en"
              data-rental-id="835"
              data-is-reverse-selectable="true">

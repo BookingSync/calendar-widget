@@ -27,14 +27,12 @@ Calendar.init = (opts) => {
 
 Calendar.VERSION = require('../package.json').version;
 
-if (Calendar.autoInit !== false) {
-  if (document.readyState !== 'loading') {
+if (document.readyState !== 'loading') {
+  Calendar.init();
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
     Calendar.init();
-  } else {
-    document.addEventListener('DOMContentLoaded', () => {
-      Calendar.init();
-    });
-  }
+  });
 }
 
 window.BookingSyncCalendarWidget = Calendar;

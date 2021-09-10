@@ -16,17 +16,32 @@ export const month = `
 
 export const weekDayLabel = (label) => `<th class="${styles.th}">${label}</th>`;
 
-/* eslint prefer-template: 0 */
-export const weekDay = (label, disabled, isAvailableIn, isAvailableOut, isCurrentDay, rate, rateT) => `
+export const weekDay = (
+  label,
+  disabled,
+  isAvailableIn,
+  isAvailableOut,
+  isCurrentDay,
+  minStay,
+  minStayT,
+  maxStay,
+  maxStayT,
+  rate,
+  rateT
+) => `
   <td ${disabled ? `data-disabled=${disabled}` : 'data-enabled'}
        ${isAvailableOut ? 'data-available-out' : ''}
        ${isAvailableIn ? 'data-available-in' : ''}
+       ${minStay ? `data-min-stay=${minStay}` : ''}
+       ${maxStay ? `data-max-stay=${maxStay}` : ''}
        data-value="${label}"
        class="${styles.cell} ${isCurrentDay ? styles.today : ''}">
        <div class="${styles.cnt}" role="day-value">
         ${label}
         <div class="${styles.info}">
-          ${rate ? '<span data-rate>' + rateT + '</span>' : ''}
+          ${rate ? `<span data-rate>${rateT}</span>` : ''}
+          ${minStay && minStayT ? `<span data-min-stay-t>${minStayT}</span>` : ''}
+          ${maxStay && maxStayT ? `<span data-max-stay-t>${maxStayT}</span>` : ''}
         </div>
       </div>
   </td>
