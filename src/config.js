@@ -22,7 +22,7 @@ export default {
   startOfWeek: 0, // 0 Sun 1 Mon....6 Sat
   minStay: 1, // can select one night
   maxStay: Infinity, // can select infinite nights
-  monthStart: null, // start with current month by default M '0...12'
+  monthStart: null, // start with current month by default M '0...11'
   yearStart: null, // start with current year YYYY
   daysPerWeek: 7, // FIXME support calendar rendering
   displayMonths: 2,

@@ -60,13 +60,8 @@ export default class Calendar extends Emitter {
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
 
       let { currentDate } = this.opts;
-      currentDate = currentDate.toLocaleString('en', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      }).split('/');
-      const year  = parseInt(currentDate[2]);
-      const month = parseInt(currentDate[0]) - 1;
+      const year  = currentDate.getFullYear();
+      const month = currentDate.getMonth();
 
       this.opts.currentDate = [year, month, parseInt(currentDate[1])];
 
@@ -78,10 +73,11 @@ export default class Calendar extends Emitter {
         this.opts.monthStart = month;
       }
     }
-
+    // TODO: rename daysTree
     this.dom   = {};
+    // TODO: rename to calendarTree or bookingsTree
     this.cTree = new CalendarTree(validationOfCell, {});
-
+    // TODO: rename to bookingsData & addData
     if (isObject(maps)) {
       this.cTree.addMaps(maps, maps.start_date || dateToIso(this.opts.currentDate));
     }
@@ -91,6 +87,7 @@ export default class Calendar extends Emitter {
     this.highlightedBounds = [];
     this.hasValidRange     = true;
 
+    // TODO: rename isReverseSelectable to selectionDefaultDirection - should be LTR or RTL
     // user selects end date first
     this.isReverseSelectable = this.opts.isReverseSelectable;
     this.init();
@@ -817,6 +814,7 @@ export default class Calendar extends Emitter {
       isDisabled = 'center';
     }
 
+    // TODO: rename tpls to templates
     return tpls.weekDay(
       dayOfMonth,
       isDisabled,
