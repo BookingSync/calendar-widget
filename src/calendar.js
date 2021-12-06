@@ -15,7 +15,7 @@ import locales from './locales';
 import { strftime } from 'strtime';
 
 import {
-  dateToIso, isLater, isCurrent, validationOfCell, tFormatter, dateToArray
+  dateToIso, isLater, isCurrent, validationOfCell, tFormatter, dateToArray, monthDiff
 } from './utils';
 
 import styles from './styles/calendar.scss';
@@ -56,7 +56,7 @@ export default class Calendar extends Emitter {
 
       this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-US';
       this.locale           = locales[this.opts.lang];
-      this.format           = this.opts.formatDate || this.locale.formatDate || '%D';
+      this.format           = this.opts.formatDate || this.locale.formatDate || '%m/%d/%Y';
       this.opts.startOfWeek = this.opts.startOfWeek || this.locale.startOfWeek;
 
       let { currentDate } = this.opts;
@@ -105,18 +105,16 @@ export default class Calendar extends Emitter {
     this.addBtnsEvents();
 
     if (this.opts.selectable && this.opts.elStartAt && this.opts.elEndAt) {
-      this.inputsToValues();
-
-      this.opts.elStartAt.addEventListener('input', () => {
+      if (!this.opts.rentalId) {
         this.inputsToValues();
-      });
+      }
 
-      this.opts.elEndAt.addEventListener('input', () => {
-        this.inputsToValues();
-      });
+      this.on('maps-loaded', () => this.inputsToValues());
+      this.opts.elStartAt.addEventListener('input', () => this.inputsToValues());
+      this.opts.elEndAt.addEventListener('input', () => this.inputsToValues());
     }
 
-    if (this.opts.rentalId) {
+    if (this.opts.rentalId && !this.opts.isDropDown) {
       this.loadMaps(this.opts.rentalId);
     }
 
@@ -559,7 +557,7 @@ export default class Calendar extends Emitter {
 
         const tooltipPosition = (this.isReverseSelectable) ? left : right;
 
-        if (tooltipPosition && !this.hasValidRange) {
+        if (tooltipPosition && this.el.contains(cell) && !this.hasValidRange) {
           this.dom.tooltip = this.el.appendChild(elementFromString(templates.tooltip));
           this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
 
@@ -846,20 +844,21 @@ export default class Calendar extends Emitter {
   }
 
   loadMaps(id) {
+    this.logger('loading maps');
     this.toggleLoading();
 
     const onSuccess = (maps) => {
-      this.toggleLoading();
-
       if (isArray(maps.data) && maps.data[0].attributes) {
         if (this.opts.disableAvailabityMap) {
           maps.data[0].attributes.availability = maps.data[0].attributes.availability.replace(/[0-9]/g, '0');
         }
         this.opts.currency = this.opts.currency || maps.data[0].attributes.currency;
-        this.emit('maps-loaded', maps);
         this.addMaps(maps.data[0].attributes);
         this.mapsLoaded = true;
+        this.toggleLoading();
+        this.emit('maps-loaded', maps);
       } else {
+        this.toggleLoading();
         this.logger('expects json-api data format', 'error');
       }
     };
@@ -997,6 +996,10 @@ export default class Calendar extends Emitter {
   }
 
   inputsToValues() {
+    if (this.opts.elStartAt.value === '' && this.opts.elEndAt.value === '') {
+      return;
+    }
+
     const selectionStart  = dateToArray(this.opts.elStartAt.value, this.format, this.locale);
     const selectionEnd    = dateToArray(this.opts.elEndAt.value, this.format, this.locale);
     const { currentDate } = this.opts;
@@ -1005,10 +1008,20 @@ export default class Calendar extends Emitter {
 
     if (isArray(selectionStart) && isArray(selectionEnd)) {
       if (isLater(currentDate, selectionStart) && isLater(selectionStart, selectionEnd)) {
+        const monthDifference = monthDiff(
+          dateToIso(this.opts.yearStart, this.opts.monthStart, 1),
+          dateToIso(...selectionEnd)
+        );
+
+        const { tree } = this.createTree(this.opts.yearStart, this.opts.monthStart, monthDifference);
+
+        this.cTree.addTree(tree);
         this.selectionStart = selectionStart;
         this.selectionEnd = selectionEnd;
         this.recoverSelections();
         this.completeSelection();
+        this.destroyMonths();
+        this.renderMonths(selectionEnd[0], selectionEnd[1]);
       } else {
         this.logger(`invalid range: "[${selectionStart}]" "[${selectionEnd}]"`, 'warn');
         return false;
