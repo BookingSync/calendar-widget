@@ -15,7 +15,7 @@
     "start": "webpack serve --open --config webpack.dev.js",
     "test": "karma start karma.config.js --colors",
     "test-ci": "karma start karma.config.js --single-run true",
-    "lint:js": "eslint ./*.js src --fix",
+    "lint:js": "eslint ./*.js src",
     "mock-server": "node nodemon-start.js",
     "preversion": "npm run lint:js && npm run test-ci",
     "version": "npm run build && npm run dev && git add -A dist",
