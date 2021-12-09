@@ -45,6 +45,7 @@
     -webkit-transition: $transition;
     -o-transition: $transition;
     transition: $transition;
+    pointer-events: none;
 
     &[x-placement] {
       visibility: visible;

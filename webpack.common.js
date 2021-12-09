@@ -1,12 +1,16 @@
 /* global require, module, __dirname */
 
-const path     = require('path');
+const path = require('path');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   entry: {
     app: './src/index.js'
   },
   plugins: [
+    new ESLintPlugin({
+      files: './src/**/*.js'
+    })
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -17,11 +21,6 @@ module.exports = {
       {
         test: /(\.js)$/,
         loader: 'babel-loader'
-      },
-      {
-        test: /(\.js)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
       },
       {
         test: /\.s[ac]ss$/i,
