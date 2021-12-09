@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.0.3] - 2021-09-12
+### Fixed
+- duplicates maps loads when it's a calendar drop
+- error when initiating the calendar with dates selected that are not within the visible months
+- visual glitch when selecting dates with the cursor over the tool-tip making it blinking
+
 ## [2.0.2] - 2021-09-10
 ### Fixed
 - issue when data start from a past date that would set current date as unavailable
