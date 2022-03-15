@@ -162,11 +162,11 @@
 </div>
 
 <script>
-  var date = new Date();
+  const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
-  var year = date.toLocaleDateString('en-US', { year: '2-digit' });
-  var month = date.toLocaleDateString('en-US', { month: '2-digit' });
+  const year = date.toLocaleDateString('en-US', { year: '2-digit' });
+  const month = date.toLocaleDateString('en-US', { month: '2-digit' });
 
   /* set selection */
   document.querySelector("[name='start-at']").value = month + '/05/' + year;
@@ -179,7 +179,7 @@
 </script>
 <script src="bookingsync-calendar-widget.js"></script>
 <script>
-  var cal = new BookingSyncCalendarWidget({
+  const cal = new BookingSyncCalendarWidget({
     el:         document.querySelector('.calendar-wrapper'),
     isDropDown: true,
     selectable: true,

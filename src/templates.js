@@ -2,7 +2,7 @@ import styles from './styles/calendar.scss';
 
 export const main  = `<div class="${styles.monthsWrapper}"></div>`;
 
-export const tooltip = `<div class="${styles.tooltip}" role="tooltip"><span></span><div class="${styles.tooltipArrow}" x-arrow></div></div>`;
+export const tooltip = `<div class="${styles.tooltip}" role="tooltip"><span></span><div class="${styles.tooltipArrow}" data-popper-arrow="true"></div></div>`;
 
 export const month = `
   <div class="${styles.mCell} js-month">
