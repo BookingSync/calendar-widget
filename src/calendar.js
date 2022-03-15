@@ -1,11 +1,9 @@
-/* global Node, document, console, require */
+/* global Node, document, window, console, require */
 import {
   addClass, removeClass, hasClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
   isNumeric, traverseObj, ajax, isInside, currencyFormatter
 } from 'widget-utils';
-
-import Popper from 'popper.js';
 
 import * as templates from './templates';
 import CalendarTree from './calendar-tree';
@@ -561,16 +559,20 @@ export default class Calendar extends Emitter {
           this.dom.tooltip = this.el.appendChild(elementFromString(templates.tooltip));
           this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
 
-          this.tooltipPopper = new Popper(cell, this.dom.tooltip, {
+          this.tooltipPopper = window.Popper.createPopper(cell, this.dom.tooltip, {
             placement: 'top',
-            modifiers: {
-              flip: {
+            modifiers: [
+              {
+                name: 'flip',
                 enabled: false
               },
-              offset: {
-                offset: '0, 0'
+              {
+                name: 'offset',
+                options: {
+                  offset: [0, 0]
+                }
               }
-            }
+            ]
           });
         }
 
@@ -923,7 +925,7 @@ export default class Calendar extends Emitter {
 
     addClass(this.el, styles.dropBasic);
 
-    const calDrop = new Popper(this.elTarget, this.el, {
+    const calDrop = window.Popper.createPopper(this.elTarget, this.el, {
       placement: this.opts.dropPlacement,
       hide: true
     });

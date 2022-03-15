@@ -40,17 +40,7 @@
     font-size: 13px;
     border-radius: 4px;
     z-index: 500;
-    visibility: hidden;
-    opacity: 0;
-    -webkit-transition: $transition;
-    -o-transition: $transition;
-    transition: $transition;
     pointer-events: none;
-
-    &[x-placement] {
-      visibility: visible;
-      opacity: 1;
-    }
 
     .tooltipArrow {
       visibility: hidden;
