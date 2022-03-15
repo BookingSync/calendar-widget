@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2022-03-15
+### Updated
+- PopperJs version 2 (https://popper.js.org/docs/v2/migration-guide/)
+
 ## [2.0.3] - 2021-09-12
 ### Fixed
 - duplicates maps loads when it's a calendar drop
