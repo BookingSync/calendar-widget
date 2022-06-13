@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "BookingSync Calendar Widget",
   "main": "dist/bookingsync-calendar-widget.js",
-  "module": "src/bookingsync-calendar-widget.js",
+  "module": "src/index.js",
   "sideEffects": false,
   "files": [
     "/dist",

@@ -2,6 +2,8 @@
 @import 'variables';
 @import 'loading';
 @import 'drop';
+@import 'theme-skew';
+@import 'theme-basic';
 
 /********************************************************
 
@@ -131,42 +133,6 @@
     overflow: hidden;
     width: $cell-width;
 
-    &:first-child {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-
-    &:last-child {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-
-    &::before,
-    &::after {
-      position: absolute;
-      display: block;
-      width: 100%;
-      margin: 0;
-      content: '';
-      -webkit-transform: skew(-30deg);
-      -ms-transform: skew(-30deg);
-      transform: skew(-30deg);
-      border-radius: 6px;
-      z-index: 0;
-
-      // fix blurry skew
-      height: calc(100% + 2px);
-      top: -1px;
-    }
-
-    &::before {
-      left: -55%;
-    }
-
-    &::after {
-      left: 55%;
-    }
-
     &.today {
       font-weight: bold;
     }
@@ -221,173 +187,6 @@
 .highlighted,
 .invalid {
   color: inherit;
-}
-
-/********************************************************
-
-    selections, left - center - right
-
-********************************************************/
-
-/********************************************************
-  cells disabled
-/*******************************************************/
-
-.calendar {
-  [data-disabled="left"]::after {
-    background: $disabled-bg-color;
-  }
-
-  [data-disabled="center"] {
-    background: $disabled-bg-color;
-    color: $disabled-color;
-
-    &::before,
-    &::after {
-      display: none;
-      background: $disabled-bg-color;
-    }
-  }
-
-  [data-disabled="right"]::before {
-    background: $disabled-bg-color;
-  }
-}
-
-/********************************************************
-  cells highlighted
-/*******************************************************/
-
-.calendar {
-  [data-highlighted="left"]::after {
-    display: block;
-    background: $highlighted-bg-color;
-  }
-
-  [data-highlighted="center"] {
-    background: $highlighted-bg-color;
-    color: $highlighted-color;
-
-    &::before,
-    &::after {
-      display: none;
-      background: $highlighted-bg-color;
-    }
-  }
-
-  [data-highlighted="right"]::before {
-    display: block;
-    background: $highlighted-bg-color;
-  }
-}
-
-/********************************************************
-  cells invalid
-/*******************************************************/
-
-.calendar {
-  [data-invalid="left"] {
-    background: none;
-
-    &::before {
-      display: block;
-    }
-
-    &::after {
-      display: block;
-      background: $invalid-bg-color;
-    }
-  }
-
-  [data-invalid="center"] {
-    background: $invalid-bg-color;
-    color: $invalid-color;
-  
-    &::before,
-    &::after {
-      display: none;
-      background: $invalid-bg-color;
-    }
-  }
-
-  [data-invalid="right"] {
-    background: none;
-
-    &::before {
-      display: block;
-      background: $invalid-bg-color;
-    }
-
-    &::after {
-      display: block;
-    }
-  }
-}
-
-/********************************************************
-  cell hover direct
-/*******************************************************/
-
-.direct {
-  // cell hovered when selecting left to right
-  [data-hovered] {
-    background: none;
-
-    &::before {
-      display: block;
-    }
-
-    &::after {
-      display: block;
-      background: $highlighted-bg-color;
-    }
-  }
-
-  [data-hovered-offset] {
-    background: none;
-
-    &::before {
-      display: block;
-      background: $highlighted-bg-color;
-    }
-
-    &::after {
-      display: block;
-    }
-  }
-}
-
-/********************************************************
-  cell hover reversed
-/*******************************************************/
-
-.reversed {
-  // when selecting right to left
-  [data-hovered] {
-    background: none;
-
-    &::before {
-      display: block;
-      background: $highlighted-bg-color;
-    }
-
-    &::after {
-      display: block;
-    }
-  }
-
-  [data-hovered-offset] {
-    background: none;
-
-    &::before {
-      display: block;
-    }
-
-    &::after {
-      display: block;
-      background: $highlighted-bg-color;
-    }
-  }
 }
 
 /********************************************************
