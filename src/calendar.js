@@ -1011,7 +1011,7 @@ export default class Calendar extends Emitter {
     this.resetSelection();
 
     if (isArray(selectionStart) && isArray(selectionEnd)) {
-      if (isLater(currentDate, selectionStart) && isLater(selectionStart, selectionEnd)) {
+      if ((isLater(currentDate, selectionStart) || isCurrent(currentDate, selectionStart)) && isLater(selectionStart, selectionEnd)) {
         const monthDifference = monthDiff(
           dateToIso(this.opts.yearStart, this.opts.monthStart, 1),
           dateToIso(...selectionEnd)
