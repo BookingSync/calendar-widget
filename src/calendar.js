@@ -94,6 +94,9 @@ export default class Calendar extends Emitter {
 
   init() {
     addClass(this.el, styles.calendar, utilsStyles.reset);
+    if (!this.el.dataset.theme) {
+      this.el.dataset.theme = this.opts.theme;
+    }
 
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main));
     this.dom.forward       = this.el.appendChild(elementFromString(templates.forward));

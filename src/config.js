@@ -48,5 +48,6 @@ export default {
   allowShorterMinStaySelection: false,
   allowLongerMaxStaySelection: false,
   enableAllDays: false,
-  currentDate
+  currentDate,
+  theme: 'skew'
 };

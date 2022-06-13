@@ -1,0 +1,148 @@
+$cell-border-radius: var(--bookingsync-calendar-cell-border-radius, 6px);
+$cell-bg-opacity: var(--bookingsync-calendar-cell-bg-opacity, .5);
+
+.calendar[data-theme="basic"] {
+  .cell {
+    &::before,
+    &::after {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      margin: 0;
+      content: '';
+      z-index: 0;
+    }
+  }
+}
+
+/********************************************************
+
+    selections, left - center - right
+
+********************************************************/
+
+/********************************************************
+  cells disabled
+/*******************************************************/
+
+.calendar[data-theme="basic"] {
+  // [data-disabled="left"] {
+  //   color: $disabled-color;
+  // }
+
+  [data-disabled="center"] {
+    text-decoration: line-through;
+    color: $disabled-color;
+  }
+}
+
+/********************************************************
+  cells highlighted
+/*******************************************************/
+
+.calendar[data-theme="basic"] {
+  [data-highlighted="left"] {
+    color: $highlighted-color;
+
+    &::before {
+      background: $highlighted-bg-color;
+      opacity: $cell-bg-opacity;
+      width: 50%;
+      left: 50%;
+    }
+
+    &::after {
+      background: $highlighted-bg-color;
+      border-radius: $cell-border-radius;
+    }
+  }
+
+  [data-highlighted="center"] {
+    color: $highlighted-color;
+
+    &::before {
+      background: $highlighted-bg-color;
+      opacity: $cell-bg-opacity;
+    }
+  }
+
+  [data-highlighted="right"] {
+    color: $highlighted-color;
+
+    &::before {
+      background: $highlighted-bg-color;
+      opacity: $cell-bg-opacity;
+      width: 50%;
+      right: 50%;
+    }
+
+    &::after {
+      background: $highlighted-bg-color;
+      border-radius: $cell-border-radius;
+    }
+  }
+}
+
+/********************************************************
+  cells invalid
+/*******************************************************/
+
+.calendar[data-theme="basic"] {
+  [data-invalid="left"] {
+    color: $invalid-color;
+
+    &::before {
+      background: $invalid-bg-color;
+      opacity: $cell-bg-opacity;
+      width: 50%;
+      left: 50%;
+    }
+
+    &::after {
+      background: $invalid-bg-color;
+      border-radius: $cell-border-radius;
+    }
+  }
+
+  [data-invalid="center"] {
+    color: $invalid-color;
+
+    &::before {
+      background: $invalid-bg-color;
+      opacity: $cell-bg-opacity;
+    }
+  }
+
+  [data-invalid="right"] {
+    color: $invalid-color;
+
+    &::before {
+      background: $invalid-bg-color;
+      opacity: $cell-bg-opacity;
+      width: 50%;
+      right: 50%;
+    }
+
+    &::after {
+      background: $invalid-bg-color;
+      border-radius: $cell-border-radius;
+    }
+  }
+}
+
+/********************************************************
+  cell hover
+/*******************************************************/
+
+.calendar[data-theme="basic"] {
+  [data-hovered]:not([data-disabled="center"]) {
+    color: $highlighted-color;
+
+    &::after {
+      background: $highlighted-bg-color;
+      border-radius: $cell-border-radius;
+    }
+  }
+}
