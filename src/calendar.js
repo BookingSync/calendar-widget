@@ -18,8 +18,6 @@ import {
 
 import styles from './styles/calendar.scss';
 
-import utilsStyles from 'widget-utils/src/styles/reset.scss';
-
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
@@ -93,7 +91,8 @@ export default class Calendar extends Emitter {
   }
 
   init() {
-    addClass(this.el, styles.calendar, utilsStyles.reset);
+    addClass(this.el, styles.calendar, styles.reset);
+
     if (!this.el.dataset.theme) {
       this.el.dataset.theme = this.opts.theme;
     }
