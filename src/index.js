@@ -1,4 +1,4 @@
-/* global document, require, window, module */
+/* global document, require, window */
 let Calendar = require('./calendar');
 
 Calendar = Calendar.default;
@@ -37,4 +37,4 @@ if (document.readyState !== 'loading') {
 
 window.BookingSyncCalendarWidget = Calendar;
 
-module.exports = Calendar;
+export default Calendar;
