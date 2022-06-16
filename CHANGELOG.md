@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [2.1.1] - 2022-03-15
+## [2.1.1] - 2022-06-16
 ### Added
 - Themes (Basic and Skew)
 ### Fixed
