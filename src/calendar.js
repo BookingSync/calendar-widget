@@ -1,8 +1,8 @@
-/* global Node, document, window, console, require */
+/* global Node, document, window, console, require, fetch */
 import {
   addClass, removeClass, hasClass, isArray, isObject, Emitter,
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
-  isNumeric, traverseObj, ajax, isInside, currencyFormatter
+  isNumeric, traverseObj, isInside, currencyFormatter
 } from 'widget-utils';
 
 import * as templates from './templates';
@@ -875,7 +875,10 @@ export default class Calendar extends Emitter {
       this.logger('Server error happened', 'error');
     };
 
-    ajax(this.opts.rentalUrl(id), onSuccess, onError);
+    fetch(this.opts.rentalUrl(id))
+      .then((response) => response.json())
+      .then(onSuccess)
+      .catch(onError);
   }
 
   completeSelection() {

@@ -7,7 +7,7 @@ const currentDate = new Date();
 export default {
   name,
   cssPrefix: dashToCapital(name),
-  apiHost: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.bookingsync.com',
+  apiHost: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://secure.smily.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
   apiRentalId: 'rental_id=',
