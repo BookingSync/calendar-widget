@@ -107,8 +107,9 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
 
   it('10 of February has rates, currency and min stay', () => {
     const cell = document.querySelector('[data-value="10"]');
-
-    expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal('10\n10 HKD\n5+ noches');
+    widget.on('maps-loaded', () => {
+      expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal('10\n10 HKD\n5+ noches');
+    });
   });
 
   it('on 13 there is no information about rates..', () => {
