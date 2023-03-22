@@ -26,6 +26,7 @@ export default {
   yearStart: null, // start with current year YYYY
   daysPerWeek: 7, // FIXME support calendar rendering
   displayMonths: 2,
+  monthsPaginationJump: 1,
   selectable: false,
   showRates: false,
   isReverseSelectable: false, // select end date first

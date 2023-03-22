@@ -218,13 +218,21 @@ export default class Calendar extends Emitter {
   addBtnsEvents() {
     this.dom.forward.addEventListener('click', (e) => {
       this.destroyMonths();
-      this.renderMonths(this.yearEnd, this.monthEnd);
+      let monthToRender = this.monthStart + (this.opts.monthsPaginationJump || this.opts.displayMonths);
+      let yearToRender = this.yearStart;
+
+      if (monthToRender >= 12) {
+        monthToRender -= 12;
+        yearToRender += 1;
+      }
+
+      this.renderMonths(yearToRender, monthToRender);
       e.preventDefault();
     });
 
     this.dom.back.addEventListener('click', (e) => {
       this.destroyMonths();
-      let monthToRender = this.monthStart - this.opts.displayMonths;
+      let monthToRender = this.monthStart - (this.opts.monthsPaginationJump || this.opts.displayMonths);
       let yearToRender  = this.yearStart;
 
       if (monthToRender < 0) {
