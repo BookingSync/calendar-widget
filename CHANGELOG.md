@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [2.1.2] - 2023-03-23
+## [2.1.3] - 2023-03-23
 ### Added
 - Option for months pagination `monthsPaginationJump`
 
