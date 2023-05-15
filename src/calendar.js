@@ -509,18 +509,18 @@ export default class Calendar extends Emitter {
 
     if (isArray(range)) {
       if (opts.rentalId) {
+        const rangeWithoutLast = range.slice(0, -1);
+
         if (!opts.allowShorterMinStaySelection) {
           // get the biggest minStay value in the range
-          minStay = Math.max(...range.map(function(cell) {
-            return cell.dataset.minStay || minStay;
-          }));
+          const cells = rangeWithoutLast.map((cell) => cell.dataset.minStay || minStay);
+          minStay = Math.max(...cells);
         }
 
         if (!opts.allowLongerMaxStaySelection) {
           // get the biggest maxStay value in the range
-          maxStay = Math.max(...range.map(function(cell) {
-            return cell.dataset.maxStay || maxStay;
-          }));
+          const cells = rangeWithoutLast.map((cell) => cell.dataset.maxStay || maxStay);
+          maxStay = Math.max(...cells);
         }
       }
 
