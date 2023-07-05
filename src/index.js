@@ -7,7 +7,7 @@ Calendar = Calendar.default;
 window.BookingSyncWidgetUtils = require('widget-utils');
 
 // Export Popper
-window.Popper = require('@popperjs/core');
+window.Popper = require('popper.js');
 
 Calendar.init = (opts) => {
   const initialized = [];
