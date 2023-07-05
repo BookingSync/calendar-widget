@@ -1,15 +1,11 @@
 /* global describe, it, before, after, document */
 import chai from 'chai';
-import sinon from 'sinon';
 
 import s from '../../src/styles/calendar.scss';
 import Calendar from '../../src/calendar';
 
 const { expect } = chai;
 const { keys }      = Object;
-const { stringify } = JSON;
-
-let server;
 
 const stubElement = (name, attrs) => {
   const params  = attrs || {};
@@ -18,30 +14,21 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-const maps = {
-  data: [
-    {
-      id: 833,
-      type: 'maps',
-      attributes: {
-        minimum_stays: '5,3,1',
-        nightly_rates: '10,20,30',
-        availability: '1,1,1',
-        start_date: '2017-02-10',
-        currency: 'HKD'
-      }
-    }
-  ]
-};
+const date = new Date();
+date.setMonth(date.getMonth() + 1);
+
+const year = date.getFullYear();
+const month = date.getMonth();
+const day = date.getDate();
 
 describe('sense checks', () => {
-  let widget, rootElement;
+  let calendar, rootElement;
 
   before(() => {
     rootElement = stubElement('div');
     document.body.appendChild(rootElement);
 
-    widget = new Calendar({
+    calendar = new Calendar({
       el: rootElement,
       lang: 'en-GB',
       monthStart: 1,
@@ -51,11 +38,11 @@ describe('sense checks', () => {
   });
 
   after(() => {
-    widget.destroy();
+    calendar.destroy();
   });
 
   it('renders', () => {
-    expect(widget.el).to.be.deep.equal(rootElement);
+    expect(calendar.el).to.be.deep.equal(rootElement);
   });
 
   it('renders 3 (Su first) empty days in February 2017, 01/02/2017 is We', () => {
@@ -68,51 +55,91 @@ describe('sense checks', () => {
 });
 
 describe('Loads maps and display correct currency, rates and min stay', () => {
-  let widget, rootElement;
+  let calendar, rootElement;
 
-  before(() => {
-    server                    = sinon.fakeServer.create();
-    server.autoRespond        = true;
-    server.respondImmediately = true;
-
-    server.respondWith('GET', new RegExp('maps.json'), stringify(maps));
-
+  before((done) => {
     rootElement = stubElement('div');
     document.body.appendChild(rootElement);
 
-    widget = new Calendar({
+    calendar = new Calendar({
       el: rootElement,
-      monthStart: 1,
       displayMonths: 1,
       showRates: true,
       showMinStay: true,
       rentalId: 833,
-      yearStart: 2017,
       lang: 'es-ES'
+    });
+
+    calendar.on('maps-loaded', () => {
+      done();
     });
   });
 
   after(() => {
-    widget.destroy();
-    server.restore();
+    calendar.destroy();
   });
 
   it('renders', () => {
-    expect(widget.el).to.be.deep.equal(rootElement);
+    expect(calendar.el).to.be.deep.equal(rootElement);
   });
 
-  it('renders 2 (Mo first) empty days in February 2017, 01/02/2017 is We', () => {
-    expect(document.querySelectorAll('.js-body-row-0 td:empty').length).to.be.equal(2);
+  it('should have Today with rates, currency and min stay', () => {
+    const cell = document.querySelector(`[data-value="${day}"]`);
+    // eslint-disable-next-line no-irregular-whitespace
+    expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal(`${day}\n120 €\n2+ noches`);
   });
+});
 
-  it('10 of February has rates, currency and min stay', () => {
-    const cell = document.querySelector('[data-value="10"]');
-    widget.on('maps-loaded', () => {
-      expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal('10\n10 HKD\n5+ noches');
+describe('highLightRange', () => {
+  let calendar, rootElement;
+
+  before((done) => {
+    rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    calendar = new Calendar({
+      el: rootElement,
+      displayMonths: 2,
+      showRates: true,
+      showMinStay: true,
+      rentalId: 833,
+      selectable: true
+    });
+
+    calendar.on('maps-loaded', () => {
+      done();
     });
   });
 
-  it('on 13 there is no information about rates..', () => {
-    expect(document.querySelector('[data-value="13"]').innerText).to.be.equal('13');
+  after(() => {
+    calendar.destroy();
+  });
+
+  it('should highlight the range of dates between start and end', () => {
+    calendar.highLightRange([year, month - 1, day + 5], [year, month - 1, day + 8]);
+
+    const highlightedCells = document.querySelectorAll('[data-highlighted]');
+    expect(highlightedCells.length).to.be.equal(4);
+  });
+
+  it('should show a tooltip when the range is invalid', () => {
+    calendar.highLightRange([year, month - 1, day + 5], [year, month - 1, day + 9]);
+    const tooltip = document.querySelector('.BookingSyncCalendarWidget__tooltip');
+    expect(tooltip.innerText).to.be.equal('minimum stay: 5 nights');
+  });
+
+  it('should take the biggest minStay in the highlighted range', () => {
+    calendar.highLightRange([year, month - 1, day + 6], [year, month - 1, day + 9]);
+    const tooltip = document.querySelector('.BookingSyncCalendarWidget__tooltip');
+    expect(tooltip.innerText).to.be.equal('minimum stay: 5 nights');
+  });
+
+  it('should remove any highlighted cells and reset the selection', () => {
+    calendar.highLightRange([year, month - 1, day + 5], [year, month - 1, day + 8]);
+    calendar.resetSelection();
+    const highlightedCells = document.querySelectorAll('[data-highlighted]');
+    expect(highlightedCells.length).to.be.equal(0);
+    expect(calendar.selectionStart).to.be.equal(null);
+    expect(calendar.selectionEnd).to.be.equal(null);
   });
 });
