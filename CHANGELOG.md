@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.1.4] - 2023-06-05
+### Fixed
+- Removed last day of a range from minStay & maxStay calculation
+
 ## [2.1.3] - 2023-03-23
 ### Added
 - Option for months pagination `monthsPaginationJump`
