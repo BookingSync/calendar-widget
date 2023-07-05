@@ -14,7 +14,7 @@
     "build": "webpack --config webpack.prod.js",
     "start": "node json-server.js --quiet & webpack serve --open --config webpack.dev.js",
     "test": "node json-server.js --quiet & karma start karma.config.js --colors",
-    "test-ci": "node json-server.js --quiet & karma start karma.config.js --single-run true",
+    "test-ci": "node json-server.js --quiet & sleep 2 && curl http://localhost:3000/api/v2/public/maps.json && karma start karma.config.js",
     "lint:js": "eslint ./*.js src",
     "mock-server": "node nodemon-start.js",
     "preversion": "npm run lint:js && npm run test-ci",
