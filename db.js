@@ -1,5 +1,6 @@
 /* global module */
 
+// Used to generate fake data for the calendar in json-server.js
 module.exports = () => {
   const data = {
     'maps.json': {

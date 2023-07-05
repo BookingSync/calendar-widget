@@ -48,7 +48,7 @@ export default class CalendarTree {
    * start date is ALWAYS < then end date , as we are selecting time range in days.
    *
    * @param {Array} start e.g. [2016, 0, 1]
-   * @param {Array} end        [2016, 1, 3]
+   * @param {Array} end [2016, 1, 3]
    * @returns {{range: Array, isValid: {Boolean}}}
    */
   selectRange(start, end) {

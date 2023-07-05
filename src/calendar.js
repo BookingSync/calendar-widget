@@ -501,6 +501,13 @@ export default class Calendar extends Emitter {
     }
   }
 
+  /**
+   * Highlights the range of cells between the start and end dates.
+   * @public
+   * @param {Array} start e.g. [2016, 0, 1]
+   * @param {Array} end [2016, 1, 3]
+   * @returns {boolean} - Whether the range is valid or not.
+   */
   highLightRange(start, end) {
     const { range, isValid } = this.selectRange(start, end);
     const { opts }           = this;
@@ -571,6 +578,8 @@ export default class Calendar extends Emitter {
           this.dom.tooltip = this.el.appendChild(elementFromString(templates.tooltip));
           this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
 
+          this.logger(`invalidRangeMessage: ${invalidRangeMessage} (${start} - ${end})`, 'warn');
+
           this.tooltipPopper = window.Popper.createPopper(cell, this.dom.tooltip, {
             placement: 'top',
             modifiers: [
@@ -633,6 +642,13 @@ export default class Calendar extends Emitter {
     return this;
   }
 
+  /**
+   * select range from the tree
+   *
+   * @param {Array} start e.g. [2016, 0, 1]
+   * @param {Array} end [2016, 1, 3]
+   * @returns {{range: Array, isValid: {Boolean}}}
+   */
   selectRange(start, end) {
     if (isLater(start, end)) {
       return this.cTree.selectRange(start, end);
