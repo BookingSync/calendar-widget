@@ -238,6 +238,11 @@
     outline: none;
   }
 
+  .forward:focus-visible,
+  .back:focus-visible {
+    outline: 2px solid $btn-fill;
+  }
+
   .forward:hover,
   .back:hover {
     fill: $btn-fill-hover;
