@@ -1,6 +1,5 @@
-import {
-  is, merge, monthLength, isString
-} from 'widget-utils';
+import utils from 'widget-utils';
+const { is, merge, monthLength, isString } = utils;
 
 /**
  *  please refer to /tests/unit/calendarTree.specs.js for usage

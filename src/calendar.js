@@ -1,9 +1,5 @@
 /* global Node, document, window, console, require, fetch */
-import {
-  addClass, removeClass, hasClass, isArray, isObject, Emitter,
-  merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
-  isNumeric, traverseObj, isInside, currencyFormatter
-} from 'widget-utils';
+import utils from 'widget-utils';
 
 import * as templates from './templates';
 import CalendarTree from './calendar-tree';
@@ -20,6 +16,11 @@ import styles from './styles/calendar.scss';
 
 import utilsStyles from 'widget-utils/src/styles/reset.scss';
 
+const {
+  addClass, removeClass, hasClass, isArray, isObject, Emitter,
+  merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
+  isNumeric, traverseObj, isInside, currencyFormatter
+} = utils;
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();

@@ -1,6 +1,7 @@
 /* global console */
 import { strftime, strptime } from 'strtime';
-import { is } from 'widget-utils';
+import utils from 'widget-utils';
+const { is } = utils;
 
 export const dateToIso = (year, month, day, isString = false) => {
   function pad(number) {
