@@ -1,9 +1,7 @@
 /* global describe, it, before, after */
-import chai from 'chai';
+import { expect } from 'chai';
 
 import CalendarTree from '../../src/calendar-tree';
-
-const { expect } = chai;
 
 const treeA = {
   2016: {

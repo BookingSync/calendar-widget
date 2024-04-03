@@ -1,11 +1,10 @@
 /* global describe, it, before, after, document, window */
-import chai from 'chai';
-import { destroyElement } from 'widget-utils';
+import { expect } from 'chai';
+import utils from 'widget-utils';
 
 import styles from '../../src/styles/calendar.scss';
 import BookingSyncCalendar from '../../src/index';
 
-const { expect } = chai;
 const { keys } = Object;
 
 const stubElement = (name, attrs) => {
@@ -26,8 +25,8 @@ describe('BookingSync Calendar renders on containers with auto-init', () => {
 
   after(() => {
     BookingSyncCalendar.instances.map((a) => a.destroy());
-    destroyElement(div1);
-    destroyElement(div2);
+    utils.destroyElement(div1);
+    utils.destroyElement(div2);
   });
 
   it('renders 2 widgets on the page', () => {

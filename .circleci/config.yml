@@ -1,13 +1,13 @@
 defaults: &defaults
   docker:
-    - image: cimg/node:16.13.1-browsers
+    - image: cimg/node:18.12.0-browsers
       environment:
         CHROME_BIN: /usr/bin/google-chrome
         JOBS: 1
 
 version: '2.1'
 orbs: 
-  browser-tools: circleci/browser-tools@1.2.3
+  browser-tools: circleci/browser-tools@1.4.8
 jobs:
   build:
     <<: *defaults

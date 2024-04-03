@@ -1,10 +1,9 @@
 /* global describe, it, before, after, document */
-import chai from 'chai';
+import { expect } from 'chai';
 
 import s from '../../src/styles/calendar.scss';
 import Calendar from '../../src/calendar';
 
-const { expect } = chai;
 const { keys }      = Object;
 
 const stubElement = (name, attrs) => {

@@ -1,9 +1,7 @@
 /* global require, describe, it */
-import chai from 'chai';
+import { expect } from 'chai';
 
 import { dateToIso } from '../../src/utils';
-
-const { expect } = chai;
 
 describe('utils', () => {
   let timezone_mock = require('timezone-mock');

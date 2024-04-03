@@ -1,9 +1,5 @@
-/* global Node, document, window, console, require, fetch */
-import {
-  addClass, removeClass, hasClass, isArray, isObject, Emitter,
-  merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
-  isNumeric, traverseObj, isInside, currencyFormatter
-} from 'widget-utils';
+/* global Node, document, window, console, require, fetch, setTimeout */
+import utils from 'widget-utils';
 
 import * as templates from './templates';
 import CalendarTree from './calendar-tree';
@@ -20,6 +16,11 @@ import styles from './styles/calendar.scss';
 
 import utilsStyles from 'widget-utils/src/styles/reset.scss';
 
+const {
+  addClass, removeClass, hasClass, isArray, isObject, Emitter,
+  merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
+  isNumeric, traverseObj, isInside, currencyFormatter
+} = utils;
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
@@ -46,12 +47,6 @@ export default class Calendar extends Emitter {
         return b;
       });
 
-      if (this.opts.isDropDown) {
-        this.initCalendarDrop();
-      } else {
-        this.el = opts.el;
-      }
-
       this.opts.lang        = (this.opts.lang && this.opts.lang in locales) ? this.opts.lang : 'en-US';
       this.locale           = locales[this.opts.lang];
       this.format           = this.opts.formatDate || this.locale.formatDate || '%m/%d/%Y';
@@ -71,6 +66,13 @@ export default class Calendar extends Emitter {
       if (!this.opts.monthStart) {
         this.opts.monthStart = month;
       }
+
+      if (this.opts.isDropDown) {
+        this.initCalendarDrop();
+      } else {
+        this.el = opts.el;
+      }
+
     }
     // TODO: rename daysTree
     this.dom   = {};
@@ -99,9 +101,12 @@ export default class Calendar extends Emitter {
       this.el.dataset.theme = this.opts.theme;
     }
 
-    this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main));
-    this.dom.forward       = this.el.appendChild(elementFromString(templates.forward));
-    this.dom.back          = this.el.appendChild(elementFromString(templates.back));
+    this.el.setAttribute('role', 'region');
+    this.el.setAttribute('aria-label', this.locale.labels.calendar);
+
+    this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main(this.locale.labels.months)));
+    this.dom.forward       = this.el.appendChild(elementFromString(templates.forward(this.locale.labels.monthsForward)));
+    this.dom.back          = this.el.appendChild(elementFromString(templates.back(this.locale.labels.monthsBackward)));
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
     this.addBtnsEvents();
@@ -246,25 +251,12 @@ export default class Calendar extends Emitter {
   }
 
   addMonthEvents(el) {
-    el.addEventListener('click', (e) => {
+    const selectionHandler = (e) => {
       const isEndFirst = this.isReverseSelectable;
       const {
         value,
         parent: cell
       } = traverseToParentWithAttr(e.target, 'data-value');
-
-      const resetSelectionOnEscape = (event) => {
-        const key = event.key || event.keyCode;
-
-        if (key === 'Escape' || key === 'Esc' || key === 27) {
-          if (this.isSelecting) {
-            document.removeEventListener('keyup', resetSelectionOnEscape, true);
-            this.resetSelection();
-          }
-        }
-      };
-
-      document.addEventListener('keyup', resetSelectionOnEscape, true);
 
       if (is(value) && cell) {
         const dateValue          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
@@ -273,7 +265,6 @@ export default class Calendar extends Emitter {
         const isPastToday        = isLater(dateValue, this.opts.currentDate);
 
         if (dayAlreadySelected || rangeSelected || isPastToday) {
-          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.resetSelection();
         }
 
@@ -289,16 +280,15 @@ export default class Calendar extends Emitter {
         }
 
         if (this.selectionEnd && this.selectionStart && this.hasValidRange) {
-          document.removeEventListener('keyup', resetSelectionOnEscape, true);
           this.completeSelection(isEndFirst, dateValue, cell);
           if (this.opts.isDropDown && this.calDrop) {
             this.closeDrop(null, true);
           }
         }
       }
-    });
+    };
 
-    el.addEventListener('mouseover', (e) => {
+    const mouseoverHandler =  (e) => {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
       if (is(value) && cell) {
@@ -375,7 +365,43 @@ export default class Calendar extends Emitter {
           cell.dataset.hovered = isInvalid;
         }
       }
+    };
+
+    el.addEventListener('keydown', (e) => {
+      const key = e.key || e.keyCode;
+
+      if (key === 'Enter' || key === 13) {
+        selectionHandler(e);
+      }
+
+      // select dates with Tab key
+      if (key === 'Tab' || key === 9) {
+        if (this.isSelecting) {
+          // magic trick
+          setTimeout(() => {
+            const cells = this.el.querySelectorAll('[data-value]');
+            const cell = this.el.querySelector('[data-value]:focus');
+            const index = [].indexOf.call(cells, cell);
+
+            if (index === -1) {
+              return;
+            }
+
+            mouseoverHandler({ target: cells[index] });
+          });
+        }
+      }
+
+      if (key === 'Escape' || key === 'Esc' || key === 27) {
+        if (this.isSelecting) {
+          this.resetSelection();
+        }
+      }
     });
+
+    el.addEventListener('click', selectionHandler);
+
+    el.addEventListener('mouseover', mouseoverHandler);
 
     el.body.addEventListener('mouseout', (e) => {
       const cells = this.el.querySelectorAll('[data-value]');
@@ -715,10 +741,11 @@ export default class Calendar extends Emitter {
   }
 
   domMonth(year, month) {
-    const monthDom = elementFromString(templates.month);
+    const longMonthNames = this.locale.longMonthNames[month];
+    const monthDom = elementFromString(templates.month(longMonthNames));
 
     monthDom.querySelector(`.${styles.tableHeader} tr`).innerHTML = this.headerTemplateString();
-    monthDom.querySelector(`.${styles.caption}`).innerHTML        = `${this.locale.longMonthNames[month]} ${year}`;
+    monthDom.querySelector(`.${styles.caption}`).innerHTML        = `${longMonthNames} ${year}`;
 
     monthDom.body           = monthDom.querySelector(`.${styles.body}`);
     monthDom.body.innerHTML = this.daysTemplateString(year, month);
@@ -847,19 +874,23 @@ export default class Calendar extends Emitter {
       isDisabled = 'center';
     }
 
-    return templates.weekDay(
-      dayOfMonth,
-      isDisabled,
+    const options = {
+      label: dayOfMonth,
+      date: strftime(dateToIso(year, month, dayOfMonth), this.locale.formatDate, this.locale),
+      disabled: isDisabled,
       isAvailableIn,
       isAvailableOut,
       isCurrentDay,
       minStay,
-      this.opts.showMinStay ? tFormatter(minStay, this.locale.minStay) : false,
+      minStayT: this.opts.showMinStay ? tFormatter(minStay, this.locale.minStay) : false,
       maxStay,
-      this.opts.showMaxStay ? tFormatter(maxStay, this.locale.maxStay) : false,
+      maxStayT: this.opts.showMaxStay ? tFormatter(maxStay, this.locale.maxStay) : false,
       rate,
-      currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency)
-    );
+      rateT: currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
+      tabindex: this.opts.selectable ? 0 : -1
+    };
+
+    return templates.weekDay(options);
   }
 
   destroyMonths() {
@@ -956,6 +987,11 @@ export default class Calendar extends Emitter {
 
     addClass(this.el, styles.dropBasic);
 
+    // Add aria attributes
+    this.el.setAttribute('role', 'dialog');
+    this.el.setAttribute('aria-modal', 'true');
+    this.el.setAttribute('aria-hidden', 'true');
+
     const calDrop = window.Popper.createPopper(this.elTarget, this.el, {
       placement: this.opts.dropPlacement,
       hide: true
@@ -969,6 +1005,8 @@ export default class Calendar extends Emitter {
         calDrop.update();
         this.emit('drop-open');
         addClass(this.el, styles.visible);
+        this.el.setAttribute('aria-hidden', 'false');
+        this.dom.monthsWrapper.querySelector('td[tabindex="0"]').focus();
 
         if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);
@@ -996,6 +1034,18 @@ export default class Calendar extends Emitter {
       this.opts.elReset.addEventListener('click', () => {
         this.resetSelection();
       });
+    }
+  }
+
+  closeDrop(e, force) {
+    if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
+      e.stopPropagation();
+    } else {
+      removeClass(this.el, styles.visible);
+      this.el.setAttribute('aria-hidden', 'true');
+      this.destroyTooltip();
+      this.emit('drop-close');
+      this.switchInputFocus('any');
     }
   }
 
@@ -1079,17 +1129,6 @@ export default class Calendar extends Emitter {
         removeClass(this.opts.elStartAt, styles.focus);
         removeClass(this.opts.elEndAt, styles.focus);
       }
-    }
-  }
-
-  closeDrop(e, force) {
-    if (!force && (isInside(e.target, this.el) || isInside(e.target, this.elTarget))) {
-      e.stopPropagation();
-    } else {
-      removeClass(this.el, styles.visible);
-      this.destroyTooltip();
-      this.emit('drop-close');
-      this.switchInputFocus('any');
     }
   }
 

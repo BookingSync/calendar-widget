@@ -11,7 +11,13 @@ let locales = {
     hasInvalidMinStay: 'minimum stay: %number nights',
     hasInvalidMaxStay: 'maximum stay: %number nights',
     hasInvalidDays: 'booked already',
-    startOfWeek: 0
+    startOfWeek: 0,
+    labels: {
+      calendar: 'Calendar',
+      months: 'Months',
+      monthsForward: 'Next month',
+      monthsBackward: 'Previous month'
+    }
   },
   'en-US': {
     shortWeekdayNames: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
@@ -25,7 +31,13 @@ let locales = {
     hasInvalidMinStay: 'minimum stay: %number nights',
     hasInvalidMaxStay: 'maximum stay: %number nights',
     hasInvalidDays: 'booked already',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Calendar',
+      months: 'Months',
+      monthsForward: 'Next month',
+      monthsBackward: 'Previous month'
+    }
   },
   'de-DE': {
     shortWeekdayNames: 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
@@ -39,7 +51,13 @@ let locales = {
     hasInvalidMinStay: 'mindestaufenthalt: %number Nächte',
     hasInvalidMaxStay: 'maximaler Aufenthalt: %number Nächte',
     hasInvalidDays: 'schon gebucht',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Kalender',
+      months: 'Monate',
+      monthsForward: 'Nächster Monat',
+      monthsBackward: 'Vorheriger Monat'
+    }
   },
   'es-ES': {
     shortWeekdayNames: 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
@@ -53,7 +71,13 @@ let locales = {
     hasInvalidMinStay: 'estancia mínima: %number noches',
     hasInvalidMaxStay: 'estancia máxima: %number noches',
     hasInvalidDays: 'ya reservado',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Calendario',
+      months: 'Meses',
+      monthsForward: 'Próximo mes',
+      monthsBackward: 'Mes anterior'
+    }
   },
   'fr-FR': {
     shortWeekdayNames: 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
@@ -67,7 +91,13 @@ let locales = {
     hasInvalidMinStay: 'séjour minimum : %number nuits',
     hasInvalidMaxStay: 'séjour maximum : %number nuits',
     hasInvalidDays: 'déjà réservé',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Calendrier',
+      months: 'Mois',
+      monthsForward: 'Mois suivant',
+      monthsBackward: 'Mois précédent'
+    }
   },
   'it-IT': {
     shortWeekdayNames: 'Do_Lu_Ma_Me_Gi_Ve_Sa'.split('_'),
@@ -81,7 +111,13 @@ let locales = {
     hasInvalidMinStay: 'soggiorno minim: %number notti',
     hasInvalidMaxStay: 'soggiorno massimo: %number notti',
     hasInvalidDays: 'già prenotato',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Calendario',
+      months: 'Mesi',
+      monthsForward: 'Mese successivo',
+      monthsBackward: 'Mese precedente'
+    }
   },
   'sv-SE': {
     shortWeekdayNames: 'sö_må_ti_on_to_fr_lö'.split('_'),
@@ -95,7 +131,13 @@ let locales = {
     hasInvalidMinStay: 'kortaste vistelse: %number nätter',
     hasInvalidMaxStay: 'maximálny pobyt: %number nätter',
     hasInvalidDays: 'redan bokat',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Kalender',
+      months: 'Månader',
+      monthsForward: 'Nästa månad',
+      monthsBackward: 'Föregående månad'
+    }
   },
   'ru-RU': {
     shortWeekdayNames: 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
@@ -109,7 +151,13 @@ let locales = {
     hasInvalidMinStay: 'минимальное пребывани: %number ночи',
     hasInvalidMaxStay: 'максимальное пребывание: %number ночи',
     hasInvalidDays: 'забронировано уже',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Календарь',
+      months: 'Месяцы',
+      monthsForward: 'Следующий месяц',
+      monthsBackward: 'Предыдущий месяц'
+    }
   },
   'pl-PL': {
     shortWeekdayNames: 'Nd_Pn_Wt_Śr_Cz_Pt_So'.split('_'),
@@ -123,7 +171,13 @@ let locales = {
     hasInvalidMinStay: 'minimalny poby: %number noce',
     hasInvalidMaxStay: 'maksymalny pobyt: %number noce',
     hasInvalidDays: 'już zarezerwowane',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Kalendarz',
+      months: 'Miesiące',
+      monthsForward: 'Następny miesiąc',
+      monthsBackward: 'Poprzedni miesiąc'
+    }
   },
   'nl-NL': {
     shortWeekdayNames: 'Zo_Ma_Di_Wo_Do_Vr_Za'.split('_'),
@@ -137,7 +191,13 @@ let locales = {
     hasInvalidMinStay: 'minimaal verblijf: %number nachten',
     hasInvalidMaxStay: 'maximaal verblijf: %number nachten',
     hasInvalidDays: 'al geboekt',
-    startOfWeek: 1
+    startOfWeek: 1,
+    labels: {
+      calendar: 'Kalender',
+      months: 'Maanden',
+      monthsForward: 'Volgende maand',
+      monthsBackward: 'Vorige maand'
+    }
   }
 };
 

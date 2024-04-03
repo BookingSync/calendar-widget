@@ -1,12 +1,12 @@
 /* global process, require */
-import { dashToCapital } from 'widget-utils';
+import utils from 'widget-utils';
 
 const { name } = require('../package.json');
 const currentDate = new Date();
 
 export default {
   name,
-  cssPrefix: dashToCapital(name),
+  cssPrefix: utils.dashToCapital(name),
   apiHost: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://secure.smily.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
