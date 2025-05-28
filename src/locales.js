@@ -145,7 +145,7 @@ let locales = {
     longMonthNames: 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'),
     shortMonthNames: 'Янв_Фев_Мар_Апр_Май_Июн_Июл_Авг_Сен_Окт_Ноя_Дек'.split('_'),
     formatDate: '%d.%b.%Y',
-    currency: 'Руб.',
+    currency: 'RUB',
     minStay: '%number+ ноч.',
     maxStay: '%number- ноч.',
     hasInvalidMinStay: 'минимальное пребывани: %number ночи',
