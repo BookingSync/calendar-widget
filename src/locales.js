@@ -208,7 +208,7 @@ locales = Object.assign({
   es: locales['es-ES'],
   fr: locales['fr-FR'],
   it: locales['it-IT'],
-  sv: locales['sv-SV'],
+  sv: locales['sv-SE'],
   ru: locales['ru-RU'],
   pl: locales['pl-PL'],
   nl: locales['nl-NL']
