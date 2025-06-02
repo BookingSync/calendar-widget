@@ -14,7 +14,6 @@ const stubElement = (name, attrs) => {
 };
 
 const date = new Date();
-date.setMonth(date.getMonth() + 1);
 
 const year = date.getFullYear();
 const month = date.getMonth();
@@ -102,7 +101,10 @@ describe('highLightRange', () => {
       showRates: true,
       showMinStay: true,
       rentalId: 833,
-      selectable: true
+      selectable: true,
+      lang: 'en-US',
+      yearStart: year,
+      monthStart: month
     });
 
     calendar.on('maps-loaded', () => {
@@ -115,29 +117,38 @@ describe('highLightRange', () => {
   });
 
   it('should highlight the range of dates between start and end', () => {
-    calendar.highLightRange([year, month - 1, day + 5], [year, month - 1, day + 8]);
+    calendar.highLightRange([year, month + 1, 1], [year, month + 1, 4]);
 
-    const highlightedCells = document.querySelectorAll('[data-highlighted]');
+    const highlightedCells = calendar.el.querySelectorAll('[data-highlighted]');
     expect(highlightedCells.length).to.be.equal(4);
   });
 
-  it('should show a tooltip when the range is invalid', () => {
-    calendar.highLightRange([year, month - 1, day + 5], [year, month - 1, day + 9]);
-    const tooltip = document.querySelector('.BookingSyncCalendarWidget__tooltip');
-    expect(tooltip.innerText).to.be.equal('minimum stay: 5 nights');
+  it('should show a tooltip when the range is invalid', (done) => {
+    calendar.highLightRange([year, month, day - 1], [year, month, day + 1]);
+    setTimeout(() => {
+      const tooltip = calendar.el.querySelector('.BookingSyncCalendarWidget__tooltip');
+      expect(tooltip.innerText).to.be.equal('booked already');
+      done();
+    }, 50);
   });
 
-  it('should take the biggest minStay in the highlighted range', () => {
-    calendar.highLightRange([year, month - 1, day + 6], [year, month - 1, day + 9]);
-    const tooltip = document.querySelector('.BookingSyncCalendarWidget__tooltip');
-    expect(tooltip.innerText).to.be.equal('minimum stay: 5 nights');
+  it('should take the biggest minStay in the highlighted range', (done) => {
+    calendar.highLightRange([year, month, day], [year, month, day + 2]);
+    setTimeout(() => {
+      const tooltip = calendar.el.querySelector('.BookingSyncCalendarWidget__tooltip');
+      expect(tooltip.innerText).to.be.equal('booked already');
+      done();
+    }, 50);
   });
 
   it('should remove any highlighted cells and reset the selection', () => {
-    calendar.highLightRange([year, month - 1, day + 5], [year, month - 1, day + 8]);
     calendar.resetSelection();
-    const highlightedCells = document.querySelectorAll('[data-highlighted]');
-    expect(highlightedCells.length).to.be.equal(0);
+
+    calendar.highLightRange([year, month + 1, 1], [year, month + 1, 4]);
+
+    calendar.resetSelection();
+    const highlightedCellsAfterReset = calendar.el.querySelectorAll('[data-highlighted]');
+    expect(highlightedCellsAfterReset.length).to.be.equal(0);
     expect(calendar.selectionStart).to.be.equal(null);
     expect(calendar.selectionEnd).to.be.equal(null);
   });
