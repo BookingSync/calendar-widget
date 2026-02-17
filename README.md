@@ -3,7 +3,7 @@
 ## TL;DR
 ### Development
 * `pnpm install`
-* `pnpm start`
+* `pnpm dev`
 * `pnpm run mock-server`
 * `pnpm run test-ci`
 
@@ -38,14 +38,14 @@ Theme note: the built-in default is now `data-theme="basic"` only. If you need t
 
 ## Getting started with Development
 * `pnpm install` to get the project's dependencies.
-* `pnpm start` to start development server with live-reload and hot module replacement
+* `pnpm dev` to start development server with live-reload and hot module replacement
 * go to [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
 Additionally you can run json-mock server
 * `pnpm run mock-server` it serve maps api for local development. Mocks are in `db.json` file.
 
 ## Scripts
-* `pnpm start` - starts development server with live-reload and hot module replacement
+* `pnpm dev` - starts development server with live-reload and hot module replacement
 * `pnpm run build` - produces production version under the `dist` folder
 * `pnpm run test` - runs tests.
 
