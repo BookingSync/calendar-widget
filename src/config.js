@@ -1,12 +1,11 @@
-/* global process, require */
-import utils from 'widget-utils';
+/* global process */
 
-const { name } = require('../package.json');
+const name = 'smily-calendar-widget';
 const currentDate = new Date();
 
 export default {
   name,
-  cssPrefix: utils.dashToCapital(name),
+  cssPrefix: 'SmilyCalendar',
   apiHost: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://secure.smily.com',
   apiNamespace: '/api/v2/public',
   apiMapsRoute: '/maps.json?{apiRentalId}{apiCurrency}',
@@ -26,6 +25,8 @@ export default {
   yearStart: null, // start with current year YYYY
   daysPerWeek: 7, // FIXME support calendar rendering
   displayMonths: 2,
+  displayMonthsMobile: null, // falls back to displayMonths
+  mobileBreakpoint: 767, // px, <= breakpoint is mobile
   monthsPaginationJump: 1,
   selectable: false,
   showRates: false,
@@ -50,5 +51,5 @@ export default {
   allowLongerMaxStaySelection: false,
   enableAllDays: false,
   currentDate,
-  theme: 'skew'
+  theme: 'basic'
 };
