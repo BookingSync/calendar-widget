@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import utils from 'widget-utils';
 
 import styles from '../../src/styles/calendar.scss';
-import BookingSyncCalendar from '../../src/index';
+import SmilyCalendar from '../../src/index';
 
 const { keys } = Object;
 
@@ -14,17 +14,17 @@ const stubElement = (name, attrs) => {
   return element;
 };
 
-const div1 = stubElement('div', { 'data-bookingsync-calendar-widget': true });
-const div2 = stubElement('div', { 'data-bookingsync-calendar-widget': true });
+const div1 = stubElement('div', { 'data-smily-calendar-widget': true });
+const div2 = stubElement('div', { 'data-smily-calendar-widget': true });
 
-describe('BookingSync Calendar renders on containers with auto-init', () => {
+describe('Smily Calendar renders on containers with auto-init', () => {
   before(() => {
     document.body.appendChild(div1);
     document.body.appendChild(div2);
   });
 
   after(() => {
-    BookingSyncCalendar.instances.map((a) => a.destroy());
+    SmilyCalendar.instances.map((a) => a.destroy());
     utils.destroyElement(div1);
     utils.destroyElement(div2);
   });
@@ -42,6 +42,6 @@ describe('BookingSync Calendar renders on containers with auto-init', () => {
   });
 
   it('exposes widget-utils', () => {
-    expect(window.BookingSyncWidgetUtils).to.exist;
+    expect(window.SmilyWidgetUtils).to.exist;
   });
 });

@@ -3,8 +3,11 @@ let Calendar = require('./calendar');
 
 Calendar = Calendar.default;
 
+const widgetUtils = require('widget-utils');
+const autoInitSelector = '[data-smily-calendar-widget]';
+
 // Export WidgetUtils
-window.BookingSyncWidgetUtils = require('widget-utils');
+window.SmilyWidgetUtils = widgetUtils;
 
 // Export Popper
 window.Popper = require('@popperjs/core');
@@ -12,7 +15,7 @@ window.Popper = require('@popperjs/core');
 Calendar.init = (opts) => {
   const initialized = [];
   const options     = opts || {};
-  const elements    = document.querySelectorAll('[data-bookingsync-calendar-widget]');
+  const elements    = document.querySelectorAll(autoInitSelector);
 
   elements.forEach((element) => {
     options.el = element;
@@ -35,6 +38,6 @@ if (document.readyState !== 'loading') {
   });
 }
 
-window.BookingSyncCalendarWidget = Calendar;
+window.SmilyCalendarWidget = Calendar;
 
 export default Calendar;

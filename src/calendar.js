@@ -67,6 +67,8 @@ export default class Calendar extends Emitter {
         this.opts.monthStart = month;
       }
 
+      this.normalizeResponsiveOptions();
+
       if (this.opts.isDropDown) {
         this.initCalendarDrop();
       } else {
@@ -91,6 +93,10 @@ export default class Calendar extends Emitter {
     // TODO: rename isReverseSelectable to selectionDefaultDirection - should be LTR or RTL
     // user selects end date first
     this.isReverseSelectable = this.opts.isReverseSelectable;
+    this.displayMonths = this.opts.displayMonths;
+    this.mediaQueryList = null;
+    this.onMediaQueryChange = null;
+    this.onWindowResize = null;
     this.init();
   }
 
@@ -104,9 +110,15 @@ export default class Calendar extends Emitter {
     this.el.setAttribute('role', 'region');
     this.el.setAttribute('aria-label', this.locale.labels.calendar);
 
+    this.dom.pagination    = this.el.appendChild(elementFromString(templates.pagination()));
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main(this.locale.labels.months)));
-    this.dom.forward       = this.el.appendChild(elementFromString(templates.forward(this.locale.labels.monthsForward)));
-    this.dom.back          = this.el.appendChild(elementFromString(templates.back(this.locale.labels.monthsBackward)));
+    this.dom.forward       = this.dom.pagination.appendChild(
+      elementFromString(templates.forward(this.locale.labels.monthsForward))
+    );
+    this.dom.back          = this.dom.pagination.appendChild(
+      elementFromString(templates.back(this.locale.labels.monthsBackward))
+    );
+    this.addViewportEvents();
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
     this.addBtnsEvents();
@@ -139,11 +151,142 @@ export default class Calendar extends Emitter {
     }
   }
 
+  normalizeResponsiveOptions() {
+    const fallbackDisplayMonths = this.toPositiveInt(this.opts.displayMonths, 2);
+    this.opts.displayMonths = fallbackDisplayMonths;
+    this.opts.displayMonthsMobile = this.toPositiveInt(
+      this.opts.displayMonthsMobile,
+      fallbackDisplayMonths
+    );
+    this.opts.mobileBreakpoint = this.toNonNegativeInt(this.opts.mobileBreakpoint, 767);
+  }
+
+  toPositiveInt(value, fallback) {
+    if (value === null || value === undefined || value === '') {
+      return fallback;
+    }
+
+    const parsed = parseInt(value, 10);
+
+    if (Number.isNaN(parsed) || parsed < 1) {
+      return fallback;
+    }
+
+    return parsed;
+  }
+
+  toNonNegativeInt(value, fallback) {
+    if (value === null || value === undefined || value === '') {
+      return fallback;
+    }
+
+    const parsed = parseInt(value, 10);
+
+    if (Number.isNaN(parsed) || parsed < 0) {
+      return fallback;
+    }
+
+    return parsed;
+  }
+
+  isMobileViewport() {
+    if (this.mediaQueryList) {
+      return this.mediaQueryList.matches;
+    }
+
+    const viewportWidth = (window && typeof window.innerWidth === 'number')
+      ? window.innerWidth
+      : this.opts.mobileBreakpoint + 1;
+
+    return viewportWidth <= this.opts.mobileBreakpoint;
+  }
+
+  applyViewportMode(isMobileViewport) {
+    if (!this.el) {
+      return;
+    }
+
+    if (isMobileViewport) {
+      this.el.dataset.viewport = 'mobile';
+      addClass(this.el, styles.mobileMode);
+    } else {
+      this.el.dataset.viewport = 'desktop';
+      removeClass(this.el, styles.mobileMode);
+    }
+  }
+
+  getDisplayMonthsForViewport() {
+    const isMobileViewport = this.isMobileViewport();
+
+    this.applyViewportMode(isMobileViewport);
+
+    if (isMobileViewport) {
+      return this.opts.displayMonthsMobile;
+    }
+
+    return this.opts.displayMonths;
+  }
+
+  syncDisplayMonthsForViewport() {
+    const nextDisplayMonths = this.getDisplayMonthsForViewport();
+    const hasChanged = this.displayMonths !== nextDisplayMonths;
+
+    this.displayMonths = nextDisplayMonths;
+    return hasChanged;
+  }
+
+  handleViewportChange() {
+    if (this.syncDisplayMonthsForViewport()) {
+      this.destroyMonths();
+      this.renderMonths(this.yearStart, this.monthStart);
+    }
+  }
+
+  addViewportEvents() {
+    this.removeViewportEvents();
+
+    if (window.matchMedia) {
+      this.mediaQueryList = window.matchMedia(`(max-width: ${this.opts.mobileBreakpoint}px)`);
+      this.onMediaQueryChange = () => this.handleViewportChange();
+
+      if (this.mediaQueryList.addEventListener) {
+        this.mediaQueryList.addEventListener('change', this.onMediaQueryChange);
+      } else if (this.mediaQueryList.addListener) {
+        this.mediaQueryList.addListener(this.onMediaQueryChange);
+      }
+      return;
+    }
+
+    this.onWindowResize = () => this.handleViewportChange();
+    window.addEventListener('resize', this.onWindowResize);
+  }
+
+  removeViewportEvents() {
+    if (this.mediaQueryList && this.onMediaQueryChange) {
+      if (this.mediaQueryList.removeEventListener) {
+        this.mediaQueryList.removeEventListener('change', this.onMediaQueryChange);
+      } else if (this.mediaQueryList.removeListener) {
+        this.mediaQueryList.removeListener(this.onMediaQueryChange);
+      }
+    }
+
+    this.mediaQueryList = null;
+    this.onMediaQueryChange = null;
+
+    if (this.onWindowResize) {
+      window.removeEventListener('resize', this.onWindowResize);
+      this.onWindowResize = null;
+    }
+  }
+
   renderMonths(yearStart, monthStart) {
+    this.syncDisplayMonthsForViewport();
+
+    const headerTemplate = this.headerTemplateString();
     // construct dom tree
     const {
       tree, yearEnd, monthEnd, months
-    } = this.createTree(yearStart, monthStart, this.opts.displayMonths);
+    } = this.createTree(yearStart, monthStart, this.displayMonths, headerTemplate);
 
     this.cTree.addTree(tree);
 
@@ -159,13 +302,21 @@ export default class Calendar extends Emitter {
     }
 
     this.dom.months = months;
+    const fragment = document.createDocumentFragment();
+
     this.dom.months.forEach((m) => {
-      this.dom.monthsWrapper.appendChild(m);
       if (this.opts.selectable) {
         this.addMonthEvents(m);
-        addClass(this.el, styles.actionsEnabled);
       }
+
+      fragment.appendChild(m);
     });
+
+    this.dom.monthsWrapper.appendChild(fragment);
+
+    if (this.opts.selectable) {
+      addClass(this.el, styles.actionsEnabled);
+    }
 
     if (!this.opts.enableAllDays) {
       this.disableBackBtn();
@@ -223,7 +374,7 @@ export default class Calendar extends Emitter {
   addBtnsEvents() {
     this.dom.forward.addEventListener('click', (e) => {
       this.destroyMonths();
-      let monthToRender = this.monthStart + (this.opts.monthsPaginationJump || this.opts.displayMonths);
+      let monthToRender = this.monthStart + (this.opts.monthsPaginationJump || this.displayMonths);
       let yearToRender = this.yearStart;
 
       if (monthToRender >= 12) {
@@ -237,7 +388,7 @@ export default class Calendar extends Emitter {
 
     this.dom.back.addEventListener('click', (e) => {
       this.destroyMonths();
-      let monthToRender = this.monthStart - (this.opts.monthsPaginationJump || this.opts.displayMonths);
+      let monthToRender = this.monthStart - (this.opts.monthsPaginationJump || this.displayMonths);
       let yearToRender  = this.yearStart;
 
       if (monthToRender < 0) {
@@ -705,14 +856,14 @@ export default class Calendar extends Emitter {
     this.valueToInput('end', dateValue);
   }
 
-  createTree(yearStart, monthStart, times) {
+  createTree(yearStart, monthStart, times, headerTemplate) {
     const months = [];
     const tree   = {};
     let monthEnd = monthStart;
     let yearEnd  = yearStart;
 
     for (let i = 0; i < times; i += 1) {
-      const mDom = this.domMonth(yearEnd, monthEnd);
+      const mDom = this.domMonth(yearEnd, monthEnd, headerTemplate);
 
       months.push(mDom);
 
@@ -740,15 +891,16 @@ export default class Calendar extends Emitter {
     };
   }
 
-  domMonth(year, month) {
+  domMonth(year, month, headerTemplate) {
     const longMonthNames = this.locale.longMonthNames[month];
-    const monthDom = elementFromString(templates.month(longMonthNames));
+    const monthDom = elementFromString(templates.month({
+      label: longMonthNames,
+      caption: `${longMonthNames} ${year}`,
+      header: headerTemplate,
+      body: this.daysTemplateString(year, month)
+    }));
 
-    monthDom.querySelector(`.${styles.tableHeader} tr`).innerHTML = this.headerTemplateString();
-    monthDom.querySelector(`.${styles.caption}`).innerHTML        = `${longMonthNames} ${year}`;
-
-    monthDom.body           = monthDom.querySelector(`.${styles.body}`);
-    monthDom.body.innerHTML = this.daysTemplateString(year, month);
+    monthDom.body = monthDom.querySelector(`.${styles.body}`);
 
     monthDom.month       = month;
     monthDom.year        = year;
@@ -772,8 +924,9 @@ export default class Calendar extends Emitter {
     const startOfMonth  = new Date(year, month, 1).getDay();
     const daysInMonth   = monthLength(year, month);
     const rowTemplate   = templates.weekRow;
-    const monthTemplate = [];
+    const rowClose      = rowTemplate().close;
     const weekShift     = (this.opts.daysPerWeek - this.opts.startOfWeek);
+    let monthTemplate   = '';
 
     let rows               = 5;
     let weekShiftCorrected = startOfMonth + weekShift;
@@ -792,41 +945,46 @@ export default class Calendar extends Emitter {
 
     // for each week (5 or 6)
     for (let i = 0; i < rows; i += 1) {
-      const week = [];
+      let week = rowTemplate(i).open;
       // open tag <tr>
-      week.push(rowTemplate(i).open);
 
       // push days in week
       for (let j = 0; j < this.opts.daysPerWeek; j += 1) {
         // pushing actual days 1...daysInMonth
         if ((dayCounter >= weekShiftCorrected) && dayOfMonth <= daysInMonth) {
-          week.push(this.dayTemplateString(year, month, dayOfMonth));
+          week += this.dayTemplateString(year, month, dayOfMonth);
           dayOfMonth += 1;
           // pushing placeholders instead of days
         } else {
-          week.push(templates.weekDayPlaceholder);
+          week += templates.weekDayPlaceholder;
         }
 
         dayCounter += 1;
       }
       // close tag </tr> of week
-      week.push(rowTemplate().close);
+      week += rowClose;
       // push completed week to month template
-      monthTemplate.push(week.join(''));
+      monthTemplate += week;
     }
 
-    return monthTemplate.join('');
+    return monthTemplate;
   }
 
   dayTemplateString(year, month, dayOfMonth) {
-    const { cTree }      = this;
-    const rate           = this.opts.showRates ? cTree.getDayProperty(year, month, dayOfMonth, 'rate') : 0;
-    const minStay        = cTree.getDayProperty(year, month, dayOfMonth, 'minStay');
-    const maxStay        = cTree.getDayProperty(year, month, dayOfMonth, 'maxStay');
+    const {
+      minStay,
+      maxStay,
+      rate: dayRate,
+      isAvailable,
+      isAvailableOut: dayIsAvailableOut,
+      isMorningBlocked: dayIsMorningBlocked
+    } = this.cTree.getDay(year, month, dayOfMonth) || {};
 
-    let isDisabled       = cTree.isDayDisabled(year, month, dayOfMonth);
-    let isAvailableOut   = cTree.getDayProperty(year, month, dayOfMonth, 'isAvailableOut');
-    let isMorningBlocked = cTree.getDayProperty(year, month, dayOfMonth, 'isMorningBlocked');
+    const rate = (this.opts.showRates && dayRate) ? dayRate : 0;
+
+    let isDisabled = !isAvailable;
+    let isAvailableOut = dayIsAvailableOut;
+    let isMorningBlocked = dayIsMorningBlocked;
 
     const { currentDate } = this.opts;
     const dateArray       = [year, month, dayOfMonth];
@@ -882,11 +1040,11 @@ export default class Calendar extends Emitter {
       isAvailableOut,
       isCurrentDay,
       minStay,
-      minStayT: this.opts.showMinStay ? tFormatter(minStay, this.locale.minStay) : false,
+      minStayT: (this.opts.showMinStay && minStay) ? tFormatter(minStay, this.locale.minStay) : false,
       maxStay,
-      maxStayT: this.opts.showMaxStay ? tFormatter(maxStay, this.locale.maxStay) : false,
+      maxStayT: (this.opts.showMaxStay && maxStay) ? tFormatter(maxStay, this.locale.maxStay) : false,
       rate,
-      rateT: currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency),
+      rateT: rate ? currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency) : false,
       tabindex: this.opts.selectable ? 0 : -1
     };
 
@@ -895,12 +1053,13 @@ export default class Calendar extends Emitter {
 
   destroyMonths() {
     if (this.dom && isArray(this.dom.months)) {
-      this.dom.months.map((m) => destroyElement(m));
+      this.dom.months.forEach((m) => destroyElement(m));
       this.destroyTooltip();
     }
   }
 
   destroy() {
+    this.removeViewportEvents();
     return destroyElement(this.el);
   }
 
@@ -1006,7 +1165,7 @@ export default class Calendar extends Emitter {
         this.emit('drop-open');
         addClass(this.el, styles.visible);
         this.el.setAttribute('aria-hidden', 'false');
-        this.dom.monthsWrapper.querySelector('td[tabindex="0"]').focus();
+        this.dom.monthsWrapper.querySelector('[role="gridcell"][tabindex="0"]').focus();
 
         if (!this.mapsLoaded && this.opts.rentalId) {
           this.loadMaps(this.opts.rentalId);

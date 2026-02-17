@@ -1,7 +1,7 @@
 {
   "name": "bookingsync-calendar-widget",
   "version": "2.1.6",
-  "description": "BookingSync Calendar Widget",
+  "description": "Smily Calendar Widget (formerly BookingSync)",
   "main": "dist/bookingsync-calendar-widget.js",
   "module": "src/index.js",
   "sideEffects": false,
@@ -10,15 +10,15 @@
     "/src"
   ],
   "scripts": {
-    "dev": "webpack --config webpack.dev.js",
+    "dev": "JSON_SERVER_PORT=3000 node json-server.js --quiet & webpack serve --open --config webpack.dev.js",
+    "build:unminified": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "start": "JSON_SERVER_PORT=3000 node json-server.js --quiet & webpack serve --open --config webpack.dev.js",
     "test": "JSON_SERVER_PORT=3000 node json-server.js --quiet & karma start karma.config.js --colors",
     "test-ci": "JSON_SERVER_PORT=3000 node json-server.js --quiet & sleep 2 && curl http://localhost:3000/api/v2/public/maps.json >/dev/null && karma start karma.config.js --single-run true",
     "lint:js": "eslint ./*.js src",
     "mock-server": "JSON_SERVER_PORT=3000 node nodemon-start.js",
     "preversion": "pnpm run lint:js && pnpm run test-ci",
-    "version": "pnpm run build && pnpm run dev && git add -A dist",
+    "version": "pnpm run build && pnpm run build:unminified && git add -A dist",
     "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "dependencies": {

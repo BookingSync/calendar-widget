@@ -2,7 +2,6 @@
 @import 'variables';
 @import 'loading';
 @import 'drop';
-@import 'theme-skew';
 @import 'theme-basic';
 
 /********************************************************
@@ -12,7 +11,6 @@
 ********************************************************/
 
 .calendar {
-  position: relative;
   font: 1rem/1.4 Helvetica, Arial, sans-serif;
   position: relative;
   background: $calendar-bg-color;
@@ -27,9 +25,10 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    line-height: 2rem;
+    min-height: 2rem;
+    line-height: 1.2;
     font-weight: 700;
-    margin-bottom: 2.3em;
+    margin-bottom: .8em;
     padding-top: 0;
     text-align: center;
   }
@@ -87,6 +86,15 @@
     gap: 2em;
   }
 
+  .pagination {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 2rem;
+    z-index: 2;
+  }
+
   .mCell {
     font-size: 0.875em;
     -webkit-box-flex: 1;
@@ -101,25 +109,77 @@
   }
 
   .month {
-    border-collapse: separate;
-    border-spacing: 0 0.2em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
     padding: 0;
     margin: 0;
     width: 100%;
-    
   }
 
-  .tableHeader,
+  .tableHeader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
   .body {
     margin: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    gap: 0.2em;
+  }
+
+  .weekRow {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+  }
+
+  .th,
+  .cell,
+  .placeholder {
+    width: $cell-width;
+    min-width: $cell-width;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 $cell-width;
+    flex: 1 1 $cell-width;
+    box-sizing: border-box;
   }
 
   .th {
     font-size: 0.85em;
     color: $th-color;
     height: 25px;
-    width: $cell-width;
     text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
   }
 
   .cell {
@@ -127,15 +187,20 @@
     padding: 0;
     position: relative;
     border: 0;
-    vertical-align: middle;
     color: $cell-color;
     background-clip: padding-box;
     overflow: hidden;
-    width: $cell-width;
+    height: auto;
+    aspect-ratio: 1 / 1;
 
     &.today {
       font-weight: bold;
     }
+  }
+
+  .placeholder {
+    height: auto;
+    aspect-ratio: 1 / 1;
   }
 
   .cnt {
@@ -149,15 +214,11 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     font-size: 1em;
     font-weight: inherit;
-
-    &::after {
-    content: '';
-    display: block;
-    margin-top: 100%;
-    }
   }
 
   .info {
@@ -168,11 +229,8 @@
     padding: 1px 3px;
     color: $info-color;
     right: 0;
-
-    > span {
-      display: block;
-      text-align: center;
-    }
+    line-height: 1.1;
+    text-align: center;
   }
 }
 
@@ -255,5 +313,72 @@
     opacity: 0.5;
     cursor: default;
     fill: $btn-fill;
+  }
+}
+
+/********************************************************
+
+    mobile mode
+
+********************************************************/
+.calendar.mobileMode:not(.dropBasic),
+.calendar.dropBasic.mobileMode.visible {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  max-height: 75vh;
+  overflow-y: auto;
+
+  .pagination {
+    position: sticky;
+    grid-column: 1;
+    grid-row: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    min-height: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .monthsWrapper {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .mCell {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .caption {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    background: $calendar-bg-color;
+    margin-bottom: .8em;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+
+  .forward,
+  .back {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    background: $calendar-bg-color;
+    pointer-events: auto;
+  }
+
+  .back {
+    left: 0;
+    right: auto;
+  }
+
+  .forward {
+    right: 0;
+    left: auto;
   }
 }

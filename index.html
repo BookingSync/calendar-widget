@@ -6,170 +6,243 @@
   <title>Calendar Widget</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <style>
-    #calendarWithVar {
-      --bookingsync-calendar-highlighted-bg-color: linear-gradient(to top, rgba(144, 78, 149, .5), rgba(233, 100, 67, .5));
-      --bookingsync-calendar-invalid-bg-color:     rgb(0,0,0,.1);
-      --bookingsync-calendar-disabled-bg-color:    linear-gradient(to top, rgba(144, 78, 149, .1), rgba(233, 100, 67, .1));
-      --bookingsync-calendar-disabled-color:       black;
-
-      --bookingsync-calendar-tooltip-bg-color:     #fff;
-      --bookingsync-calendar-tooltip-color:        #000;
+    #demo-tabs .nav-link {
+      border-top-left-radius: .5rem;
+      border-top-right-radius: .5rem;
     }
 
-    #calendarWithVar .BookingSyncCalendarWidget__tooltip {
+    #demo-tabs-content {
+      border-bottom-left-radius: .5rem;
+      border-bottom-right-radius: .5rem;
+    }
+
+    #calendarWithVar {
+      --smily-calendar-highlighted-bg-color: linear-gradient(to top, rgba(144, 78, 149, .5), rgba(233, 100, 67, .5));
+      --smily-calendar-invalid-bg-color:     rgb(0,0,0,.1);
+      --smily-calendar-disabled-bg-color:    linear-gradient(to top, rgba(144, 78, 149, .1), rgba(233, 100, 67, .1));
+      --smily-calendar-disabled-color:       black;
+
+      --smily-calendar-tooltip-bg-color:     #fff;
+      --smily-calendar-tooltip-color:        #000;
+    }
+
+    #calendarWithVar .SmilyCalendar__tooltip {
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
+
   </style>
 </head>
 
 <body class="bg-dark">
-<div class="container">
-  <div class="card shadow my-3">
-    <div class="card-body">
-      <h5 class="card-title">Dropdown - Double input</h5>
-      <div class="card-text">
-        <div class="calendar-wrapper form-inline">
-          <div class="form-group">
-            <label class="sr-only">Check In</label>
-            <input class="form-control start-at mr-sm-2" type="text" name="start-at" placeholder="Check In">
-          </div>
-          <div class="form-group">
-            <label class="sr-only">Check Out</label>
-              <input class="form-control end-at mr-sm-2" type="text" name="end-at" placeholder="Check Out">
-          </div>
-          <button class="btn btn-primary reset-selection">Reset</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container py-3">
+  <ul class="nav nav-tabs" id="demo-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        type="button"
+        class="nav-link active"
+        id="tab-btn-dropdown"
+        role="tab"
+        aria-controls="tab-dropdown"
+        aria-selected="true"
+        data-demo-tab
+        data-hash="#dropdown"
+        data-target="tab-dropdown">Dropdown</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        type="button"
+        class="nav-link"
+        id="tab-btn-rental"
+        role="tab"
+        aria-controls="tab-rental"
+        aria-selected="false"
+        data-demo-tab
+        data-hash="#rental"
+        data-target="tab-rental">Rental</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        type="button"
+        class="nav-link"
+        id="tab-btn-mobile"
+        role="tab"
+        aria-controls="tab-mobile"
+        aria-selected="false"
+        data-demo-tab
+        data-hash="#mobile"
+        data-target="tab-mobile">Mobile</button>
+    </li>
+  </ul>
 
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <h5 class="card-title">832 Rental - Dropdown - Single input with rental</h5>
-      <div class="card-text">
-        <div data-bookingsync-calendar-widget
-             data-is-drop-down="true"
-             data-selectable="true"
-             data-is-single-input="true"
-             data-rental-id="833"
-             data-hidden-el-format="%Y-%m-%d">
-          <div class="form-group w-50">
-              <input class="form-control bg-white bookingsyncCalendarWidget__single-input" type="text" placeholder="Dates">
-              <input class="bookingsyncCalendarWidget__start-at" name="start-at-single" type="text">
-              <input class="bookingsyncCalendarWidget__end-at" name="end-at-single" type="text">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card shadow mb-3 d-none">
-    <div class="card-body">
-      <h5 class="card-title">No Rental</h5>
-      <div class="card-text">
-        <div data-bookingsync-calendar-widget
-             data-selectable="true"
-             data-lang="fr-FR"
-             data-month-start="0"
-             data-display-months="3"
-             data-enable-all-days="true">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-4">
+  <div class="tab-content border border-top-0 bg-light p-3 mb-3" id="demo-tabs-content">
+    <div class="tab-pane fade show active" id="tab-dropdown" role="tabpanel" aria-labelledby="tab-btn-dropdown" data-demo-pane>
       <div class="card shadow mb-3">
         <div class="card-body">
-          <h5 class="card-title">832 Rental</h5>
+          <h5 class="card-title">Dropdown - Double input</h5>
           <div class="card-text">
-            <div data-bookingsync-calendar-widget
-                 data-selectable="true"
-                 data-display-months="1"
-                 data-show-rates="true"
-                 data-rental-id="832"
-                 data-currency="USD">
+            <div class="calendar-wrapper form-inline">
+              <div class="form-group">
+                <label class="sr-only">Check In</label>
+                <input class="form-control start-at mr-sm-2" type="text" name="start-at" placeholder="Check In">
+              </div>
+              <div class="form-group">
+                <label class="sr-only">Check Out</label>
+                  <input class="form-control end-at mr-sm-2" type="text" name="end-at" placeholder="Check Out">
+              </div>
+              <button class="btn btn-primary reset-selection">Reset</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-4">
+
       <div class="card shadow mb-3">
         <div class="card-body">
-          <h5 class="card-title">833 Rental</h5>
+          <h5 class="card-title">832 Rental - Dropdown - Single input with rental</h5>
           <div class="card-text">
-            <div data-bookingsync-calendar-widget
+            <div data-smily-calendar-widget
+                 data-is-drop-down="true"
                  data-selectable="true"
-                 data-display-months="1"
-                 data-show-rates="true"
+                 data-is-single-input="true"
                  data-rental-id="833"
-                 data-currency="USD">
+                 data-hidden-el-format="%Y-%m-%d">
+              <div class="form-group w-50">
+                  <input class="form-control bg-white SmilyCalendar__single-input" type="text" placeholder="Dates">
+                  <input class="SmilyCalendar__start-at" name="start-at-single" type="text">
+                  <input class="SmilyCalendar__end-at" name="end-at-single" type="text">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-4">
+
+    <div class="tab-pane fade" id="tab-rental" role="tabpanel" aria-labelledby="tab-btn-rental" data-demo-pane>
+      <div class="card shadow mb-3 d-none">
+        <div class="card-body">
+          <h5 class="card-title">No Rental</h5>
+          <div class="card-text">
+            <div data-smily-calendar-widget
+                 data-selectable="true"
+                 data-lang="fr-FR"
+                 data-month-start="0"
+                 data-display-months="3"
+                 data-enable-all-days="true">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <h5 class="card-title">832 Rental</h5>
+              <div class="card-text">
+                <div data-smily-calendar-widget
+                     data-selectable="true"
+                     data-display-months="1"
+                     data-show-rates="true"
+                     data-rental-id="832"
+                     data-currency="USD">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <h5 class="card-title">833 Rental</h5>
+              <div class="card-text">
+                <div data-smily-calendar-widget
+                     data-selectable="true"
+                     data-display-months="1"
+                     data-show-rates="true"
+                     data-rental-id="833"
+                     data-currency="USD">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <h5 class="card-title">834 Rental</h5>
+              <div class="card-text">
+                <div data-smily-calendar-widget
+                     data-selectable="true"
+                     data-display-months="1"
+                     data-show-rates="true"
+                     data-rental-id="834"
+                     data-currency="USD">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="card shadow mb-3">
         <div class="card-body">
-          <h5 class="card-title">834 Rental</h5>
-          <div class="card-text">
-            <div data-bookingsync-calendar-widget
+          <h5 class="card-title">835 Rental - Using css var()</h5>
+          <div id="calendarWithVar" class="card-text">
+            <div data-smily-calendar-widget
                  data-selectable="true"
-                 data-display-months="1"
+                 data-display-months="3"
+                 data-show-min-stay="true"
+                 data-lang="en"
+                 data-rental-id="835">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5 class="card-title">835 Rental - Basic Theme (default)</h5>
+          <div id="calendarNoSkew" class="card-text">
+            <div data-smily-calendar-widget
+                 data-selectable="true"
+                 data-display-months="3"
+                 data-lang="en"
+                 data-rental-id="835">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5 class="card-title">835 Rental - Selection reversed</h5>
+          <div class="card-text">
+            <div data-smily-calendar-widget
+                 data-selectable="true"
+                 data-display-months="3"
                  data-show-rates="true"
-                 data-rental-id="834"
-                 data-currency="USD">
+                 data-lang="en"
+                 data-rental-id="835"
+                 data-is-reverse-selectable="true">
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <h5 class="card-title">835 Rental - Using css var()</h5>
-      <div id="calendarWithVar" class="card-text">
-        <div data-bookingsync-calendar-widget
-             data-selectable="true"
-             data-display-months="3"
-             data-show-min-stay="true"
-             data-lang="en"
-             data-rental-id="835">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <h5 class="card-title">835 Rental - No Skew</h5>
-      <div id="calendarNoSkew" class="card-text">
-        <div data-bookingsync-calendar-widget
-             data-selectable="true"
-             data-display-months="3"
-             data-lang="en"
-             data-rental-id="835"
-             data-theme="basic">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <h5 class="card-title">835 Rental - Selection reversed</h5>
-      <div class="card-text">
-        <div data-bookingsync-calendar-widget
-             data-selectable="true"
-             data-display-months="3"
-             data-show-rates="true"
-             data-lang="en"
-             data-rental-id="835"
-             data-is-reverse-selectable="true">
+    <div class="tab-pane fade" id="tab-mobile" role="tabpanel" aria-labelledby="tab-btn-mobile" data-demo-pane>
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Responsive months (3 desktop / 12 mobile) with sticky headers</h5>
+          <div id="mobile12Months" class="card-text">
+            <div data-smily-calendar-widget
+                 data-selectable="true"
+                 data-display-months="3"
+                 data-display-months-mobile="12"
+                 data-mobile-breakpoint="767"
+                 data-lang="en"
+                 data-rental-id="835">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -191,10 +264,52 @@
   document.querySelector("[name='end-at-single']").value = month + '/07/' + year;
 
   console.log(document.querySelector("[name='start-at-single']").value);
+
+  const tabs = document.querySelectorAll('[data-demo-tab]');
+  const panes = document.querySelectorAll('[data-demo-pane]');
+
+  const hashToTarget = {
+    '#dropdown': 'tab-dropdown',
+    '#rental': 'tab-rental',
+    '#mobile': 'tab-mobile'
+  };
+
+  const activateDemoTab = (targetId) => {
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.target === targetId;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    panes.forEach((pane) => {
+      const isActive = pane.id === targetId;
+      pane.classList.toggle('show', isActive);
+      pane.classList.toggle('active', isActive);
+    });
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const nextHash = tab.dataset.hash;
+      if (nextHash && window.location.hash !== nextHash) {
+        window.location.hash = nextHash;
+      } else {
+        activateDemoTab(tab.dataset.target);
+      }
+    });
+  });
+
+  window.addEventListener('hashchange', () => {
+    const target = hashToTarget[window.location.hash] || 'tab-dropdown';
+    activateDemoTab(target);
+  });
+
+  activateDemoTab(hashToTarget[window.location.hash] || 'tab-dropdown');
 </script>
 <script src="bookingsync-calendar-widget.js"></script>
 <script>
-  const cal = new BookingSyncCalendarWidget({
+  const cal = new SmilyCalendarWidget({
     el:         document.querySelector('.calendar-wrapper'),
     isDropDown: true,
     selectable: true,

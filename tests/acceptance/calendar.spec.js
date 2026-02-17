@@ -44,7 +44,7 @@ describe('sense checks', () => {
   });
 
   it('renders 3 (Su first) empty days in February 2017, 01/02/2017 is We', () => {
-    expect(document.querySelectorAll('.js-body-row-0 td:empty').length).to.be.equal(3);
+    expect(document.querySelectorAll('.js-body-row-0 [data-placeholder]').length).to.be.equal(3);
   });
 
   it('renders 1 month', () => {
@@ -84,7 +84,7 @@ describe('Loads maps and display correct currency, rates and min stay', () => {
   it('should have Today with rates, currency and min stay', () => {
     const cell = document.querySelector(`[data-value="${day}"]`);
     // eslint-disable-next-line no-irregular-whitespace
-    expect(cell.querySelector(`.${s.cnt}`).innerText).to.be.equal(`${day}\n120 €\n2+ noches`);
+    expect(cell.innerText).to.be.equal(`${day}\n120 €\n2+ noches`);
   });
 });
 
@@ -152,7 +152,7 @@ describe('highLightRange', () => {
   it('should show a tooltip when the range is invalid', (done) => {
     calendar.highLightRange([year, month, day - 1], [year, month, day + 1]);
     setTimeout(() => {
-      const tooltip = calendar.el.querySelector('.BookingSyncCalendarWidget__tooltip');
+      const tooltip = calendar.el.querySelector('.SmilyCalendar__tooltip');
       expect(tooltip.innerText).to.be.equal('booked already');
       done();
     }, 50);
@@ -161,7 +161,7 @@ describe('highLightRange', () => {
   it('should take the biggest minStay in the highlighted range', (done) => {
     calendar.highLightRange([year, month, day], [year, month, day + 2]);
     setTimeout(() => {
-      const tooltip = calendar.el.querySelector('.BookingSyncCalendarWidget__tooltip');
+      const tooltip = calendar.el.querySelector('.SmilyCalendar__tooltip');
       expect(tooltip.innerText).to.be.equal('booked already');
       done();
     }, 50);

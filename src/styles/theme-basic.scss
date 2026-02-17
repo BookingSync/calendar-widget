@@ -1,5 +1,5 @@
-$cell-border-radius: var(--bookingsync-calendar-cell-border-radius, 6px);
-$cell-bg-opacity: var(--bookingsync-calendar-cell-bg-opacity, .5);
+$cell-border-radius: var(--smily-calendar-cell-border-radius, 6px);
+$cell-bg-opacity: var(--smily-calendar-cell-bg-opacity, .5);
 
 .calendar[data-theme="basic"] {
   .cell {
