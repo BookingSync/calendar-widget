@@ -1,7 +1,24 @@
 /* global require, module, __dirname */
 
 const path = require('path');
+const sass = require('sass');
 const ESLintPlugin = require('eslint-webpack-plugin');
+
+const sassLoaderOptions = {
+  sourceMap: true,
+  implementation: sass,
+  api: 'modern',
+  sassOptions: {
+    quietDeps: true,
+    silenceDeprecations: [
+      'import',
+      'global-builtin',
+      'slash-div',
+      'color-functions',
+      'legacy-js-api'
+    ]
+  }
+};
 
 module.exports = {
   entry: {
@@ -33,15 +50,13 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: 'BookingSyncCalendarWidget__[local]'
+                localIdentName: 'SmilyCalendar__[local]'
               }
             }
           },
           {
             loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
+            options: sassLoaderOptions
           }
         ],
         exclude: [
@@ -59,15 +74,13 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: 'BookingSyncWidgetUtils__[local]'
+                localIdentName: 'SmilyWidgetUtils__[local]'
               }
             }
           },
           {
             loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
+            options: sassLoaderOptions
           }
         ],
         include: [

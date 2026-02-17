@@ -12,8 +12,14 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: './'
+      directory: './',
+      watch: {
+        ignored: ['**/dist/**', '**/temp/**', '**/.git/**', '**/node_modules/**']
+      }
     },
+    watchFiles: ['index.html'],
+    hot: true,
+    liveReload: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
