@@ -14,9 +14,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Node dependencies
+          name: Setup pnpm
           command: |
             corepack enable
+            corepack prepare pnpm@10.28.2 --activate
+            pnpm --version
+      - run:
+          name: Install Node dependencies
+          command: |
             pnpm install --frozen-lockfile
       - persist_to_workspace:
           root: .
@@ -27,6 +32,12 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: Setup pnpm
+          command: |
+            corepack enable
+            corepack prepare pnpm@10.28.2 --activate
+            pnpm --version
       - run:
           name: Lint
           command: pnpm run lint:js
@@ -42,6 +53,12 @@ jobs:
           name: Check install
       - attach_workspace:
           at: .
+      - run:
+          name: Setup pnpm
+          command: |
+            corepack enable
+            corepack prepare pnpm@10.28.2 --activate
+            pnpm --version
       - run:
           name: Tests
           command: pnpm run test-ci
