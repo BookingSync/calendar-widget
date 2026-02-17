@@ -16,8 +16,8 @@ jobs:
       - run:
           name: Install Node dependencies
           command: |
-            npm config set spin false
-            npm ci
+            corepack enable
+            pnpm install --frozen-lockfile
       - persist_to_workspace:
           root: .
           paths:
@@ -29,7 +29,7 @@ jobs:
           at: .
       - run:
           name: Lint
-          command: npm run lint:js
+          command: pnpm run lint:js
   test:
     <<: *defaults
     steps:
@@ -44,7 +44,7 @@ jobs:
           at: .
       - run:
           name: Tests
-          command: npm run test-ci
+          command: pnpm run test-ci
 workflows:
   version: 2
   build_and_test:
