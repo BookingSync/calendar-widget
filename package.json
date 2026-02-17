@@ -1,6 +1,6 @@
 {
   "name": "bookingsync-calendar-widget",
-  "version": "2.1.6",
+  "version": "3.0.0",
   "description": "Smily Calendar Widget (formerly BookingSync)",
   "main": "dist/bookingsync-calendar-widget.js",
   "module": "src/index.js",
