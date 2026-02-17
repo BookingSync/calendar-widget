@@ -1,8 +1,9 @@
-/* global require, console */
+/* global require, console, process */
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router(require('./db.js')());
 const middlewares = jsonServer.defaults();
+const port = Number(process.env.JSON_SERVER_PORT || 3000);
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
@@ -60,6 +61,6 @@ router.render = function(req, res) {
 
 server.use('/api/v2/public', router);
 
-server.listen(3000, function() {
-  console.log('JSON Server is running');
+server.listen(port, function() {
+  console.log(`JSON Server is running on port ${port}`);
 });

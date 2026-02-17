@@ -117,10 +117,36 @@ describe('highLightRange', () => {
   });
 
   it('should highlight the range of dates between start and end', () => {
-    calendar.highLightRange([year, month + 1, 1], [year, month + 1, 4]);
+    const dateCandidates = [];
+    calendar.dom.months.forEach((domMonth) => domMonth.dayElements.forEach((cell) => {
+      dateCandidates.push([
+        domMonth.year,
+        domMonth.month,
+        parseInt(cell.getAttribute('data-value'), 10)
+      ]);
+    }));
+
+    let highlightedBounds = null;
+    for (let i = 0; i < dateCandidates.length; i += 1) {
+      for (let j = i; j < dateCandidates.length; j += 1) {
+        const { range, isValid } = calendar.selectRange(dateCandidates[i], dateCandidates[j]);
+        if (isValid && range.length === 4) {
+          highlightedBounds = [dateCandidates[i], dateCandidates[j]];
+          break;
+        }
+      }
+
+      if (highlightedBounds) {
+        break;
+      }
+    }
+
+    expect(highlightedBounds).to.not.be.equal(null);
+    calendar.highLightRange(highlightedBounds[0], highlightedBounds[1]);
 
     const highlightedCells = calendar.el.querySelectorAll('[data-highlighted]');
     expect(highlightedCells.length).to.be.equal(4);
+    calendar.resetSelection();
   });
 
   it('should show a tooltip when the range is invalid', (done) => {

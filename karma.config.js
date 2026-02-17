@@ -5,6 +5,12 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['mocha', 'chai', 'webpack'],
+    plugins: [
+      require('karma-mocha'),
+      require('karma-chai'),
+      require('karma-chrome-launcher'),
+      require('karma-webpack')
+    ],
 
     reporters: ['progress'],
     port: 9876,
