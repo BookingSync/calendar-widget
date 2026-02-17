@@ -1,44 +1,60 @@
 import styles from './styles/calendar.scss';
 
 export const main  = (label) => `<div class="${styles.monthsWrapper}" role="tabpanel" aria-label="${label}"></div>`;
+export const pagination = () => `<div class="${styles.pagination}"></div>`;
 
 export const tooltip = `<div class="${styles.tooltip}" role="tooltip"><span></span><div class="${styles.tooltipArrow}" data-popper-arrow="true"></div></div>`;
 
-export const month = (label) => `
-  <div class="${styles.mCell} js-month">
-    <table class="${styles.month}" role="grid" aria-label="${label}">
-      <caption><div class="${styles.caption}"></div></caption>
-      <thead class="${styles.tableHeader}"><tr></tr></thead>
-      <tbody class="${styles.body}" role="rowgroup"></tbody>
-    </table>
+export const month = ({
+  label,
+  caption,
+  header,
+  body
+}) => `
+  <div class="${styles.month} ${styles.mCell} js-month" role="grid" aria-label="${label}">
+    <div class="${styles.caption}">${caption}</div>
+    <div class="${styles.tableHeader}" role="row">${header}</div>
+    <div class="${styles.body}" role="rowgroup">${body}</div>
   </div>
 `;
 
-export const weekDayLabel = (label) => `<th class="${styles.th}">${label}</th>`;
+export const weekDayLabel = (label) => `<div class="${styles.th}" role="columnheader">${label}</div>`;
 
-export const weekDay = (o) => `
-  <td
-    ${o.disabled ? `data-disabled=${o.disabled}` : 'data-enabled'}
-    ${o.isAvailableOut ? 'data-available-out' : ''}
-    ${o.isAvailableIn ? 'data-available-in' : ''}
-    ${o.minStay ? `data-min-stay=${o.minStay}` : ''}
-    ${o.maxStay ? `data-max-stay=${o.maxStay}` : ''}
-    data-value="${o.label}"
-    class="${styles.cell} ${o.isCurrentDay ? styles.today : ''}"
-    role="gridcell"
-    tabindex="${o.tabindex}"
-    aria-label="${o.date}"
-  >
-    <div class="${styles.cnt}">
-      ${o.label}
-      <div class="${styles.info}">
-        ${o.rate ? `<span data-rate>${o.rateT}</span>` : ''}
-        ${o.minStay && o.minStayT ? `<span data-min-stay-t>${o.minStayT}</span>` : ''}
-        ${o.maxStay && o.maxStayT ? `<span data-max-stay-t>${o.maxStayT}</span>` : ''}
-      </div>
+export const weekDay = (o) => {
+  const infoLines = [];
+
+  if (o.rate) {
+    infoLines.push(o.rateT);
+  }
+
+  if (o.minStay && o.minStayT) {
+    infoLines.push(o.minStayT);
+  }
+
+  if (o.maxStay && o.maxStayT) {
+    infoLines.push(o.maxStayT);
+  }
+
+  const infoHtml = infoLines.length ? `<div class="${styles.info}">${infoLines.join('<br>')}</div>` : '';
+
+  return `
+    <div
+      ${o.disabled ? `data-disabled=${o.disabled}` : 'data-enabled'}
+      ${o.isAvailableOut ? 'data-available-out' : ''}
+      ${o.isAvailableIn ? 'data-available-in' : ''}
+      ${o.minStay ? `data-min-stay=${o.minStay}` : ''}
+      ${o.maxStay ? `data-max-stay=${o.maxStay}` : ''}
+      data-value="${o.label}"
+      class="${styles.cell} ${o.isCurrentDay ? styles.today : ''}"
+      role="gridcell"
+      tabindex="${o.tabindex}"
+      aria-label="${o.date}"
+    >
+      <span class="${styles.cnt}">${o.label}</span>
+      ${infoHtml}
     </div>
-  </td>
-`;
+  `;
+};
 
 export const forward = (label) => `
   <button class="${styles.forward}" aria-label="${label}">
@@ -56,12 +72,12 @@ export const back = (label) => `
   </button>
 `;
 
-export const weekDayPlaceholder = '<td></td>';
+export const weekDayPlaceholder = `<div class="${styles.placeholder}" data-placeholder aria-hidden="true"></div>`;
 
 /* eslint arrow-body-style: 0 */
 export const weekRow = (num) => {
   return {
-    open: `<tr role="row" class="js-body-row-${num}">`,
-    close: '</tr>'
+    open: `<div role="row" class="js-body-row-${num} ${styles.weekRow}">`,
+    close: '</div>'
   };
 };

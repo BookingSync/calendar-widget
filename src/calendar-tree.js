@@ -277,20 +277,30 @@ export default class CalendarTree {
   }
 
   getDayProperty(year, month, day, property) {
-    let prop;
+    const dayData = this.getDay(year, month, day);
+    return dayData ? dayData[property] : undefined;
+  }
 
-    if (this.map) {
-      try {
-        prop = this.map[year][month][day][property];
-      } catch(e) {
-        // continue regardless of error
-      }
+  getDay(year, month, day) {
+    if (!this.map) {
+      return null;
     }
 
-    return prop;
+    const yearData = this.map[year];
+    if (!yearData) {
+      return null;
+    }
+
+    const monthData = yearData[month];
+    if (!monthData) {
+      return null;
+    }
+
+    return monthData[day] || null;
   }
 
   isDayDisabled(year, month, day) {
-    return !this.getDayProperty(year, month, day, 'isAvailable');
+    const dayData = this.getDay(year, month, day);
+    return !(dayData && dayData.isAvailable);
   }
 }
