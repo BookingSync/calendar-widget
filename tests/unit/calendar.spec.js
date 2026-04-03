@@ -2,6 +2,7 @@
 import { expect } from 'chai';
 
 import Calendar from '../../src/calendar';
+import styles from '../../src/styles/calendar.scss';
 
 const { keys } = Object;
 
@@ -107,6 +108,101 @@ describe('responsive displayMonths', () => {
     setViewportWidth(360);
     calendar.handleViewportChange();
     expect(rootElement.querySelectorAll('.js-month').length).to.be.equal(1);
+    calendar.destroy();
+  });
+
+  it('renders a single shared weekday row for mobile vertical calendars', () => {
+    setViewportWidth(360);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 3,
+      displayMonthsMobile: 3,
+      mobileBreakpoint: 767
+    });
+
+    expect(calendar.dom.mobileWeekdays).to.exist;
+    expect(calendar.dom.mobileWeekdays.classList.contains(styles.mobileWeekdays)).to.equal(true);
+    expect(rootElement.querySelectorAll(`.${styles.mobileWeekdays}`).length).to.be.equal(1);
+    expect(rootElement.querySelectorAll(`.${styles.tableHeader}`).length).to.be.equal(3);
+
+    calendar.destroy();
+  });
+
+  it('renders a single month-year trigger in each month caption', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 2,
+      mobileBreakpoint: 767
+    });
+
+    expect(rootElement.querySelectorAll(`.${styles.captionTrigger}`).length).to.be.equal(2);
+    expect(rootElement.querySelectorAll(`.${styles.yearPickerPanel}`).length).to.be.equal(1);
+
+    calendar.destroy();
+  });
+
+  it('rerenders contiguous months when a year is selected from the caption picker', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 3,
+      mobileBreakpoint: 767
+    });
+
+    const secondMonthTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[1];
+    secondMonthTrigger.click();
+
+    const sharedPanel = rootElement.querySelector(`.${styles.yearPickerPanel}`);
+    const targetYear = sharedPanel.querySelector(`.${styles.yearOption}[data-year-option="2027"]`);
+    targetYear.click();
+
+    const triggers = [...rootElement.querySelectorAll(`.${styles.captionTrigger}`)].map((el) => el.textContent.trim());
+
+    expect(triggers).to.deep.equal(['December 2026', 'January 2027', 'February 2027']);
+
+    calendar.destroy();
+  });
+
+  it('does not show years before the current year in the year picker', () => {
+    setViewportWidth(360);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 3, 3),
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 1,
+      displayMonthsMobile: 1,
+      mobileBreakpoint: 767
+    });
+
+    rootElement.querySelector(`.${styles.captionTrigger}`).click();
+
+    const yearOptions = [...rootElement.querySelectorAll(`.${styles.yearOption}`)]
+      .map((el) => parseInt(el.getAttribute('data-year-option'), 10));
+    const previousPager = rootElement.querySelector('[data-year-page-offset="-12"]');
+
+    expect(Math.min(...yearOptions)).to.be.equal(2026);
+    expect(previousPager.hidden).to.equal(true);
+
     calendar.destroy();
   });
 

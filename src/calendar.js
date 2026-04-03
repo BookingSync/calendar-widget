@@ -97,6 +97,9 @@ export default class Calendar extends Emitter {
     this.mediaQueryList = null;
     this.onMediaQueryChange = null;
     this.onWindowResize = null;
+    this.activeYearPicker = null;
+    this.onDocumentClick = null;
+    this.onDocumentKeydown = null;
     this.init();
   }
 
@@ -110,14 +113,26 @@ export default class Calendar extends Emitter {
     this.el.setAttribute('role', 'region');
     this.el.setAttribute('aria-label', this.locale.labels.calendar);
 
+    this.dom.sprite = this.el.appendChild(
+      elementFromString(templates.svgSprite(`${this.CSS_PREFIX}ChevronDown`))
+    );
     this.dom.pagination    = this.el.appendChild(elementFromString(templates.pagination()));
+    this.dom.mobileWeekdays = this.el.appendChild(
+      elementFromString(templates.mobileWeekdays(this.headerTemplateString()))
+    );
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main(this.locale.labels.months)));
+    this.dom.yearPickerPanel = this.el.appendChild(elementFromString(templates.sharedYearPickerPanel({
+      closeLabel: this.locale.labels.close || 'Close',
+      previousLabel: this.locale.labels.previousYears || 'Previous years',
+      nextLabel: this.locale.labels.nextYears || 'Next years'
+    })));
     this.dom.forward       = this.dom.pagination.appendChild(
       elementFromString(templates.forward(this.locale.labels.monthsForward))
     );
     this.dom.back          = this.dom.pagination.appendChild(
       elementFromString(templates.back(this.locale.labels.monthsBackward))
     );
+    this.addCaptionPickerEvents();
     this.addViewportEvents();
     this.renderMonths(this.opts.yearStart, this.opts.monthStart);
 
@@ -374,13 +389,10 @@ export default class Calendar extends Emitter {
   addBtnsEvents() {
     this.dom.forward.addEventListener('click', (e) => {
       this.destroyMonths();
-      let monthToRender = this.monthStart + (this.opts.monthsPaginationJump || this.displayMonths);
-      let yearToRender = this.yearStart;
-
-      if (monthToRender >= 12) {
-        monthToRender -= 12;
-        yearToRender += 1;
-      }
+      const {
+        year: yearToRender,
+        month: monthToRender
+      } = this.shiftMonth(this.yearStart, this.monthStart, this.opts.monthsPaginationJump || this.displayMonths);
 
       this.renderMonths(yearToRender, monthToRender);
       e.preventDefault();
@@ -388,17 +400,172 @@ export default class Calendar extends Emitter {
 
     this.dom.back.addEventListener('click', (e) => {
       this.destroyMonths();
-      let monthToRender = this.monthStart - (this.opts.monthsPaginationJump || this.displayMonths);
-      let yearToRender  = this.yearStart;
-
-      if (monthToRender < 0) {
-        monthToRender += 12;
-        yearToRender -= 1;
-      }
+      const {
+        year: yearToRender,
+        month: monthToRender
+      } = this.shiftMonth(this.yearStart, this.monthStart, -(this.opts.monthsPaginationJump || this.displayMonths));
 
       this.renderMonths(yearToRender, monthToRender);
       e.preventDefault();
     });
+  }
+
+  addCaptionPickerEvents() {
+    this.onDocumentClick = (e) => {
+      const trigger = traverseToParentWithAttr(e.target, 'data-year-picker-trigger').parent;
+      const yearOption = traverseToParentWithAttr(e.target, 'data-year-option');
+      const yearPager = traverseToParentWithAttr(e.target, 'data-year-page-offset');
+      const closePicker = traverseToParentWithAttr(e.target, 'data-year-picker-close').parent;
+
+      if (closePicker) {
+        this.closeYearPicker();
+        return;
+      }
+
+      if (yearOption.parent && yearOption.value) {
+        const selectedYear = parseInt(yearOption.value, 10);
+        const monthElement = this.activeYearPicker;
+        this.closeYearPicker();
+        if (monthElement) {
+          this.renderFromSlot(monthElement, selectedYear, monthElement.month);
+        }
+        return;
+      }
+
+      if (yearPager.parent && yearPager.value) {
+        const monthElement = this.activeYearPicker;
+        const nextYearPageStart = parseInt(this.dom.yearPickerPanel.dataset.yearPageStart || monthElement.year, 10)
+          + parseInt(yearPager.value, 10);
+        if (monthElement) {
+          this.renderYearGrid(monthElement, nextYearPageStart);
+        }
+        return;
+      }
+
+      if (trigger) {
+        const monthElement = trigger.closest('.js-month');
+
+        if (this.activeYearPicker === monthElement) {
+          this.closeYearPicker();
+        } else {
+          this.openYearPicker(monthElement);
+        }
+        return;
+      }
+
+      if (this.activeYearPicker
+        && !this.activeYearPicker.contains(e.target)
+        && !this.dom.yearPickerPanel.contains(e.target)) {
+        this.closeYearPicker();
+      }
+    };
+
+    this.onDocumentKeydown = (e) => {
+      if (e.key === 'Escape' && this.activeYearPicker) {
+        this.closeYearPicker();
+      }
+    };
+
+    document.addEventListener('click', this.onDocumentClick);
+    document.addEventListener('keydown', this.onDocumentKeydown);
+  }
+
+  openYearPicker(monthElement) {
+    this.closeYearPicker();
+    const trigger = monthElement.querySelector('[data-year-picker-trigger]');
+
+    if (!this.dom.yearPickerPanel || !trigger) {
+      return;
+    }
+
+    this.positionYearPickerPanel();
+    this.dom.yearPickerPanel.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+    addClass(this.el, styles.yearPickerOpen);
+    this.activeYearPicker = monthElement;
+    this.renderYearGrid(monthElement, monthElement.year - 5);
+  }
+
+  closeYearPicker() {
+    if (!this.activeYearPicker) {
+      return;
+    }
+
+    const trigger = this.activeYearPicker.querySelector('[data-year-picker-trigger]');
+
+    if (this.dom.yearPickerPanel) {
+      this.dom.yearPickerPanel.hidden = true;
+    }
+
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    removeClass(this.el, styles.yearPickerOpen);
+    this.activeYearPicker = null;
+  }
+
+  renderYearGrid(monthElement, yearPageStart) {
+    const panel = this.dom.yearPickerPanel;
+    const grid = this.dom.yearPickerPanel.querySelector('[data-year-grid]');
+    const previousPager = this.dom.yearPickerPanel.querySelector('[data-year-page-offset="-12"]');
+    const nextPager = this.dom.yearPickerPanel.querySelector('[data-year-page-offset="12"]');
+
+    if (!panel || !grid) {
+      return;
+    }
+
+    const minimumYear = this.minimumSelectableYear();
+    const boundedYearPageStart = Math.max(yearPageStart, minimumYear);
+    const years = [];
+
+    for (let year = boundedYearPageStart; year < boundedYearPageStart + 12; year += 1) {
+      years.push(templates.yearOption(year, monthElement.year));
+    }
+
+    panel.dataset.yearPageStart = boundedYearPageStart;
+    grid.innerHTML = years.join('');
+
+    if (previousPager) {
+      const shouldDisablePreviousPager = boundedYearPageStart <= minimumYear;
+      previousPager.hidden = false;
+      previousPager.disabled = shouldDisablePreviousPager;
+    }
+
+    if (nextPager) {
+      nextPager.hidden = false;
+      nextPager.disabled = false;
+    }
+  }
+
+  positionYearPickerPanel() {
+    const calendarRect = this.el.getBoundingClientRect();
+    const weekdays = this.dom.mobileWeekdays;
+
+    if (!this.dom.yearPickerPanel) {
+      return;
+    }
+
+    let top = 0;
+
+    if (weekdays && this.isMobileViewport()) {
+      const weekdaysRect = weekdays.getBoundingClientRect();
+      top = weekdaysRect.top - calendarRect.top + this.el.scrollTop;
+    }
+
+    this.dom.yearPickerPanel.style.top = `${top}px`;
+    this.dom.yearPickerPanel.style.left = '0';
+    this.dom.yearPickerPanel.style.right = '0';
+  }
+
+  renderFromSlot(monthElement, year, month) {
+    this.destroyMonths();
+    const {
+      year: yearStart,
+      month: monthStart
+    } = this.shiftMonth(year, month, -monthElement.slotIndex);
+
+    this.renderMonths(yearStart, monthStart);
   }
 
   addMonthEvents(el) {
@@ -863,7 +1030,7 @@ export default class Calendar extends Emitter {
     let yearEnd  = yearStart;
 
     for (let i = 0; i < times; i += 1) {
-      const mDom = this.domMonth(yearEnd, monthEnd, headerTemplate);
+      const mDom = this.domMonth(yearEnd, monthEnd, headerTemplate, i);
 
       months.push(mDom);
 
@@ -891,11 +1058,11 @@ export default class Calendar extends Emitter {
     };
   }
 
-  domMonth(year, month, headerTemplate) {
+  domMonth(year, month, headerTemplate, slotIndex = 0) {
     const longMonthNames = this.locale.longMonthNames[month];
     const monthDom = elementFromString(templates.month({
       label: longMonthNames,
-      caption: `${longMonthNames} ${year}`,
+      caption: this.captionTemplateString(year, month),
       header: headerTemplate,
       body: this.daysTemplateString(year, month)
     }));
@@ -904,9 +1071,30 @@ export default class Calendar extends Emitter {
 
     monthDom.month       = month;
     monthDom.year        = year;
+    monthDom.slotIndex   = slotIndex;
     monthDom.dayElements = [].slice.call(monthDom.querySelectorAll('[data-value]'));
 
     return monthDom;
+  }
+
+  captionTemplateString(year, month) {
+    return templates.yearPicker({
+      label: `${this.locale.longMonthNames[month]} ${year}`,
+      chevronDownId: `${this.CSS_PREFIX}ChevronDown`
+    });
+  }
+
+  minimumSelectableYear() {
+    return this.opts.currentDate[0];
+  }
+
+  shiftMonth(year, month, offset) {
+    const normalizedMonth = month + offset;
+
+    return {
+      year: year + Math.floor(normalizedMonth / 12),
+      month: ((normalizedMonth % 12) + 12) % 12
+    };
   }
 
   headerTemplateString() {
@@ -1052,6 +1240,8 @@ export default class Calendar extends Emitter {
   }
 
   destroyMonths() {
+    this.closeYearPicker();
+
     if (this.dom && isArray(this.dom.months)) {
       this.dom.months.forEach((m) => destroyElement(m));
       this.destroyTooltip();
@@ -1060,6 +1250,18 @@ export default class Calendar extends Emitter {
 
   destroy() {
     this.removeViewportEvents();
+    this.closeYearPicker();
+
+    if (this.onDocumentClick) {
+      document.removeEventListener('click', this.onDocumentClick);
+      this.onDocumentClick = null;
+    }
+
+    if (this.onDocumentKeydown) {
+      document.removeEventListener('keydown', this.onDocumentKeydown);
+      this.onDocumentKeydown = null;
+    }
+
     return destroyElement(this.el);
   }
 

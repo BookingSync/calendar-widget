@@ -14,6 +14,7 @@
   font: 1rem/1.4 Helvetica, Arial, sans-serif;
   position: relative;
   background: $calendar-bg-color;
+  --calendar-weekdays-height: 25px;
 
   .caption {
     display: -webkit-box;
@@ -31,6 +32,181 @@
     margin-bottom: .8em;
     padding-top: 0;
     text-align: center;
+  }
+
+  .captionPicker {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .captionTrigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: 100%;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    border: 0;
+    background: transparent;
+    border-radius: 6px;
+    color: $cell-color;
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    padding: 0.35rem 0.55rem;
+    text-align: center;
+    cursor: pointer;
+    gap: 0.45rem;
+    transition: background-color 120ms ease;
+  }
+
+  .captionLabel {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  .captionChevron {
+    display: inline-block;
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    vertical-align: middle;
+    fill: currentColor;
+  }
+
+  .captionTrigger:hover,
+  .captionTrigger[aria-expanded='true'] {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .captionTrigger:focus-visible,
+  .yearPager:focus-visible,
+  .yearOption:focus-visible {
+    outline: 2px solid $btn-fill;
+    outline-offset: 1px;
+  }
+
+  .yearPickerPanel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    width: auto;
+    box-sizing: border-box;
+    background: $calendar-bg-color;
+    padding: 0.75rem;
+    z-index: 20;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0.6rem;
+    overflow: hidden;
+    align-content: start;
+  }
+
+  .yearPickerClose {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    background: rgba(0, 0, 0, 0.03);
+    color: $btn-fill;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.35;
+    min-height: 2.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0.6rem 0.75rem;
+    text-align: center;
+  }
+
+  .yearPickerHeader {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .yearPager {
+    display: block;
+    align-self: stretch;
+    flex: 0 0 auto;
+    border: 0;
+    background: rgba(0, 0, 0, 0.03);
+    color: $btn-fill;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.35;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 2.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0.6rem 0.75rem;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .yearPager[disabled] {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .yearGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(3.05rem, auto);
+    gap: 0.4rem;
+    align-self: stretch;
+    overflow-y: auto;
+    padding-right: 0.1rem;
+  }
+
+  .yearPickerClose:focus-visible {
+    outline: 2px solid $btn-fill;
+    outline-offset: 1px;
+  }
+
+  .yearOption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: $cell-color;
+    border-radius: 6px;
+    font: inherit;
+    line-height: 1.35;
+    padding: 0.45rem;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .yearOption[data-selected-year] {
+    background: rgba(0, 0, 0, 0.06);
+    font-weight: 700;
   }
 
   .tooltip {
@@ -93,6 +269,10 @@
     right: 0;
     min-height: 2rem;
     z-index: 2;
+  }
+
+  .mobileWeekdays {
+    display: none;
   }
 
   .mCell {
@@ -234,6 +414,10 @@
   }
 }
 
+.calendar.yearPickerOpen {
+  overflow-y: hidden !important;
+}
+
 .focus,
 .disabled,
 .selected,
@@ -349,6 +533,16 @@
     gap: 1em;
   }
 
+  .mobileWeekdays {
+    display: flex;
+    position: sticky;
+    grid-column: 1;
+    grid-row: 1;
+    top: 0;
+    z-index: 5;
+    background: $calendar-bg-color;
+  }
+
   .mCell {
     flex: 1 1 100%;
     max-width: 100%;
@@ -356,29 +550,24 @@
 
   .caption {
     position: sticky;
-    top: 0;
+    top: var(--calendar-weekdays-height);
     z-index: 4;
     background: $calendar-bg-color;
     margin-bottom: .8em;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
   }
 
+  .month:first-child .caption {
+    margin-top: .35em;
+    margin-bottom: 2.15em;
+  }
+
+  .tableHeader {
+    display: none;
+  }
+
   .forward,
   .back {
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    background: $calendar-bg-color;
-    pointer-events: auto;
-  }
-
-  .back {
-    left: 0;
-    right: auto;
-  }
-
-  .forward {
-    right: 0;
-    left: auto;
+    display: none;
   }
 }

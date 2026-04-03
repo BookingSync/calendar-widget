@@ -2,6 +2,14 @@ import styles from './styles/calendar.scss';
 
 export const main  = (label) => `<div class="${styles.monthsWrapper}" role="tabpanel" aria-label="${label}"></div>`;
 export const pagination = () => `<div class="${styles.pagination}"></div>`;
+export const mobileWeekdays = (header) => `<div class="${styles.mobileWeekdays}" role="row">${header}</div>`;
+export const svgSprite = (chevronDownId) => `
+  <svg class="${styles.sprite}" aria-hidden="true" focusable="false" width="0" height="0">
+    <symbol id="${chevronDownId}" viewBox="0 0 16 16">
+      <path d="M4.22 6.97a.75.75 0 0 1 1.06 0L8 9.69l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 8.03a.75.75 0 0 1 0-1.06Z"></path>
+    </symbol>
+  </svg>
+`;
 
 export const tooltip = `<div class="${styles.tooltip}" role="tooltip"><span></span><div class="${styles.tooltipArrow}" data-popper-arrow="true"></div></div>`;
 
@@ -16,6 +24,53 @@ export const month = ({
     <div class="${styles.tableHeader}" role="row">${header}</div>
     <div class="${styles.body}" role="rowgroup">${body}</div>
   </div>
+`;
+
+export const yearPicker = ({
+  label,
+  chevronDownId
+}) => `
+  <div class="${styles.captionPicker}">
+    <button
+      type="button"
+      class="${styles.captionTrigger}"
+      data-year-picker-trigger
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      aria-label="${label}"
+    >
+      <span class="${styles.captionLabel}">${label}</span>
+      <svg class="${styles.captionChevron}" aria-hidden="true" focusable="false" viewBox="0 0 16 16">
+        <use href="#${chevronDownId}"></use>
+      </svg>
+    </button>
+  </div>
+`;
+
+export const sharedYearPickerPanel = ({
+  closeLabel,
+  previousLabel,
+  nextLabel
+}) => `
+  <div class="${styles.yearPickerPanel}" data-year-picker-panel hidden>
+    <button type="button" class="${styles.yearPickerClose}" data-year-picker-close aria-label="${closeLabel}">${closeLabel}</button>
+    <div class="${styles.yearGrid}" data-year-grid></div>
+    <div class="${styles.yearPickerHeader}">
+      <button type="button" class="${styles.yearPager}" data-year-page-offset="-12" aria-label="${previousLabel}">${previousLabel}</button>
+      <button type="button" class="${styles.yearPager}" data-year-page-offset="12" aria-label="${nextLabel}">${nextLabel}</button>
+    </div>
+  </div>
+`;
+
+export const yearOption = (year, selectedYear) => `
+  <button
+    type="button"
+    class="${styles.yearOption}"
+    data-year-option="${year}"
+    ${year === selectedYear ? 'data-selected-year' : ''}
+  >
+    ${year}
+  </button>
 `;
 
 export const weekDayLabel = (label) => `<div class="${styles.th}" role="columnheader">${label}</div>`;
