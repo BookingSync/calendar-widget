@@ -539,6 +539,51 @@ describe('responsive displayMonths', () => {
     }, 0);
   });
 
+  it('revalidates the highlighted range after PageDown paging in keyboard selection mode', (done) => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 0, 1),
+      yearStart: 2026,
+      monthStart: 4,
+      displayMonths: 2,
+      mobileBreakpoint: 767,
+      selectable: true,
+      isBackDisabled: false,
+      minStay: 4
+    });
+
+    const startCell = calendar.dom.months[0].querySelector('[data-value="20"]');
+    const focusCell = calendar.dom.months[0].querySelector('[data-value="22"]');
+
+    calendar.startDateFirstAction([2026, 4, 20], startCell);
+    calendar.highLightRange([2026, 4, 20], [2026, 4, 22]);
+
+    expect(calendar.hasValidRange).to.equal(false);
+    expect(calendar.highlightedBounds).to.deep.equal([[2026, 4, 20], [2026, 4, 22]]);
+
+    focusCell.focus();
+    focusCell.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'PageDown', bubbles: true }));
+
+    setTimeout(() => {
+      const activeCell = document.activeElement;
+      const activeMonth = activeCell.closest('.js-month');
+
+      expect(calendar.monthStart).to.equal(5);
+      expect(activeCell.getAttribute('data-value')).to.equal('22');
+      expect(activeMonth.slotIndex).to.equal(0);
+      expect(activeMonth.month).to.equal(5);
+      expect(calendar.hasValidRange).to.equal(true);
+      expect(calendar.highlightedBounds).to.deep.equal([[2026, 4, 20], [2026, 5, 22]]);
+
+      calendar.destroy();
+      done();
+    }, 0);
+  });
+
   it('uses singleInputDateFormat when filling the combined input', () => {
     setViewportWidth(1200);
     const rootElement = stubElement('div');

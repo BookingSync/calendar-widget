@@ -700,6 +700,19 @@ export default class Calendar extends Emitter {
     }
   }
 
+  dateValueForCell(cell, fallbackMonthElement = null) {
+    const monthElement = cell && typeof cell.closest === 'function'
+      ? cell.closest('.js-month')
+      : null;
+    const monthContext = monthElement || fallbackMonthElement;
+
+    if (!monthContext || !cell) {
+      return null;
+    }
+
+    return [monthContext.year, monthContext.month, parseInt(cell.getAttribute('data-value'), 10)];
+  }
+
   addMonthEvents(el) {
     const selectionHandler = (e) => {
       const isEndFirst = this.isReverseSelectable;
@@ -709,7 +722,7 @@ export default class Calendar extends Emitter {
       } = traverseToParentWithAttr(e.target, 'data-value');
 
       if (is(value) && cell) {
-        const dateValue          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const dateValue          = this.dateValueForCell(cell, el);
         const dayAlreadySelected = this.isSelecting && isCurrent((isEndFirst) ? this.selectionEnd : this.selectionStart, dateValue);
         const rangeSelected      = !this.isSelecting && this.selectionEnd && this.selectionStart;
         const isPastToday        = isLater(dateValue, this.opts.currentDate);
@@ -742,7 +755,7 @@ export default class Calendar extends Emitter {
       const { value, parent: cell } = traverseToParentWithAttr(e.target, 'data-value');
 
       if (is(value) && cell) {
-        const current          = [el.year, el.month, parseInt(cell.getAttribute('data-value'), 10)];
+        const current          = this.dateValueForCell(cell, el);
         const isPastToday      = isLater(current, this.opts.currentDate);
         const isEndFirst       = this.isReverseSelectable;
 
@@ -1093,6 +1106,10 @@ export default class Calendar extends Emitter {
 
         if (target) {
           target.focus();
+
+          if (this.isSelecting) {
+            mouseoverHandler({ target });
+          }
         }
       });
     }
