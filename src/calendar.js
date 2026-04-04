@@ -433,7 +433,9 @@ export default class Calendar extends Emitter {
       }
 
       if (closePicker) {
-        this.closeYearPicker();
+        this.closeYearPicker({
+          focusTrigger: e.detail === 0
+        });
         return;
       }
 
@@ -461,7 +463,9 @@ export default class Calendar extends Emitter {
         const monthElement = trigger.closest('.js-month');
 
         if (this.activeYearPicker === monthElement) {
-          this.closeYearPicker();
+          this.closeYearPicker({
+            focusTrigger: e.detail === 0
+          });
         } else {
           this.openYearPicker(monthElement);
         }
@@ -477,13 +481,9 @@ export default class Calendar extends Emitter {
 
     this.onDocumentKeydown = (e) => {
       if (e.key === 'Escape' && this.activeYearPicker) {
-        this.closeYearPicker();
-        const trigger = this.el.querySelector('[data-year-picker-trigger]');
-
-        if (trigger) {
-          trigger.focus();
-        }
-
+        this.closeYearPicker({
+          focusTrigger: true
+        });
         return;
       }
 
@@ -530,7 +530,9 @@ export default class Calendar extends Emitter {
     }
   }
 
-  closeYearPicker() {
+  closeYearPicker({
+    focusTrigger = false
+  } = {}) {
     if (!this.activeYearPicker) {
       return;
     }
@@ -543,7 +545,9 @@ export default class Calendar extends Emitter {
 
     if (trigger) {
       trigger.setAttribute('aria-expanded', 'false');
-      trigger.focus();
+      if (focusTrigger) {
+        trigger.focus();
+      }
     }
 
     removeClass(this.el, styles.yearPickerOpen);
@@ -652,16 +656,15 @@ export default class Calendar extends Emitter {
 
   renderFromSlot(monthElement, year, month) {
     this.destroyMonths();
-    const minimumYear = this.minimumSelectableYear();
     let {
       year: yearStart,
       month: monthStart
     } = this.shiftMonth(year, month, -monthElement.slotIndex);
 
-    if (yearStart < minimumYear) {
-      yearStart = minimumYear;
-      monthStart = 0;
-    }
+    ({
+      year: yearStart,
+      month: monthStart
+    } = this.clampVisibleMonthStart(yearStart, monthStart));
 
     this.renderMonths(yearStart, monthStart);
   }
@@ -1282,6 +1285,24 @@ export default class Calendar extends Emitter {
 
   minimumSelectableYear() {
     return this.opts.currentDate[0];
+  }
+
+  minimumSelectableMonth() {
+    return this.opts.currentDate[1];
+  }
+
+  clampVisibleMonthStart(year, month) {
+    const minimumYear = this.minimumSelectableYear();
+    const minimumMonth = this.minimumSelectableMonth();
+
+    if (year < minimumYear || (year === minimumYear && month < minimumMonth)) {
+      return {
+        year: minimumYear,
+        month: minimumMonth
+      };
+    }
+
+    return { year, month };
   }
 
   shiftMonth(year, month, offset) {

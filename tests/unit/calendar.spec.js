@@ -261,7 +261,7 @@ describe('responsive displayMonths', () => {
     calendar.destroy();
   });
 
-  it('clamps year-picker rerenders so visible months do not start before the minimum year', () => {
+  it('clamps year-picker rerenders to the current month when a lower year would expose past months', () => {
     setViewportWidth(1200);
     const rootElement = stubElement('div');
     document.body.appendChild(rootElement);
@@ -284,7 +284,85 @@ describe('responsive displayMonths', () => {
 
     const triggers = [...rootElement.querySelectorAll(`.${styles.captionTrigger}`)].map((el) => el.textContent.trim());
 
-    expect(triggers).to.deep.equal(['January 2026', 'February 2026', 'March 2026']);
+    expect(triggers).to.deep.equal(['April 2026', 'May 2026', 'June 2026']);
+
+    calendar.destroy();
+  });
+
+  it('clamps year-picker rerenders when the selected year matches the minimum year but the month is still too early', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 3, 3),
+      yearStart: 2027,
+      monthStart: 2,
+      displayMonths: 2,
+      mobileBreakpoint: 767
+    });
+
+    const firstMonthTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[0];
+    firstMonthTrigger.click();
+
+    const sharedPanel = rootElement.querySelector(`.${styles.yearPickerPanel}`);
+    const targetYear = sharedPanel.querySelector(`.${styles.yearOption}[data-year-option="2026"]`);
+    targetYear.click();
+
+    const triggers = [...rootElement.querySelectorAll(`.${styles.captionTrigger}`)].map((el) => el.textContent.trim());
+
+    expect(triggers).to.deep.equal(['April 2026', 'May 2026']);
+
+    calendar.destroy();
+  });
+
+  it('keeps focus on an outside control when the year picker closes from an outside click', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    const outsideInput = stubElement('input');
+    document.body.appendChild(rootElement);
+    document.body.appendChild(outsideInput);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 2,
+      mobileBreakpoint: 767
+    });
+
+    const secondMonthTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[1];
+    secondMonthTrigger.click();
+    outsideInput.focus();
+    outsideInput.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+
+    expect(calendar.activeYearPicker).to.equal(null);
+    expect(document.activeElement).to.equal(outsideInput);
+
+    calendar.destroy();
+    outsideInput.remove();
+  });
+
+  it('restores focus to the active caption trigger when Escape closes the year picker', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 2,
+      mobileBreakpoint: 767
+    });
+
+    const secondMonthTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[1];
+    secondMonthTrigger.click();
+    document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+
+    expect(calendar.activeYearPicker).to.equal(null);
+    expect(document.activeElement).to.equal(secondMonthTrigger);
 
     calendar.destroy();
   });
