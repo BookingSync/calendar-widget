@@ -160,6 +160,7 @@ describe('responsive displayMonths', () => {
 
     const calendar = new Calendar({
       el: rootElement,
+      currentDate: new Date(2025, 0, 3),
       yearStart: 2025,
       monthStart: 0,
       displayMonths: 2,
@@ -395,6 +396,37 @@ describe('responsive displayMonths', () => {
 
     expect(calendar.activeYearPicker).to.equal(null);
     expect(document.activeElement).to.equal(secondMonthTrigger);
+
+    calendar.destroy();
+  });
+
+  it('restores focus to the originating caption trigger after keyboard year selection', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2025, 0, 3),
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 2,
+      mobileBreakpoint: 767
+    });
+
+    const secondMonthTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[1];
+    secondMonthTrigger.click();
+
+    const sharedPanel = rootElement.querySelector(`.${styles.yearPickerPanel}`);
+    const targetYear = sharedPanel.querySelector(`.${styles.yearOption}[data-year-option="2027"]`);
+
+    targetYear.dispatchEvent(new window.MouseEvent('click', { bubbles: true, detail: 0 }));
+
+    const updatedSecondTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[1];
+
+    expect(calendar.activeYearPicker).to.equal(null);
+    expect(updatedSecondTrigger.textContent.trim()).to.contain('2027');
+    expect(document.activeElement).to.equal(updatedSecondTrigger);
 
     calendar.destroy();
   });

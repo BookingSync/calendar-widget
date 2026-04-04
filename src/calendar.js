@@ -445,7 +445,9 @@ export default class Calendar extends Emitter {
         const monthElement = this.activeYearPicker;
         this.closeYearPicker();
         if (monthElement) {
-          this.renderFromSlot(monthElement, selectedYear, monthElement.month);
+          this.renderFromSlot(monthElement, selectedYear, monthElement.month, {
+            focusTrigger: e.detail === 0
+          });
         }
         return;
       }
@@ -657,7 +659,11 @@ export default class Calendar extends Emitter {
     this.dom.yearPickerPanel.style.height = visibleHeight ? `${visibleHeight}px` : '100%';
   }
 
-  renderFromSlot(monthElement, year, month) {
+  renderFromSlot(monthElement, year, month, {
+    focusTrigger = false
+  } = {}) {
+    const focusSlotIndex = focusTrigger ? monthElement.slotIndex : null;
+
     this.destroyMonths();
     let {
       year: yearStart,
@@ -670,6 +676,23 @@ export default class Calendar extends Emitter {
     } = this.clampVisibleMonthStart(yearStart, monthStart));
 
     this.renderMonths(yearStart, monthStart);
+
+    if (focusSlotIndex !== null) {
+      this.focusCaptionTriggerForSlot(focusSlotIndex);
+    }
+  }
+
+  focusCaptionTriggerForSlot(slotIndex) {
+    if (!isArray(this.dom.months)) {
+      return;
+    }
+
+    const monthElement = this.dom.months.find((monthEl) => monthEl.slotIndex === slotIndex);
+    const trigger = monthElement && monthElement.querySelector('[data-year-picker-trigger]');
+
+    if (trigger) {
+      trigger.focus();
+    }
   }
 
   addMonthEvents(el) {
