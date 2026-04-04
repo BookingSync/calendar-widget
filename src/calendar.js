@@ -617,7 +617,9 @@ export default class Calendar extends Emitter {
     }
 
     const minimumYear = this.minimumSelectableYear();
-    const boundedYearPageStart = Math.max(yearPageStart, minimumYear);
+    const boundedYearPageStart = minimumYear === null
+      ? yearPageStart
+      : Math.max(yearPageStart, minimumYear);
     const years = [];
 
     for (let year = boundedYearPageStart; year < boundedYearPageStart + 12; year += 1) {
@@ -628,7 +630,7 @@ export default class Calendar extends Emitter {
     grid.innerHTML = years.join('');
 
     if (previousPager) {
-      const shouldDisablePreviousPager = boundedYearPageStart <= minimumYear;
+      const shouldDisablePreviousPager = minimumYear !== null && boundedYearPageStart <= minimumYear;
       previousPager.hidden = false;
       previousPager.disabled = shouldDisablePreviousPager;
     }
@@ -967,7 +969,8 @@ export default class Calendar extends Emitter {
   }
 
   handleArrowNavigation(e, key, mouseoverHandler) {
-    const focusedCell = this.el.querySelector('[data-value]:focus');
+    const focusedCell = this.el.querySelector('[data-value]:focus')
+      || (e.target && typeof e.target.closest === 'function' ? e.target.closest('[data-value]') : null);
 
     if (!focusedCell) {
       return;
@@ -1013,6 +1016,8 @@ export default class Calendar extends Emitter {
     } else if (pageKeys[key] !== undefined) {
       e.preventDefault();
       const dayValue = focusedCell.getAttribute('data-value');
+      const focusedMonth = focusedCell.closest('.js-month');
+      const originSlotIndex = focusedMonth ? focusedMonth.slotIndex : null;
 
       if (pageKeys[key] === 1) {
         this.dom.forward.click();
@@ -1022,17 +1027,38 @@ export default class Calendar extends Emitter {
 
       // After re-render, focus the same day number or last available cell
       setTimeout(() => {
-        const newCells = this.el.querySelectorAll('[data-value]');
+        let targetMonth = null;
         let target = null;
 
-        newCells.forEach((c) => {
-          if (c.getAttribute('data-value') === dayValue) {
-            target = c;
-          }
-        });
+        if (originSlotIndex !== null && this.dom.months) {
+          targetMonth = this.dom.months.find((monthEl) => monthEl.slotIndex === originSlotIndex) || null;
+        }
 
-        if (!target && newCells.length) {
-          target = newCells[newCells.length - 1];
+        if (targetMonth) {
+          target = targetMonth.querySelector(`[data-value="${dayValue}"]`);
+
+          if (!target) {
+            const monthCells = targetMonth.querySelectorAll('[data-value]');
+
+            if (monthCells.length) {
+              target = monthCells[monthCells.length - 1];
+            }
+          }
+        }
+
+        if (!target) {
+          const newCells = this.el.querySelectorAll('[data-value]');
+
+          for (let i = 0; i < newCells.length; i += 1) {
+            if (newCells[i].getAttribute('data-value') === dayValue) {
+              target = newCells[i];
+              break;
+            }
+          }
+
+          if (!target && newCells.length) {
+            target = newCells[newCells.length - 1];
+          }
         }
 
         if (target) {
@@ -1284,16 +1310,24 @@ export default class Calendar extends Emitter {
   }
 
   minimumSelectableYear() {
-    return this.opts.currentDate[0];
+    return this.shouldClampToCurrentDate() ? this.opts.currentDate[0] : null;
   }
 
   minimumSelectableMonth() {
-    return this.opts.currentDate[1];
+    return this.shouldClampToCurrentDate() ? this.opts.currentDate[1] : null;
+  }
+
+  shouldClampToCurrentDate() {
+    return this.opts.isBackDisabled && !this.opts.enableAllDays;
   }
 
   clampVisibleMonthStart(year, month) {
     const minimumYear = this.minimumSelectableYear();
     const minimumMonth = this.minimumSelectableMonth();
+
+    if (minimumYear === null || minimumMonth === null) {
+      return { year, month };
+    }
 
     if (year < minimumYear || (year === minimumYear && month < minimumMonth)) {
       return {

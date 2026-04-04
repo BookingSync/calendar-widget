@@ -261,6 +261,38 @@ describe('responsive displayMonths', () => {
     calendar.destroy();
   });
 
+  it('shows past years in the year picker when back navigation is enabled', () => {
+    setViewportWidth(360);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 3, 3),
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 1,
+      displayMonthsMobile: 1,
+      mobileBreakpoint: 767,
+      isBackDisabled: false
+    });
+
+    rootElement.querySelector(`.${styles.captionTrigger}`).click();
+
+    const yearOptions = [...rootElement.querySelectorAll(`.${styles.yearOption}`)]
+      .map((el) => parseInt(el.getAttribute('data-year-option'), 10));
+    const previousPager = rootElement.querySelector('[data-year-page-offset="-12"]');
+    const targetYear = rootElement.querySelector(`.${styles.yearOption}[data-year-option="2025"]`);
+
+    expect(Math.min(...yearOptions)).to.be.below(2026);
+    expect(previousPager.disabled).to.equal(false);
+
+    targetYear.click();
+    expect(rootElement.querySelector(`.${styles.captionTrigger}`).textContent.trim()).to.equal('April 2025');
+
+    calendar.destroy();
+  });
+
   it('clamps year-picker rerenders to the current month when a lower year would expose past months', () => {
     setViewportWidth(1200);
     const rootElement = stubElement('div');
@@ -405,6 +437,74 @@ describe('responsive displayMonths', () => {
     expect(calendar.dom.yearPickerPanel.style.bottom).to.equal('auto');
 
     calendar.destroy();
+  });
+
+  it('keeps PageDown focus in the originating month slot after paging', (done) => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 0, 3),
+      yearStart: 2026,
+      monthStart: 4,
+      displayMonths: 2,
+      mobileBreakpoint: 767,
+      selectable: true,
+      isBackDisabled: false
+    });
+
+    const focusCell = calendar.dom.months[0].querySelector('[data-value="15"]');
+    focusCell.focus();
+    calendar.handleArrowNavigation({ preventDefault() {}, target: focusCell }, 'PageDown', () => {});
+
+    setTimeout(() => {
+      const activeCell = document.activeElement;
+      const activeMonth = activeCell.closest('.js-month');
+
+      expect(calendar.monthStart).to.equal(5);
+      expect(activeCell.getAttribute('data-value')).to.equal('15');
+      expect(activeMonth.slotIndex).to.equal(0);
+      expect(activeMonth.month).to.equal(5);
+
+      calendar.destroy();
+      done();
+    }, 0);
+  });
+
+  it('keeps PageUp focus in the originating month slot after paging', (done) => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 0, 3),
+      yearStart: 2026,
+      monthStart: 1,
+      displayMonths: 2,
+      mobileBreakpoint: 767,
+      selectable: true,
+      isBackDisabled: false
+    });
+
+    const focusCell = calendar.dom.months[0].querySelector('[data-value="15"]');
+    focusCell.focus();
+    calendar.handleArrowNavigation({ preventDefault() {}, target: focusCell }, 'PageUp', () => {});
+
+    setTimeout(() => {
+      const activeCell = document.activeElement;
+      const activeMonth = activeCell.closest('.js-month');
+
+      expect(calendar.monthStart).to.equal(0);
+      expect(activeCell.getAttribute('data-value')).to.equal('15');
+      expect(activeMonth.slotIndex).to.equal(0);
+      expect(activeMonth.month).to.equal(0);
+
+      calendar.destroy();
+      done();
+    }, 0);
   });
 
 });
