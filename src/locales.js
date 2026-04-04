@@ -16,7 +16,10 @@ let locales = {
       calendar: 'Calendar',
       months: 'Months',
       monthsForward: 'Next month',
-      monthsBackward: 'Previous month'
+      monthsBackward: 'Previous month',
+      close: 'Close',
+      previousYears: 'Previous years',
+      nextYears: 'Next years'
     }
   },
   'en-US': {
@@ -36,7 +39,10 @@ let locales = {
       calendar: 'Calendar',
       months: 'Months',
       monthsForward: 'Next month',
-      monthsBackward: 'Previous month'
+      monthsBackward: 'Previous month',
+      close: 'Close',
+      previousYears: 'Previous years',
+      nextYears: 'Next years'
     }
   },
   'de-DE': {
@@ -56,7 +62,10 @@ let locales = {
       calendar: 'Kalender',
       months: 'Monate',
       monthsForward: 'Nächster Monat',
-      monthsBackward: 'Vorheriger Monat'
+      monthsBackward: 'Vorheriger Monat',
+      close: 'Schließen',
+      previousYears: 'Vorherige Jahre',
+      nextYears: 'Nächste Jahre'
     }
   },
   'es-ES': {
@@ -76,7 +85,10 @@ let locales = {
       calendar: 'Calendario',
       months: 'Meses',
       monthsForward: 'Próximo mes',
-      monthsBackward: 'Mes anterior'
+      monthsBackward: 'Mes anterior',
+      close: 'Cerrar',
+      previousYears: 'Años anteriores',
+      nextYears: 'Años siguientes'
     }
   },
   'fr-FR': {
@@ -96,7 +108,10 @@ let locales = {
       calendar: 'Calendrier',
       months: 'Mois',
       monthsForward: 'Mois suivant',
-      monthsBackward: 'Mois précédent'
+      monthsBackward: 'Mois précédent',
+      close: 'Fermer',
+      previousYears: 'Années précédentes',
+      nextYears: 'Années suivantes'
     }
   },
   'it-IT': {
@@ -116,7 +131,10 @@ let locales = {
       calendar: 'Calendario',
       months: 'Mesi',
       monthsForward: 'Mese successivo',
-      monthsBackward: 'Mese precedente'
+      monthsBackward: 'Mese precedente',
+      close: 'Chiudi',
+      previousYears: 'Anni precedenti',
+      nextYears: 'Anni successivi'
     }
   },
   'sv-SE': {
@@ -136,7 +154,10 @@ let locales = {
       calendar: 'Kalender',
       months: 'Månader',
       monthsForward: 'Nästa månad',
-      monthsBackward: 'Föregående månad'
+      monthsBackward: 'Föregående månad',
+      close: 'Stäng',
+      previousYears: 'Föregående år',
+      nextYears: 'Nästa år'
     }
   },
   'ru-RU': {
@@ -156,7 +177,10 @@ let locales = {
       calendar: 'Календарь',
       months: 'Месяцы',
       monthsForward: 'Следующий месяц',
-      monthsBackward: 'Предыдущий месяц'
+      monthsBackward: 'Предыдущий месяц',
+      close: 'Закрыть',
+      previousYears: 'Предыдущие годы',
+      nextYears: 'Следующие годы'
     }
   },
   'pl-PL': {
@@ -176,7 +200,10 @@ let locales = {
       calendar: 'Kalendarz',
       months: 'Miesiące',
       monthsForward: 'Następny miesiąc',
-      monthsBackward: 'Poprzedni miesiąc'
+      monthsBackward: 'Poprzedni miesiąc',
+      close: 'Zamknij',
+      previousYears: 'Poprzednie lata',
+      nextYears: 'Następne lata'
     }
   },
   'nl-NL': {
@@ -196,7 +223,10 @@ let locales = {
       calendar: 'Kalender',
       months: 'Maanden',
       monthsForward: 'Volgende maand',
-      monthsBackward: 'Vorige maand'
+      monthsBackward: 'Vorige maand',
+      close: 'Sluiten',
+      previousYears: 'Vorige jaren',
+      nextYears: 'Volgende jaren'
     }
   }
 };

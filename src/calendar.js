@@ -573,10 +573,16 @@ export default class Calendar extends Emitter {
 
   renderFromSlot(monthElement, year, month) {
     this.destroyMonths();
-    const {
+    const minimumYear = this.minimumSelectableYear();
+    let {
       year: yearStart,
       month: monthStart
     } = this.shiftMonth(year, month, -monthElement.slotIndex);
+
+    if (yearStart < minimumYear) {
+      yearStart = minimumYear;
+      monthStart = 0;
+    }
 
     this.renderMonths(yearStart, monthStart);
   }

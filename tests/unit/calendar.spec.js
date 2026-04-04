@@ -133,7 +133,7 @@ describe('responsive displayMonths', () => {
     calendar.destroy();
   });
 
-  it('keeps month pagination available on mobile when enabled by option', () => {
+  it('keeps month pagination available on mobile by default', () => {
     setViewportWidth(360);
     const rootElement = stubElement('div');
     document.body.appendChild(rootElement);
@@ -144,7 +144,6 @@ describe('responsive displayMonths', () => {
       monthStart: 0,
       displayMonths: 3,
       displayMonthsMobile: 1,
-      showPaginationMobile: true,
       mobileBreakpoint: 767
     });
 
@@ -258,6 +257,34 @@ describe('responsive displayMonths', () => {
     expect(Math.min(...yearOptions)).to.be.equal(2026);
     expect(previousPager.hidden).to.equal(false);
     expect(previousPager.disabled).to.equal(true);
+
+    calendar.destroy();
+  });
+
+  it('clamps year-picker rerenders so visible months do not start before the minimum year', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 3, 3),
+      yearStart: 2026,
+      monthStart: 10,
+      displayMonths: 3,
+      mobileBreakpoint: 767
+    });
+
+    const thirdMonthTrigger = rootElement.querySelectorAll(`.${styles.captionTrigger}`)[2];
+    thirdMonthTrigger.click();
+
+    const sharedPanel = rootElement.querySelector(`.${styles.yearPickerPanel}`);
+    const targetYear = sharedPanel.querySelector(`.${styles.yearOption}[data-year-option="2026"]`);
+    targetYear.click();
+
+    const triggers = [...rootElement.querySelectorAll(`.${styles.captionTrigger}`)].map((el) => el.textContent.trim());
+
+    expect(triggers).to.deep.equal(['January 2026', 'February 2026', 'March 2026']);
 
     calendar.destroy();
   });
