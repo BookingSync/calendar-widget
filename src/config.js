@@ -27,6 +27,7 @@ export default {
   displayMonths: 2,
   displayMonthsMobile: null, // falls back to displayMonths
   mobileBreakpoint: 767, // px, <= breakpoint is mobile
+  showPaginationMobile: false,
   monthsPaginationJump: 1,
   selectable: false,
   showRates: false,

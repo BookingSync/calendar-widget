@@ -224,9 +224,15 @@ export default class Calendar extends Emitter {
     if (isMobileViewport) {
       this.el.dataset.viewport = 'mobile';
       addClass(this.el, styles.mobileMode);
+      if (this.opts.showPaginationMobile) {
+        addClass(this.el, styles.mobilePaginationEnabled);
+      } else {
+        removeClass(this.el, styles.mobilePaginationEnabled);
+      }
     } else {
       this.el.dataset.viewport = 'desktop';
       removeClass(this.el, styles.mobileMode);
+      removeClass(this.el, styles.mobilePaginationEnabled);
     }
   }
 
@@ -412,10 +418,18 @@ export default class Calendar extends Emitter {
 
   addCaptionPickerEvents() {
     this.onDocumentClick = (e) => {
+      const clickedInsideCalendar = this.el.contains(e.target);
       const trigger = traverseToParentWithAttr(e.target, 'data-year-picker-trigger').parent;
       const yearOption = traverseToParentWithAttr(e.target, 'data-year-option');
       const yearPager = traverseToParentWithAttr(e.target, 'data-year-page-offset');
       const closePicker = traverseToParentWithAttr(e.target, 'data-year-picker-close').parent;
+
+      if (!clickedInsideCalendar) {
+        if (this.activeYearPicker) {
+          this.closeYearPicker();
+        }
+        return;
+      }
 
       if (closePicker) {
         this.closeYearPicker();
@@ -471,6 +485,10 @@ export default class Calendar extends Emitter {
   }
 
   openYearPicker(monthElement) {
+    if (!monthElement || !this.el.contains(monthElement)) {
+      return;
+    }
+
     this.closeYearPicker();
     const trigger = monthElement.querySelector('[data-year-picker-trigger]');
 
@@ -539,23 +557,18 @@ export default class Calendar extends Emitter {
   }
 
   positionYearPickerPanel() {
-    const calendarRect = this.el.getBoundingClientRect();
-    const weekdays = this.dom.mobileWeekdays;
-
     if (!this.dom.yearPickerPanel) {
       return;
     }
 
-    let top = 0;
-
-    if (weekdays && this.isMobileViewport()) {
-      const weekdaysRect = weekdays.getBoundingClientRect();
-      top = weekdaysRect.top - calendarRect.top + this.el.scrollTop;
-    }
+    const top = Math.max(this.el.scrollTop, 0);
+    const visibleHeight = this.el.clientHeight || Math.round(this.el.getBoundingClientRect().height);
 
     this.dom.yearPickerPanel.style.top = `${top}px`;
     this.dom.yearPickerPanel.style.left = '0';
     this.dom.yearPickerPanel.style.right = '0';
+    this.dom.yearPickerPanel.style.bottom = 'auto';
+    this.dom.yearPickerPanel.style.height = visibleHeight ? `${visibleHeight}px` : '100%';
   }
 
   renderFromSlot(monthElement, year, month) {

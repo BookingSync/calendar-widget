@@ -133,6 +133,27 @@ describe('responsive displayMonths', () => {
     calendar.destroy();
   });
 
+  it('keeps month pagination available on mobile when enabled by option', () => {
+    setViewportWidth(360);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 3,
+      displayMonthsMobile: 1,
+      showPaginationMobile: true,
+      mobileBreakpoint: 767
+    });
+
+    expect(rootElement.classList.contains(styles.mobileMode)).to.equal(true);
+    expect(rootElement.classList.contains(styles.mobilePaginationEnabled)).to.equal(true);
+
+    calendar.destroy();
+  });
+
   it('renders a single month-year trigger in each month caption', () => {
     setViewportWidth(1200);
     const rootElement = stubElement('div');
@@ -150,6 +171,40 @@ describe('responsive displayMonths', () => {
     expect(rootElement.querySelectorAll(`.${styles.yearPickerPanel}`).length).to.be.equal(1);
 
     calendar.destroy();
+  });
+
+  it('ignores year-picker trigger clicks coming from another calendar instance', () => {
+    setViewportWidth(1200);
+    const firstRoot = stubElement('div');
+    const secondRoot = stubElement('div');
+    document.body.appendChild(firstRoot);
+    document.body.appendChild(secondRoot);
+
+    const firstCalendar = new Calendar({
+      el: firstRoot,
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 1,
+      mobileBreakpoint: 767
+    });
+
+    const secondCalendar = new Calendar({
+      el: secondRoot,
+      yearStart: 2026,
+      monthStart: 5,
+      displayMonths: 1,
+      mobileBreakpoint: 767
+    });
+
+    secondRoot.querySelector(`.${styles.captionTrigger}`).click();
+
+    expect(firstCalendar.activeYearPicker).to.equal(null);
+    expect(firstCalendar.dom.yearPickerPanel.hidden).to.equal(true);
+    expect(secondCalendar.activeYearPicker).to.not.equal(null);
+    expect(secondCalendar.dom.yearPickerPanel.hidden).to.equal(false);
+
+    firstCalendar.destroy();
+    secondCalendar.destroy();
   });
 
   it('rerenders contiguous months when a year is selected from the caption picker', () => {
@@ -174,7 +229,7 @@ describe('responsive displayMonths', () => {
 
     const triggers = [...rootElement.querySelectorAll(`.${styles.captionTrigger}`)].map((el) => el.textContent.trim());
 
-    expect(triggers).to.deep.equal(['December 2026', 'January 2027', 'February 2027']);
+    expect(triggers).to.deep.equal(['April 2027', 'May 2027', 'June 2027']);
 
     calendar.destroy();
   });
@@ -201,7 +256,48 @@ describe('responsive displayMonths', () => {
     const previousPager = rootElement.querySelector('[data-year-page-offset="-12"]');
 
     expect(Math.min(...yearOptions)).to.be.equal(2026);
-    expect(previousPager.hidden).to.equal(true);
+    expect(previousPager.hidden).to.equal(false);
+    expect(previousPager.disabled).to.equal(true);
+
+    calendar.destroy();
+  });
+
+  it('positions the year picker inside the visible scrolled area of the calendar', () => {
+    setViewportWidth(360);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    let scrollTop = 320;
+
+    Object.defineProperty(rootElement, 'clientHeight', {
+      configurable: true,
+      value: 480
+    });
+    Object.defineProperty(rootElement, 'scrollTop', {
+      configurable: true,
+      get() {
+        return scrollTop;
+      },
+      set(value) {
+        scrollTop = value;
+      }
+    });
+
+    const calendar = new Calendar({
+      el: rootElement,
+      currentDate: new Date(2026, 3, 3),
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 1,
+      displayMonthsMobile: 1,
+      mobileBreakpoint: 767
+    });
+
+    rootElement.querySelector(`.${styles.captionTrigger}`).click();
+
+    expect(calendar.dom.yearPickerPanel.style.top).to.equal('320px');
+    expect(calendar.dom.yearPickerPanel.style.height).to.equal('480px');
+    expect(calendar.dom.yearPickerPanel.style.bottom).to.equal('auto');
 
     calendar.destroy();
   });

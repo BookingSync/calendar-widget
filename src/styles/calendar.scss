@@ -111,7 +111,8 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: auto;
+    height: 100%;
     transform: none;
     width: auto;
     box-sizing: border-box;
@@ -566,8 +567,19 @@
     display: none;
   }
 
-  .forward,
-  .back {
-    display: none;
+  &:not(.mobilePaginationEnabled) {
+    .forward,
+    .back {
+      display: none;
+    }
+  }
+
+  &.mobilePaginationEnabled {
+    .forward,
+    .back {
+      display: block;
+      top: var(--calendar-weekdays-height);
+      pointer-events: auto;
+    }
   }
 }

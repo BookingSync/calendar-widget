@@ -113,16 +113,16 @@ export const weekDay = (o) => {
 
 export const forward = (label) => `
   <button class="${styles.forward}" aria-label="${label}">
-    <svg viewBox="0 0 1000 1000" width="20" height="20">
-      <path d="M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z"></path>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="m9 18 6-6-6-6"></path>
     </svg>
   </button>
 `;
 
 export const back = (label) => `
   <button class="${styles.back}" aria-label="${label}">
-    <svg viewBox="0 0 1000 1000" width="20" height="20">
-      <path d="M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z"></path>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="m15 18-6-6 6-6"></path>
     </svg>
   </button>
 `;
