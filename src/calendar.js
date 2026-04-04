@@ -478,6 +478,18 @@ export default class Calendar extends Emitter {
     this.onDocumentKeydown = (e) => {
       if (e.key === 'Escape' && this.activeYearPicker) {
         this.closeYearPicker();
+        const trigger = this.el.querySelector('[data-year-picker-trigger]');
+
+        if (trigger) {
+          trigger.focus();
+        }
+
+        return;
+      }
+
+      // Arrow key navigation within year picker grid (3 columns)
+      if (this.activeYearPicker && this.dom.yearPickerPanel) {
+        this.handleYearPickerKeydown(e);
       }
     };
 
@@ -499,10 +511,23 @@ export default class Calendar extends Emitter {
 
     this.positionYearPickerPanel();
     this.dom.yearPickerPanel.hidden = false;
+    this.dom.yearPickerPanel.setAttribute('role', 'dialog');
+    this.dom.yearPickerPanel.setAttribute('aria-modal', 'true');
+    this.dom.yearPickerPanel.setAttribute('aria-label', this.locale.labels.calendar);
     trigger.setAttribute('aria-expanded', 'true');
     addClass(this.el, styles.yearPickerOpen);
     this.activeYearPicker = monthElement;
     this.renderYearGrid(monthElement, monthElement.year - 5);
+
+    // Focus the selected year button, or the first year button
+    const selectedBtn = this.dom.yearPickerPanel.querySelector('[data-selected-year]');
+    const firstBtn = this.dom.yearPickerPanel.querySelector('[data-year-option]');
+
+    if (selectedBtn) {
+      selectedBtn.focus();
+    } else if (firstBtn) {
+      firstBtn.focus();
+    }
   }
 
   closeYearPicker() {
@@ -518,10 +543,63 @@ export default class Calendar extends Emitter {
 
     if (trigger) {
       trigger.setAttribute('aria-expanded', 'false');
+      trigger.focus();
     }
 
     removeClass(this.el, styles.yearPickerOpen);
     this.activeYearPicker = null;
+  }
+
+  handleYearPickerKeydown(e) {
+    const panel = this.dom.yearPickerPanel;
+    const focused = panel.querySelector(':focus');
+
+    if (!focused) {
+      return;
+    }
+
+    const key = e.key || e.keyCode;
+    const yearButtons = Array.from(panel.querySelectorAll('[data-year-option]'));
+    const currentIndex = yearButtons.indexOf(focused);
+
+    // Arrow navigation within the 3-column year grid
+    const cols = 3;
+    const arrowOffsets = {
+      ArrowLeft: -1, ArrowRight: 1,
+      ArrowUp: -cols, ArrowDown: cols,
+      37: -1, 39: 1, 38: -cols, 40: cols
+    };
+
+    if (arrowOffsets[key] !== undefined && currentIndex !== -1) {
+      e.preventDefault();
+      const targetIndex = currentIndex + arrowOffsets[key];
+
+      if (targetIndex >= 0 && targetIndex < yearButtons.length) {
+        yearButtons[targetIndex].focus();
+      }
+
+      return;
+    }
+
+    // Focus trap: Tab cycles within the year picker panel
+    if (key === 'Tab' || key === 9) {
+      const focusable = Array.from(panel.querySelectorAll('button:not([hidden]):not([disabled])'));
+
+      if (focusable.length === 0) {
+        return;
+      }
+
+      const [firstEl] = focusable;
+      const lastEl = focusable[focusable.length - 1];
+
+      if (e.shiftKey && focused === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && focused === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    }
   }
 
   renderYearGrid(monthElement, yearPageStart) {
