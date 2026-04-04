@@ -1,6 +1,7 @@
 import styles from './styles/calendar.scss';
 
 export const main  = (label) => `<div class="${styles.monthsWrapper}" role="tabpanel" aria-label="${label}"></div>`;
+export const liveRegion = () => `<div class="${styles.srOnly}" aria-live="polite" aria-atomic="true" data-live-region></div>`;
 export const pagination = () => `<div class="${styles.pagination}"></div>`;
 export const mobileWeekdays = (header) => `<div class="${styles.mobileWeekdays}" role="row">${header}</div>`;
 export const svgSprite = (chevronDownId) => `
@@ -67,7 +68,7 @@ export const yearOption = (year, selectedYear) => `
     type="button"
     class="${styles.yearOption}"
     data-year-option="${year}"
-    ${year === selectedYear ? 'data-selected-year' : ''}
+    ${year === selectedYear ? 'data-selected-year aria-current="true"' : ''}
   >
     ${year}
   </button>
@@ -94,7 +95,7 @@ export const weekDay = (o) => {
 
   return `
     <div
-      ${o.disabled ? `data-disabled=${o.disabled}` : 'data-enabled'}
+      ${o.disabled ? `data-disabled=${o.disabled} aria-disabled="true"` : 'data-enabled'}
       ${o.isAvailableOut ? 'data-available-out' : ''}
       ${o.isAvailableIn ? 'data-available-in' : ''}
       ${o.minStay ? `data-min-stay=${o.minStay}` : ''}
@@ -103,7 +104,8 @@ export const weekDay = (o) => {
       class="${styles.cell} ${o.isCurrentDay ? styles.today : ''}"
       role="gridcell"
       tabindex="${o.tabindex}"
-      aria-label="${o.date}"
+      aria-label="${o.ariaLabel}"
+      ${o.isCurrentDay ? 'aria-current="date"' : ''}
     >
       <span class="${styles.cnt}">${o.label}</span>
       ${infoHtml}

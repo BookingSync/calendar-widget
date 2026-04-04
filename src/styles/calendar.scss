@@ -374,6 +374,16 @@
     height: auto;
     aspect-ratio: 1 / 1;
 
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $btn-fill;
+      outline-offset: -2px;
+      z-index: 2;
+    }
+
     &.today {
       font-weight: bold;
     }
@@ -580,6 +590,28 @@
       display: block;
       top: var(--calendar-weekdays-height);
       pointer-events: auto;
+    }
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calendar {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 }

@@ -19,7 +19,11 @@ let locales = {
       monthsBackward: 'Previous month',
       close: 'Close',
       previousYears: 'Previous years',
-      nextYears: 'Next years'
+      nextYears: 'Next years',
+      today: 'today',
+      unavailable: 'unavailable',
+      selectedStart: 'Start date: %date',
+      selectedEnd: 'End date: %date'
     }
   },
   'en-US': {
@@ -42,7 +46,11 @@ let locales = {
       monthsBackward: 'Previous month',
       close: 'Close',
       previousYears: 'Previous years',
-      nextYears: 'Next years'
+      nextYears: 'Next years',
+      today: 'today',
+      unavailable: 'unavailable',
+      selectedStart: 'Start date: %date',
+      selectedEnd: 'End date: %date'
     }
   },
   'de-DE': {
@@ -65,7 +73,11 @@ let locales = {
       monthsBackward: 'Vorheriger Monat',
       close: 'Schließen',
       previousYears: 'Vorherige Jahre',
-      nextYears: 'Nächste Jahre'
+      nextYears: 'Nächste Jahre',
+      today: 'heute',
+      unavailable: 'nicht verfügbar',
+      selectedStart: 'Startdatum: %date',
+      selectedEnd: 'Enddatum: %date'
     }
   },
   'es-ES': {
@@ -88,7 +100,11 @@ let locales = {
       monthsBackward: 'Mes anterior',
       close: 'Cerrar',
       previousYears: 'Años anteriores',
-      nextYears: 'Años siguientes'
+      nextYears: 'Años siguientes',
+      today: 'hoy',
+      unavailable: 'no disponible',
+      selectedStart: 'Fecha de inicio: %date',
+      selectedEnd: 'Fecha de fin: %date'
     }
   },
   'fr-FR': {
@@ -111,7 +127,11 @@ let locales = {
       monthsBackward: 'Mois précédent',
       close: 'Fermer',
       previousYears: 'Années précédentes',
-      nextYears: 'Années suivantes'
+      nextYears: 'Années suivantes',
+      today: "aujourd'hui",
+      unavailable: 'indisponible',
+      selectedStart: 'Date de début : %date',
+      selectedEnd: 'Date de fin : %date'
     }
   },
   'it-IT': {
@@ -134,7 +154,11 @@ let locales = {
       monthsBackward: 'Mese precedente',
       close: 'Chiudi',
       previousYears: 'Anni precedenti',
-      nextYears: 'Anni successivi'
+      nextYears: 'Anni successivi',
+      today: 'oggi',
+      unavailable: 'non disponibile',
+      selectedStart: 'Data di inizio: %date',
+      selectedEnd: 'Data di fine: %date'
     }
   },
   'sv-SE': {
@@ -157,7 +181,11 @@ let locales = {
       monthsBackward: 'Föregående månad',
       close: 'Stäng',
       previousYears: 'Föregående år',
-      nextYears: 'Nästa år'
+      nextYears: 'Nästa år',
+      today: 'idag',
+      unavailable: 'ej tillgänglig',
+      selectedStart: 'Startdatum: %date',
+      selectedEnd: 'Slutdatum: %date'
     }
   },
   'ru-RU': {
@@ -180,7 +208,11 @@ let locales = {
       monthsBackward: 'Предыдущий месяц',
       close: 'Закрыть',
       previousYears: 'Предыдущие годы',
-      nextYears: 'Следующие годы'
+      nextYears: 'Следующие годы',
+      today: 'сегодня',
+      unavailable: 'недоступно',
+      selectedStart: 'Дата начала: %date',
+      selectedEnd: 'Дата окончания: %date'
     }
   },
   'pl-PL': {
@@ -203,7 +235,11 @@ let locales = {
       monthsBackward: 'Poprzedni miesiąc',
       close: 'Zamknij',
       previousYears: 'Poprzednie lata',
-      nextYears: 'Następne lata'
+      nextYears: 'Następne lata',
+      today: 'dzisiaj',
+      unavailable: 'niedostępne',
+      selectedStart: 'Data rozpoczęcia: %date',
+      selectedEnd: 'Data zakończenia: %date'
     }
   },
   'nl-NL': {
@@ -226,7 +262,11 @@ let locales = {
       monthsBackward: 'Vorige maand',
       close: 'Sluiten',
       previousYears: 'Vorige jaren',
-      nextYears: 'Volgende jaren'
+      nextYears: 'Volgende jaren',
+      today: 'vandaag',
+      unavailable: 'niet beschikbaar',
+      selectedStart: 'Startdatum: %date',
+      selectedEnd: 'Einddatum: %date'
     }
   }
 };

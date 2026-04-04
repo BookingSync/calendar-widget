@@ -121,6 +121,7 @@ export default class Calendar extends Emitter {
       elementFromString(templates.mobileWeekdays(this.headerTemplateString()))
     );
     this.dom.monthsWrapper = this.el.appendChild(elementFromString(templates.main(this.locale.labels.months)));
+    this.dom.liveRegion = this.el.appendChild(elementFromString(templates.liveRegion()));
     this.dom.yearPickerPanel = this.el.appendChild(elementFromString(templates.sharedYearPickerPanel({
       closeLabel: this.locale.labels.close || 'Close',
       previousLabel: this.locale.labels.previousYears || 'Previous years',
@@ -734,6 +735,9 @@ export default class Calendar extends Emitter {
           this.resetSelection();
         }
       }
+
+      // Arrow key grid navigation
+      this.handleArrowNavigation(e, key, mouseoverHandler);
     });
 
     el.addEventListener('click', selectionHandler);
@@ -821,6 +825,9 @@ export default class Calendar extends Emitter {
     this.selectStart(dateValue, cell);
     this.switchInputFocus('end');
     if (this.hasValidRange) {
+      const dateStr = strftime(dateToIso(...dateValue), this.locale.formatDate, this.locale);
+      const label = this.locale.labels.selectedStart || 'Start date: %date';
+      this.announceLiveRegion(label.replace('%date', dateStr));
       this.emit('selection-start', dateToIso(...dateValue, true), dateToIso(...dateValue));
       if (isFunction(this.opts.onSelectStart)) {
         this.opts.onSelectStart(dateToIso(...dateValue, true), dateToIso(...dateValue));
@@ -832,6 +839,9 @@ export default class Calendar extends Emitter {
     this.selectEnd(dateValue, cell);
     this.switchInputFocus('start');
     if (this.hasValidRange) {
+      const dateStr = strftime(dateToIso(...dateValue), this.locale.formatDate, this.locale);
+      const label = this.locale.labels.selectedEnd || 'End date: %date';
+      this.announceLiveRegion(label.replace('%date', dateStr));
       this.emit('selection-end', dateToIso(...dateValue, true), dateToIso(...dateValue));
       if (isFunction(this.opts.onSelectEnd)) {
         this.opts.onSelectEnd(dateToIso(...dateValue, true), dateToIso(...dateValue));
@@ -860,7 +870,94 @@ export default class Calendar extends Emitter {
     }
 
     if (is(this.dom.tooltip)) {
+      // Remove aria-describedby from the cell linked to this tooltip
+      const described = this.el.querySelector('[aria-describedby="calendar-tooltip"]');
+      if (described) {
+        described.removeAttribute('aria-describedby');
+      }
       destroyElement(this.dom.tooltip);
+    }
+  }
+
+  announceLiveRegion(message) {
+    if (this.dom.liveRegion) {
+      this.dom.liveRegion.textContent = message;
+    }
+  }
+
+  handleArrowNavigation(e, key, mouseoverHandler) {
+    const focusedCell = this.el.querySelector('[data-value]:focus');
+
+    if (!focusedCell) {
+      return;
+    }
+
+    const arrowKeys = {
+      ArrowLeft: -1, ArrowRight: 1,
+      ArrowUp: -7, ArrowDown: 7,
+      37: -1, 39: 1, 38: -7, 40: 7
+    };
+    const homeEndKeys = { Home: 'home', End: 'end', 36: 'home', 35: 'end' };
+    const pageKeys = { PageUp: -1, PageDown: 1, 33: -1, 34: 1 };
+
+    if (arrowKeys[key] !== undefined) {
+      e.preventDefault();
+      const cells = Array.from(this.el.querySelectorAll('[data-value]'));
+      const currentIndex = cells.indexOf(focusedCell);
+      const targetIndex = currentIndex + arrowKeys[key];
+
+      if (targetIndex >= 0 && targetIndex < cells.length) {
+        cells[targetIndex].focus();
+
+        if (this.isSelecting) {
+          mouseoverHandler({ target: cells[targetIndex] });
+        }
+      }
+    } else if (homeEndKeys[key]) {
+      e.preventDefault();
+      const row = focusedCell.closest('[role="row"]');
+
+      if (row) {
+        const rowCells = Array.from(row.querySelectorAll('[data-value]'));
+
+        if (rowCells.length) {
+          const target = homeEndKeys[key] === 'home' ? rowCells[0] : rowCells[rowCells.length - 1];
+          target.focus();
+
+          if (this.isSelecting) {
+            mouseoverHandler({ target });
+          }
+        }
+      }
+    } else if (pageKeys[key] !== undefined) {
+      e.preventDefault();
+      const dayValue = focusedCell.getAttribute('data-value');
+
+      if (pageKeys[key] === 1) {
+        this.dom.forward.click();
+      } else {
+        this.dom.back.click();
+      }
+
+      // After re-render, focus the same day number or last available cell
+      setTimeout(() => {
+        const newCells = this.el.querySelectorAll('[data-value]');
+        let target = null;
+
+        newCells.forEach((c) => {
+          if (c.getAttribute('data-value') === dayValue) {
+            target = c;
+          }
+        });
+
+        if (!target && newCells.length) {
+          target = newCells[newCells.length - 1];
+        }
+
+        if (target) {
+          target.focus();
+        }
+      });
     }
   }
 
@@ -939,7 +1036,9 @@ export default class Calendar extends Emitter {
 
         if (tooltipPosition && this.el.contains(cell) && !this.hasValidRange) {
           this.dom.tooltip = this.el.appendChild(elementFromString(templates.tooltip));
+          this.dom.tooltip.id = 'calendar-tooltip';
           this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
+          cell.setAttribute('aria-describedby', 'calendar-tooltip');
 
           this.logger(`invalidRangeMessage: ${invalidRangeMessage} (${start} - ${end})`, 'warn');
 
@@ -1239,19 +1338,48 @@ export default class Calendar extends Emitter {
       isDisabled = 'center';
     }
 
+    const dateStr = strftime(dateToIso(year, month, dayOfMonth), this.locale.formatDate, this.locale);
+    const rateT = rate ? currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency) : false;
+    const minStayT = (this.opts.showMinStay && minStay) ? tFormatter(minStay, this.locale.minStay) : false;
+    const maxStayT = (this.opts.showMaxStay && maxStay) ? tFormatter(maxStay, this.locale.maxStay) : false;
+
+    // Build enriched aria-label for screen readers
+    const ariaLabelParts = [dateStr];
+
+    if (isCurrentDay) {
+      ariaLabelParts.push(this.locale.labels.today || 'today');
+    }
+
+    if (isDisabled) {
+      ariaLabelParts.push(this.locale.labels.unavailable || 'unavailable');
+    }
+
+    if (rateT) {
+      ariaLabelParts.push(rateT);
+    }
+
+    if (minStayT) {
+      ariaLabelParts.push(minStayT);
+    }
+
+    if (maxStayT) {
+      ariaLabelParts.push(maxStayT);
+    }
+
     const options = {
       label: dayOfMonth,
-      date: strftime(dateToIso(year, month, dayOfMonth), this.locale.formatDate, this.locale),
+      date: dateStr,
+      ariaLabel: ariaLabelParts.join(', '),
       disabled: isDisabled,
       isAvailableIn,
       isAvailableOut,
       isCurrentDay,
       minStay,
-      minStayT: (this.opts.showMinStay && minStay) ? tFormatter(minStay, this.locale.minStay) : false,
+      minStayT,
       maxStay,
-      maxStayT: (this.opts.showMaxStay && maxStay) ? tFormatter(maxStay, this.locale.maxStay) : false,
+      maxStayT,
       rate,
-      rateT: rate ? currencyFormatter(Math.round(rate), this.opts.lang, this.opts.currency || this.locale.currency) : false,
+      rateT,
       tabindex: this.opts.selectable ? 0 : -1
     };
 
@@ -1370,6 +1498,7 @@ export default class Calendar extends Emitter {
     // Add aria attributes
     this.el.setAttribute('role', 'dialog');
     this.el.setAttribute('aria-modal', 'true');
+    this.el.setAttribute('aria-label', this.locale.labels.calendar);
     this.el.setAttribute('aria-hidden', 'true');
 
     const calDrop = window.Popper.createPopper(this.elTarget, this.el, {
