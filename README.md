@@ -16,7 +16,7 @@
 const calendar = new SmilyCalendarWidget({ el: document.querySelector('.my-widget') });
 ````
 
-* Or as module 
+* Or as module
 ```javascript
 import Calendar from 'bookingsync-calendar-widget';
 
@@ -42,70 +42,88 @@ Theme note: the built-in default is now `data-theme="basic"` only. If you need t
 * go to [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
 Additionally you can run json-mock server
-* `pnpm run mock-server` it serve maps api for local development. Mocks are in `db.json` file.
+* `pnpm run mock-server` serves the maps API for local development. Mocks are in `db.json`.
 
 ## Scripts
 * `pnpm dev` - starts development server with live-reload and hot module replacement
 * `pnpm run build` - produces production version under the `dist` folder
-* `pnpm run test` - runs tests.
+* `pnpm run test` - runs tests
+
+## Positioning
+The widget no longer bundles Popper. For dropdown and invalid-range tooltip positioning it will use the first runtime it finds:
+
+1. `window.Popper` with a Popper 2 style `createPopper()`
+2. `window.FloatingUIDOM`, `window.FloatingUI`, or `window.floatingUI` with `computePosition()`
+3. a built-in fallback
+
+The built-in fallback is intentionally basic. It supports `top` / `bottom` / `left` / `right` placement, `-start` / `-end` alignment, tooltip arrow positioning, and repositioning on `resize` and `scroll`. It does not implement collision-aware behavior such as flip, shift, or advanced hide handling. If you need that, expose Popper or Floating UI in the page runtime.
 
 ## Config
 | __Option__ | __Description__ | __Type__ | __Default__ |
 | ---        | ---             | ---      | ---         |
-| `el` | HTMLElement to act as a container (only this one is MANDATORY) | HTMLElement | null
-| `apiHost` | API host name | String | `http://localhost:3000` for development, `https://secure.smily.com` for production |
-| `apiNamespace` | API namespase | String | `/api/v2/public` |
-| `apiMapsRoute` | route for maps | String | `/maps.json?rental_id={params}` - `{params}` is replaced with `rentalId` |
-| `rentalURL` | URL route for maps | Function | |
-| `rentalId` | parameter to pass in API request for availability maps | String or Number | null
-| `currency` | Set currency conversion | String | null
-| `minStay` | Minimum selectable range | Number | 1
-| `maxStay` | Maximum selectable range | Number | Infinity
-| `allowShorterMinStaySelection` | Force minimum selection to `opts.minStay` | Boolean | false
-| `allowShorterMaxStaySelection` | Force maximum selection to `opts.maxStay` | Boolean | false
-| `monthStart` | Calendar starts months, the left up most, 0 - 11 range | Number | Current month 
-| `yearStart` | Calendar start year, YYYY format (2016) | Number | Current year
-| `displayMonths` | Desktop/base months count | Number | 2
-| `displayMonthsMobile` | Mobile months count. If not set, uses `displayMonths` | Number | null
-| `mobileBreakpoint` | Mobile viewport max width in px (`<=` means mobile) | Number | 767
-| `selectable` | Allow to select range | Boolean | false
-| `showRates` | Show rates from availability map | Boolean | false
-| `showMinStay` | Show minimum stay per single day (be careful to use together with `showRates` or `showMaxStay`, can be too munch information) | Boolean | false
-| `showMaxStay` | Show maximum stay per single day (be careful to use together with `showRates` or `showMinStay`, can be too munch information) | Boolean | false
-| `isReverseSelectable` | User selects end date first | Boolean | false
-| `isBackDisabled` | Disable back button for past months | Boolean | true
-| `isDropDown` | Act like drop down, good idea to specify `elStartAt` and `elEndAt` | Boolean | false
-| `elStartAt` | Input field to show start selected, open drop-down on focus| HTMLElement | null (will try to find `.SmilyCalendar__start-at` if null)
-| `elEndAt` | Input field to show end selected, open drop-down on focus | HTMLElement | null (will try to find `.SmilyCalendar__end-at` if null)
-| `elSingleInput` | Single input field to show start/end selected, open drop-down on focus | HTMLElement | null (will try to find `.SmilyCalendar__single-input` if null)
-| `isSingleInput` | Allow to use the single input, hides start/end inputs | Boolean | null
-| `elReset` | Any element on click resets calendar selections and input values | HTMLElement | null
-| `formatDate` | Overwrite locale defined date format | String | `%m/%d/%y` (https://github.com/pineapplemachine/strtime-js/blob/HEAD/directives.md)
-| `hiddenElFormat` | Duplicate start/end inputs with a different date format | String | null
-| `disableAvailabityMap` | Overwrite each days to be available | Boolean | false
-| `enableAllDays` | Force past days/months to be selectable | Boolean | false
-| `currentDate` | Current date Date object | Date | `new Date()`
+| `el` | Calendar container element. This is the only required option. | HTMLElement | `null` |
+| `lang` | Locale key such as `en-US` or `fr-FR`. Invalid values fall back to `en-US`. | String | `en-US` |
+| `theme` | Theme name stored in `data-theme`. The bundled stylesheet currently ships `basic` only. | String | `basic` |
+| `apiHost` | API host name. | String | `http://localhost:3000` in development, `https://secure.smily.com` otherwise |
+| `apiNamespace` | API namespace prefix. | String | `/api/v2/public` |
+| `apiMapsRoute` | Maps route template used by the default `rentalUrl()` implementation. | String | `/maps.json?{apiRentalId}{apiCurrency}` |
+| `rentalUrl(ids)` | Function used to build the maps URL. By default it derives the URL from `apiHost`, `apiNamespace`, `apiMapsRoute`, `apiRentalId`, and `apiCurrency`. | Function | built-in implementation |
+| `rentalId` | Rental identifier used when loading availability maps. | String or Number | `null` |
+| `currency` | Target currency for rate conversion and display. | String | `null` |
+| `startOfWeek` | First weekday index, `0` for Sunday through `6` for Saturday. If omitted, the locale value is used. | Number | locale default |
+| `minStay` | Minimum selectable range in nights. | Number | `1` |
+| `maxStay` | Maximum selectable range in nights. | Number | `Infinity` |
+| `allowShorterMinStaySelection` | Ignore per-day minimum-stay constraints and use `minStay` only. | Boolean | `false` |
+| `allowLongerMaxStaySelection` | Ignore per-day maximum-stay constraints and use `maxStay` only. | Boolean | `false` |
+| `monthStart` | First visible month, `0` through `11`. If omitted, the current month is used. | Number | current month |
+| `yearStart` | First visible year. If omitted, the current year is used. | Number | current year |
+| `displayMonths` | Number of visible months on desktop. | Number | `2` |
+| `displayMonthsMobile` | Number of visible months on mobile. If omitted, `displayMonths` is used. | Number | `null` |
+| `mobileBreakpoint` | Mobile viewport max width in px. `<=` this breakpoint is treated as mobile. | Number | `767` |
+| `showPaginationMobile` | Keep the month pagination controls visible in mobile mode. | Boolean | `true` |
+| `monthsPaginationJump` | Number of months to move when the forward/back controls are used. | Number | `1` |
+| `selectable` | Enable range selection. | Boolean | `false` |
+| `showRates` | Show rates from the availability map. | Boolean | `false` |
+| `showMinStay` | Show minimum-stay text per day cell. | Boolean | `false` |
+| `showMaxStay` | Show maximum-stay text per day cell. | Boolean | `false` |
+| `isReverseSelectable` | Start selection from the end date instead of the start date. | Boolean | `false` |
+| `isBackDisabled` | Prevent month navigation into the past. | Boolean | `true` |
+| `enableAllDays` | Make past days and months selectable even when maps are not loaded. | Boolean | `false` |
+| `isDropDown` | Render the widget as a dropdown anchored to an input or trigger element. | Boolean | `false` |
+| `dropPlacement` | Preferred dropdown placement passed to the active positioning engine. | String | `bottom-start` |
+| `elStartAt` | Start-date input. Also used as the dropdown opener when `isDropDown` is enabled. | HTMLElement | `null`, then `.SmilyCalendar__start-at` if found |
+| `elEndAt` | End-date input. Also used as the dropdown opener when `isDropDown` is enabled. | HTMLElement | `null`, then `.SmilyCalendar__end-at` if found |
+| `elSingleInput` | Single combined input used for dropdown mode. | HTMLElement | `null`, then `.SmilyCalendar__single-input` if found |
+| `isSingleInput` | Use the single input and hide the start/end inputs. | Boolean | `null` |
+| `singleInputDateFormat` | Date format used when filling the combined single input. | String | locale date format |
+| `singleInputSeparator` | Separator inserted between start and end dates in the single input. | String | `→` |
+| `elReset` | Element that clears the current selection when clicked. | HTMLElement | `null` |
+| `formatDate` | Date format used for parsing and formatting visible input values. | String | locale date format |
+| `hiddenElFormat` | If set, duplicates the start/end inputs into hidden fields formatted with this pattern. | String | `null` |
+| `disableAvailabityMap` | Treat every mapped day as available. | Boolean | `false` |
+| `currentDate` | Date used as "today" for disabling and clamping logic. | Date | `new Date()` |
 
 ## Callbacks
 
-* `onSelectStart(ISO String, Date)`
-* `onSelectEnd(ISO String, Date)`
-* `onSelectionCompleted(ISO String, ISO String)`
+* `onSelectStart(ISO DateTime String, ISO Date String)`
+* `onSelectEnd(ISO DateTime String, ISO Date String)`
+* `onSelectionCompleted(ISO DateTime String, ISO DateTime String)`
+* `onClearSelection([yyyy, m, dd] | null, [yyyy, m, dd] | null)`
 
-see `index.html` for more examples.
-All options can be passed as `data-` attributes to HTMLElement calendar placeholders, with dasherized way.
+See `index.html` for more examples.
+All options can be passed as `data-` attributes to HTMLElement calendar placeholders, with camelCase options converted to kebab-case.
 e.g.
 
 ```html
-<div 
+<div
   data-smily-calendar-widget
   data-selectable="true"
-  data-format-date="%m/%d/%y">
+  data-format-date="%m/%d/%Y">
 </div>
 ```
 
 ## Events
-Calendar implements event Emitter, receiver can subscribe/unsubscribe to events and subscribe one-time.
+Calendar implements event Emitter, receiver can subscribe, unsubscribe, and subscribe one-time.
 
 ```javascript
 var cal = new SmilyCalendarWidget({
@@ -122,22 +140,22 @@ cal.on('selection-start', function(a, b) {
 cal.once('selection-end', function(a, b) {
     console.log('selection-end', a, b)
  });
- 
+
 cal.off('selection-end', function(a, b) {
     console.log('selection-end', a, b)
- }); 
+ });
 ```
 
 | __Event__ | __Description__ | __Params__ |
 | ---       | ---             | ---        |
-| `init`      | Finished initializing, data is NOT loaded |  |
-| `maps-loaded` | Availability, rates and minimum stay maps are loaded and added to calendar | {Object} raw response from the server |  
+| `init` | Finished initializing, data is NOT loaded |  |
+| `maps-loaded` | Availability, rates and minimum stay maps are loaded and added to calendar | `{Object}` raw response from the server |
 | `maps-error` | Error when loading maps |  |
 | `loading-show` | Loading indicator shows |  |
 | `loading-hide` | Loading indicator hides |  |
-| `selection-start` | User selected start date | {String} {Date}, ISO format '2016-01-01', Date |
-| `selection-end` | User selected end date | {String} {Date}, ISO format '2016-01-01', Date |
-| `selection-reset` | Selection reset | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
-| `selection-completed` | User selects end date when start date was already selected | {Array}, {Array}, selection start, selection end ([yyyy, m, dd]) |
-| `drop-open` | Calendar-drop open |  | 
-| `drop-close` | Calendar-drop close |  | 
+| `selection-start` | User selected start date | `{String}`, `{String}`: ISO datetime, ISO date |
+| `selection-end` | User selected end date | `{String}`, `{String}`: ISO datetime, ISO date |
+| `selection-reset` | Selection reset | `{Array}`, `{Array}`: selection start, selection end (`[yyyy, m, dd]`) |
+| `selection-completed` | User selects end date when start date was already selected | `{Array}`, `{Array}`: selection start, selection end (`[yyyy, m, dd]`) |
+| `drop-open` | Calendar-drop open |  |
+| `drop-close` | Calendar-drop close |  |

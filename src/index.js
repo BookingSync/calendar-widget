@@ -9,9 +9,6 @@ const autoInitSelector = '[data-smily-calendar-widget]';
 // Export WidgetUtils
 window.SmilyWidgetUtils = widgetUtils;
 
-// Export Popper
-window.Popper = require('@popperjs/core');
-
 Calendar.init = (opts) => {
   const initialized = [];
   const options     = opts || {};

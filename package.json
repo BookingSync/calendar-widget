@@ -22,7 +22,6 @@
     "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
     "strtime": "^1.1.2",
     "widget-utils": "1.0.0"
   },

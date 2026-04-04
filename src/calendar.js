@@ -5,6 +5,7 @@ import * as templates from './templates';
 import CalendarTree from './calendar-tree';
 import config from './config';
 import locales from './locales';
+import createPositioner from './positioning';
 
 import { strftime } from 'strtime';
 
@@ -948,8 +949,9 @@ export default class Calendar extends Emitter {
   }
 
   destroyTooltip() {
-    if (is(this.tooltipPopper)) {
+    if (this.tooltipPopper && isFunction(this.tooltipPopper.destroy)) {
       this.tooltipPopper.destroy();
+      this.tooltipPopper = null;
     }
 
     if (is(this.dom.tooltip)) {
@@ -1149,20 +1151,10 @@ export default class Calendar extends Emitter {
 
           this.logger(`invalidRangeMessage: ${invalidRangeMessage} (${start} - ${end})`, 'warn');
 
-          this.tooltipPopper = window.Popper.createPopper(cell, this.dom.tooltip, {
+          this.tooltipPopper = createPositioner(cell, this.dom.tooltip, {
             placement: 'top',
-            modifiers: [
-              {
-                name: 'flip',
-                enabled: false
-              },
-              {
-                name: 'offset',
-                options: {
-                  offset: [0, 0]
-                }
-              }
-            ]
+            flip: false,
+            offset: [0, 0]
           });
         }
 
@@ -1531,6 +1523,12 @@ export default class Calendar extends Emitter {
   destroy() {
     this.removeViewportEvents();
     this.closeYearPicker();
+    this.destroyTooltip();
+
+    if (this.calDrop && isFunction(this.calDrop.destroy)) {
+      this.calDrop.destroy();
+      this.calDrop = null;
+    }
 
     if (this.onDocumentClick) {
       document.removeEventListener('click', this.onDocumentClick);
@@ -1579,7 +1577,7 @@ export default class Calendar extends Emitter {
 
   completeSelection() {
     if (this.opts.isSingleInput) {
-      const singleInputDateFormat = this.singleInputDateFormat || this.locale.formatDate;
+      const singleInputDateFormat = this.opts.singleInputDateFormat || this.locale.formatDate;
 
       const dateStart = strftime(dateToIso(...this.selectionStart), singleInputDateFormat, this.locale);
       const dateEnd   = strftime(dateToIso(...this.selectionEnd), singleInputDateFormat, this.locale);
@@ -1634,20 +1632,23 @@ export default class Calendar extends Emitter {
     this.el.setAttribute('aria-label', this.locale.labels.calendar);
     this.el.setAttribute('aria-hidden', 'true');
 
-    const calDrop = window.Popper.createPopper(this.elTarget, this.el, {
-      placement: this.opts.dropPlacement,
-      hide: true
-    });
-
     const openDrop = (input, isReversed) => {
       this.switchInputFocus(input);
       this.changeSelectionOrder(isReversed);
 
       if (!hasClass(this.el, styles.visible)) {
-        calDrop.update();
-        this.emit('drop-open');
+        if (!this.calDrop) {
+          this.calDrop = createPositioner(this.elTarget, this.el, {
+            placement: this.opts.dropPlacement,
+            hide: true,
+            deferUpdate: true
+          });
+        }
+
         addClass(this.el, styles.visible);
         this.el.setAttribute('aria-hidden', 'false');
+        this.calDrop.update();
+        this.emit('drop-open');
         this.dom.monthsWrapper.querySelector('[role="gridcell"][tabindex="0"]').focus();
 
         if (!this.mapsLoaded && this.opts.rentalId) {
@@ -1670,7 +1671,6 @@ export default class Calendar extends Emitter {
     }
 
     document.addEventListener('click', this.closeDrop.bind(this));
-    this.calDrop = calDrop;
 
     if (this.opts.elReset) {
       this.opts.elReset.addEventListener('click', () => {

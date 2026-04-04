@@ -507,4 +507,28 @@ describe('responsive displayMonths', () => {
     }, 0);
   });
 
+  it('uses singleInputDateFormat when filling the combined input', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    const singleInput = stubElement('input');
+    document.body.appendChild(rootElement);
+    document.body.appendChild(singleInput);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      isSingleInput: true,
+      elSingleInput: singleInput,
+      singleInputDateFormat: '%d.%m.%Y'
+    });
+
+    calendar.selectionStart = [2026, 3, 5];
+    calendar.selectionEnd = [2026, 3, 12];
+    calendar.completeSelection();
+
+    expect(singleInput.value).to.equal('05.04.2026 → 12.04.2026');
+
+    calendar.destroy();
+    singleInput.remove();
+  });
+
 });
