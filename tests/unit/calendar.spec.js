@@ -563,4 +563,48 @@ describe('responsive displayMonths', () => {
     singleInput.remove();
   });
 
+  it('uses unique tooltip ids per calendar instance', () => {
+    setViewportWidth(1200);
+    const firstRoot = stubElement('div');
+    const secondRoot = stubElement('div');
+    document.body.appendChild(firstRoot);
+    document.body.appendChild(secondRoot);
+
+    const firstCalendar = new Calendar({
+      el: firstRoot,
+      currentDate: new Date(2026, 3, 1),
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 1,
+      minStay: 4
+    });
+
+    const secondCalendar = new Calendar({
+      el: secondRoot,
+      currentDate: new Date(2026, 3, 1),
+      yearStart: 2026,
+      monthStart: 3,
+      displayMonths: 1,
+      minStay: 4
+    });
+
+    firstCalendar.highLightRange([2026, 3, 5], [2026, 3, 6]);
+    secondCalendar.highLightRange([2026, 3, 7], [2026, 3, 8]);
+
+    const firstDescribedCell = firstRoot.querySelector(`[aria-describedby="${firstCalendar.tooltipId}"]`);
+    const secondDescribedCell = secondRoot.querySelector(`[aria-describedby="${secondCalendar.tooltipId}"]`);
+
+    expect(firstCalendar.dom.tooltip.id).to.not.equal(secondCalendar.dom.tooltip.id);
+    expect(firstDescribedCell).to.exist;
+    expect(secondDescribedCell).to.exist;
+
+    firstCalendar.destroyTooltip();
+
+    expect(firstRoot.querySelector(`[aria-describedby="${firstCalendar.tooltipId}"]`)).to.equal(null);
+    expect(secondRoot.querySelector(`[aria-describedby="${secondCalendar.tooltipId}"]`)).to.equal(secondDescribedCell);
+
+    firstCalendar.destroy();
+    secondCalendar.destroy();
+  });
+
 });

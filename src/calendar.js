@@ -22,12 +22,17 @@ const {
   merge, elementFromString, traverseToParentWithAttr, destroyElement, monthLength, is, isFunction,
   isNumeric, traverseObj, isInside, currencyFormatter
 } = utils;
+
+let calendarInstanceCounter = 0;
+
 export default class Calendar extends Emitter {
   constructor(opts, maps) {
     super();
     this.name    = config.name;
     this.VERSION = require('../package.json').version;
     this.CSS_PREFIX = config.cssPrefix;
+    this.instanceId = calendarInstanceCounter += 1;
+    this.tooltipId = `${this.CSS_PREFIX}Tooltip-${this.instanceId}`;
 
     if (isObject(opts)) {
       if (!opts.el) {
@@ -979,7 +984,7 @@ export default class Calendar extends Emitter {
 
     if (is(this.dom.tooltip)) {
       // Remove aria-describedby from the cell linked to this tooltip
-      const described = this.el.querySelector('[aria-describedby="calendar-tooltip"]');
+      const described = this.el.querySelector(`[aria-describedby="${this.tooltipId}"]`);
       if (described) {
         described.removeAttribute('aria-describedby');
       }
@@ -1168,9 +1173,9 @@ export default class Calendar extends Emitter {
 
         if (tooltipPosition && this.el.contains(cell) && !this.hasValidRange) {
           this.dom.tooltip = this.el.appendChild(elementFromString(templates.tooltip));
-          this.dom.tooltip.id = 'calendar-tooltip';
+          this.dom.tooltip.id = this.tooltipId;
           this.dom.tooltip.querySelector('span').innerHTML = invalidRangeMessage;
-          cell.setAttribute('aria-describedby', 'calendar-tooltip');
+          cell.setAttribute('aria-describedby', this.tooltipId);
 
           this.logger(`invalidRangeMessage: ${invalidRangeMessage} (${start} - ${end})`, 'warn');
 
