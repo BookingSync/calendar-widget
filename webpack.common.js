@@ -48,6 +48,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
+              esModule: false,
               sourceMap: true,
               modules: {
                 localIdentName: 'SmilyCalendar__[local]'
@@ -72,6 +73,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
+              esModule: false,
               sourceMap: true,
               modules: {
                 localIdentName: 'SmilyWidgetUtils__[local]'
