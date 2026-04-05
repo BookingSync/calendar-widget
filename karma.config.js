@@ -4,10 +4,9 @@ const webpackConfig = require('./webpack.test.js');
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'chai', 'webpack'],
+    frameworks: ['mocha', 'webpack'],
     plugins: [
       require('karma-mocha'),
-      require('karma-chai'),
       require('karma-chrome-launcher'),
       require('karma-webpack')
     ],
