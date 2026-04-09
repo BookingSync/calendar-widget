@@ -36,6 +36,7 @@
 
   .captionPicker {
     position: relative;
+    z-index: 10;
     display: inline-block;
     width: fit-content;
     max-width: 100%;
@@ -88,6 +89,7 @@
     display: inline-block;
     width: 0.95rem;
     height: 0.95rem;
+    padding-bottom: 2px;
     flex: 0 0 auto;
     box-sizing: border-box;
     vertical-align: middle;
@@ -562,7 +564,7 @@
   .caption {
     position: sticky;
     top: var(--calendar-weekdays-height);
-    z-index: 4;
+    z-index: 10;
     background: $calendar-bg-color;
     margin-bottom: .8em;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
@@ -595,6 +597,7 @@
 }
 
 .srOnly {
+  display: none !important;
   position: absolute;
   width: 1px;
   height: 1px;
