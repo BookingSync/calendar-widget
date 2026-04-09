@@ -173,6 +173,38 @@ describe('responsive displayMonths', () => {
     calendar.destroy();
   });
 
+  it('keeps the aria-live region accessible while srOnly stays display none', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 1,
+      mobileBreakpoint: 767
+    });
+
+    const liveRegion = rootElement.querySelector('[data-live-region]');
+
+    expect(liveRegion).to.exist;
+    expect(liveRegion.classList.contains(styles.liveRegion)).to.equal(true);
+    expect(liveRegion.classList.contains(styles.srOnly)).to.equal(false);
+    const liveRegionStyle = window.getComputedStyle(liveRegion);
+
+    expect(liveRegionStyle.display).to.not.equal('none');
+    expect(liveRegionStyle.position).to.equal('absolute');
+    expect(liveRegionStyle.overflow).to.equal('hidden');
+    expect(liveRegionStyle.width).to.equal('1px');
+    expect(liveRegionStyle.height).to.equal('1px');
+
+    calendar.announceLiveRegion('Start date: 01/03/2025');
+    expect(liveRegion.textContent).to.equal('Start date: 01/03/2025');
+
+    calendar.destroy();
+  });
+
   it('ignores year-picker trigger clicks coming from another calendar instance', () => {
     setViewportWidth(1200);
     const firstRoot = stubElement('div');
