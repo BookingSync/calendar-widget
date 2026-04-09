@@ -26,3 +26,7 @@ node_modules
 /calendar-widget-0.0.1.tgz
 
 temp/
+
+.codex
+
+.omx/

@@ -1,7 +1,7 @@
 import styles from './styles/calendar.scss';
 
 export const main  = (label) => `<div class="${styles.monthsWrapper}" role="tabpanel" aria-label="${label}"></div>`;
-export const liveRegion = () => `<div class="${styles.srOnly}" aria-live="polite" aria-atomic="true" data-live-region></div>`;
+export const liveRegion = () => `<div class="${styles.liveRegion}" aria-live="polite" aria-atomic="true" data-live-region></div>`;
 export const pagination = () => `<div class="${styles.pagination}"></div>`;
 export const mobileWeekdays = (header) => `<div class="${styles.mobileWeekdays}" role="row">${header}</div>`;
 export const svgSprite = (chevronDownId) => `

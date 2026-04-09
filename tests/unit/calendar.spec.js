@@ -133,6 +133,32 @@ describe('responsive displayMonths', () => {
     calendar.destroy();
   });
 
+  it('keeps mobile pagination above the sticky caption while the caption picker stays above pagination', () => {
+    setViewportWidth(360);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 1,
+      displayMonthsMobile: 1,
+      mobileBreakpoint: 767
+    });
+
+    const caption = rootElement.querySelector(`.${styles.caption}`);
+    const captionPicker = rootElement.querySelector(`.${styles.captionPicker}`);
+    const pagination = rootElement.querySelector(`.${styles.pagination}`);
+
+    expect(window.getComputedStyle(caption).zIndex).to.equal('auto');
+    expect(parseInt(window.getComputedStyle(captionPicker).zIndex, 10)).to.be.above(
+      parseInt(window.getComputedStyle(pagination).zIndex, 10)
+    );
+
+    calendar.destroy();
+  });
+
   it('keeps month pagination available on mobile by default', () => {
     setViewportWidth(360);
     const rootElement = stubElement('div');
@@ -169,6 +195,38 @@ describe('responsive displayMonths', () => {
 
     expect(rootElement.querySelectorAll(`.${styles.captionTrigger}`).length).to.be.equal(2);
     expect(rootElement.querySelectorAll(`.${styles.yearPickerPanel}`).length).to.be.equal(1);
+
+    calendar.destroy();
+  });
+
+  it('keeps the aria-live region accessible while srOnly stays display none', () => {
+    setViewportWidth(1200);
+    const rootElement = stubElement('div');
+    document.body.appendChild(rootElement);
+
+    const calendar = new Calendar({
+      el: rootElement,
+      yearStart: 2025,
+      monthStart: 0,
+      displayMonths: 1,
+      mobileBreakpoint: 767
+    });
+
+    const liveRegion = rootElement.querySelector('[data-live-region]');
+
+    expect(liveRegion).to.exist;
+    expect(liveRegion.classList.contains(styles.liveRegion)).to.equal(true);
+    expect(liveRegion.classList.contains(styles.srOnly)).to.equal(false);
+    const liveRegionStyle = window.getComputedStyle(liveRegion);
+
+    expect(liveRegionStyle.display).to.not.equal('none');
+    expect(liveRegionStyle.position).to.equal('absolute');
+    expect(liveRegionStyle.overflow).to.equal('hidden');
+    expect(liveRegionStyle.width).to.equal('1px');
+    expect(liveRegionStyle.height).to.equal('1px');
+
+    calendar.announceLiveRegion('Start date: 01/03/2025');
+    expect(liveRegion.textContent).to.equal('Start date: 01/03/2025');
 
     calendar.destroy();
   });
